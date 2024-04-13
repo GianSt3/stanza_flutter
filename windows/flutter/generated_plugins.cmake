@@ -3,10 +3,7 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
-  screen_retriever
-  webview_universal
-  webview_windows
-  window_manager
+  desktop_webview_window
 )
 
 list(APPEND FLUTTER_FFI_PLUGIN_LIST
