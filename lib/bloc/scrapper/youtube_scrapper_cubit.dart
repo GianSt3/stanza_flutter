@@ -33,7 +33,7 @@ class YoutubeScrapperCubit extends Cubit<YoutubeScrapperState> {
 
     webview = await WebviewWindow.create(
       configuration: CreateConfiguration(
-        windowHeight: 300,
+        windowHeight: 750,
         windowWidth: 700,
         title: "Do NOT close $url",
         titleBarTopPadding: 0,
@@ -42,6 +42,7 @@ class YoutubeScrapperCubit extends Cubit<YoutubeScrapperState> {
     );
     webview.launch(url);
     emit(state.copyWith(status: const YoutubeScrapperStatus.ready()));
+    read();
   }
 
   void read() async {

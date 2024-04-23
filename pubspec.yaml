@@ -7,12 +7,17 @@ environment:
   sdk: '>=3.2.3 <4.0.0'
 
 dependencies:
+  audioplayers: ^6.0.0
   desktop_webview_window: ^0.2.3
+  elevenlabs_flutter:
+    path: ../elevenlabs_flutter
   equatable: ^2.0.5
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.5
   freezed: ^2.5.2
+  google_fonts: ^6.2.1
+  hydrated_bloc: ^9.1.5
   path: ^1.8.3
   path_provider: ^2.1.3
 

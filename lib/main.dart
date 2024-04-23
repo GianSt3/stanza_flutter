@@ -1,16 +1,24 @@
 import 'package:desktop_webview_window/desktop_webview_window.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:stanza_scrapper/bloc/eleven_labs/eleven_labs_cubit.dart';
 
 import 'package:stanza_scrapper/bloc/scrapper/youtube_scrapper_cubit.dart';
+import 'package:stanza_scrapper/src/features/dnd/bloc/game/dnd_cubit.dart';
 import 'package:stanza_scrapper/src/stanza.dart';
 
-void main(List<String> args) {
+void main(List<String> args) async {
   debugPrint('args: $args');
   if (runWebViewTitleBarWidget(args)) {
     return;
   }
   WidgetsFlutterBinding.ensureInitialized();
+  HydratedBloc.storage = await HydratedStorage.build(
+    storageDirectory: await getApplicationDocumentsDirectory(),
+  );
   runApp(const MainApp());
 }
 
@@ -22,19 +30,16 @@ class MainApp extends StatefulWidget {
 }
 
 class _MainAppState extends State<MainApp> {
-  final url = "https://www.youtube.com/live_chat?is_popout=1&v=jfKfPfyJRdk";
-  TextEditingController textEditingController = TextEditingController(text: "jfKfPfyJRdk");
+  TextEditingController textEditingController =
+      TextEditingController(text: "jfKfPfyJRdk");
 
-  bool? _webviewAvailable;
 
   @override
   void initState() {
     super.initState();
     WebviewWindow.isWebviewAvailable().then((value) {
       print("available!");
-      setState(() {
-        _webviewAvailable = value;
-      });
+
     });
   }
 
@@ -42,14 +47,27 @@ class _MainAppState extends State<MainApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: BlocProvider(
-        create: (context) => YoutubeScrapperCubit(),
+      theme: ThemeData(
+          textTheme: GoogleFonts.kanitTextTheme(Theme.of(context).textTheme)),
+      home: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => YoutubeScrapperCubit(),
+          ),
+          BlocProvider(
+            create: (context) => ElevenLabsCubit(),
+          ),
+          BlocProvider(
+            create: (context) => DndCubit(),
+          ),
+        ],
         child: Builder(
           builder: (context) =>
               BlocBuilder<YoutubeScrapperCubit, YoutubeScrapperState>(
                   builder: (context, state) {
             return Scaffold(
               appBar: AppBar(
+                backgroundColor: Colors.orange[200],
                 title: TextField(
                   decoration: const InputDecoration(hintText: "Live Id"),
                   controller: textEditingController,
@@ -78,6 +96,12 @@ class _MainAppState extends State<MainApp> {
                     onPressed: state.status.mapOrNull(
                         ready: (_) =>
                             context.read<YoutubeScrapperCubit>().read),
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.play_arrow),
+                    color: Colors.green,
+                    iconSize: 24,
+                    onPressed: () => context.read<ElevenLabsCubit>().speak(),
                   ),
                 ],
               ),
