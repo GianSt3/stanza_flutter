@@ -20,7 +20,6 @@ class _ChoosePlayersState extends State<ChoosePlayers> {
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            Text("Total Players ${players.toString()}"),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: IconButton(
@@ -30,6 +29,10 @@ class _ChoosePlayersState extends State<ChoosePlayers> {
                     });
                   },
                   icon: const Icon(Icons.exposure_minus_1)),
+            ),
+            Text(
+              " ${players.toString()}",
+              style: const TextStyle(fontSize: 34),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -50,7 +53,10 @@ class _ChoosePlayersState extends State<ChoosePlayers> {
               .map((e) => Column(
                     children: [
                       Text("Player ${e + 1}"),
-                      ChoosePlayer(id: e, totalPlayers: players,),
+                      ChoosePlayer(
+                        id: e,
+                        totalPlayers: players,
+                      ),
                     ],
                   ))
               .toList(),

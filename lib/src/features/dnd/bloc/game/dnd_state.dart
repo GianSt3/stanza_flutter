@@ -13,6 +13,9 @@ class DndState with _$DndState {
   List<Player> get orderedPlayers =>
       players.toList()..sort((a, b) => a.position.compareTo(b.position));
 
+  List<Player> get orderedLobbyPlayers =>
+      lobby.toList()..sort((a, b) => a.position.compareTo(b.position));
+
   List<Message> playerMessage(Player player) => playersMessages
       .where((message) => message.author == player.name)
       .toList();
@@ -24,6 +27,8 @@ class DndStatus with _$DndStatus {
 
   const factory DndStatus.chosen(Player player) = _DndChosen;
 
+  const factory DndStatus.lobby(Player player) = _DndLobby;
+
   const factory DndStatus.start() = _DndStart;
 
   const factory DndStatus.listen() = _DndListen;
@@ -34,8 +39,9 @@ class DndStatus with _$DndStatus {
 class Player extends Equatable {
   final int id;
   final String name;
+  final String? image;
 
-  const Player({required this.id, required this.name});
+  const Player({required this.id, required this.name, this.image});
 
   int get position => id + 1;
 

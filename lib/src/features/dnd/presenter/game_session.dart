@@ -23,11 +23,14 @@ class GameSession extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: state.orderedPlayers
-                  .map((e) => Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: PlayerMessage(
-                          player: e,
-                          message: state.playerMessage(e).lastOrNull?.text ?? "",
+                  .map((e) => Flexible(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: PlayerMessage(
+                            player: e,
+                            message:
+                                state.playerMessage(e).lastOrNull?.text ?? "",
+                          ),
                         ),
                       ))
                   .toList(),

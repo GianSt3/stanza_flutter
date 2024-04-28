@@ -1,13 +1,17 @@
 import 'package:desktop_webview_window/desktop_webview_window.dart';
+import 'package:elevenlabs_flutter/elevenlabs_config.dart';
+import 'package:elevenlabs_flutter/elevenlabs_flutter.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:stanza_scrapper/bloc/eleven_labs/eleven_labs_cubit.dart';
+import 'package:stanza_scrapper/bloc/eleven_labs/eleven_labs_voice_cubit.dart';
 
 import 'package:stanza_scrapper/bloc/scrapper/youtube_scrapper_cubit.dart';
 import 'package:stanza_scrapper/src/features/dnd/bloc/game/dnd_cubit.dart';
+import 'package:stanza_scrapper/src/features/settings/presenter/settings_page.dart';
 import 'package:stanza_scrapper/src/stanza.dart';
 
 void main(List<String> args) async {
@@ -33,14 +37,19 @@ class _MainAppState extends State<MainApp> {
   TextEditingController textEditingController =
       TextEditingController(text: "jfKfPfyJRdk");
 
+  int currentPageIndex = 0;
+  ElevenLabsAPI elevenLabsAPI = ElevenLabsAPI();
 
   @override
   void initState() {
     super.initState();
+
     WebviewWindow.isWebviewAvailable().then((value) {
       print("available!");
-
     });
+    const apiKey = String.fromEnvironment('ELEVENLABS_API_KEY');
+    print('Api key ELEVENLABS $apiKey');
+    elevenLabsAPI.init(config: ElevenLabsConfig(apiKey: apiKey));
   }
 
   @override
@@ -55,7 +64,10 @@ class _MainAppState extends State<MainApp> {
             create: (context) => YoutubeScrapperCubit(),
           ),
           BlocProvider(
-            create: (context) => ElevenLabsCubit(),
+            create: (context) => ElevenLabsCubit(elevenLabsAPI),
+          ),
+          BlocProvider(
+            create: (context) => ElevenLabsVoiceCubit(elevenLabsAPI),
           ),
           BlocProvider(
             create: (context) => DndCubit(),
@@ -105,7 +117,21 @@ class _MainAppState extends State<MainApp> {
                   ),
                 ],
               ),
-              body: const Stanza(),
+              drawer: IntrinsicWidth(
+                child: NavigationRail(
+                  onDestinationSelected: (index) => setState(() {
+                    currentPageIndex = index;
+                  }),
+                  destinations: [
+                    NavigationRailDestination(
+                        icon: Icon(Icons.home), label: Text("Home")),
+                    NavigationRailDestination(
+                        icon: Icon(Icons.settings), label: Text("Settings")),
+                  ],
+                  selectedIndex: currentPageIndex,
+                ),
+              ),
+              body: [const Stanza(), const SettingsPage()][currentPageIndex],
             );
           }),
         ),

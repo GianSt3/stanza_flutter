@@ -12,16 +12,10 @@ part 'eleven_labs_state.dart';
 part 'eleven_labs_cubit.freezed.dart';
 
 class ElevenLabsCubit extends Cubit<ElevenLabsState> {
-  late ElevenLabsAPI api;
+  final ElevenLabsAPI api;
 
-  ElevenLabsCubit()
-      : super(const ElevenLabsState(status: ElevenLabStatus.initial())) {
-    api = ElevenLabsAPI();
-    const apiKey = String.fromEnvironment('ELEVENLABS_API_KEY');
-    print('Api key ELEVENLABS $apiKey');
-    api.init(
-        config: ElevenLabsConfig(apiKey: apiKey));
-  }
+  ElevenLabsCubit(this.api)
+      : super(const ElevenLabsState(status: ElevenLabStatus.initial()));
 
   void voices() async {
     final voices = await api.listVoices();
@@ -32,19 +26,21 @@ class ElevenLabsCubit extends Cubit<ElevenLabsState> {
     final player = AudioPlayer();
     player.setReleaseMode(ReleaseMode.release);
 
-    final result = await api.synthesize(
-        TextToSpeechRequest(voiceId: '21m00Tcm4TlvDq8ikWAM', text: 'Ciao, questo messaggio verrà letto da una ia',));
+    final result = await api.synthesize(TextToSpeechRequest(
+      voiceId: '21m00Tcm4TlvDq8ikWAM',
+      text: 'Ciao a tutti, manzi e manzini',
+    ));
 
     await player.play(BytesSource(result));
   }
 
-  // @override
-  // ElevenLabsState? fromJson(Map<String, dynamic> json) {
-  //   return const ElevenLabsState(status: ElevenLabStatus.initial());
-  // }
-  //
-  // @override
-  // Map<String, dynamic>? toJson(ElevenLabsState state) {
-  //   return {};
-  // }
+// @override
+// ElevenLabsState? fromJson(Map<String, dynamic> json) {
+//   return const ElevenLabsState(status: ElevenLabStatus.initial());
+// }
+//
+// @override
+// Map<String, dynamic>? toJson(ElevenLabsState state) {
+//   return {};
+// }
 }

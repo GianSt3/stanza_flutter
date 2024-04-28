@@ -32,10 +32,10 @@ class _ChatAuthorsWidgetState extends State<ChatAuthorsWidget> {
         children: state.chat.authors
             .map((author) => TextButton(
                   onPressed: () =>
-                      context.read<YoutubeScrapperCubit>().filter(author),
-                  child: Text(state.filter.authors.contains(author)
-                      ? "[[$author]]"
-                      : author),
+                      context.read<YoutubeScrapperCubit>().filter(author.name),
+                  child: Text(state.filter.authors.contains(author.name)
+                      ? "[[${author.name}]]"
+                      : author.name),
                 ))
             .toList(),
       ),

@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:stanza_scrapper/bloc/model/message.dart';
+import 'package:stanza_scrapper/bloc/scrapper/youtube_scrapper_cubit.dart';
 
 part 'dnd_state.dart';
 
@@ -10,8 +11,8 @@ part 'dnd_cubit.freezed.dart';
 class DndCubit extends Cubit<DndState> {
   DndCubit() : super(const DndState(status: DndStatus.initial()));
 
-  void choose({required int id, required String name}) {
-    final player = Player(id: id, name: name);
+  void choose({required int id, required Author author}) {
+    final player = Player(id: id, name: author.name, image: author.avatarUrl);
 
     var copy = state.players.toList();
 

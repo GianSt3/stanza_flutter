@@ -244,6 +244,7 @@ mixin _$DndStatus {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(Player player) chosen,
+    required TResult Function(Player player) lobby,
     required TResult Function() start,
     required TResult Function() listen,
     required TResult Function() stop,
@@ -253,6 +254,7 @@ mixin _$DndStatus {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(Player player)? chosen,
+    TResult? Function(Player player)? lobby,
     TResult? Function()? start,
     TResult? Function()? listen,
     TResult? Function()? stop,
@@ -262,6 +264,7 @@ mixin _$DndStatus {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(Player player)? chosen,
+    TResult Function(Player player)? lobby,
     TResult Function()? start,
     TResult Function()? listen,
     TResult Function()? stop,
@@ -272,6 +275,7 @@ mixin _$DndStatus {
   TResult map<TResult extends Object?>({
     required TResult Function(_DndInitial value) initial,
     required TResult Function(_DndChosen value) chosen,
+    required TResult Function(_DndLobby value) lobby,
     required TResult Function(_DndStart value) start,
     required TResult Function(_DndListen value) listen,
     required TResult Function(_DndStop value) stop,
@@ -281,6 +285,7 @@ mixin _$DndStatus {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_DndInitial value)? initial,
     TResult? Function(_DndChosen value)? chosen,
+    TResult? Function(_DndLobby value)? lobby,
     TResult? Function(_DndStart value)? start,
     TResult? Function(_DndListen value)? listen,
     TResult? Function(_DndStop value)? stop,
@@ -290,6 +295,7 @@ mixin _$DndStatus {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_DndInitial value)? initial,
     TResult Function(_DndChosen value)? chosen,
+    TResult Function(_DndLobby value)? lobby,
     TResult Function(_DndStart value)? start,
     TResult Function(_DndListen value)? listen,
     TResult Function(_DndStop value)? stop,
@@ -355,6 +361,7 @@ class _$DndInitialImpl implements _DndInitial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(Player player) chosen,
+    required TResult Function(Player player) lobby,
     required TResult Function() start,
     required TResult Function() listen,
     required TResult Function() stop,
@@ -367,6 +374,7 @@ class _$DndInitialImpl implements _DndInitial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(Player player)? chosen,
+    TResult? Function(Player player)? lobby,
     TResult? Function()? start,
     TResult? Function()? listen,
     TResult? Function()? stop,
@@ -379,6 +387,7 @@ class _$DndInitialImpl implements _DndInitial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(Player player)? chosen,
+    TResult Function(Player player)? lobby,
     TResult Function()? start,
     TResult Function()? listen,
     TResult Function()? stop,
@@ -395,6 +404,7 @@ class _$DndInitialImpl implements _DndInitial {
   TResult map<TResult extends Object?>({
     required TResult Function(_DndInitial value) initial,
     required TResult Function(_DndChosen value) chosen,
+    required TResult Function(_DndLobby value) lobby,
     required TResult Function(_DndStart value) start,
     required TResult Function(_DndListen value) listen,
     required TResult Function(_DndStop value) stop,
@@ -407,6 +417,7 @@ class _$DndInitialImpl implements _DndInitial {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_DndInitial value)? initial,
     TResult? Function(_DndChosen value)? chosen,
+    TResult? Function(_DndLobby value)? lobby,
     TResult? Function(_DndStart value)? start,
     TResult? Function(_DndListen value)? listen,
     TResult? Function(_DndStop value)? stop,
@@ -419,6 +430,7 @@ class _$DndInitialImpl implements _DndInitial {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_DndInitial value)? initial,
     TResult Function(_DndChosen value)? chosen,
+    TResult Function(_DndLobby value)? lobby,
     TResult Function(_DndStart value)? start,
     TResult Function(_DndListen value)? listen,
     TResult Function(_DndStop value)? stop,
@@ -501,6 +513,7 @@ class _$DndChosenImpl implements _DndChosen {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(Player player) chosen,
+    required TResult Function(Player player) lobby,
     required TResult Function() start,
     required TResult Function() listen,
     required TResult Function() stop,
@@ -513,6 +526,7 @@ class _$DndChosenImpl implements _DndChosen {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(Player player)? chosen,
+    TResult? Function(Player player)? lobby,
     TResult? Function()? start,
     TResult? Function()? listen,
     TResult? Function()? stop,
@@ -525,6 +539,7 @@ class _$DndChosenImpl implements _DndChosen {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(Player player)? chosen,
+    TResult Function(Player player)? lobby,
     TResult Function()? start,
     TResult Function()? listen,
     TResult Function()? stop,
@@ -541,6 +556,7 @@ class _$DndChosenImpl implements _DndChosen {
   TResult map<TResult extends Object?>({
     required TResult Function(_DndInitial value) initial,
     required TResult Function(_DndChosen value) chosen,
+    required TResult Function(_DndLobby value) lobby,
     required TResult Function(_DndStart value) start,
     required TResult Function(_DndListen value) listen,
     required TResult Function(_DndStop value) stop,
@@ -553,6 +569,7 @@ class _$DndChosenImpl implements _DndChosen {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_DndInitial value)? initial,
     TResult? Function(_DndChosen value)? chosen,
+    TResult? Function(_DndLobby value)? lobby,
     TResult? Function(_DndStart value)? start,
     TResult? Function(_DndListen value)? listen,
     TResult? Function(_DndStop value)? stop,
@@ -565,6 +582,7 @@ class _$DndChosenImpl implements _DndChosen {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_DndInitial value)? initial,
     TResult Function(_DndChosen value)? chosen,
+    TResult Function(_DndLobby value)? lobby,
     TResult Function(_DndStart value)? start,
     TResult Function(_DndListen value)? listen,
     TResult Function(_DndStop value)? stop,
@@ -583,6 +601,163 @@ abstract class _DndChosen implements DndStatus {
   Player get player;
   @JsonKey(ignore: true)
   _$$DndChosenImplCopyWith<_$DndChosenImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$DndLobbyImplCopyWith<$Res> {
+  factory _$$DndLobbyImplCopyWith(
+          _$DndLobbyImpl value, $Res Function(_$DndLobbyImpl) then) =
+      __$$DndLobbyImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({Player player});
+}
+
+/// @nodoc
+class __$$DndLobbyImplCopyWithImpl<$Res>
+    extends _$DndStatusCopyWithImpl<$Res, _$DndLobbyImpl>
+    implements _$$DndLobbyImplCopyWith<$Res> {
+  __$$DndLobbyImplCopyWithImpl(
+      _$DndLobbyImpl _value, $Res Function(_$DndLobbyImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? player = null,
+  }) {
+    return _then(_$DndLobbyImpl(
+      null == player
+          ? _value.player
+          : player // ignore: cast_nullable_to_non_nullable
+              as Player,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$DndLobbyImpl implements _DndLobby {
+  const _$DndLobbyImpl(this.player);
+
+  @override
+  final Player player;
+
+  @override
+  String toString() {
+    return 'DndStatus.lobby(player: $player)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$DndLobbyImpl &&
+            (identical(other.player, player) || other.player == player));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, player);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$DndLobbyImplCopyWith<_$DndLobbyImpl> get copyWith =>
+      __$$DndLobbyImplCopyWithImpl<_$DndLobbyImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function(Player player) chosen,
+    required TResult Function(Player player) lobby,
+    required TResult Function() start,
+    required TResult Function() listen,
+    required TResult Function() stop,
+  }) {
+    return lobby(player);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function(Player player)? chosen,
+    TResult? Function(Player player)? lobby,
+    TResult? Function()? start,
+    TResult? Function()? listen,
+    TResult? Function()? stop,
+  }) {
+    return lobby?.call(player);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function(Player player)? chosen,
+    TResult Function(Player player)? lobby,
+    TResult Function()? start,
+    TResult Function()? listen,
+    TResult Function()? stop,
+    required TResult orElse(),
+  }) {
+    if (lobby != null) {
+      return lobby(player);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_DndInitial value) initial,
+    required TResult Function(_DndChosen value) chosen,
+    required TResult Function(_DndLobby value) lobby,
+    required TResult Function(_DndStart value) start,
+    required TResult Function(_DndListen value) listen,
+    required TResult Function(_DndStop value) stop,
+  }) {
+    return lobby(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_DndInitial value)? initial,
+    TResult? Function(_DndChosen value)? chosen,
+    TResult? Function(_DndLobby value)? lobby,
+    TResult? Function(_DndStart value)? start,
+    TResult? Function(_DndListen value)? listen,
+    TResult? Function(_DndStop value)? stop,
+  }) {
+    return lobby?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_DndInitial value)? initial,
+    TResult Function(_DndChosen value)? chosen,
+    TResult Function(_DndLobby value)? lobby,
+    TResult Function(_DndStart value)? start,
+    TResult Function(_DndListen value)? listen,
+    TResult Function(_DndStop value)? stop,
+    required TResult orElse(),
+  }) {
+    if (lobby != null) {
+      return lobby(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _DndLobby implements DndStatus {
+  const factory _DndLobby(final Player player) = _$DndLobbyImpl;
+
+  Player get player;
+  @JsonKey(ignore: true)
+  _$$DndLobbyImplCopyWith<_$DndLobbyImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -626,6 +801,7 @@ class _$DndStartImpl implements _DndStart {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(Player player) chosen,
+    required TResult Function(Player player) lobby,
     required TResult Function() start,
     required TResult Function() listen,
     required TResult Function() stop,
@@ -638,6 +814,7 @@ class _$DndStartImpl implements _DndStart {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(Player player)? chosen,
+    TResult? Function(Player player)? lobby,
     TResult? Function()? start,
     TResult? Function()? listen,
     TResult? Function()? stop,
@@ -650,6 +827,7 @@ class _$DndStartImpl implements _DndStart {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(Player player)? chosen,
+    TResult Function(Player player)? lobby,
     TResult Function()? start,
     TResult Function()? listen,
     TResult Function()? stop,
@@ -666,6 +844,7 @@ class _$DndStartImpl implements _DndStart {
   TResult map<TResult extends Object?>({
     required TResult Function(_DndInitial value) initial,
     required TResult Function(_DndChosen value) chosen,
+    required TResult Function(_DndLobby value) lobby,
     required TResult Function(_DndStart value) start,
     required TResult Function(_DndListen value) listen,
     required TResult Function(_DndStop value) stop,
@@ -678,6 +857,7 @@ class _$DndStartImpl implements _DndStart {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_DndInitial value)? initial,
     TResult? Function(_DndChosen value)? chosen,
+    TResult? Function(_DndLobby value)? lobby,
     TResult? Function(_DndStart value)? start,
     TResult? Function(_DndListen value)? listen,
     TResult? Function(_DndStop value)? stop,
@@ -690,6 +870,7 @@ class _$DndStartImpl implements _DndStart {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_DndInitial value)? initial,
     TResult Function(_DndChosen value)? chosen,
+    TResult Function(_DndLobby value)? lobby,
     TResult Function(_DndStart value)? start,
     TResult Function(_DndListen value)? listen,
     TResult Function(_DndStop value)? stop,
@@ -746,6 +927,7 @@ class _$DndListenImpl implements _DndListen {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(Player player) chosen,
+    required TResult Function(Player player) lobby,
     required TResult Function() start,
     required TResult Function() listen,
     required TResult Function() stop,
@@ -758,6 +940,7 @@ class _$DndListenImpl implements _DndListen {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(Player player)? chosen,
+    TResult? Function(Player player)? lobby,
     TResult? Function()? start,
     TResult? Function()? listen,
     TResult? Function()? stop,
@@ -770,6 +953,7 @@ class _$DndListenImpl implements _DndListen {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(Player player)? chosen,
+    TResult Function(Player player)? lobby,
     TResult Function()? start,
     TResult Function()? listen,
     TResult Function()? stop,
@@ -786,6 +970,7 @@ class _$DndListenImpl implements _DndListen {
   TResult map<TResult extends Object?>({
     required TResult Function(_DndInitial value) initial,
     required TResult Function(_DndChosen value) chosen,
+    required TResult Function(_DndLobby value) lobby,
     required TResult Function(_DndStart value) start,
     required TResult Function(_DndListen value) listen,
     required TResult Function(_DndStop value) stop,
@@ -798,6 +983,7 @@ class _$DndListenImpl implements _DndListen {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_DndInitial value)? initial,
     TResult? Function(_DndChosen value)? chosen,
+    TResult? Function(_DndLobby value)? lobby,
     TResult? Function(_DndStart value)? start,
     TResult? Function(_DndListen value)? listen,
     TResult? Function(_DndStop value)? stop,
@@ -810,6 +996,7 @@ class _$DndListenImpl implements _DndListen {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_DndInitial value)? initial,
     TResult Function(_DndChosen value)? chosen,
+    TResult Function(_DndLobby value)? lobby,
     TResult Function(_DndStart value)? start,
     TResult Function(_DndListen value)? listen,
     TResult Function(_DndStop value)? stop,
@@ -866,6 +1053,7 @@ class _$DndStopImpl implements _DndStop {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(Player player) chosen,
+    required TResult Function(Player player) lobby,
     required TResult Function() start,
     required TResult Function() listen,
     required TResult Function() stop,
@@ -878,6 +1066,7 @@ class _$DndStopImpl implements _DndStop {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(Player player)? chosen,
+    TResult? Function(Player player)? lobby,
     TResult? Function()? start,
     TResult? Function()? listen,
     TResult? Function()? stop,
@@ -890,6 +1079,7 @@ class _$DndStopImpl implements _DndStop {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(Player player)? chosen,
+    TResult Function(Player player)? lobby,
     TResult Function()? start,
     TResult Function()? listen,
     TResult Function()? stop,
@@ -906,6 +1096,7 @@ class _$DndStopImpl implements _DndStop {
   TResult map<TResult extends Object?>({
     required TResult Function(_DndInitial value) initial,
     required TResult Function(_DndChosen value) chosen,
+    required TResult Function(_DndLobby value) lobby,
     required TResult Function(_DndStart value) start,
     required TResult Function(_DndListen value) listen,
     required TResult Function(_DndStop value) stop,
@@ -918,6 +1109,7 @@ class _$DndStopImpl implements _DndStop {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_DndInitial value)? initial,
     TResult? Function(_DndChosen value)? chosen,
+    TResult? Function(_DndLobby value)? lobby,
     TResult? Function(_DndStart value)? start,
     TResult? Function(_DndListen value)? listen,
     TResult? Function(_DndStop value)? stop,
@@ -930,6 +1122,7 @@ class _$DndStopImpl implements _DndStop {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_DndInitial value)? initial,
     TResult Function(_DndChosen value)? chosen,
+    TResult Function(_DndLobby value)? lobby,
     TResult Function(_DndStart value)? start,
     TResult Function(_DndListen value)? listen,
     TResult Function(_DndStop value)? stop,

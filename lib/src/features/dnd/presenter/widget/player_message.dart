@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:stanza_scrapper/src/features/dnd/bloc/game/dnd_cubit.dart';
@@ -10,30 +11,45 @@ class PlayerMessage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 250,
-      child: Column(
-        children: [
-          GradientText(
-            player.name,
-            style: GoogleFonts.kanit(textStyle: TextStyle(fontSize: 36)), gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [Colors.yellow, Colors.deepOrange]),
-          ),
-          Text(message,
-              maxLines: 5,
-              style: GoogleFonts.kanit(textStyle: TextStyle(fontSize: 24, color: Colors.white))),
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            if (player.image != null)
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: CircleAvatar(
+                  radius: 15,
+                  backgroundImage: NetworkImage(player.image!),
+                ),
+              ),
+            GradientText(
+              player.name,
+              style: GoogleFonts.kanit(textStyle: TextStyle(fontSize: 36)),
+              gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [Colors.yellow, Colors.deepOrange]),
+            ),
+          ],
+        ),
+        Text(message,
+            maxLines: 5,
+            style: GoogleFonts.kanit(
+                textStyle: const TextStyle(fontSize: 24, color: Colors.white))),
+      ],
     );
   }
 }
 
-
 class GradientText extends StatelessWidget {
   const GradientText(
-      this.text, {super.key, 
-        required this.gradient,
-        this.style,
-      });
+    this.text, {
+    super.key,
+    required this.gradient,
+    this.style,
+  });
 
   final String text;
   final TextStyle? style;

@@ -56,12 +56,16 @@ function test(){
         var timestamp = messageElement.querySelector('#timestamp').textContent.trim();
         var author = messageElement.querySelector('#author-name').textContent.trim();
         var messageContent = messageElement.querySelector('#message').textContent.trim();
+        const authorType = messageElement.getAttribute('author-type');
+        const avatarUrl = messageElement.querySelector('yt-img-shadow img').src;
 
         // Construct an object containing the values
         var messageData = {
             id: messageId,
             timestamp: timestamp,
             author: author,
+            authorType: authorType,
+            avatarUrl: avatarUrl,
             text: messageContent
         };
       messageList.push(messageData);
@@ -75,6 +79,7 @@ test();
     if (result != null) {
       final jsn = jsonDecode(result!);
       final messages = (jsn as List).map((e) => Message.fromJson(e)).toList();
+
       emit(state.copyWith(
           status: const YoutubeScrapperStatus.reading(),
           chat: state.chat.copyWith(messages)));
