@@ -1,10 +1,8 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:bloc/bloc.dart';
-import 'package:elevenlabs_flutter/elevenlabs_config.dart';
-import 'package:elevenlabs_flutter/elevenlabs_types.dart';
+import 'package:eleven_labs/eleven_labs.dart';
 import 'package:equatable/equatable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:elevenlabs_flutter/elevenlabs_flutter.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 
 part 'eleven_labs_state.dart';

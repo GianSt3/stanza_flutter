@@ -1,4 +1,5 @@
-import 'package:elevenlabs_flutter/elevenlabs_types.dart';
+
+import 'package:eleven_labs/elevenlabs_types.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';

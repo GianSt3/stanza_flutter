@@ -9,8 +9,8 @@ environment:
 dependencies:
   audioplayers: ^6.0.0
   desktop_webview_window: ^0.2.3
-  elevenlabs_flutter:
-    path: ./packages/elevenlabs_flutter
+  eleven_labs:
+    path: ./packages/eleven_labs
   equatable: ^2.0.5
   flutter:
     sdk: flutter

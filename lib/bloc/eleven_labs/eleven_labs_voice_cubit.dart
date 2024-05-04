@@ -1,6 +1,6 @@
 
-import 'package:elevenlabs_flutter/elevenlabs_flutter.dart';
-import 'package:elevenlabs_flutter/elevenlabs_types.dart';
+
+import 'package:eleven_labs/eleven_labs.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 

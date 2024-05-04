@@ -1,6 +1,6 @@
 import 'package:desktop_webview_window/desktop_webview_window.dart';
-import 'package:elevenlabs_flutter/elevenlabs_config.dart';
-import 'package:elevenlabs_flutter/elevenlabs_flutter.dart';
+import 'package:eleven_labs/eleven_labs.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
