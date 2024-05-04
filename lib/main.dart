@@ -12,6 +12,7 @@ import 'package:stanza_scrapper/bloc/eleven_labs/eleven_labs_voice_cubit.dart';
 import 'package:stanza_scrapper/bloc/scrapper/youtube_scrapper_cubit.dart';
 import 'package:stanza_scrapper/src/features/dnd/bloc/game/dnd_cubit.dart';
 import 'package:stanza_scrapper/src/features/settings/presenter/settings_page.dart';
+import 'package:stanza_scrapper/src/features/tweak/tweak_page.dart';
 import 'package:stanza_scrapper/src/stanza.dart';
 
 void main(List<String> args) async {
@@ -127,11 +128,13 @@ class _MainAppState extends State<MainApp> {
                         icon: Icon(Icons.home), label: Text("Home")),
                     NavigationRailDestination(
                         icon: Icon(Icons.settings), label: Text("Settings")),
+                    NavigationRailDestination(
+                        icon: Icon(Icons.color_lens_outlined), label: Text("Tweak")),
                   ],
                   selectedIndex: currentPageIndex,
                 ),
               ),
-              body: [const Stanza(), const SettingsPage()][currentPageIndex],
+              body: [const Stanza(), const SettingsPage(), const TweakPage()][currentPageIndex],
             );
           }),
         ),

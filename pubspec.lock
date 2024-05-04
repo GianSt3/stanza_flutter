@@ -252,7 +252,7 @@ packages:
   elevenlabs_flutter:
     dependency: "direct main"
     description:
-      path: "../elevenlabs_flutter"
+      path: "packages/elevenlabs_flutter"
       relative: true
     source: path
     version: "0.0.1"
