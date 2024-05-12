@@ -94,10 +94,4 @@ test();
   void stop() {
     emit(state.copyWith(status: const YoutubeScrapperStatus.stop()));
   }
-
-  void filter(String author) {
-    emit(state.copyWith(
-      filter: state.filter.copyWith(author),
-    ));
-  }
 }

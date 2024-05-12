@@ -115,7 +115,9 @@ class __$$ElevenLabsStateImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ElevenLabsStateImpl implements _ElevenLabsState {
+class _$ElevenLabsStateImpl
+    with DiagnosticableTreeMixin
+    implements _ElevenLabsState {
   const _$ElevenLabsStateImpl(
       {required this.status,
       this.voices = const ElevenLabsVoiceList(voices: <ElevenLabsVoice>[])});
@@ -127,8 +129,17 @@ class _$ElevenLabsStateImpl implements _ElevenLabsState {
   final ElevenLabsVoiceList voices;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'ElevenLabsState(status: $status, voices: $voices)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'ElevenLabsState'))
+      ..add(DiagnosticsProperty('status', status))
+      ..add(DiagnosticsProperty('voices', voices));
   }
 
   @override
@@ -171,18 +182,24 @@ mixin _$ElevenLabStatus {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(String shortHash, Uint8List byteAudioVoice) spoke,
     required TResult Function() voicesLoaded,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(String shortHash, Uint8List byteAudioVoice)? spoke,
     TResult? Function()? voicesLoaded,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(String shortHash, Uint8List byteAudioVoice)? spoke,
     TResult Function()? voicesLoaded,
     required TResult orElse(),
   }) =>
@@ -190,18 +207,24 @@ mixin _$ElevenLabStatus {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_StatusInitial value) initial,
+    required TResult Function(_StatusLoading value) loading,
+    required TResult Function(_StatusSpoke value) spoke,
     required TResult Function(_VoicesLoaded value) voicesLoaded,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_StatusInitial value)? initial,
+    TResult? Function(_StatusLoading value)? loading,
+    TResult? Function(_StatusSpoke value)? spoke,
     TResult? Function(_VoicesLoaded value)? voicesLoaded,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_StatusInitial value)? initial,
+    TResult Function(_StatusLoading value)? loading,
+    TResult Function(_StatusSpoke value)? spoke,
     TResult Function(_VoicesLoaded value)? voicesLoaded,
     required TResult orElse(),
   }) =>
@@ -244,12 +267,20 @@ class __$$StatusInitialImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$StatusInitialImpl implements _StatusInitial {
+class _$StatusInitialImpl
+    with DiagnosticableTreeMixin
+    implements _StatusInitial {
   const _$StatusInitialImpl();
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'ElevenLabStatus.initial()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('type', 'ElevenLabStatus.initial'));
   }
 
   @override
@@ -265,6 +296,8 @@ class _$StatusInitialImpl implements _StatusInitial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(String shortHash, Uint8List byteAudioVoice) spoke,
     required TResult Function() voicesLoaded,
   }) {
     return initial();
@@ -274,6 +307,8 @@ class _$StatusInitialImpl implements _StatusInitial {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(String shortHash, Uint8List byteAudioVoice)? spoke,
     TResult? Function()? voicesLoaded,
   }) {
     return initial?.call();
@@ -283,6 +318,8 @@ class _$StatusInitialImpl implements _StatusInitial {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(String shortHash, Uint8List byteAudioVoice)? spoke,
     TResult Function()? voicesLoaded,
     required TResult orElse(),
   }) {
@@ -296,6 +333,8 @@ class _$StatusInitialImpl implements _StatusInitial {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_StatusInitial value) initial,
+    required TResult Function(_StatusLoading value) loading,
+    required TResult Function(_StatusSpoke value) spoke,
     required TResult Function(_VoicesLoaded value) voicesLoaded,
   }) {
     return initial(this);
@@ -305,6 +344,8 @@ class _$StatusInitialImpl implements _StatusInitial {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_StatusInitial value)? initial,
+    TResult? Function(_StatusLoading value)? loading,
+    TResult? Function(_StatusSpoke value)? spoke,
     TResult? Function(_VoicesLoaded value)? voicesLoaded,
   }) {
     return initial?.call(this);
@@ -314,6 +355,8 @@ class _$StatusInitialImpl implements _StatusInitial {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_StatusInitial value)? initial,
+    TResult Function(_StatusLoading value)? loading,
+    TResult Function(_StatusSpoke value)? spoke,
     TResult Function(_VoicesLoaded value)? voicesLoaded,
     required TResult orElse(),
   }) {
@@ -326,6 +369,296 @@ class _$StatusInitialImpl implements _StatusInitial {
 
 abstract class _StatusInitial implements ElevenLabStatus {
   const factory _StatusInitial() = _$StatusInitialImpl;
+}
+
+/// @nodoc
+abstract class _$$StatusLoadingImplCopyWith<$Res> {
+  factory _$$StatusLoadingImplCopyWith(
+          _$StatusLoadingImpl value, $Res Function(_$StatusLoadingImpl) then) =
+      __$$StatusLoadingImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$StatusLoadingImplCopyWithImpl<$Res>
+    extends _$ElevenLabStatusCopyWithImpl<$Res, _$StatusLoadingImpl>
+    implements _$$StatusLoadingImplCopyWith<$Res> {
+  __$$StatusLoadingImplCopyWithImpl(
+      _$StatusLoadingImpl _value, $Res Function(_$StatusLoadingImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$StatusLoadingImpl
+    with DiagnosticableTreeMixin
+    implements _StatusLoading {
+  const _$StatusLoadingImpl();
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'ElevenLabStatus.loading()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('type', 'ElevenLabStatus.loading'));
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$StatusLoadingImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(String shortHash, Uint8List byteAudioVoice) spoke,
+    required TResult Function() voicesLoaded,
+  }) {
+    return loading();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(String shortHash, Uint8List byteAudioVoice)? spoke,
+    TResult? Function()? voicesLoaded,
+  }) {
+    return loading?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(String shortHash, Uint8List byteAudioVoice)? spoke,
+    TResult Function()? voicesLoaded,
+    required TResult orElse(),
+  }) {
+    if (loading != null) {
+      return loading();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_StatusInitial value) initial,
+    required TResult Function(_StatusLoading value) loading,
+    required TResult Function(_StatusSpoke value) spoke,
+    required TResult Function(_VoicesLoaded value) voicesLoaded,
+  }) {
+    return loading(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_StatusInitial value)? initial,
+    TResult? Function(_StatusLoading value)? loading,
+    TResult? Function(_StatusSpoke value)? spoke,
+    TResult? Function(_VoicesLoaded value)? voicesLoaded,
+  }) {
+    return loading?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_StatusInitial value)? initial,
+    TResult Function(_StatusLoading value)? loading,
+    TResult Function(_StatusSpoke value)? spoke,
+    TResult Function(_VoicesLoaded value)? voicesLoaded,
+    required TResult orElse(),
+  }) {
+    if (loading != null) {
+      return loading(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _StatusLoading implements ElevenLabStatus {
+  const factory _StatusLoading() = _$StatusLoadingImpl;
+}
+
+/// @nodoc
+abstract class _$$StatusSpokeImplCopyWith<$Res> {
+  factory _$$StatusSpokeImplCopyWith(
+          _$StatusSpokeImpl value, $Res Function(_$StatusSpokeImpl) then) =
+      __$$StatusSpokeImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String shortHash, Uint8List byteAudioVoice});
+}
+
+/// @nodoc
+class __$$StatusSpokeImplCopyWithImpl<$Res>
+    extends _$ElevenLabStatusCopyWithImpl<$Res, _$StatusSpokeImpl>
+    implements _$$StatusSpokeImplCopyWith<$Res> {
+  __$$StatusSpokeImplCopyWithImpl(
+      _$StatusSpokeImpl _value, $Res Function(_$StatusSpokeImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? shortHash = null,
+    Object? byteAudioVoice = null,
+  }) {
+    return _then(_$StatusSpokeImpl(
+      null == shortHash
+          ? _value.shortHash
+          : shortHash // ignore: cast_nullable_to_non_nullable
+              as String,
+      null == byteAudioVoice
+          ? _value.byteAudioVoice
+          : byteAudioVoice // ignore: cast_nullable_to_non_nullable
+              as Uint8List,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$StatusSpokeImpl with DiagnosticableTreeMixin implements _StatusSpoke {
+  const _$StatusSpokeImpl(this.shortHash, this.byteAudioVoice);
+
+  @override
+  final String shortHash;
+  @override
+  final Uint8List byteAudioVoice;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'ElevenLabStatus.spoke(shortHash: $shortHash, byteAudioVoice: $byteAudioVoice)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'ElevenLabStatus.spoke'))
+      ..add(DiagnosticsProperty('shortHash', shortHash))
+      ..add(DiagnosticsProperty('byteAudioVoice', byteAudioVoice));
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$StatusSpokeImpl &&
+            (identical(other.shortHash, shortHash) ||
+                other.shortHash == shortHash) &&
+            const DeepCollectionEquality()
+                .equals(other.byteAudioVoice, byteAudioVoice));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, shortHash,
+      const DeepCollectionEquality().hash(byteAudioVoice));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$StatusSpokeImplCopyWith<_$StatusSpokeImpl> get copyWith =>
+      __$$StatusSpokeImplCopyWithImpl<_$StatusSpokeImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(String shortHash, Uint8List byteAudioVoice) spoke,
+    required TResult Function() voicesLoaded,
+  }) {
+    return spoke(shortHash, byteAudioVoice);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(String shortHash, Uint8List byteAudioVoice)? spoke,
+    TResult? Function()? voicesLoaded,
+  }) {
+    return spoke?.call(shortHash, byteAudioVoice);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(String shortHash, Uint8List byteAudioVoice)? spoke,
+    TResult Function()? voicesLoaded,
+    required TResult orElse(),
+  }) {
+    if (spoke != null) {
+      return spoke(shortHash, byteAudioVoice);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_StatusInitial value) initial,
+    required TResult Function(_StatusLoading value) loading,
+    required TResult Function(_StatusSpoke value) spoke,
+    required TResult Function(_VoicesLoaded value) voicesLoaded,
+  }) {
+    return spoke(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_StatusInitial value)? initial,
+    TResult? Function(_StatusLoading value)? loading,
+    TResult? Function(_StatusSpoke value)? spoke,
+    TResult? Function(_VoicesLoaded value)? voicesLoaded,
+  }) {
+    return spoke?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_StatusInitial value)? initial,
+    TResult Function(_StatusLoading value)? loading,
+    TResult Function(_StatusSpoke value)? spoke,
+    TResult Function(_VoicesLoaded value)? voicesLoaded,
+    required TResult orElse(),
+  }) {
+    if (spoke != null) {
+      return spoke(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _StatusSpoke implements ElevenLabStatus {
+  const factory _StatusSpoke(
+          final String shortHash, final Uint8List byteAudioVoice) =
+      _$StatusSpokeImpl;
+
+  String get shortHash;
+  Uint8List get byteAudioVoice;
+  @JsonKey(ignore: true)
+  _$$StatusSpokeImplCopyWith<_$StatusSpokeImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -346,12 +679,18 @@ class __$$VoicesLoadedImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$VoicesLoadedImpl implements _VoicesLoaded {
+class _$VoicesLoadedImpl with DiagnosticableTreeMixin implements _VoicesLoaded {
   const _$VoicesLoadedImpl();
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'ElevenLabStatus.voicesLoaded()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('type', 'ElevenLabStatus.voicesLoaded'));
   }
 
   @override
@@ -367,6 +706,8 @@ class _$VoicesLoadedImpl implements _VoicesLoaded {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(String shortHash, Uint8List byteAudioVoice) spoke,
     required TResult Function() voicesLoaded,
   }) {
     return voicesLoaded();
@@ -376,6 +717,8 @@ class _$VoicesLoadedImpl implements _VoicesLoaded {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(String shortHash, Uint8List byteAudioVoice)? spoke,
     TResult? Function()? voicesLoaded,
   }) {
     return voicesLoaded?.call();
@@ -385,6 +728,8 @@ class _$VoicesLoadedImpl implements _VoicesLoaded {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(String shortHash, Uint8List byteAudioVoice)? spoke,
     TResult Function()? voicesLoaded,
     required TResult orElse(),
   }) {
@@ -398,6 +743,8 @@ class _$VoicesLoadedImpl implements _VoicesLoaded {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_StatusInitial value) initial,
+    required TResult Function(_StatusLoading value) loading,
+    required TResult Function(_StatusSpoke value) spoke,
     required TResult Function(_VoicesLoaded value) voicesLoaded,
   }) {
     return voicesLoaded(this);
@@ -407,6 +754,8 @@ class _$VoicesLoadedImpl implements _VoicesLoaded {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_StatusInitial value)? initial,
+    TResult? Function(_StatusLoading value)? loading,
+    TResult? Function(_StatusSpoke value)? spoke,
     TResult? Function(_VoicesLoaded value)? voicesLoaded,
   }) {
     return voicesLoaded?.call(this);
@@ -416,6 +765,8 @@ class _$VoicesLoadedImpl implements _VoicesLoaded {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_StatusInitial value)? initial,
+    TResult Function(_StatusLoading value)? loading,
+    TResult Function(_StatusSpoke value)? spoke,
     TResult Function(_VoicesLoaded value)? voicesLoaded,
     required TResult orElse(),
   }) {

@@ -1,5 +1,3 @@
-
-
 import 'package:eleven_labs/eleven_labs.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
@@ -20,7 +18,6 @@ class ElevenLabsVoiceCubit extends HydratedCubit<ElevenLabsVoiceState> {
   void load() async {
     try {
       final voices = await api.listVoices();
-      print(voices.map((e) => e.voiceId));
       emit(state.copyWith(
           status: const ElevenLabsVoiceStatus.loaded(), voices: voices));
     } catch (err) {

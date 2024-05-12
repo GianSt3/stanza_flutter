@@ -28,7 +28,7 @@ class ElevenLabsAPI {
     _dio
       ..options.baseUrl = config.baseUrl
       ..options.connectTimeout = const Duration(seconds: 5)
-      ..options.receiveTimeout = const Duration(seconds: 3)
+      ..options.receiveTimeout = const Duration(seconds: 5)
       ..options.headers = {
         'Content-Type': 'application/json',
         'xi-api-key': config.apiKey,

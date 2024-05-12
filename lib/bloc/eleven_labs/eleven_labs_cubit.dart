@@ -1,7 +1,11 @@
+import 'dart:ffi';
+import 'dart:typed_data';
+
 import 'package:audioplayers/audioplayers.dart';
 import 'package:bloc/bloc.dart';
 import 'package:eleven_labs/eleven_labs.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 
@@ -20,16 +24,27 @@ class ElevenLabsCubit extends Cubit<ElevenLabsState> {
     print(voices.map((e) => e.voiceId));
   }
 
-  void speak() async {
+  void speak(
+      {required String voiceId,
+      required String text,
+      VoiceSettings? voiceSettings}) async {
+    final hash = shortHash(text);
+    print("Using $voiceId to say $text\nWith hash $hash");
     final player = AudioPlayer();
     player.setReleaseMode(ReleaseMode.release);
 
-    final result = await api.synthesize(TextToSpeechRequest(
-      voiceId: '21m00Tcm4TlvDq8ikWAM',
-      text: 'Ciao a tutti, manzi e manzini',
-    ));
+    emit(state.copyWith(status: const ElevenLabStatus.loading()));
 
+    final result = await api.synthesize(TextToSpeechRequest(
+        modelId: "eleven_multilingual_v2",
+        voiceId: voiceId,
+        text: text,
+        voiceSettings: voiceSettings));
+
+    // TODO emit ByteSource
     await player.play(BytesSource(result));
+
+    emit(state.copyWith(status: ElevenLabStatus.spoke(hash, result)));
   }
 
 // @override

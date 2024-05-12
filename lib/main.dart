@@ -10,10 +10,16 @@ import 'package:stanza_scrapper/bloc/eleven_labs/eleven_labs_cubit.dart';
 import 'package:stanza_scrapper/bloc/eleven_labs/eleven_labs_voice_cubit.dart';
 
 import 'package:stanza_scrapper/bloc/scrapper/youtube_scrapper_cubit.dart';
+import 'package:stanza_scrapper/core/api_key_guard.dart';
+import 'package:stanza_scrapper/core/bloc/api_key_cubit.dart';
 import 'package:stanza_scrapper/src/features/dnd/bloc/game/dnd_cubit.dart';
-import 'package:stanza_scrapper/src/features/settings/presenter/settings_page.dart';
-import 'package:stanza_scrapper/src/features/tweak/tweak_page.dart';
+import 'package:stanza_scrapper/src/features/game/bloc/game_cubit.dart';
+import 'package:stanza_scrapper/src/features/lobby/bloc/blacklist/blacklist_cubit.dart';
+import 'package:stanza_scrapper/src/features/lobby/bloc/lobby_cubit.dart';
+import 'package:stanza_scrapper/src/features/settings/bloc/custom_voice_cubit.dart';
 import 'package:stanza_scrapper/src/stanza.dart';
+
+ElevenLabsAPI elevenLabsAPI = ElevenLabsAPI();
 
 void main(List<String> args) async {
   debugPrint('args: $args');
@@ -35,11 +41,7 @@ class MainApp extends StatefulWidget {
 }
 
 class _MainAppState extends State<MainApp> {
-  TextEditingController textEditingController =
-      TextEditingController(text: "jfKfPfyJRdk");
-
-  int currentPageIndex = 0;
-  ElevenLabsAPI elevenLabsAPI = ElevenLabsAPI();
+  TextEditingController apiKeyController = TextEditingController();
 
   @override
   void initState() {
@@ -48,9 +50,6 @@ class _MainAppState extends State<MainApp> {
     WebviewWindow.isWebviewAvailable().then((value) {
       print("available!");
     });
-    const apiKey = String.fromEnvironment('ELEVENLABS_API_KEY');
-    print('Api key ELEVENLABS $apiKey');
-    elevenLabsAPI.init(config: ElevenLabsConfig(apiKey: apiKey));
   }
 
   @override
@@ -58,9 +57,15 @@ class _MainAppState extends State<MainApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-          textTheme: GoogleFonts.kanitTextTheme(Theme.of(context).textTheme)),
+          textTheme: GoogleFonts.kanitTextTheme(Theme.of(context).textTheme),
+          dropdownMenuTheme: Theme.of(context)
+              .dropdownMenuTheme
+              .copyWith(inputDecorationTheme: const InputDecorationTheme())),
       home: MultiBlocProvider(
         providers: [
+          BlocProvider(
+            create: (context) => ApiKeyCubit(),
+          ),
           BlocProvider(
             create: (context) => YoutubeScrapperCubit(),
           ),
@@ -73,70 +78,46 @@ class _MainAppState extends State<MainApp> {
           BlocProvider(
             create: (context) => DndCubit(),
           ),
+          BlocProvider(
+            create: (context) => CustomVoiceCubit(),
+          ),
+          BlocProvider(
+            create: (context) => LobbyCubit(),
+          ),
+          BlocProvider(
+            create: (context) => BlacklistCubit(),
+          ),
+          BlocProvider(
+            create: (context) => GameCubit(),
+          ),
         ],
-        child: Builder(
-          builder: (context) =>
-              BlocBuilder<YoutubeScrapperCubit, YoutubeScrapperState>(
-                  builder: (context, state) {
+        child: ApiKeyGuard(
+          missing: Builder(builder: (context) {
             return Scaffold(
-              appBar: AppBar(
-                backgroundColor: Colors.orange[200],
-                title: TextField(
-                  decoration: const InputDecoration(hintText: "Live Id"),
-                  controller: textEditingController,
-                  onSubmitted: (text) {
-                    context
-                        .read<YoutubeScrapperCubit>()
-                        .start(textEditingController.text);
-                  },
-                ),
-                actions: [
-                  IconButton(
-                    icon: const Icon(Icons.start),
-                    iconSize: 24,
-                    onPressed: () => context
-                        .read<YoutubeScrapperCubit>()
-                        .start(textEditingController.text),
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.chat_rounded),
-                    color: state.status.maybeMap(
-                        reading: (_) => Colors.green,
-                        stop: (_) => Colors.yellow,
-                        error: (_) => Colors.red,
-                        orElse: () => Colors.grey),
-                    iconSize: 24,
-                    onPressed: state.status.mapOrNull(
-                        ready: (_) =>
-                            context.read<YoutubeScrapperCubit>().read),
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.play_arrow),
-                    color: Colors.green,
-                    iconSize: 24,
-                    onPressed: () => context.read<ElevenLabsCubit>().speak(),
-                  ),
-                ],
-              ),
-              drawer: IntrinsicWidth(
-                child: NavigationRail(
-                  onDestinationSelected: (index) => setState(() {
-                    currentPageIndex = index;
-                  }),
-                  destinations: [
-                    NavigationRailDestination(
-                        icon: Icon(Icons.home), label: Text("Home")),
-                    NavigationRailDestination(
-                        icon: Icon(Icons.settings), label: Text("Settings")),
-                    NavigationRailDestination(
-                        icon: Icon(Icons.color_lens_outlined), label: Text("Tweak")),
+              body: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text("Insert the Api Key for IA services"),
+                    TextField(
+                      controller: apiKeyController,
+                      obscureText: true,
+                    ),
+                    TextButton(
+                        onPressed: () => context
+                            .read<ApiKeyCubit>()
+                            .store(apiKeyController.text),
+                        child: const Text("Save"))
                   ],
-                  selectedIndex: currentPageIndex,
                 ),
               ),
-              body: [const Stanza(), const SettingsPage(), const TweakPage()][currentPageIndex],
             );
           }),
+          child: (apiKey) {
+            elevenLabsAPI.init(config: ElevenLabsConfig(apiKey: apiKey));
+            return const Stanza();
+          },
         ),
       ),
     );

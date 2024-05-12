@@ -5,7 +5,6 @@ class YoutubeScrapperState with _$YoutubeScrapperState {
   const factory YoutubeScrapperState({
     required YoutubeScrapperStatus status,
     @Default(Chat(messages: <Message>[])) Chat chat,
-    @Default(Filter(authors: <String>[])) Filter filter,
   }) = _YoutubeScrapperState;
 }
 
@@ -63,27 +62,3 @@ class Author extends Equatable {
   List<Object?> get props => [name];
 }
 
-class Filter extends Equatable {
-  final List<String> authors;
-
-  const Filter({required this.authors});
-
-  Filter _add(String author) {
-    List<String> copy = List.from(authors);
-    copy.add(author);
-    return Filter(authors: copy);
-  }
-
-  Filter _remove(String author) {
-    List<String> copy = List.from(authors);
-    copy.remove(author);
-    return Filter(authors: copy);
-  }
-
-  Filter copyWith(String author) {
-    return authors.contains(author) ? _remove(author) : _add(author);
-  }
-
-  @override
-  List<Object?> get props => [authors];
-}

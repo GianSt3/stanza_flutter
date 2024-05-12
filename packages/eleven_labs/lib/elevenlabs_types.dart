@@ -52,15 +52,24 @@ class VoiceSettings {
   @JsonKey(name: 'stability')
   final double stability;
 
+  @JsonKey(name: 'style')
+  final double style;
+
   const VoiceSettings({
     required this.similarityBoost,
     required this.stability,
+    required this.style,
   });
 
   factory VoiceSettings.fromJson(Map<String, dynamic> json) =>
       _$VoiceSettingsFromJson(json);
 
   Map<String, dynamic> toJson() => _$VoiceSettingsToJson(this);
+
+  @override
+  String toString() {
+    return "style: $style stability: $stability similarity: $similarityBoost";
+  }
 }
 
 /// Text to Speech Stream Request JSON Object
