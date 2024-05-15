@@ -1,9 +1,30 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:bloc/bloc.dart';
+import 'package:eleven_labs/eleven_labs.dart';
+import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:stanza_scrapper/src/features/game/model/player.dart';
 
 part 'playable_message_state.dart';
+
 part 'playable_message_cubit.freezed.dart';
 
 class PlayableMessageCubit extends Cubit<PlayableMessageState> {
-  PlayableMessageCubit() : super(const PlayableMessageState.initial());
+  final Player player;
+  final ElevenLabsAPI api;
+
+  PlayableMessageCubit(this.player, this.api)
+      : super(const PlayableMessageState.initial("", ""));
+
+  void speak({required String timestamp, required String text}) async {
+    if (state.text != text && state.timestamp != timestamp) {
+      emit(PlayableMessageState.loading(timestamp, text));
+      final result = await api.synthesize(TextToSpeechRequest(
+          modelId: "eleven_multilingual_v2",
+          voiceId: player.voice.voiceId!,
+          text: text,
+          voiceSettings: player.voice.voiceSettings));
+      emit(PlayableMessageState.play(timestamp, text, BytesSource(result)));
+    }
+  }
 }
