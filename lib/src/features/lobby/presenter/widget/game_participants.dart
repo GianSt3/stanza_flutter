@@ -24,11 +24,13 @@ class GameParticipants extends StatelessWidget {
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               BlocBuilder<GameCubit, GameState>(
-                builder: (context, gameState) {
-                  return TextButton(
-                      onPressed: gameState.canStart ? () {} : null,
-                      child: Text("Start"));
-                },
+                builder: (context, gameState) => gameState.status.maybeMap(
+                    start: (_) => TextButton(
+                        onPressed: () => context.read<GameCubit>().stop(),
+                        child: const Text("Mute")),
+                    orElse: () => TextButton(
+                        onPressed: () => context.read<GameCubit>().start(),
+                        child: const Text("Speak"))),
               ),
             ],
           ),
@@ -50,15 +52,6 @@ class GameParticipants extends StatelessWidget {
               },
             ),
           ),
-          BlocBuilder<GameCubit, GameState>(
-            builder: (context, gameState) {
-              return Column(
-                children: gameState.players
-                    .map((e) => Text("${e.name} ${e.voice.name}"))
-                    .toList(),
-              );
-            },
-          )
         ],
       ),
     );

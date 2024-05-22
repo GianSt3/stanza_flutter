@@ -36,7 +36,7 @@ class LobbyParticipants extends StatelessWidget {
               color: Colors.blueGrey[100],
               borderRadius: const BorderRadius.all(Radius.circular(5))),
           constraints: BoxConstraints(
-              maxWidth: 500, maxHeight: MediaQuery.of(context).size.height / 3),
+               maxHeight: MediaQuery.of(context).size.height / 3),
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: BlocBuilder<LobbyCubit, LobbyState>(
             builder: (context, state) {

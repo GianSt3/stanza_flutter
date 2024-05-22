@@ -43,4 +43,8 @@ class GameCubit extends Cubit<GameState> {
       emit(state.copyWith(status: const GameStatus.start()));
     }
   }
+
+  void stop() {
+    emit(state.copyWith(status: const GameStatus.initial()));
+  }
 }

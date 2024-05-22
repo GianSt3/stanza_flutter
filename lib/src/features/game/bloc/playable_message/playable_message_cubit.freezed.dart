@@ -22,7 +22,7 @@ mixin _$PlayableMessageState {
   TResult when<TResult extends Object?>({
     required TResult Function(String timestamp, String text) initial,
     required TResult Function(String timestamp, String text) loading,
-    required TResult Function(String timestamp, String text, BytesSource audio)
+    required TResult Function(String timestamp, String text, BytesSource? audio)
         play,
   }) =>
       throw _privateConstructorUsedError;
@@ -30,14 +30,14 @@ mixin _$PlayableMessageState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String timestamp, String text)? initial,
     TResult? Function(String timestamp, String text)? loading,
-    TResult? Function(String timestamp, String text, BytesSource audio)? play,
+    TResult? Function(String timestamp, String text, BytesSource? audio)? play,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String timestamp, String text)? initial,
     TResult Function(String timestamp, String text)? loading,
-    TResult Function(String timestamp, String text, BytesSource audio)? play,
+    TResult Function(String timestamp, String text, BytesSource? audio)? play,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -194,7 +194,7 @@ class _$InitialImpl with DiagnosticableTreeMixin implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function(String timestamp, String text) initial,
     required TResult Function(String timestamp, String text) loading,
-    required TResult Function(String timestamp, String text, BytesSource audio)
+    required TResult Function(String timestamp, String text, BytesSource? audio)
         play,
   }) {
     return initial(timestamp, text);
@@ -205,7 +205,7 @@ class _$InitialImpl with DiagnosticableTreeMixin implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String timestamp, String text)? initial,
     TResult? Function(String timestamp, String text)? loading,
-    TResult? Function(String timestamp, String text, BytesSource audio)? play,
+    TResult? Function(String timestamp, String text, BytesSource? audio)? play,
   }) {
     return initial?.call(timestamp, text);
   }
@@ -215,7 +215,7 @@ class _$InitialImpl with DiagnosticableTreeMixin implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String timestamp, String text)? initial,
     TResult Function(String timestamp, String text)? loading,
-    TResult Function(String timestamp, String text, BytesSource audio)? play,
+    TResult Function(String timestamp, String text, BytesSource? audio)? play,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -359,7 +359,7 @@ class _$LoadingImpl with DiagnosticableTreeMixin implements _Loading {
   TResult when<TResult extends Object?>({
     required TResult Function(String timestamp, String text) initial,
     required TResult Function(String timestamp, String text) loading,
-    required TResult Function(String timestamp, String text, BytesSource audio)
+    required TResult Function(String timestamp, String text, BytesSource? audio)
         play,
   }) {
     return loading(timestamp, text);
@@ -370,7 +370,7 @@ class _$LoadingImpl with DiagnosticableTreeMixin implements _Loading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String timestamp, String text)? initial,
     TResult? Function(String timestamp, String text)? loading,
-    TResult? Function(String timestamp, String text, BytesSource audio)? play,
+    TResult? Function(String timestamp, String text, BytesSource? audio)? play,
   }) {
     return loading?.call(timestamp, text);
   }
@@ -380,7 +380,7 @@ class _$LoadingImpl with DiagnosticableTreeMixin implements _Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String timestamp, String text)? initial,
     TResult Function(String timestamp, String text)? loading,
-    TResult Function(String timestamp, String text, BytesSource audio)? play,
+    TResult Function(String timestamp, String text, BytesSource? audio)? play,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -446,7 +446,7 @@ abstract class _$$PlayImplCopyWith<$Res>
       __$$PlayImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String timestamp, String text, BytesSource audio});
+  $Res call({String timestamp, String text, BytesSource? audio});
 }
 
 /// @nodoc
@@ -461,7 +461,7 @@ class __$$PlayImplCopyWithImpl<$Res>
   $Res call({
     Object? timestamp = null,
     Object? text = null,
-    Object? audio = null,
+    Object? audio = freezed,
   }) {
     return _then(_$PlayImpl(
       null == timestamp
@@ -472,10 +472,10 @@ class __$$PlayImplCopyWithImpl<$Res>
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
               as String,
-      null == audio
+      freezed == audio
           ? _value.audio
           : audio // ignore: cast_nullable_to_non_nullable
-              as BytesSource,
+              as BytesSource?,
     ));
   }
 }
@@ -490,7 +490,7 @@ class _$PlayImpl with DiagnosticableTreeMixin implements _Play {
   @override
   final String text;
   @override
-  final BytesSource audio;
+  final BytesSource? audio;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
@@ -532,7 +532,7 @@ class _$PlayImpl with DiagnosticableTreeMixin implements _Play {
   TResult when<TResult extends Object?>({
     required TResult Function(String timestamp, String text) initial,
     required TResult Function(String timestamp, String text) loading,
-    required TResult Function(String timestamp, String text, BytesSource audio)
+    required TResult Function(String timestamp, String text, BytesSource? audio)
         play,
   }) {
     return play(timestamp, text, audio);
@@ -543,7 +543,7 @@ class _$PlayImpl with DiagnosticableTreeMixin implements _Play {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String timestamp, String text)? initial,
     TResult? Function(String timestamp, String text)? loading,
-    TResult? Function(String timestamp, String text, BytesSource audio)? play,
+    TResult? Function(String timestamp, String text, BytesSource? audio)? play,
   }) {
     return play?.call(timestamp, text, audio);
   }
@@ -553,7 +553,7 @@ class _$PlayImpl with DiagnosticableTreeMixin implements _Play {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String timestamp, String text)? initial,
     TResult Function(String timestamp, String text)? loading,
-    TResult Function(String timestamp, String text, BytesSource audio)? play,
+    TResult Function(String timestamp, String text, BytesSource? audio)? play,
     required TResult orElse(),
   }) {
     if (play != null) {
@@ -599,14 +599,14 @@ class _$PlayImpl with DiagnosticableTreeMixin implements _Play {
 
 abstract class _Play implements PlayableMessageState {
   const factory _Play(
-          final String timestamp, final String text, final BytesSource audio) =
+          final String timestamp, final String text, final BytesSource? audio) =
       _$PlayImpl;
 
   @override
   String get timestamp;
   @override
   String get text;
-  BytesSource get audio;
+  BytesSource? get audio;
   @override
   @JsonKey(ignore: true)
   _$$PlayImplCopyWith<_$PlayImpl> get copyWith =>
