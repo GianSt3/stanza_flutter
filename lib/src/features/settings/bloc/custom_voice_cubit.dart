@@ -34,6 +34,13 @@ class CustomVoiceCubit extends HydratedCubit<CustomVoiceState> {
     ]));
   }
 
+  void delete(CustomVoice voice) {
+    var voices = state.voices.toList();
+    voices.remove(voice);
+    emit(state.copyWith(
+        status: const CustomVoiceStatus.initial(), voices: voices));
+  }
+
   @override
   CustomVoiceState? fromJson(Map<String, dynamic> json) {
     final jsonState = CustomVoiceState.fromJson(json);

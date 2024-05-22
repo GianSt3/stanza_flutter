@@ -17,6 +17,7 @@ class LobbyPage extends StatelessWidget {
         Column(
           children: [
             LobbyHeader(),
+            Divider(),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -27,6 +28,7 @@ class LobbyPage extends StatelessWidget {
             )
           ],
         ),
+        Divider(),
         Expanded(child: GamePage())
       ],
     );

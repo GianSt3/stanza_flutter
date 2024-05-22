@@ -57,10 +57,24 @@ class _MainAppState extends State<MainApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-          textTheme: GoogleFonts.kanitTextTheme(Theme.of(context).textTheme),
-          dropdownMenuTheme: Theme.of(context)
-              .dropdownMenuTheme
-              .copyWith(inputDecorationTheme: const InputDecorationTheme())),
+        textTheme: GoogleFonts.kanitTextTheme(Theme.of(context).textTheme),
+        textButtonTheme: TextButtonThemeData(
+            style: TextButton.styleFrom(
+          minimumSize: const Size(200, 20),
+          padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
+          shape: RoundedRectangleBorder(
+              side: BorderSide(
+                color: Colors.blueGrey.shade100,
+              ),
+              borderRadius: BorderRadius.circular(3)),
+        )),
+        dropdownMenuTheme: Theme.of(context)
+            .dropdownMenuTheme
+            .copyWith(inputDecorationTheme: const InputDecorationTheme()),
+        sliderTheme: Theme.of(context)
+            .sliderTheme
+            .copyWith(showValueIndicator: ShowValueIndicator.onlyForContinuous),
+      ),
       home: MultiBlocProvider(
         providers: [
           BlocProvider(

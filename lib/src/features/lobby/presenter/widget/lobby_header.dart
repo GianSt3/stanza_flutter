@@ -28,33 +28,46 @@ class _LobbyHeaderState extends State<LobbyHeader> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: LobbyHeader.padding),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Expanded(
-            child: BlocBuilder<YoutubeScrapperCubit, YoutubeScrapperState>(
-              builder: (context, state) {
-                return TextField(
-                  controller: chatIdController,
-                  enabled: state.status
-                      .maybeMap(reading: (_) => false, orElse: () => true),
-                  decoration: const InputDecoration(labelText: "Chat Id"),
-                );
-              },
+          Flexible(
+            flex: 2,
+            child: Row(
+              children: [
+                BlocBuilder<YoutubeScrapperCubit, YoutubeScrapperState>(
+                  builder: (context, state) {
+                    return SizedBox(
+                      width: 250,
+                      child: TextField(
+                        controller: chatIdController,
+                        enabled: state.status.maybeMap(
+                            reading: (_) => false, orElse: () => true),
+                        decoration: const InputDecoration(labelText: "Chat Id"),
+                      ),
+                    );
+                  },
+                ),
+                BlocBuilder<YoutubeScrapperCubit, YoutubeScrapperState>(
+                  builder: (context, state) {
+                    return IconButton(
+                      icon: const Icon(FontAwesomeIcons.play),
+                      iconSize: 24,
+                      onPressed: state.status.mapOrNull(
+                          initial: (_) => () => context
+                              .read<YoutubeScrapperCubit>()
+                              .start(chatIdController.text)),
+                    );
+                  },
+                ),
+              ],
             ),
           ),
-          IconButton(
-            icon: const Icon(FontAwesomeIcons.play),
-            iconSize: 24,
-            onPressed: () => context
-                .read<YoutubeScrapperCubit>()
-                .start(chatIdController.text),
-          ),
           SizedBox(
-            width: LobbyHeader.padding,
+            width: 500,
+            child: TextField(
+              decoration: InputDecoration(labelText: "Parola d'ordine"),
+            ),
           ),
-          Expanded(
-              child: TextField(
-            decoration: InputDecoration(labelText: "Parola d'ordine"),
-          )),
         ],
       ),
     );

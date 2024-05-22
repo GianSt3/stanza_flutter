@@ -13,27 +13,31 @@ class LobbyParticipants extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(
-          "Lobby",
-          style: Theme
-              .of(context)
-              .textTheme
-              .titleLarge,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              "Lobby",
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+            Container(
+              alignment: Alignment.centerRight,
+              child: TextButton(
+                onPressed: () {
+                  context.read<LobbyCubit>().random();
+                },
+                child: const Text("Random"),
+              ),
+            ),
+          ],
         ),
         Container(
-          alignment: Alignment.centerRight,
-          child: TextButton(
-            onPressed: () {
-              context.read<LobbyCubit>().random();
-            },
-            child: Text("Random"),
-          ),
-        ),
-        SizedBox(
-          height: MediaQuery
-              .of(context)
-              .size
-              .height / 3,
+          decoration: BoxDecoration(
+              color: Colors.blueGrey[100],
+              borderRadius: const BorderRadius.all(Radius.circular(5))),
+          constraints: BoxConstraints(
+              maxWidth: 500, maxHeight: MediaQuery.of(context).size.height / 3),
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: BlocBuilder<LobbyCubit, LobbyState>(
             builder: (context, state) {
               final users = state.lobby;
@@ -58,16 +62,18 @@ class _Participant extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Icon(user.nextPlayer ? Icons.sentiment_satisfied_alt_rounded : Icons.sentiment_satisfied,
+        Icon(
+          user.nextPlayer
+              ? Icons.sentiment_satisfied_alt_rounded
+              : Icons.sentiment_satisfied,
           color: user.nextPlayer ? Colors.green : Colors.grey,
-        size: 18,),
-        SizedBox(width: 8,),
-        Text(user.name),
+          size: 18,
+        ),
         IconButton(
             onPressed: () {
               context.read<LobbyCubit>().promote(user);
             },
-            icon: Icon(
+            icon: const Icon(
               Icons.add_box_outlined,
               color: Colors.green,
               size: 18,
@@ -77,11 +83,15 @@ class _Participant extends StatelessWidget {
               context.read<GameCubit>().removePlayer(user.name);
               context.read<LobbyCubit>().remove(user);
             },
-            icon: Icon(
+            icon: const Icon(
               Icons.remove_circle_outline_sharp,
               color: Colors.red,
               size: 18,
-            ))
+            )),
+        const SizedBox(
+          width: 8,
+        ),
+        Text(user.name),
       ],
     );
   }

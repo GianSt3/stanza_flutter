@@ -13,26 +13,35 @@ class ChatParticipants extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      child: Column(
-        children: [
-          Text(
-            "Chat Participants",
-            style: Theme.of(context).textTheme.titleLarge,
-          ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height / 3,
-            child: BlocBuilder<YoutubeScrapperCubit, YoutubeScrapperState>(
-              builder: (context, state) {
-                final authors = state.chat.authors;
-                return ListView.builder(
-                    itemCount: authors.length,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) =>
-                        _Participant(author: authors.elementAt(index)));
-              },
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            Text(
+              "Chat Participants",
+              style: Theme.of(context).textTheme.titleLarge,
             ),
-          ),
-        ],
+            Container(
+              decoration: BoxDecoration(
+                  color: Colors.blueGrey[100],
+                  borderRadius: const BorderRadius.all(Radius.circular(5))),
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: SizedBox(
+                height: MediaQuery.of(context).size.height / 3,
+                child: BlocBuilder<YoutubeScrapperCubit, YoutubeScrapperState>(
+                  builder: (context, state) {
+                    final authors = state.chat.authors;
+                    return ListView.builder(
+                        itemCount: authors.length,
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) =>
+                            _Participant(author: authors.elementAt(index)));
+                  },
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stanza_scrapper/src/features/game/bloc/game_cubit.dart';
@@ -15,19 +16,29 @@ class GameParticipants extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Column(
         children: [
-          Text(
-            "Game",
-            style: Theme.of(context).textTheme.titleLarge,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Game",
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+              BlocBuilder<GameCubit, GameState>(
+                builder: (context, gameState) {
+                  return TextButton(
+                      onPressed: gameState.canStart ? () {} : null,
+                      child: Text("Start"));
+                },
+              ),
+            ],
           ),
-          BlocBuilder<GameCubit, GameState>(
-            builder: (context, gameState) {
-              return TextButton(
-                  onPressed: gameState.canStart ? () {} : null,
-                  child: Text("Start"));
-            },
-          ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height / 3,
+          Container(
+            constraints: BoxConstraints(
+                maxHeight: MediaQuery.of(context).size.height / 3),
+            decoration: BoxDecoration(
+                color: Colors.blueGrey[100],
+                borderRadius: const BorderRadius.all(Radius.circular(5))),
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: BlocBuilder<LobbyCubit, LobbyState>(
               builder: (context, state) {
                 final users =
@@ -65,34 +76,61 @@ class _Player extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(user.name),
-        BlocBuilder<CustomVoiceCubit, CustomVoiceState>(
-          builder: (context, state) {
-            return DropdownMenu(
-                onSelected: (voice) {
-                  if (voice != null) {
-                    context.read<GameCubit>().player(Player(
-                        number: 0,
-                        name: user.name,
-                        image: user.avatarUrl,
-                        voice: voice));
-                  }
+        Row(
+          children: [
+            BlocBuilder<CustomVoiceCubit, CustomVoiceState>(
+              builder: (context, state) {
+                return DropdownMenu(
+                    onSelected: (voice) {
+                      if (voice != null) {
+                        context.read<GameCubit>().player(Player(
+                            number: 0,
+                            name: user.name,
+                            image: user.avatarUrl,
+                            voice: voice));
+                      }
+                    },
+                    dropdownMenuEntries: state.voices
+                        .map((e) => DropdownMenuEntry<CustomVoice>(
+                            value: e, label: e.name!))
+                        .toList());
+              },
+            ),
+            IconButton(
+                onPressed: () {
+                  showDialog(
+                      context: context,
+                      builder: (dialogContext) => AlertDialog(
+                            title: Text("Remove ${user.name}"),
+                            content: Text(
+                                "Are you sure to remove ${user.name} from the game?"),
+                            actions: [
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop(null);
+                                  },
+                                  child: const Text("Cancel")),
+                              TextButton(
+                                  onPressed: () {
+                                    context
+                                        .read<GameCubit>()
+                                        .removePlayer(user.name);
+                                    context.read<LobbyCubit>().demote(user);
+                                    Navigator.of(context).pop(null);
+                                  },
+                                  child: const Text("Confirm"))
+                            ],
+                          ));
+
+                  ;
                 },
-                dropdownMenuEntries: state.voices
-                    .map((e) => DropdownMenuEntry<CustomVoice>(
-                        value: e, label: e.name!))
-                    .toList());
-          },
+                icon: const Icon(
+                  Icons.remove_circle_outline_sharp,
+                  color: Colors.red,
+                  size: 18,
+                ))
+          ],
         ),
-        IconButton(
-            onPressed: () {
-              context.read<GameCubit>().removePlayer(user.name);
-              context.read<LobbyCubit>().demote(user);
-            },
-            icon: const Icon(
-              Icons.remove_circle_outline_sharp,
-              color: Colors.red,
-              size: 18,
-            ))
       ],
     );
   }

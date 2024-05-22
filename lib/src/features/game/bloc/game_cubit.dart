@@ -15,7 +15,7 @@ class GameCubit extends Cubit<GameState> {
   void player(Player player) {
     var copy = state.players.toList();
     print("GamePlayers ${copy.length}");
-    if (copy.contains(player)) {
+    if (copy.map((e) => e.name).contains(player.name)) {
       int index = copy.indexWhere((element) => element.name == player.name);
       copy.removeAt(index);
       copy.insert(index, player);

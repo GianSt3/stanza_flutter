@@ -8,6 +8,7 @@ import 'package:stanza_scrapper/bloc/eleven_labs/eleven_labs_cubit.dart';
 import 'package:stanza_scrapper/bloc/eleven_labs/eleven_labs_voice_cubit.dart';
 import 'package:stanza_scrapper/src/features/settings/bloc/custom_voice_cubit.dart';
 import 'package:stanza_scrapper/src/features/settings/presenter/widget/voice_form_edit.dart';
+import 'package:stanza_scrapper/src/widget/custom_table.dart';
 
 class VoiceCustomTab extends StatefulWidget {
   const VoiceCustomTab({super.key});
@@ -34,34 +35,44 @@ class _VoiceCustomTabState extends State<VoiceCustomTab> {
       child: BlocBuilder<CustomVoiceCubit, CustomVoiceState>(
         builder: (context, state) {
           if (state.voices.isEmpty) {
-            return Column(
+            return const Column(
               children: [
-                VoiceFormEdit(),
-                TextButton(onPressed: () {}, child: Text("Add voice")),
+                Text("No custom voices..."),
+                Flexible(child: VoiceFormEdit()),
               ],
             );
           } else {
             return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Flexible(
-                  child: ListView.separated(
-                      itemBuilder: (context, index) => Card(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Wrap(
-                              runSpacing: 20,
-                              spacing: 20,
-                              children: [
-                                Text(state.voices.elementAt(index).voiceId!),
-                                Text(state.voices.elementAt(index).name!),
-                                Text(state.voices.elementAt(index).voiceSettings?.toString() ?? ""),
-                              ],
-                            ),
-                          )),
-                      separatorBuilder: (context, index) => Divider(height: 1, color: Theme.of(context).cardColor,),
-                      itemCount: state.voices.length),
+                  child: CustomTable(
+                    columnNames: const [
+                      "Voice ID",
+                      "Name",
+                      "Voice Settings",
+                      ""
+                    ],
+                    rowValues: state.voices
+                        .map((customVoice) => [
+                              Text(customVoice.voiceId ?? ""),
+                              Text(customVoice.name ?? ""),
+                              Text(customVoice.voiceSettings?.toString() ?? ""),
+                              IconButton(
+                                  onPressed: () => context
+                                      .read<CustomVoiceCubit>()
+                                      .delete(customVoice),
+                                  icon: Icon(
+                                    Icons.delete,
+                                    size: 18,
+                                    color: Colors.red[800],
+                                  ))
+                            ].toList())
+                        .toList(),
+                  ),
                 ),
-                Expanded(child: VoiceFormEdit()),
+                Divider(),
+                const Flexible(child: VoiceFormEdit()),
               ],
             );
           }
