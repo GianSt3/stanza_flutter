@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:stanza_scrapper/src/features/game/presenter/game_debug_page.dart';
 import 'package:stanza_scrapper/src/features/game/presenter/game_page.dart';
 import 'package:stanza_scrapper/src/features/lobby/presenter/widget/chat_partecipants.dart';
 import 'package:stanza_scrapper/src/features/lobby/presenter/widget/game_participants.dart';
@@ -29,6 +30,7 @@ class LobbyPage extends StatelessWidget {
           ],
         ),
         Divider(),
+        // Flexible(child: GameDebugPage()),
         Expanded(child: GamePage())
       ],
     );

@@ -30,7 +30,9 @@ class ChatParticipants extends StatelessWidget {
                 height: MediaQuery.of(context).size.height / 3,
                 child: BlocBuilder<YoutubeScrapperCubit, YoutubeScrapperState>(
                   builder: (context, state) {
-                    final authors = state.chat.authors;
+                    List<Author> authors = state.chat.authors.toList();
+                    // Members on top
+                    authors.sort((a, b) => a.type.compareTo(b.type) * -1);
                     return ListView.builder(
                         itemCount: authors.length,
                         shrinkWrap: true,
@@ -56,11 +58,21 @@ class _Participant extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Text(author.name),
+        Text(
+          author.name,
+          style: Theme.of(context).textTheme.bodyMedium,
+        ),
+        if (author.type.isNotEmpty)
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Text("(${author.type})"),
+          ),
         IconButton(
             onPressed: () {
-              context.read<LobbyCubit>().add(
-                  QueueingUser(name: author.name, avatarUrl: author.avatarUrl));
+              context.read<LobbyCubit>().add(QueueingUser(
+                  name: author.name,
+                  avatarUrl: author.avatarUrl,
+                  type: author.type));
             },
             icon: const Icon(
               Icons.add,

@@ -38,7 +38,11 @@ class GamePage extends StatelessWidget {
                     .map((player) => BlocProvider(
                           create: (context) =>
                               PlayableMessageCubit(player, elevenLabsAPI),
-                          child: GamePlayer(player: player),
+                          child: GamePlayer(
+                            player: player,
+                            play: state.status.maybeWhen(
+                                start: () => true, orElse: () => false),
+                          ),
                         ))
                     .toList(),
               );
@@ -52,34 +56,32 @@ class GamePage extends StatelessWidget {
 
 class GamePlayer extends StatelessWidget {
   final Player player;
+  final bool play;
 
-  const GamePlayer({super.key, required this.player});
+  const GamePlayer({super.key, required this.player, this.play = false});
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          PlayerHeader(player: player),
-          BlocBuilder<GameCubit, GameState>(
-            builder: (context, gameState) {
-              return BlocListener<YoutubeScrapperCubit, YoutubeScrapperState>(
-                listener: (context, state) {
-                  final lastMessage = state.chat.messages
-                      .where((message) => message.author == player.name)
-                      .last;
-                  context.read<PlayableMessageCubit>().speak(
-                      timestamp: lastMessage.timestamp,
-                      text: lastMessage.text,
-                      shouldPlay: gameState.status
-                          .maybeWhen(start: () => true, orElse: () => false));
-                },
-                child: const PlayerText(),
-              );
-            },
-          ),
-        ],
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            PlayerHeader(player: player),
+            BlocListener<YoutubeScrapperCubit, YoutubeScrapperState>(
+              listener: (context, state) {
+                final lastMessage = state.lastMessage(player.name);
+                print("Listener ${player.toString()} last message ${lastMessage.text}");
+                context.read<PlayableMessageCubit>().speak(
+                    timestamp: lastMessage.timestamp,
+                    text: lastMessage.text,
+                    shouldPlay: play);
+              },
+              child: const PlayerText(),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -27,10 +27,20 @@ class GameParticipants extends StatelessWidget {
                 builder: (context, gameState) => gameState.status.maybeMap(
                     start: (_) => TextButton(
                         onPressed: () => context.read<GameCubit>().stop(),
-                        child: const Text("Mute")),
+                        child: const Row(
+                          children: [
+                            Text("Mute"),
+                            Icon(Icons.volume_off_outlined)
+                          ],
+                        )),
                     orElse: () => TextButton(
                         onPressed: () => context.read<GameCubit>().start(),
-                        child: const Text("Speak"))),
+                        child: const Row(
+                          children: [
+                            Text("Speak"),
+                            Icon(Icons.volume_up_outlined)
+                          ],
+                        ))),
               ),
             ],
           ),

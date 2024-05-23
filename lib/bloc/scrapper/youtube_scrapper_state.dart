@@ -2,10 +2,15 @@ part of 'youtube_scrapper_cubit.dart';
 
 @freezed
 class YoutubeScrapperState with _$YoutubeScrapperState {
+  const YoutubeScrapperState._();
+
   const factory YoutubeScrapperState({
     required YoutubeScrapperStatus status,
     @Default(Chat(messages: <Message>[])) Chat chat,
   }) = _YoutubeScrapperState;
+
+  Message lastMessage(String authorName) =>
+      chat.messages.where((message) => message.author == authorName).last;
 }
 
 @freezed
@@ -29,9 +34,10 @@ class Chat extends Equatable {
 
   const Chat({required this.messages, this.lastMessageId});
 
-  List<Author> get authors => Set.of(
-          messages.map((m) => Author(name: m.author, avatarUrl: m.avatarUrl)))
-      .toList();
+  List<Author> get authors => Set.of(messages.map((m) => Author(
+      name: m.author,
+      type: m.authorType ?? "",
+      avatarUrl: m.avatarUrl))).toList();
 
   List<Message> get newMessages => lastMessageId == null
       ? messages
@@ -55,10 +61,14 @@ class Chat extends Equatable {
 class Author extends Equatable {
   final String name;
   final String avatarUrl;
+  final String type;
 
-  const Author({required this.name, required this.avatarUrl});
+  const Author({
+    required this.name,
+    required this.avatarUrl,
+    required this.type,
+  });
 
   @override
   List<Object?> get props => [name];
 }
-

@@ -20,9 +20,9 @@ class PlayableMessageCubit extends Cubit<PlayableMessageState> {
       {required String timestamp,
       required String text,
       bool shouldPlay = true}) async {
-    if (state.text != text && state.timestamp != timestamp) {
+    if (state.text != text) {
       emit(PlayableMessageState.loading(timestamp, text));
-      if(shouldPlay){
+      if (shouldPlay) {
         final result = await api.synthesize(TextToSpeechRequest(
             modelId: "eleven_multilingual_v2",
             voiceId: player.voice.voiceId!,
@@ -32,7 +32,6 @@ class PlayableMessageCubit extends Cubit<PlayableMessageState> {
       } else {
         emit(PlayableMessageState.play(timestamp, text, null));
       }
-
     }
   }
 }

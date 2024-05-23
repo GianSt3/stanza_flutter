@@ -116,9 +116,10 @@ class __$$YoutubeScrapperStateImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$YoutubeScrapperStateImpl implements _YoutubeScrapperState {
+class _$YoutubeScrapperStateImpl extends _YoutubeScrapperState {
   const _$YoutubeScrapperStateImpl(
-      {required this.status, this.chat = const Chat(messages: <Message>[])});
+      {required this.status, this.chat = const Chat(messages: <Message>[])})
+      : super._();
 
   @override
   final YoutubeScrapperStatus status;
@@ -152,10 +153,11 @@ class _$YoutubeScrapperStateImpl implements _YoutubeScrapperState {
               this, _$identity);
 }
 
-abstract class _YoutubeScrapperState implements YoutubeScrapperState {
+abstract class _YoutubeScrapperState extends YoutubeScrapperState {
   const factory _YoutubeScrapperState(
       {required final YoutubeScrapperStatus status,
       final Chat chat}) = _$YoutubeScrapperStateImpl;
+  const _YoutubeScrapperState._() : super._();
 
   @override
   YoutubeScrapperStatus get status;
