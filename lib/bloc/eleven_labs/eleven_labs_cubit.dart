@@ -29,14 +29,13 @@ class ElevenLabsCubit extends Cubit<ElevenLabsState> {
       required String text,
       VoiceSettings? voiceSettings}) async {
     final hash = shortHash(text);
-    print("Using $voiceId to say $text\nWith hash $hash");
     final player = AudioPlayer();
     player.setReleaseMode(ReleaseMode.release);
 
     emit(state.copyWith(status: const ElevenLabStatus.loading()));
 
     final result = await api.synthesize(TextToSpeechRequest(
-        modelId: "eleven_multilingual_v2",
+        modelId: "eleven_multilingual_v1",
         voiceId: voiceId,
         text: text,
         voiceSettings: voiceSettings));

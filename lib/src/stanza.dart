@@ -24,9 +24,7 @@ class _StanzaState extends State<Stanza> {
         return Scaffold(
           appBar: AppBar(
             title: Text(titles[currentPageIndex]),
-            actions: [
-
-            ],
+            actions: [],
           ),
           drawer: IntrinsicWidth(
             child: NavigationRail(
@@ -48,10 +46,8 @@ class _StanzaState extends State<Stanza> {
                 NavigationRailDestination(
                     icon: const Icon(Icons.settings), label: Text(titles[0])),
                 NavigationRailDestination(
-                    icon: const Icon(Icons.sports_esports_outlined), label: Text(titles[1])),
-                NavigationRailDestination(
-                    icon: const Icon(Icons.color_lens_outlined),
-                    label: Text(titles[2])),
+                    icon: const Icon(Icons.sports_esports_outlined),
+                    label: Text(titles[1])),
               ],
               selectedIndex: currentPageIndex,
             ),
@@ -59,7 +55,6 @@ class _StanzaState extends State<Stanza> {
           body: [
             const SettingsPage(),
             const LobbyPage(),
-            const GamePage()
           ][currentPageIndex],
         );
       },

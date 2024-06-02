@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:stanza_scrapper/bloc/scrapper/youtube_scrapper_cubit.dart';
-import 'package:stanza_scrapper/main.dart';
 import 'package:stanza_scrapper/src/features/game/bloc/game_cubit.dart';
-import 'package:stanza_scrapper/src/features/game/bloc/playable_message/playable_message_cubit.dart';
+import 'package:stanza_scrapper/src/features/game/bloc/queued_messages/queued_messages_cubit.dart';
+import 'package:stanza_scrapper/src/features/game/widget/game_message_queue_listener.dart';
 import 'package:stanza_scrapper/src/features/game/widget/player_header.dart';
-import 'package:stanza_scrapper/src/features/game/widget/player_text.dart';
 
 import '../model/player.dart';
 
@@ -14,41 +12,37 @@ class GamePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          BlocBuilder<GameCubit, GameState>(
-            builder: (context, state) {
-              return Text(
-                "Game ${state.status.maybeMap(start: (_) => "🔊", orElse: () => "🔇")}",
-                style: Theme.of(context).textTheme.titleLarge,
-              );
-            },
-          ),
-          const SizedBox(
-            height: 32,
-          ),
-          BlocBuilder<GameCubit, GameState>(
-            builder: (context, state) {
-              return Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: state.players
-                    .map((player) => BlocProvider(
-                          create: (context) =>
-                              PlayableMessageCubit(player, elevenLabsAPI),
-                          child: GamePlayer(
+    return GameMessageQueueListener(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            BlocBuilder<GameCubit, GameState>(
+              builder: (context, state) {
+                return Text(
+                  "Game ${state.status.maybeMap(start: (_) => "🔊", orElse: () => "🔇")}",
+                  style: Theme.of(context).textTheme.titleLarge,
+                );
+              },
+            ),
+            const SizedBox(
+              height: 32,
+            ),
+            BlocBuilder<GameCubit, GameState>(
+              builder: (context, gameState) {
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: gameState.players
+                      .map((player) => GamePlayer(
                             player: player,
-                            play: state.status.maybeWhen(
-                                start: () => true, orElse: () => false),
-                          ),
-                        ))
-                    .toList(),
-              );
-            },
-          ),
-        ],
+                          ))
+                      .toList(),
+                );
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -56,9 +50,11 @@ class GamePage extends StatelessWidget {
 
 class GamePlayer extends StatelessWidget {
   final Player player;
-  final bool play;
 
-  const GamePlayer({super.key, required this.player, this.play = false});
+  const GamePlayer({
+    super.key,
+    required this.player,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -69,16 +65,10 @@ class GamePlayer extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             PlayerHeader(player: player),
-            BlocListener<YoutubeScrapperCubit, YoutubeScrapperState>(
-              listener: (context, state) {
-                final lastMessage = state.lastMessage(player.name);
-                print("Listener ${player.toString()} last message ${lastMessage.text}");
-                context.read<PlayableMessageCubit>().speak(
-                    timestamp: lastMessage.timestamp,
-                    text: lastMessage.text,
-                    shouldPlay: play);
+            BlocBuilder<QueuedMessagesCubit, QueuedMessagesState>(
+              builder: (context, state) {
+                return Text(state.lastPlayerMessages[player] ?? "");
               },
-              child: const PlayerText(),
             ),
           ],
         ),

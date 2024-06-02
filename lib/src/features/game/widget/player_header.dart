@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:stanza_scrapper/src/features/dnd/presenter/widget/player_message.dart';
+import 'package:stanza_scrapper/src/widget/gradient_text.dart';
 
 import '../model/player.dart';
 

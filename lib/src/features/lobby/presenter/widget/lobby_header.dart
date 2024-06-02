@@ -17,7 +17,7 @@ class LobbyHeader extends StatefulWidget {
 }
 
 class _LobbyHeaderState extends State<LobbyHeader> {
-  final chatIdController = TextEditingController(text: "4oStw0r33so");
+  final chatIdController = TextEditingController(text: "");
   final keywordController = TextEditingController(text: "");
 
   @override

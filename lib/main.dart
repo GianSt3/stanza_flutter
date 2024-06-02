@@ -12,14 +12,15 @@ import 'package:stanza_scrapper/bloc/eleven_labs/eleven_labs_voice_cubit.dart';
 import 'package:stanza_scrapper/bloc/scrapper/youtube_scrapper_cubit.dart';
 import 'package:stanza_scrapper/core/api_key_guard.dart';
 import 'package:stanza_scrapper/core/bloc/api_key_cubit.dart';
-import 'package:stanza_scrapper/src/features/dnd/bloc/game/dnd_cubit.dart';
 import 'package:stanza_scrapper/src/features/game/bloc/game_cubit.dart';
+import 'package:stanza_scrapper/src/features/game/bloc/queued_messages/queued_messages_cubit.dart';
 import 'package:stanza_scrapper/src/features/lobby/bloc/blacklist/blacklist_cubit.dart';
 import 'package:stanza_scrapper/src/features/lobby/bloc/lobby_cubit.dart';
 import 'package:stanza_scrapper/src/features/settings/bloc/custom_voice_cubit.dart';
 import 'package:stanza_scrapper/src/stanza.dart';
 
 ElevenLabsAPI elevenLabsAPI = ElevenLabsAPI();
+
 
 void main(List<String> args) async {
   debugPrint('args: $args');
@@ -90,9 +91,6 @@ class _MainAppState extends State<MainApp> {
             create: (context) => ElevenLabsVoiceCubit(elevenLabsAPI),
           ),
           BlocProvider(
-            create: (context) => DndCubit(),
-          ),
-          BlocProvider(
             create: (context) => CustomVoiceCubit(),
           ),
           BlocProvider(
@@ -104,26 +102,38 @@ class _MainAppState extends State<MainApp> {
           BlocProvider(
             create: (context) => GameCubit(),
           ),
+          BlocProvider(
+            create: (context) => QueuedMessagesCubit(elevenLabsAPI),
+          ),
         ],
         child: ApiKeyGuard(
           missing: Builder(builder: (context) {
             return Scaffold(
               body: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text("Insert the Api Key for IA services"),
-                    TextField(
-                      controller: apiKeyController,
-                      obscureText: true,
-                    ),
-                    TextButton(
-                        onPressed: () => context
-                            .read<ApiKeyCubit>()
-                            .store(apiKeyController.text),
-                        child: const Text("Save"))
-                  ],
+                child: Container(
+                  alignment: Alignment.center,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text("Insert the Api Key for IA services"),
+                      SizedBox(
+                        width: 500,
+                        child: TextField(
+                          controller: apiKeyController,
+                          obscureText: true,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 12,
+                      ),
+                      TextButton(
+                          onPressed: () => context
+                              .read<ApiKeyCubit>()
+                              .store(apiKeyController.text),
+                          child: const Text("Save"))
+                    ],
+                  ),
                 ),
               ),
             );

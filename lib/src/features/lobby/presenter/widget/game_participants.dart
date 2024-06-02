@@ -53,12 +53,12 @@ class GameParticipants extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: BlocBuilder<LobbyCubit, LobbyState>(
               builder: (context, state) {
-                final users =
+                final players =
                     state.lobby.where((element) => element.nextPlayer);
                 return ListView.builder(
-                    itemCount: users.length,
+                    itemCount: players.length,
                     itemBuilder: (context, index) =>
-                        _Player(user: users.elementAt(index)));
+                        _Player(user: players.elementAt(index)));
               },
             ),
           ),
@@ -87,7 +87,6 @@ class _Player extends StatelessWidget {
                     onSelected: (voice) {
                       if (voice != null) {
                         context.read<GameCubit>().player(Player(
-                            number: 0,
                             name: user.name,
                             image: user.avatarUrl,
                             voice: voice));

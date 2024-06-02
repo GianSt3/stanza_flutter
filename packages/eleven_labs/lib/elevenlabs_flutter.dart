@@ -17,6 +17,8 @@ class ElevenLabsAPI {
 
   ElevenLabsAPI._internal();
 
+   Response<dynamic>? storedResponse;
+
   // Dio client
   final Dio _dio = Dio();
 
@@ -194,6 +196,9 @@ class ElevenLabsAPI {
   /// Returns a [HistoryItem] object
   Future<Uint8List> synthesize(TextToSpeechRequest request,
       {int optimizeStreamingLatency = 0}) async {
+    if(storedResponse != null){
+      return Uint8List.fromList(storedResponse!.data);
+    }
     try {
       Response<dynamic> response;
       if (optimizeStreamingLatency != 0) {
@@ -223,9 +228,11 @@ class ElevenLabsAPI {
       // final String fileName =
       //     "${tempPath.path}${Platform.pathSeparator}${request.voiceId}_${DateTime.now().toIso8601String()}.wav";
       // final responseFile = await File(fileName).writeAsBytes(response.data);
+      storedResponse = response;
       return Uint8List.fromList(response.data);
       // return responseFile;
     } catch (error) {
+      print(error);
       throw _handleError(error);
     }
   }

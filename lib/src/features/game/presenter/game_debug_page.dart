@@ -42,6 +42,11 @@ class _Player extends StatelessWidget {
           children: [
             ...state.chat.messages
                 .where((message) => message.author == player.name)
+                .toList()
+                .reversed
+                .take(5)
+                .toList()
+                .reversed
                 .map((playerMessage) => Text(
                     "${playerMessage.timestamp} ${playerMessage.text.substring(0, playerMessage.text.length > 20 ? 20 : playerMessage.text.length)}"))
                 .toList(),
