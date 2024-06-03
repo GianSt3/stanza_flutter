@@ -11,6 +11,9 @@ class YoutubeScrapperState with _$YoutubeScrapperState {
 
   Message lastMessage(String authorName) =>
       chat.messages.where((message) => message.author == authorName).last;
+
+  Message? lastNewMessage(String authorName) =>
+      chat.newMessages.where((message) => message.author == authorName).lastOrNull;
 }
 
 @freezed
