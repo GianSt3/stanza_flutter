@@ -49,20 +49,22 @@ class YoutubeScrapperCubit extends Cubit<YoutubeScrapperState> {
       read();
     } else {
       logger.d("Mock youtube");
+      final messages = await randomMessages(numberMessages: 5);
       emit(state.copyWith(
           status: const YoutubeScrapperStatus.reading(),
-          chat: state.chat.copyWith(randomMessages(numberMessages: 5))));
+          chat: state.chat.copyWith(messages)));
       mockRead();
     }
   }
 
-  void mockRead() {
+  void mockRead() async {
+    final messages = await randomMessages(numberMessages: 1);
     emit(state.copyWith(
         status: const YoutubeScrapperStatus.reading(),
-        chat: state.chat.copyWith(randomMessages(numberMessages: 3))));
+        chat: state.chat.copyWith(messages)));
 
     // Loop
-    Timer(const Duration(seconds: 10), mockRead);
+    Timer(const Duration(seconds: 2), mockRead);
   }
 
   void read() async {

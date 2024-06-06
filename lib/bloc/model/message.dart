@@ -42,6 +42,6 @@ class Message extends Equatable {
 
   @override
   String toString() {
-    return "[$timestamp] [$authorType] - $author: $text";
+    return "[$id]-$timestamp - $author: $text";
   }
 }

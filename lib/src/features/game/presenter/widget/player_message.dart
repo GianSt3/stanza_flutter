@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:stanza_scrapper/src/features/dnd/bloc/game/dnd_cubit.dart';
+import 'package:stanza_scrapper/src/features/game/model/player.dart';
 
 class PlayerMessage extends StatelessWidget {
   final Player player;
@@ -26,8 +26,9 @@ class PlayerMessage extends StatelessWidget {
               ),
             GradientText(
               player.name,
-              style: GoogleFonts.kanit(textStyle: TextStyle(fontSize: 36)),
-              gradient: LinearGradient(
+              style:
+                  GoogleFonts.kanit(textStyle: const TextStyle(fontSize: 36)),
+              gradient: const LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [Colors.yellow, Colors.deepOrange]),

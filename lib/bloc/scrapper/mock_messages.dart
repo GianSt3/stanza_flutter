@@ -1,6 +1,8 @@
 import 'dart:math';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../model/message.dart';
 
@@ -28,19 +30,50 @@ String randomAuthor() {
   return mockText[rnd.nextInt(mockText.length)];
 }
 
-List<Message> randomMessages({int numberMessages = 1}) {
+Future<List<Message>> randomMessages({int numberMessages = 1}) async {
   List<Message> result = [];
   for (var i = 0; i < numberMessages; i++) {
+    await Future.delayed(Duration(milliseconds: 250));
+    final now = DateTime.now();
     result.add(
       Message(
           id: UniqueKey().toString(),
           author: randomAuthor(),
           avatarUrl:
               "https://yt4.ggpht.com/BNbBwvNq1seIjO_lIzdq1X84JDvpWofXwJq_NLPFULD2Ic-tFPmgNePR3W0qcKd3pyiMvxLBYQ=s32-c-k-c0x00ffffff-no-rj",
-          timestamp: "",
+          timestamp: "${now.hour}:${now.minute}:${now.second}",
           text: randomText()),
     );
   }
 
+  return result;
+}
+
+Future<Uint8List> getAudio(String text) async {
+  final files = [
+    "caspita_ho_appena_lanciato_un_dado",
+    "evviva_ho_lanciato_un_dado",
+    "ma_siamo_sicuri_non_stia_barando",
+    "non_ci_posso_credere",
+    "un_tiro_molto_fortunato",
+    "ehi_come_stai_amico_mio"
+  ];
+  final fileName = text.startsWith("Caspita")
+      ? files[0]
+      : text.startsWith("Evviva")
+          ? files[1]
+          : text.startsWith("Ehi")
+              ? files[2]
+              : text.startsWith("Non")
+                  ? files[3]
+                  : text.startsWith("Un")
+                      ? files[4]
+                      : text.startsWith("Come")
+                          ? files[5]
+                          : files[5];
+  // logger.d("Text: $text => Audio $fileName");
+  final result = (await rootBundle.load("assets/audio/$fileName.mp3"))
+      .buffer
+      .asUint8List();
   return result;
 }

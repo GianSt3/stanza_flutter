@@ -10,4 +10,7 @@ class Player extends Equatable {
 
   @override
   List<Object?> get props => [name, voice];
+
+  @override
+  String toString() => "Player($name, voice:${voice.name})";
 }

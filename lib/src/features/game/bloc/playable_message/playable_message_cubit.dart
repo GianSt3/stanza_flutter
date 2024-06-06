@@ -4,6 +4,7 @@ import 'package:eleven_labs/eleven_labs.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:stanza_scrapper/bloc/scrapper/mock_messages.dart';
 import 'package:stanza_scrapper/src/features/game/model/player.dart';
 import 'package:stanza_scrapper/utils/logger.dart';
 
@@ -25,32 +26,8 @@ class PlayableMessageCubit extends Cubit<PlayableMessageState> {
     if (state.text != text) {
       emit(PlayableMessageState.loading(timestamp, text));
       if (shouldPlay) {
-        final files = [
-          "caspita_ho_appena_lanciato_un_dado",
-          "evviva_ho_lanciato_un_dado",
-          "ma_siamo_sicuri_non_stia_barando",
-          "non_ci_posso_credere",
-          "un_tiro_molto_fortunato",
-          "ehi_come_stai_amico_mio"
-        ];
-        final fileName = text.startsWith("Caspita")
-            ? files[0]
-            : text.startsWith("Evviva")
-                ? files[1]
-                : text.startsWith("Ehi")
-                    ? files[2]
-                    : text.startsWith("Non")
-                        ? files[3]
-                        : text.startsWith("Un")
-                            ? files[4]
-                            : text.startsWith("Come")
-                                ? files[5]
-                                : "";
-        final result = (await rootBundle.load("assets/audio/$fileName.mp3"))
-            .buffer
-            .asUint8List();
 
-        logger.d("Text: ${text} => Audio $fileName");
+        final result = await getAudio(text);
 
         // final result = await api.synthesize(TextToSpeechRequest(
         //     modelId: "eleven_multilingual_v2",

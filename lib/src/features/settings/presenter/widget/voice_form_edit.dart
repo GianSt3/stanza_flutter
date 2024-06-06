@@ -5,7 +5,6 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stanza_scrapper/bloc/eleven_labs/eleven_labs_cubit.dart';
 import 'package:stanza_scrapper/bloc/eleven_labs/eleven_labs_voice_cubit.dart';
-import 'package:stanza_scrapper/src/features/dnd/bloc/game/dnd_cubit.dart';
 import 'package:stanza_scrapper/src/features/settings/bloc/custom_voice_cubit.dart';
 import 'package:stanza_scrapper/src/features/settings/presenter/widget/custom_slider.dart';
 

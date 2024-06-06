@@ -12,8 +12,8 @@ import 'package:stanza_scrapper/bloc/eleven_labs/eleven_labs_voice_cubit.dart';
 import 'package:stanza_scrapper/bloc/scrapper/youtube_scrapper_cubit.dart';
 import 'package:stanza_scrapper/core/api_key_guard.dart';
 import 'package:stanza_scrapper/core/bloc/api_key_cubit.dart';
-import 'package:stanza_scrapper/src/features/dnd/bloc/game/dnd_cubit.dart';
 import 'package:stanza_scrapper/src/features/game/bloc/game_cubit.dart';
+import 'package:stanza_scrapper/src/features/game/bloc/messages/game_messages_cubit.dart';
 import 'package:stanza_scrapper/src/features/lobby/bloc/blacklist/blacklist_cubit.dart';
 import 'package:stanza_scrapper/src/features/lobby/bloc/lobby_cubit.dart';
 import 'package:stanza_scrapper/src/features/settings/bloc/custom_voice_cubit.dart';
@@ -90,9 +90,6 @@ class _MainAppState extends State<MainApp> {
             create: (context) => ElevenLabsVoiceCubit(elevenLabsAPI),
           ),
           BlocProvider(
-            create: (context) => DndCubit(),
-          ),
-          BlocProvider(
             create: (context) => CustomVoiceCubit(),
           ),
           BlocProvider(
@@ -103,6 +100,9 @@ class _MainAppState extends State<MainApp> {
           ),
           BlocProvider(
             create: (context) => GameCubit(),
+          ),
+          BlocProvider(
+            create: (context) => GameMessagesCubit(elevenLabsAPI),
           ),
         ],
         child: ApiKeyGuard(

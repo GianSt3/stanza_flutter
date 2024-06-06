@@ -5,6 +5,7 @@ import 'package:stanza_scrapper/src/features/game/bloc/game_cubit.dart';
 
 import '../model/player.dart';
 
+/// Show debug chat
 class GameDebugPage extends StatelessWidget {
   const GameDebugPage({super.key});
 
@@ -13,11 +14,28 @@ class GameDebugPage extends StatelessWidget {
     return BlocBuilder<GameCubit, GameState>(
       builder: (context, gameState) {
         return Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: gameState.players
-              .map((player) => _Player(player: player))
-              .toList(),
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: gameState.players
+                  .map((player) => _Player(player: player))
+                  .toList(),
+            ),
+            BlocBuilder<YoutubeScrapperCubit, YoutubeScrapperState>(
+              builder: (context, state) {
+                return SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: state.chat.messages.reversed
+                        .map((e) =>
+                            Text("${e.timestamp} - ${e.author}: ${e.text}"))
+                        .toList(),
+                  ),
+                );
+              },
+            ),
+          ],
         );
       },
     );
@@ -26,15 +44,13 @@ class GameDebugPage extends StatelessWidget {
 
 class _Player extends StatelessWidget {
   final Player player;
+  static const int maxMessageLength = 30;
 
   const _Player({super.key, required this.player});
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<YoutubeScrapperCubit, YoutubeScrapperState>(
-      listener: (context, state) {
-        // TODO: implement listener
-      },
+    return BlocBuilder<YoutubeScrapperCubit, YoutubeScrapperState>(
       builder: (context, state) {
         final lastMessage = state.lastMessage(player.name);
         return SingleChildScrollView(
@@ -61,7 +77,7 @@ class _Player extends StatelessWidget {
                 .reversed
                 .take(5)
                 .map((playerMessage) => Text(
-                    "${playerMessage.timestamp} ${playerMessage.text.substring(0, playerMessage.text.length > 20 ? 20 : playerMessage.text.length)}"))
+                    "${playerMessage.timestamp} ${playerMessage.text.substring(0, playerMessage.text.length > maxMessageLength ? maxMessageLength : playerMessage.text.length)}"))
                 .toList(),
           ],
         ));

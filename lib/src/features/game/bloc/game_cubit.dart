@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:stanza_scrapper/src/features/settings/bloc/custom_voice_cubit.dart';
+import 'package:stanza_scrapper/src/features/game/model/audio_message.dart';
 
 import '../model/player.dart';
 

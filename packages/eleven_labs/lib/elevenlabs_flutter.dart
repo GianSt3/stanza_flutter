@@ -217,7 +217,6 @@ class ElevenLabsAPI {
         );
       }
 
-
       // final tempPath = await getTemporaryDirectory();
       //
       // final String fileName =
@@ -226,6 +225,7 @@ class ElevenLabsAPI {
       return Uint8List.fromList(response.data);
       // return responseFile;
     } catch (error) {
+      print("synthesize err ${error.toString()}");
       throw _handleError(error);
     }
   }
@@ -321,6 +321,7 @@ class ElevenLabsAPI {
   dynamic _handleError(error) {
     // Handle DioExceptions
     if (error is DioException) {
+      print("_handleError ${error.toString()}");
       switch (error.type) {
         case DioExceptionType.connectionTimeout:
         case DioExceptionType.sendTimeout:

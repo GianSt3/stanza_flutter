@@ -4,9 +4,12 @@ part of 'game_cubit.dart';
 class GameState with _$GameState {
   const GameState._();
 
-  const factory GameState(
-      {required GameStatus status,
-      @Default(<Player>[]) List<Player> players}) = _GameState;
+  const factory GameState({
+    required GameStatus status,
+    @Default(false) bool mute,
+    @Default(<Player>[]) List<Player> players,
+    @Default(<AudioMessage>[]) List<AudioMessage> messages,
+  }) = _GameState;
 
   bool get canStart => players.length >= 3;
 }
