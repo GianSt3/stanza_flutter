@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stanza_scrapper/bloc/scrapper/youtube_scrapper_cubit.dart';
 import 'package:stanza_scrapper/src/features/game/bloc/game_cubit.dart';
 import 'package:stanza_scrapper/src/features/game/bloc/messages/game_messages_cubit.dart';
+import 'package:stanza_scrapper/utils/logger.dart';
 
 class GameMessageListener extends StatelessWidget {
   const GameMessageListener({super.key, required this.child});
@@ -13,8 +14,9 @@ class GameMessageListener extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<GameMessagesCubit, GameMessagesState>(
       listener: (context, state) {
-        state.status
-            .whenOrNull(loaded: () => context.read<GameMessagesCubit>().pop());
+        state.status.whenOrNull(loaded: () {
+          context.read<GameMessagesCubit>().pop();
+        });
       },
       child: BlocBuilder<GameCubit, GameState>(
         builder: (context, gameState) {
@@ -34,6 +36,8 @@ class GameMessageListener extends StatelessWidget {
                   context
                       .read<GameMessagesCubit>()
                       .pushAll(playerNewMessages, gameState.players);
+                } else {
+                  logger.d("No new messages.\n${state.chat.newMessages}");
                 }
               });
             },

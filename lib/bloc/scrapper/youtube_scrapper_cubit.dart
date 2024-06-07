@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:bloc/bloc.dart';
 import 'package:desktop_webview_window/desktop_webview_window.dart';
@@ -58,13 +59,13 @@ class YoutubeScrapperCubit extends Cubit<YoutubeScrapperState> {
   }
 
   void mockRead() async {
-    final messages = await randomMessages(numberMessages: 1);
+    final messages = await randomMessages(numberMessages: Random().nextInt(2));
     emit(state.copyWith(
         status: const YoutubeScrapperStatus.reading(),
         chat: state.chat.copyWith(messages)));
 
     // Loop
-    Timer(const Duration(seconds: 2), mockRead);
+    Timer(Duration(seconds: 1 + Random().nextInt(5)), mockRead);
   }
 
   void read() async {

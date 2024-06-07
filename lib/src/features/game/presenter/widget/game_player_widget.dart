@@ -15,11 +15,12 @@ class GamePlayerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
+    return Flexible(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             PlayerHeader(player: player),
             BlocSelector<GameMessagesCubit, GameMessagesState, String>(

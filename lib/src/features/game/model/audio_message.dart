@@ -35,5 +35,5 @@ class AudioMessage extends Equatable {
 
   @override
   String toString() =>
-      "AudioMessage(audio:[${source != null}] - ${message.author}:${message.text}, )";
+      "AudioMessage(audio:[${source != null}] $created - ${message.author}:${message.text}, )";
 }

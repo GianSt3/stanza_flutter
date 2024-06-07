@@ -6,6 +6,7 @@ class GameMessagesState with _$GameMessagesState {
 
   const factory GameMessagesState({
     required GameMessagesStatus status,
+    required GameMessagesLoadStatus apiStatus,
     @Default(<AudioMessage>[]) List<AudioMessage> messages,
     @Default(<AudioMessage>[]) List<AudioMessage> lastPlayerMessages,
   }) = _GameMessagesState;
@@ -21,7 +22,17 @@ class GameMessagesStatus with _$GameMessagesStatus {
 
   const factory GameMessagesStatus.loaded() = _StatusLoaded;
 
-  const factory GameMessagesStatus.error(dynamic error, String message) = _StatusError;
+  const factory GameMessagesStatus.error(dynamic error, String message) =
+      _StatusError;
 
   const factory GameMessagesStatus.pop(AudioMessage message) = _StatusPop;
+}
+
+@freezed
+class GameMessagesLoadStatus with _$GameMessagesLoadStatus {
+  const factory GameMessagesLoadStatus.initial() = _ApiInitial;
+
+  const factory GameMessagesLoadStatus.loading() = _ApiLoading;
+
+  const factory GameMessagesLoadStatus.loaded() = _ApiLoaded;
 }

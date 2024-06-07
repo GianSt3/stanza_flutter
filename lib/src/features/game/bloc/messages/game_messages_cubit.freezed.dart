@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$GameMessagesState {
   GameMessagesStatus get status => throw _privateConstructorUsedError;
+  GameMessagesLoadStatus get apiStatus => throw _privateConstructorUsedError;
   List<AudioMessage> get messages => throw _privateConstructorUsedError;
   List<AudioMessage> get lastPlayerMessages =>
       throw _privateConstructorUsedError;
@@ -34,10 +35,12 @@ abstract class $GameMessagesStateCopyWith<$Res> {
   @useResult
   $Res call(
       {GameMessagesStatus status,
+      GameMessagesLoadStatus apiStatus,
       List<AudioMessage> messages,
       List<AudioMessage> lastPlayerMessages});
 
   $GameMessagesStatusCopyWith<$Res> get status;
+  $GameMessagesLoadStatusCopyWith<$Res> get apiStatus;
 }
 
 /// @nodoc
@@ -54,6 +57,7 @@ class _$GameMessagesStateCopyWithImpl<$Res, $Val extends GameMessagesState>
   @override
   $Res call({
     Object? status = null,
+    Object? apiStatus = null,
     Object? messages = null,
     Object? lastPlayerMessages = null,
   }) {
@@ -62,6 +66,10 @@ class _$GameMessagesStateCopyWithImpl<$Res, $Val extends GameMessagesState>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as GameMessagesStatus,
+      apiStatus: null == apiStatus
+          ? _value.apiStatus
+          : apiStatus // ignore: cast_nullable_to_non_nullable
+              as GameMessagesLoadStatus,
       messages: null == messages
           ? _value.messages
           : messages // ignore: cast_nullable_to_non_nullable
@@ -80,6 +88,14 @@ class _$GameMessagesStateCopyWithImpl<$Res, $Val extends GameMessagesState>
       return _then(_value.copyWith(status: value) as $Val);
     });
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $GameMessagesLoadStatusCopyWith<$Res> get apiStatus {
+    return $GameMessagesLoadStatusCopyWith<$Res>(_value.apiStatus, (value) {
+      return _then(_value.copyWith(apiStatus: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -92,11 +108,14 @@ abstract class _$$GameMessagesStateImplCopyWith<$Res>
   @useResult
   $Res call(
       {GameMessagesStatus status,
+      GameMessagesLoadStatus apiStatus,
       List<AudioMessage> messages,
       List<AudioMessage> lastPlayerMessages});
 
   @override
   $GameMessagesStatusCopyWith<$Res> get status;
+  @override
+  $GameMessagesLoadStatusCopyWith<$Res> get apiStatus;
 }
 
 /// @nodoc
@@ -111,6 +130,7 @@ class __$$GameMessagesStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? status = null,
+    Object? apiStatus = null,
     Object? messages = null,
     Object? lastPlayerMessages = null,
   }) {
@@ -119,6 +139,10 @@ class __$$GameMessagesStateImplCopyWithImpl<$Res>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as GameMessagesStatus,
+      apiStatus: null == apiStatus
+          ? _value.apiStatus
+          : apiStatus // ignore: cast_nullable_to_non_nullable
+              as GameMessagesLoadStatus,
       messages: null == messages
           ? _value._messages
           : messages // ignore: cast_nullable_to_non_nullable
@@ -136,6 +160,7 @@ class __$$GameMessagesStateImplCopyWithImpl<$Res>
 class _$GameMessagesStateImpl extends _GameMessagesState {
   const _$GameMessagesStateImpl(
       {required this.status,
+      required this.apiStatus,
       final List<AudioMessage> messages = const <AudioMessage>[],
       final List<AudioMessage> lastPlayerMessages = const <AudioMessage>[]})
       : _messages = messages,
@@ -144,6 +169,8 @@ class _$GameMessagesStateImpl extends _GameMessagesState {
 
   @override
   final GameMessagesStatus status;
+  @override
+  final GameMessagesLoadStatus apiStatus;
   final List<AudioMessage> _messages;
   @override
   @JsonKey()
@@ -165,7 +192,7 @@ class _$GameMessagesStateImpl extends _GameMessagesState {
 
   @override
   String toString() {
-    return 'GameMessagesState(status: $status, messages: $messages, lastPlayerMessages: $lastPlayerMessages)';
+    return 'GameMessagesState(status: $status, apiStatus: $apiStatus, messages: $messages, lastPlayerMessages: $lastPlayerMessages)';
   }
 
   @override
@@ -174,6 +201,8 @@ class _$GameMessagesStateImpl extends _GameMessagesState {
         (other.runtimeType == runtimeType &&
             other is _$GameMessagesStateImpl &&
             (identical(other.status, status) || other.status == status) &&
+            (identical(other.apiStatus, apiStatus) ||
+                other.apiStatus == apiStatus) &&
             const DeepCollectionEquality().equals(other._messages, _messages) &&
             const DeepCollectionEquality()
                 .equals(other._lastPlayerMessages, _lastPlayerMessages));
@@ -183,6 +212,7 @@ class _$GameMessagesStateImpl extends _GameMessagesState {
   int get hashCode => Object.hash(
       runtimeType,
       status,
+      apiStatus,
       const DeepCollectionEquality().hash(_messages),
       const DeepCollectionEquality().hash(_lastPlayerMessages));
 
@@ -197,12 +227,15 @@ class _$GameMessagesStateImpl extends _GameMessagesState {
 abstract class _GameMessagesState extends GameMessagesState {
   const factory _GameMessagesState(
       {required final GameMessagesStatus status,
+      required final GameMessagesLoadStatus apiStatus,
       final List<AudioMessage> messages,
       final List<AudioMessage> lastPlayerMessages}) = _$GameMessagesStateImpl;
   const _GameMessagesState._() : super._();
 
   @override
   GameMessagesStatus get status;
+  @override
+  GameMessagesLoadStatus get apiStatus;
   @override
   List<AudioMessage> get messages;
   @override
@@ -962,4 +995,395 @@ abstract class _StatusPop implements GameMessagesStatus {
   @JsonKey(ignore: true)
   _$$StatusPopImplCopyWith<_$StatusPopImpl> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+mixin _$GameMessagesLoadStatus {
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function() loaded,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function()? loaded,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function()? loaded,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_ApiInitial value) initial,
+    required TResult Function(_ApiLoading value) loading,
+    required TResult Function(_ApiLoaded value) loaded,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_ApiInitial value)? initial,
+    TResult? Function(_ApiLoading value)? loading,
+    TResult? Function(_ApiLoaded value)? loaded,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_ApiInitial value)? initial,
+    TResult Function(_ApiLoading value)? loading,
+    TResult Function(_ApiLoaded value)? loaded,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $GameMessagesLoadStatusCopyWith<$Res> {
+  factory $GameMessagesLoadStatusCopyWith(GameMessagesLoadStatus value,
+          $Res Function(GameMessagesLoadStatus) then) =
+      _$GameMessagesLoadStatusCopyWithImpl<$Res, GameMessagesLoadStatus>;
+}
+
+/// @nodoc
+class _$GameMessagesLoadStatusCopyWithImpl<$Res,
+        $Val extends GameMessagesLoadStatus>
+    implements $GameMessagesLoadStatusCopyWith<$Res> {
+  _$GameMessagesLoadStatusCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+}
+
+/// @nodoc
+abstract class _$$ApiInitialImplCopyWith<$Res> {
+  factory _$$ApiInitialImplCopyWith(
+          _$ApiInitialImpl value, $Res Function(_$ApiInitialImpl) then) =
+      __$$ApiInitialImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$ApiInitialImplCopyWithImpl<$Res>
+    extends _$GameMessagesLoadStatusCopyWithImpl<$Res, _$ApiInitialImpl>
+    implements _$$ApiInitialImplCopyWith<$Res> {
+  __$$ApiInitialImplCopyWithImpl(
+      _$ApiInitialImpl _value, $Res Function(_$ApiInitialImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$ApiInitialImpl implements _ApiInitial {
+  const _$ApiInitialImpl();
+
+  @override
+  String toString() {
+    return 'GameMessagesLoadStatus.initial()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$ApiInitialImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function() loaded,
+  }) {
+    return initial();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function()? loaded,
+  }) {
+    return initial?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function()? loaded,
+    required TResult orElse(),
+  }) {
+    if (initial != null) {
+      return initial();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_ApiInitial value) initial,
+    required TResult Function(_ApiLoading value) loading,
+    required TResult Function(_ApiLoaded value) loaded,
+  }) {
+    return initial(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_ApiInitial value)? initial,
+    TResult? Function(_ApiLoading value)? loading,
+    TResult? Function(_ApiLoaded value)? loaded,
+  }) {
+    return initial?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_ApiInitial value)? initial,
+    TResult Function(_ApiLoading value)? loading,
+    TResult Function(_ApiLoaded value)? loaded,
+    required TResult orElse(),
+  }) {
+    if (initial != null) {
+      return initial(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ApiInitial implements GameMessagesLoadStatus {
+  const factory _ApiInitial() = _$ApiInitialImpl;
+}
+
+/// @nodoc
+abstract class _$$ApiLoadingImplCopyWith<$Res> {
+  factory _$$ApiLoadingImplCopyWith(
+          _$ApiLoadingImpl value, $Res Function(_$ApiLoadingImpl) then) =
+      __$$ApiLoadingImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$ApiLoadingImplCopyWithImpl<$Res>
+    extends _$GameMessagesLoadStatusCopyWithImpl<$Res, _$ApiLoadingImpl>
+    implements _$$ApiLoadingImplCopyWith<$Res> {
+  __$$ApiLoadingImplCopyWithImpl(
+      _$ApiLoadingImpl _value, $Res Function(_$ApiLoadingImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$ApiLoadingImpl implements _ApiLoading {
+  const _$ApiLoadingImpl();
+
+  @override
+  String toString() {
+    return 'GameMessagesLoadStatus.loading()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$ApiLoadingImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function() loaded,
+  }) {
+    return loading();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function()? loaded,
+  }) {
+    return loading?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function()? loaded,
+    required TResult orElse(),
+  }) {
+    if (loading != null) {
+      return loading();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_ApiInitial value) initial,
+    required TResult Function(_ApiLoading value) loading,
+    required TResult Function(_ApiLoaded value) loaded,
+  }) {
+    return loading(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_ApiInitial value)? initial,
+    TResult? Function(_ApiLoading value)? loading,
+    TResult? Function(_ApiLoaded value)? loaded,
+  }) {
+    return loading?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_ApiInitial value)? initial,
+    TResult Function(_ApiLoading value)? loading,
+    TResult Function(_ApiLoaded value)? loaded,
+    required TResult orElse(),
+  }) {
+    if (loading != null) {
+      return loading(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ApiLoading implements GameMessagesLoadStatus {
+  const factory _ApiLoading() = _$ApiLoadingImpl;
+}
+
+/// @nodoc
+abstract class _$$ApiLoadedImplCopyWith<$Res> {
+  factory _$$ApiLoadedImplCopyWith(
+          _$ApiLoadedImpl value, $Res Function(_$ApiLoadedImpl) then) =
+      __$$ApiLoadedImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$ApiLoadedImplCopyWithImpl<$Res>
+    extends _$GameMessagesLoadStatusCopyWithImpl<$Res, _$ApiLoadedImpl>
+    implements _$$ApiLoadedImplCopyWith<$Res> {
+  __$$ApiLoadedImplCopyWithImpl(
+      _$ApiLoadedImpl _value, $Res Function(_$ApiLoadedImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$ApiLoadedImpl implements _ApiLoaded {
+  const _$ApiLoadedImpl();
+
+  @override
+  String toString() {
+    return 'GameMessagesLoadStatus.loaded()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$ApiLoadedImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function() loaded,
+  }) {
+    return loaded();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function()? loaded,
+  }) {
+    return loaded?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function()? loaded,
+    required TResult orElse(),
+  }) {
+    if (loaded != null) {
+      return loaded();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_ApiInitial value) initial,
+    required TResult Function(_ApiLoading value) loading,
+    required TResult Function(_ApiLoaded value) loaded,
+  }) {
+    return loaded(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_ApiInitial value)? initial,
+    TResult? Function(_ApiLoading value)? loading,
+    TResult? Function(_ApiLoaded value)? loaded,
+  }) {
+    return loaded?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_ApiInitial value)? initial,
+    TResult Function(_ApiLoading value)? loading,
+    TResult Function(_ApiLoaded value)? loaded,
+    required TResult orElse(),
+  }) {
+    if (loaded != null) {
+      return loaded(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ApiLoaded implements GameMessagesLoadStatus {
+  const factory _ApiLoaded() = _$ApiLoadedImpl;
 }

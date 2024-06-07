@@ -75,5 +75,7 @@ Future<Uint8List> getAudio(String text) async {
   final result = (await rootBundle.load("assets/audio/$fileName.mp3"))
       .buffer
       .asUint8List();
+  // Emulate connection delay
+  await Future.delayed(Duration(milliseconds: 500 + Random().nextInt(900)));
   return result;
 }

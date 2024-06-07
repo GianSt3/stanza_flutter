@@ -47,6 +47,7 @@ class GamePage extends StatelessWidget {
             BlocBuilder<GameCubit, GameState>(
               builder: (context, state) {
                 return Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: state.players
                       .map((player) => GamePlayerWidget(

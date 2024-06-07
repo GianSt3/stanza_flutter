@@ -57,8 +57,9 @@ class GameParticipants extends StatelessWidget {
                     state.lobby.where((element) => element.nextPlayer);
                 return ListView.builder(
                     itemCount: players.length,
-                    itemBuilder: (context, index) =>
-                        _Player(user: players.elementAt(index)));
+                    itemBuilder: (context, index) => _Player(
+                        key: Key(players.elementAt(index).name),
+                        user: players.elementAt(index)));
               },
             ),
           ),

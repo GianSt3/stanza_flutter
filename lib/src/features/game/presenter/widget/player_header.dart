@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:stanza_scrapper/src/features/game/presenter/widget/player_message.dart';
+import 'package:stanza_scrapper/src/features/game/presenter/widget/gradient_text.dart';
 
 import '../../model/player.dart';
 
 class PlayerHeader extends StatelessWidget {
   final Player player;
+  final bool showAvatar;
 
-  const PlayerHeader({super.key, required this.player});
+  const PlayerHeader(
+      {super.key, required this.player, this.showAvatar = false});
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        if (player.image != null)
+        if (showAvatar && player.image != null)
           CircleAvatar(
             radius: 25,
             backgroundImage: NetworkImage(player.image!),
@@ -21,7 +23,9 @@ class PlayerHeader extends StatelessWidget {
           ),
         GradientText(
           player.name,
-          style: GoogleFonts.kanit(textStyle: const TextStyle(fontSize: 36)),
+          style: GoogleFonts.junge(
+              textStyle:
+                  const TextStyle(fontSize: 36, fontWeight: FontWeight.w900)),
           gradient: const LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,

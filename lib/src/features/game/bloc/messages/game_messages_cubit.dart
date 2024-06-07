@@ -5,6 +5,7 @@ import 'package:bloc/bloc.dart';
 import 'package:eleven_labs/eleven_labs.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:stanza_scrapper/bloc/model/message.dart';
+import 'package:stanza_scrapper/bloc/scrapper/mock_messages.dart';
 import 'package:stanza_scrapper/src/features/game/model/audio_message.dart';
 import 'package:stanza_scrapper/src/features/game/model/player.dart';
 import 'package:stanza_scrapper/utils/logger.dart';
@@ -20,7 +21,9 @@ class GameMessagesCubit extends Cubit<GameMessagesState> {
   late final Timer checkQueue;
 
   GameMessagesCubit(this.api)
-      : super(const GameMessagesState(status: GameMessagesStatus.initial())) {
+      : super(const GameMessagesState(
+            status: GameMessagesStatus.initial(),
+            apiStatus: GameMessagesLoadStatus.initial())) {
     player.setReleaseMode(ReleaseMode.release);
     player.onPlayerComplete.listen((event) {
       // Player completed
@@ -31,7 +34,7 @@ class GameMessagesCubit extends Cubit<GameMessagesState> {
     //   logger.d("Player state changed: $event");
     // });
 
-    checkQueue = Timer.periodic(const Duration(seconds: 2), (timer) {
+    checkQueue = Timer.periodic(const Duration(milliseconds: 230), (timer) {
       loadSource();
     });
   }
@@ -44,15 +47,17 @@ class GameMessagesCubit extends Cubit<GameMessagesState> {
             players.where((element) => element.name == message.author).first));
     temp.insertAll(0, audioMessages);
 
+    logger.d("""PUSH
+        $temp""");
+
     emit(state.copyWith(
         status: const GameMessagesStatus.added(), messages: temp));
   }
 
   void pop() {
     logger.d(
-        "Total messages queue: ${state.messages.length}\nAudio is present in ${state.messages.where((element) => element.source != null).length} elements.\n Player is ${player.state}");
+        """POP Audio/Queue ${state.messages.where((element) => element.source != null).length} / ${state.messages.length} - Player: ${player.state}""");
     if (player.state == PlayerState.playing) {
-      logger.d("Player already playing...");
       return;
     }
 
@@ -69,6 +74,8 @@ class GameMessagesCubit extends Cubit<GameMessagesState> {
           messages: tempMessages,
           lastPlayerMessages: tempLastMessages));
 
+      logger.d("""Playing ${audioMessage.toString()}""");
+
       /// AudioPlayer
       player.play(audioMessage.source!);
     } else {
@@ -78,8 +85,11 @@ class GameMessagesCubit extends Cubit<GameMessagesState> {
           lastMessage.created
               .add(const Duration(seconds: 5))
               .isAfter(DateTime.now())) {
-        logger.w(
-            "The message is present, but the source audio isn't.\n5 seconds already passed.\n${lastMessage.created} ");
+        logger.w("""Last message is getting older.
+            ${lastMessage.toString()} 
+            All queue:
+            ${state.messages}
+            """);
       }
     }
   }
@@ -88,19 +98,23 @@ class GameMessagesCubit extends Cubit<GameMessagesState> {
     var temp = state.messages.toList();
 
     /// Load source
-    if (temp.isNotEmpty && !temp.every((element) => element.source != null)) {
+    if (temp.isNotEmpty &&
+        !temp.every((element) => element.source != null) &&
+        state.apiStatus.maybeWhen(
+            initial: () => true, loaded: () => true, orElse: () => false)) {
+      emit(state.copyWith(apiStatus: const GameMessagesLoadStatus.loading()));
       final startTime = DateTime.now();
 
       final message = temp.lastWhere((element) => element.source == null);
-      logger.d(
-          "Ask for audio source for message: ${message.message.timestamp} - ${message.message.author}: ${message.message.text}");
 
       try {
-        final result = await api.synthesize(TextToSpeechRequest(
-            modelId: "eleven_multilingual_v2",
-            voiceId: message.player.voice.voiceId!,
-            text: message.message.text,
-            voiceSettings: message.player.voice.voiceSettings));
+        // final result = await api.synthesize(TextToSpeechRequest(
+        //     modelId: "eleven_multilingual_v2",
+        //     voiceId: message.player.voice.voiceId!,
+        //     text: message.message.text,
+        //     voiceSettings: message.player.voice.voiceSettings));
+
+        final result = await getAudio(message.message.text);
 
         final audioMessage = message.copyWith(source: BytesSource(result));
 
@@ -108,14 +122,21 @@ class GameMessagesCubit extends Cubit<GameMessagesState> {
             .indexWhere((element) => element.message.id == message.message.id);
         temp.removeAt(index);
         temp.insert(index, audioMessage);
+
         logger.d(
-            "Audio loaded.\nMillis: ${DateTime.now().difference(startTime).inMilliseconds}");
+            """AUDIO LOADED [$index] millis ${DateTime.now().difference(startTime).inMilliseconds}
+            ${message.message.timestamp} - ${message.message.author}: ${message.message.text}
+            """);
+
         emit(state.copyWith(
-            status: const GameMessagesStatus.loaded(), messages: temp));
+            apiStatus: const GameMessagesLoadStatus.loaded(),
+            status: const GameMessagesStatus.loaded(),
+            messages: temp));
       } catch (error) {
         logger.e("Error during API ", error: error);
         emit(state.copyWith(
-          status: GameMessagesStatus.error(error, "Error during API for message ${message.toString()}"),
+          status: GameMessagesStatus.error(
+              error, "Error during API for message ${message.toString()}"),
         ));
       }
     }
