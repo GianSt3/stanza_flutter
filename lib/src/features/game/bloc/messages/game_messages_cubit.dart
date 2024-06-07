@@ -108,13 +108,13 @@ class GameMessagesCubit extends Cubit<GameMessagesState> {
       final message = temp.lastWhere((element) => element.source == null);
 
       try {
-        // final result = await api.synthesize(TextToSpeechRequest(
-        //     modelId: "eleven_multilingual_v2",
-        //     voiceId: message.player.voice.voiceId!,
-        //     text: message.message.text,
-        //     voiceSettings: message.player.voice.voiceSettings));
+        final result = await api.synthesize(TextToSpeechRequest(
+            modelId: "eleven_multilingual_v2",
+            voiceId: message.player.voice.voiceId!,
+            text: message.message.text,
+            voiceSettings: message.player.voice.voiceSettings));
 
-        final result = await getAudio(message.message.text);
+        // final result = await getAudio(message.message.text);
 
         final audioMessage = message.copyWith(source: BytesSource(result));
 
