@@ -1,9 +1,9 @@
 import 'package:eleven_labs/eleven_labs.dart';
 import 'package:eleven_labs/elevenlabs_types.dart';
-import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:stanza_scrapper/src/features/settings/model/custom_voice.dart';
 
 part 'custom_voice_state.dart';
 
@@ -27,11 +27,16 @@ class CustomVoiceCubit extends HydratedCubit<CustomVoiceState> {
   void save({
     required String voiceId,
     required String voiceName,
+    required ModelId modelId,
     VoiceSettings? settings,
   }) {
     emit(state.copyWith(status: const CustomVoiceStatus.initial(), voices: [
       ...state.voices,
-      CustomVoice(voiceId: voiceId, voiceSettings: settings, name: voiceName)
+      CustomVoice(
+          voiceId: voiceId,
+          voiceSettings: settings,
+          name: voiceName,
+          modelId: modelId)
     ]));
   }
 

@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:stanza_scrapper/src/features/settings/bloc/custom_voice_cubit.dart';
+import 'package:stanza_scrapper/src/features/settings/model/custom_voice.dart';
 
 class Player extends Equatable {
   final String name;

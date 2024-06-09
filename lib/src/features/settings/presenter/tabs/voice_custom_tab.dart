@@ -1,11 +1,7 @@
-import 'package:eleven_labs/eleven_labs.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:stanza_scrapper/bloc/eleven_labs/eleven_labs_cubit.dart';
-import 'package:stanza_scrapper/bloc/eleven_labs/eleven_labs_voice_cubit.dart';
 import 'package:stanza_scrapper/src/features/settings/bloc/custom_voice_cubit.dart';
 import 'package:stanza_scrapper/src/features/settings/presenter/widget/voice_form_edit.dart';
 import 'package:stanza_scrapper/src/widget/custom_table.dart';
@@ -50,6 +46,7 @@ class _VoiceCustomTabState extends State<VoiceCustomTab> {
                     columnNames: const [
                       "Voice ID",
                       "Name",
+                      "Model",
                       "Voice Settings",
                       ""
                     ],
@@ -57,6 +54,7 @@ class _VoiceCustomTabState extends State<VoiceCustomTab> {
                         .map((customVoice) => [
                               Text(customVoice.voiceId ?? ""),
                               Text(customVoice.name ?? ""),
+                              Text(customVoice.modelId?.value ?? ""),
                               Text(customVoice.voiceSettings?.toString() ?? ""),
                               IconButton(
                                   onPressed: () => context
@@ -71,7 +69,7 @@ class _VoiceCustomTabState extends State<VoiceCustomTab> {
                         .toList(),
                   ),
                 ),
-                Divider(),
+                const Divider(),
                 const Flexible(child: VoiceFormEdit()),
               ],
             );

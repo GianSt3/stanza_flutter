@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:stanza_scrapper/core/bloc/api_key_cubit.dart';
+import 'package:stanza_scrapper/core/bloc/api_key/api_key_cubit.dart';
 
 class ApiKeyGuard extends StatelessWidget {
   final Widget Function(String key) child;

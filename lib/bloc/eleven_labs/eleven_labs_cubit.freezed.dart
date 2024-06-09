@@ -17,7 +17,6 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$ElevenLabsState {
   ElevenLabStatus get status => throw _privateConstructorUsedError;
-  ElevenLabsVoiceList get voices => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ElevenLabsStateCopyWith<ElevenLabsState> get copyWith =>
@@ -30,7 +29,7 @@ abstract class $ElevenLabsStateCopyWith<$Res> {
           ElevenLabsState value, $Res Function(ElevenLabsState) then) =
       _$ElevenLabsStateCopyWithImpl<$Res, ElevenLabsState>;
   @useResult
-  $Res call({ElevenLabStatus status, ElevenLabsVoiceList voices});
+  $Res call({ElevenLabStatus status});
 
   $ElevenLabStatusCopyWith<$Res> get status;
 }
@@ -49,17 +48,12 @@ class _$ElevenLabsStateCopyWithImpl<$Res, $Val extends ElevenLabsState>
   @override
   $Res call({
     Object? status = null,
-    Object? voices = null,
   }) {
     return _then(_value.copyWith(
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as ElevenLabStatus,
-      voices: null == voices
-          ? _value.voices
-          : voices // ignore: cast_nullable_to_non_nullable
-              as ElevenLabsVoiceList,
     ) as $Val);
   }
 
@@ -80,7 +74,7 @@ abstract class _$$ElevenLabsStateImplCopyWith<$Res>
       __$$ElevenLabsStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({ElevenLabStatus status, ElevenLabsVoiceList voices});
+  $Res call({ElevenLabStatus status});
 
   @override
   $ElevenLabStatusCopyWith<$Res> get status;
@@ -98,17 +92,12 @@ class __$$ElevenLabsStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? status = null,
-    Object? voices = null,
   }) {
     return _then(_$ElevenLabsStateImpl(
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as ElevenLabStatus,
-      voices: null == voices
-          ? _value.voices
-          : voices // ignore: cast_nullable_to_non_nullable
-              as ElevenLabsVoiceList,
     ));
   }
 }
@@ -118,19 +107,14 @@ class __$$ElevenLabsStateImplCopyWithImpl<$Res>
 class _$ElevenLabsStateImpl
     with DiagnosticableTreeMixin
     implements _ElevenLabsState {
-  const _$ElevenLabsStateImpl(
-      {required this.status,
-      this.voices = const ElevenLabsVoiceList(voices: <ElevenLabsVoice>[])});
+  const _$ElevenLabsStateImpl({required this.status});
 
   @override
   final ElevenLabStatus status;
-  @override
-  @JsonKey()
-  final ElevenLabsVoiceList voices;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ElevenLabsState(status: $status, voices: $voices)';
+    return 'ElevenLabsState(status: $status)';
   }
 
   @override
@@ -138,8 +122,7 @@ class _$ElevenLabsStateImpl
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'ElevenLabsState'))
-      ..add(DiagnosticsProperty('status', status))
-      ..add(DiagnosticsProperty('voices', voices));
+      ..add(DiagnosticsProperty('status', status));
   }
 
   @override
@@ -147,12 +130,11 @@ class _$ElevenLabsStateImpl
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ElevenLabsStateImpl &&
-            (identical(other.status, status) || other.status == status) &&
-            (identical(other.voices, voices) || other.voices == voices));
+            (identical(other.status, status) || other.status == status));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, status, voices);
+  int get hashCode => Object.hash(runtimeType, status);
 
   @JsonKey(ignore: true)
   @override
@@ -163,14 +145,11 @@ class _$ElevenLabsStateImpl
 }
 
 abstract class _ElevenLabsState implements ElevenLabsState {
-  const factory _ElevenLabsState(
-      {required final ElevenLabStatus status,
-      final ElevenLabsVoiceList voices}) = _$ElevenLabsStateImpl;
+  const factory _ElevenLabsState({required final ElevenLabStatus status}) =
+      _$ElevenLabsStateImpl;
 
   @override
   ElevenLabStatus get status;
-  @override
-  ElevenLabsVoiceList get voices;
   @override
   @JsonKey(ignore: true)
   _$$ElevenLabsStateImplCopyWith<_$ElevenLabsStateImpl> get copyWith =>
@@ -184,7 +163,7 @@ mixin _$ElevenLabStatus {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String shortHash, Uint8List byteAudioVoice) spoke,
-    required TResult Function() voicesLoaded,
+    required TResult Function(String error) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -192,7 +171,7 @@ mixin _$ElevenLabStatus {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String shortHash, Uint8List byteAudioVoice)? spoke,
-    TResult? Function()? voicesLoaded,
+    TResult? Function(String error)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -200,7 +179,7 @@ mixin _$ElevenLabStatus {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String shortHash, Uint8List byteAudioVoice)? spoke,
-    TResult Function()? voicesLoaded,
+    TResult Function(String error)? error,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -209,7 +188,7 @@ mixin _$ElevenLabStatus {
     required TResult Function(_StatusInitial value) initial,
     required TResult Function(_StatusLoading value) loading,
     required TResult Function(_StatusSpoke value) spoke,
-    required TResult Function(_VoicesLoaded value) voicesLoaded,
+    required TResult Function(_StatusError value) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -217,7 +196,7 @@ mixin _$ElevenLabStatus {
     TResult? Function(_StatusInitial value)? initial,
     TResult? Function(_StatusLoading value)? loading,
     TResult? Function(_StatusSpoke value)? spoke,
-    TResult? Function(_VoicesLoaded value)? voicesLoaded,
+    TResult? Function(_StatusError value)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -225,7 +204,7 @@ mixin _$ElevenLabStatus {
     TResult Function(_StatusInitial value)? initial,
     TResult Function(_StatusLoading value)? loading,
     TResult Function(_StatusSpoke value)? spoke,
-    TResult Function(_VoicesLoaded value)? voicesLoaded,
+    TResult Function(_StatusError value)? error,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -298,7 +277,7 @@ class _$StatusInitialImpl
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String shortHash, Uint8List byteAudioVoice) spoke,
-    required TResult Function() voicesLoaded,
+    required TResult Function(String error) error,
   }) {
     return initial();
   }
@@ -309,7 +288,7 @@ class _$StatusInitialImpl
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String shortHash, Uint8List byteAudioVoice)? spoke,
-    TResult? Function()? voicesLoaded,
+    TResult? Function(String error)? error,
   }) {
     return initial?.call();
   }
@@ -320,7 +299,7 @@ class _$StatusInitialImpl
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String shortHash, Uint8List byteAudioVoice)? spoke,
-    TResult Function()? voicesLoaded,
+    TResult Function(String error)? error,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -335,7 +314,7 @@ class _$StatusInitialImpl
     required TResult Function(_StatusInitial value) initial,
     required TResult Function(_StatusLoading value) loading,
     required TResult Function(_StatusSpoke value) spoke,
-    required TResult Function(_VoicesLoaded value) voicesLoaded,
+    required TResult Function(_StatusError value) error,
   }) {
     return initial(this);
   }
@@ -346,7 +325,7 @@ class _$StatusInitialImpl
     TResult? Function(_StatusInitial value)? initial,
     TResult? Function(_StatusLoading value)? loading,
     TResult? Function(_StatusSpoke value)? spoke,
-    TResult? Function(_VoicesLoaded value)? voicesLoaded,
+    TResult? Function(_StatusError value)? error,
   }) {
     return initial?.call(this);
   }
@@ -357,7 +336,7 @@ class _$StatusInitialImpl
     TResult Function(_StatusInitial value)? initial,
     TResult Function(_StatusLoading value)? loading,
     TResult Function(_StatusSpoke value)? spoke,
-    TResult Function(_VoicesLoaded value)? voicesLoaded,
+    TResult Function(_StatusError value)? error,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -420,7 +399,7 @@ class _$StatusLoadingImpl
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String shortHash, Uint8List byteAudioVoice) spoke,
-    required TResult Function() voicesLoaded,
+    required TResult Function(String error) error,
   }) {
     return loading();
   }
@@ -431,7 +410,7 @@ class _$StatusLoadingImpl
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String shortHash, Uint8List byteAudioVoice)? spoke,
-    TResult? Function()? voicesLoaded,
+    TResult? Function(String error)? error,
   }) {
     return loading?.call();
   }
@@ -442,7 +421,7 @@ class _$StatusLoadingImpl
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String shortHash, Uint8List byteAudioVoice)? spoke,
-    TResult Function()? voicesLoaded,
+    TResult Function(String error)? error,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -457,7 +436,7 @@ class _$StatusLoadingImpl
     required TResult Function(_StatusInitial value) initial,
     required TResult Function(_StatusLoading value) loading,
     required TResult Function(_StatusSpoke value) spoke,
-    required TResult Function(_VoicesLoaded value) voicesLoaded,
+    required TResult Function(_StatusError value) error,
   }) {
     return loading(this);
   }
@@ -468,7 +447,7 @@ class _$StatusLoadingImpl
     TResult? Function(_StatusInitial value)? initial,
     TResult? Function(_StatusLoading value)? loading,
     TResult? Function(_StatusSpoke value)? spoke,
-    TResult? Function(_VoicesLoaded value)? voicesLoaded,
+    TResult? Function(_StatusError value)? error,
   }) {
     return loading?.call(this);
   }
@@ -479,7 +458,7 @@ class _$StatusLoadingImpl
     TResult Function(_StatusInitial value)? initial,
     TResult Function(_StatusLoading value)? loading,
     TResult Function(_StatusSpoke value)? spoke,
-    TResult Function(_VoicesLoaded value)? voicesLoaded,
+    TResult Function(_StatusError value)? error,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -580,7 +559,7 @@ class _$StatusSpokeImpl with DiagnosticableTreeMixin implements _StatusSpoke {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String shortHash, Uint8List byteAudioVoice) spoke,
-    required TResult Function() voicesLoaded,
+    required TResult Function(String error) error,
   }) {
     return spoke(shortHash, byteAudioVoice);
   }
@@ -591,7 +570,7 @@ class _$StatusSpokeImpl with DiagnosticableTreeMixin implements _StatusSpoke {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String shortHash, Uint8List byteAudioVoice)? spoke,
-    TResult? Function()? voicesLoaded,
+    TResult? Function(String error)? error,
   }) {
     return spoke?.call(shortHash, byteAudioVoice);
   }
@@ -602,7 +581,7 @@ class _$StatusSpokeImpl with DiagnosticableTreeMixin implements _StatusSpoke {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String shortHash, Uint8List byteAudioVoice)? spoke,
-    TResult Function()? voicesLoaded,
+    TResult Function(String error)? error,
     required TResult orElse(),
   }) {
     if (spoke != null) {
@@ -617,7 +596,7 @@ class _$StatusSpokeImpl with DiagnosticableTreeMixin implements _StatusSpoke {
     required TResult Function(_StatusInitial value) initial,
     required TResult Function(_StatusLoading value) loading,
     required TResult Function(_StatusSpoke value) spoke,
-    required TResult Function(_VoicesLoaded value) voicesLoaded,
+    required TResult Function(_StatusError value) error,
   }) {
     return spoke(this);
   }
@@ -628,7 +607,7 @@ class _$StatusSpokeImpl with DiagnosticableTreeMixin implements _StatusSpoke {
     TResult? Function(_StatusInitial value)? initial,
     TResult? Function(_StatusLoading value)? loading,
     TResult? Function(_StatusSpoke value)? spoke,
-    TResult? Function(_VoicesLoaded value)? voicesLoaded,
+    TResult? Function(_StatusError value)? error,
   }) {
     return spoke?.call(this);
   }
@@ -639,7 +618,7 @@ class _$StatusSpokeImpl with DiagnosticableTreeMixin implements _StatusSpoke {
     TResult Function(_StatusInitial value)? initial,
     TResult Function(_StatusLoading value)? loading,
     TResult Function(_StatusSpoke value)? spoke,
-    TResult Function(_VoicesLoaded value)? voicesLoaded,
+    TResult Function(_StatusError value)? error,
     required TResult orElse(),
   }) {
     if (spoke != null) {
@@ -662,45 +641,73 @@ abstract class _StatusSpoke implements ElevenLabStatus {
 }
 
 /// @nodoc
-abstract class _$$VoicesLoadedImplCopyWith<$Res> {
-  factory _$$VoicesLoadedImplCopyWith(
-          _$VoicesLoadedImpl value, $Res Function(_$VoicesLoadedImpl) then) =
-      __$$VoicesLoadedImplCopyWithImpl<$Res>;
+abstract class _$$StatusErrorImplCopyWith<$Res> {
+  factory _$$StatusErrorImplCopyWith(
+          _$StatusErrorImpl value, $Res Function(_$StatusErrorImpl) then) =
+      __$$StatusErrorImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String error});
 }
 
 /// @nodoc
-class __$$VoicesLoadedImplCopyWithImpl<$Res>
-    extends _$ElevenLabStatusCopyWithImpl<$Res, _$VoicesLoadedImpl>
-    implements _$$VoicesLoadedImplCopyWith<$Res> {
-  __$$VoicesLoadedImplCopyWithImpl(
-      _$VoicesLoadedImpl _value, $Res Function(_$VoicesLoadedImpl) _then)
+class __$$StatusErrorImplCopyWithImpl<$Res>
+    extends _$ElevenLabStatusCopyWithImpl<$Res, _$StatusErrorImpl>
+    implements _$$StatusErrorImplCopyWith<$Res> {
+  __$$StatusErrorImplCopyWithImpl(
+      _$StatusErrorImpl _value, $Res Function(_$StatusErrorImpl) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? error = null,
+  }) {
+    return _then(_$StatusErrorImpl(
+      null == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
-class _$VoicesLoadedImpl with DiagnosticableTreeMixin implements _VoicesLoaded {
-  const _$VoicesLoadedImpl();
+class _$StatusErrorImpl with DiagnosticableTreeMixin implements _StatusError {
+  const _$StatusErrorImpl(this.error);
+
+  @override
+  final String error;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ElevenLabStatus.voicesLoaded()';
+    return 'ElevenLabStatus.error(error: $error)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty('type', 'ElevenLabStatus.voicesLoaded'));
+    properties
+      ..add(DiagnosticsProperty('type', 'ElevenLabStatus.error'))
+      ..add(DiagnosticsProperty('error', error));
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$VoicesLoadedImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$StatusErrorImpl &&
+            (identical(other.error, error) || other.error == error));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, error);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$StatusErrorImplCopyWith<_$StatusErrorImpl> get copyWith =>
+      __$$StatusErrorImplCopyWithImpl<_$StatusErrorImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -708,9 +715,9 @@ class _$VoicesLoadedImpl with DiagnosticableTreeMixin implements _VoicesLoaded {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String shortHash, Uint8List byteAudioVoice) spoke,
-    required TResult Function() voicesLoaded,
+    required TResult Function(String error) error,
   }) {
-    return voicesLoaded();
+    return error(this.error);
   }
 
   @override
@@ -719,9 +726,9 @@ class _$VoicesLoadedImpl with DiagnosticableTreeMixin implements _VoicesLoaded {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String shortHash, Uint8List byteAudioVoice)? spoke,
-    TResult? Function()? voicesLoaded,
+    TResult? Function(String error)? error,
   }) {
-    return voicesLoaded?.call();
+    return error?.call(this.error);
   }
 
   @override
@@ -730,11 +737,11 @@ class _$VoicesLoadedImpl with DiagnosticableTreeMixin implements _VoicesLoaded {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String shortHash, Uint8List byteAudioVoice)? spoke,
-    TResult Function()? voicesLoaded,
+    TResult Function(String error)? error,
     required TResult orElse(),
   }) {
-    if (voicesLoaded != null) {
-      return voicesLoaded();
+    if (error != null) {
+      return error(this.error);
     }
     return orElse();
   }
@@ -745,9 +752,9 @@ class _$VoicesLoadedImpl with DiagnosticableTreeMixin implements _VoicesLoaded {
     required TResult Function(_StatusInitial value) initial,
     required TResult Function(_StatusLoading value) loading,
     required TResult Function(_StatusSpoke value) spoke,
-    required TResult Function(_VoicesLoaded value) voicesLoaded,
+    required TResult Function(_StatusError value) error,
   }) {
-    return voicesLoaded(this);
+    return error(this);
   }
 
   @override
@@ -756,9 +763,9 @@ class _$VoicesLoadedImpl with DiagnosticableTreeMixin implements _VoicesLoaded {
     TResult? Function(_StatusInitial value)? initial,
     TResult? Function(_StatusLoading value)? loading,
     TResult? Function(_StatusSpoke value)? spoke,
-    TResult? Function(_VoicesLoaded value)? voicesLoaded,
+    TResult? Function(_StatusError value)? error,
   }) {
-    return voicesLoaded?.call(this);
+    return error?.call(this);
   }
 
   @override
@@ -767,16 +774,21 @@ class _$VoicesLoadedImpl with DiagnosticableTreeMixin implements _VoicesLoaded {
     TResult Function(_StatusInitial value)? initial,
     TResult Function(_StatusLoading value)? loading,
     TResult Function(_StatusSpoke value)? spoke,
-    TResult Function(_VoicesLoaded value)? voicesLoaded,
+    TResult Function(_StatusError value)? error,
     required TResult orElse(),
   }) {
-    if (voicesLoaded != null) {
-      return voicesLoaded(this);
+    if (error != null) {
+      return error(this);
     }
     return orElse();
   }
 }
 
-abstract class _VoicesLoaded implements ElevenLabStatus {
-  const factory _VoicesLoaded() = _$VoicesLoadedImpl;
+abstract class _StatusError implements ElevenLabStatus {
+  const factory _StatusError(final String error) = _$StatusErrorImpl;
+
+  String get error;
+  @JsonKey(ignore: true)
+  _$$StatusErrorImplCopyWith<_$StatusErrorImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }

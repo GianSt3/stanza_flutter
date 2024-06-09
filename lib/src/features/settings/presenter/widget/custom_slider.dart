@@ -13,17 +13,19 @@ class CustomSlider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
           title,
           style: Theme.of(context).textTheme.labelMedium,
         ),
-        Slider(
-          label: value.toStringAsFixed(2),
-          value: value,
-          onChanged: onChanged,
+        Expanded(
+          child: Slider(
+            label: value.toStringAsFixed(2),
+            value: value,
+            onChanged: onChanged,
+          ),
         ),
       ],
     );
