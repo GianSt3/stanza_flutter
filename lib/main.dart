@@ -11,7 +11,8 @@ import 'package:stanza_scrapper/bloc/eleven_labs/eleven_labs_voice_cubit.dart';
 
 import 'package:stanza_scrapper/bloc/scrapper/youtube_scrapper_cubit.dart';
 import 'package:stanza_scrapper/core/api_key_guard.dart';
-import 'package:stanza_scrapper/core/bloc/api_key_cubit.dart';
+import 'package:stanza_scrapper/core/bloc/api_key/api_key_cubit.dart';
+import 'package:stanza_scrapper/core/bloc/api_quota/api_quota_cubit.dart';
 import 'package:stanza_scrapper/src/features/game/bloc/game_cubit.dart';
 import 'package:stanza_scrapper/src/features/game/bloc/messages/game_messages_cubit.dart';
 import 'package:stanza_scrapper/src/features/lobby/bloc/blacklist/blacklist_cubit.dart';
@@ -30,6 +31,7 @@ void main(List<String> args) async {
   HydratedBloc.storage = await HydratedStorage.build(
     storageDirectory: await getApplicationDocumentsDirectory(),
   );
+
   runApp(const MainApp());
 }
 
@@ -103,6 +105,9 @@ class _MainAppState extends State<MainApp> {
           ),
           BlocProvider(
             create: (context) => GameMessagesCubit(elevenLabsAPI),
+          ),
+          BlocProvider(
+            create: (context) => ApiQuotaCubit(elevenLabsAPI),
           ),
         ],
         child: ApiKeyGuard(

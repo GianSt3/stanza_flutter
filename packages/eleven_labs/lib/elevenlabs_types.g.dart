@@ -290,12 +290,12 @@ SubscriptionInfo _$SubscriptionInfoFromJson(Map<String, dynamic> json) =>
           json['can_use_professional_voice_cloning'] as bool,
       characterCount: (json['character_count'] as num).toInt(),
       characterLimit: (json['character_limit'] as num).toInt(),
-      currency: json['currency'] as String,
+      currency: json['currency'] != null ? json['currency'] as String : "",
       nextCharacterCountResetUnix:
           (json['next_character_count_reset_unix'] as num).toInt(),
       professionalVoiceLimit: (json['professional_voice_limit'] as num).toInt(),
-      status: json['status'] as String,
-      tier: json['tier'] as String,
+      status: json['status'] != null ? json['status'] as String : "",
+      tier: json['tier'] != null ? json['tier'] as String : "",
       voiceLimit: (json['voice_limit'] as num).toInt(),
     );
 

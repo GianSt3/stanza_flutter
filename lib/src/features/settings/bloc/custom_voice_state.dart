@@ -27,46 +27,4 @@ class CustomVoiceStatus with _$CustomVoiceStatus {
       _$CustomVoiceStatusFromJson(json);
 }
 
-class CustomVoice {
-  String? voiceId;
-  String? name;
-  VoiceSettings? voiceSettings;
 
-  CustomVoice({
-    this.voiceId,
-    this.name,
-    this.voiceSettings,
-  });
-
-  Map<String, dynamic> toJson() {
-    return {
-      "voiceId": voiceId,
-      "name": name,
-      "voiceSettings": voiceSettings?.toJson()
-    };
-  }
-
-  CustomVoice.fromJson(Map<String, dynamic> json) {
-    voiceId = json["voiceId"];
-    name = json["name"];
-    voiceSettings = json["voiceSettings"] != null
-        ? VoiceSettings.fromJson(json["voiceSettings"])
-        : null;
-  }
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is CustomVoice &&
-          runtimeType == other.runtimeType &&
-          voiceId == other.voiceId &&
-          name == other.name;
-
-  @override
-  int get hashCode => voiceId.hashCode ^ name.hashCode;
-
-  @override
-  String toString() {
-    return 'CustomVoice{voiceId: $voiceId, name: $name, voiceSettings: $voiceSettings}';
-  }
-}

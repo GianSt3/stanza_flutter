@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stanza_scrapper/bloc/eleven_labs/eleven_labs_voice_cubit.dart';
 import 'package:stanza_scrapper/src/features/settings/presenter/tabs/voice_custom_tab.dart';
 import 'package:stanza_scrapper/src/features/settings/presenter/tabs/voices_tab_page.dart';
+import 'package:stanza_scrapper/src/features/settings/presenter/widget/api_quota_widget.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -27,7 +28,7 @@ class SettingsPage extends StatelessWidget {
                   icon: Icon(Icons.tune),
                 ),
                 Tab(
-                  icon: Icon(Icons.brightness_5_sharp),
+                  icon: Icon(Icons.info_outline),
                 ),
               ],
             ),
@@ -42,7 +43,7 @@ class SettingsPage extends StatelessWidget {
               child: VoiceCustomTab(),
             ),
             Center(
-              child: Text("It's sunny here"),
+              child: ApiQuotaWidget(),
             ),
           ],
         ),

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:stanza_scrapper/core/bloc/api_key_cubit.dart';
-import 'package:stanza_scrapper/core/bloc/api_key_cubit.dart';
-import 'package:stanza_scrapper/src/features/game/presenter/game_page.dart';
+import 'package:stanza_scrapper/core/bloc/api_key/api_key_cubit.dart';
 import 'package:stanza_scrapper/src/features/lobby/presenter/lobby_page.dart';
 import 'package:stanza_scrapper/src/features/settings/presenter/settings_page.dart';
 
@@ -25,6 +23,7 @@ class _StanzaState extends State<Stanza> {
     return BlocBuilder<ApiKeyCubit, ApiKeyState>(
       builder: (context, state) {
         return Scaffold(
+          backgroundColor: Colors.white,
           appBar: AppBar(
             title: Text(titles[currentPageIndex]),
             actions: [],
