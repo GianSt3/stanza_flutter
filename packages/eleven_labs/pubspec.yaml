@@ -1,0 +1,28 @@
+name: eleven_labs
+description: "Wrapper for ElevenLabs API, based on https://github.com/ZachHandley/elevenlabs_flutter "
+version: 0.0.1
+homepage:
+
+environment:
+  sdk: '>=3.3.3 <4.0.0'
+  flutter: ">=1.17.0"
+
+dependencies:
+  dio: ^5.2.1+1
+  envied: ^0.3.0+3
+  flutter:
+    sdk: flutter
+  json_annotation: ^4.9.0
+  json_serializable: ^6.7.1
+  path_provider: ^2.1.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+  build_runner: ^2.4.9
+
+
+flutter:
+
+

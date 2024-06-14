@@ -18,7 +18,6 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$YoutubeScrapperState {
   YoutubeScrapperStatus get status => throw _privateConstructorUsedError;
   Chat get chat => throw _privateConstructorUsedError;
-  Filter get filter => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $YoutubeScrapperStateCopyWith<YoutubeScrapperState> get copyWith =>
@@ -31,7 +30,7 @@ abstract class $YoutubeScrapperStateCopyWith<$Res> {
           $Res Function(YoutubeScrapperState) then) =
       _$YoutubeScrapperStateCopyWithImpl<$Res, YoutubeScrapperState>;
   @useResult
-  $Res call({YoutubeScrapperStatus status, Chat chat, Filter filter});
+  $Res call({YoutubeScrapperStatus status, Chat chat});
 
   $YoutubeScrapperStatusCopyWith<$Res> get status;
 }
@@ -52,7 +51,6 @@ class _$YoutubeScrapperStateCopyWithImpl<$Res,
   $Res call({
     Object? status = null,
     Object? chat = null,
-    Object? filter = null,
   }) {
     return _then(_value.copyWith(
       status: null == status
@@ -63,10 +61,6 @@ class _$YoutubeScrapperStateCopyWithImpl<$Res,
           ? _value.chat
           : chat // ignore: cast_nullable_to_non_nullable
               as Chat,
-      filter: null == filter
-          ? _value.filter
-          : filter // ignore: cast_nullable_to_non_nullable
-              as Filter,
     ) as $Val);
   }
 
@@ -87,7 +81,7 @@ abstract class _$$YoutubeScrapperStateImplCopyWith<$Res>
       __$$YoutubeScrapperStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({YoutubeScrapperStatus status, Chat chat, Filter filter});
+  $Res call({YoutubeScrapperStatus status, Chat chat});
 
   @override
   $YoutubeScrapperStatusCopyWith<$Res> get status;
@@ -106,7 +100,6 @@ class __$$YoutubeScrapperStateImplCopyWithImpl<$Res>
   $Res call({
     Object? status = null,
     Object? chat = null,
-    Object? filter = null,
   }) {
     return _then(_$YoutubeScrapperStateImpl(
       status: null == status
@@ -117,34 +110,26 @@ class __$$YoutubeScrapperStateImplCopyWithImpl<$Res>
           ? _value.chat
           : chat // ignore: cast_nullable_to_non_nullable
               as Chat,
-      filter: null == filter
-          ? _value.filter
-          : filter // ignore: cast_nullable_to_non_nullable
-              as Filter,
     ));
   }
 }
 
 /// @nodoc
 
-class _$YoutubeScrapperStateImpl implements _YoutubeScrapperState {
+class _$YoutubeScrapperStateImpl extends _YoutubeScrapperState {
   const _$YoutubeScrapperStateImpl(
-      {required this.status,
-      this.chat = const Chat(messages: <Message>[]),
-      this.filter = const Filter(authors: <String>[])});
+      {required this.status, this.chat = const Chat(messages: <Message>[])})
+      : super._();
 
   @override
   final YoutubeScrapperStatus status;
   @override
   @JsonKey()
   final Chat chat;
-  @override
-  @JsonKey()
-  final Filter filter;
 
   @override
   String toString() {
-    return 'YoutubeScrapperState(status: $status, chat: $chat, filter: $filter)';
+    return 'YoutubeScrapperState(status: $status, chat: $chat)';
   }
 
   @override
@@ -153,12 +138,11 @@ class _$YoutubeScrapperStateImpl implements _YoutubeScrapperState {
         (other.runtimeType == runtimeType &&
             other is _$YoutubeScrapperStateImpl &&
             (identical(other.status, status) || other.status == status) &&
-            (identical(other.chat, chat) || other.chat == chat) &&
-            (identical(other.filter, filter) || other.filter == filter));
+            (identical(other.chat, chat) || other.chat == chat));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, status, chat, filter);
+  int get hashCode => Object.hash(runtimeType, status, chat);
 
   @JsonKey(ignore: true)
   @override
@@ -169,18 +153,16 @@ class _$YoutubeScrapperStateImpl implements _YoutubeScrapperState {
               this, _$identity);
 }
 
-abstract class _YoutubeScrapperState implements YoutubeScrapperState {
+abstract class _YoutubeScrapperState extends YoutubeScrapperState {
   const factory _YoutubeScrapperState(
       {required final YoutubeScrapperStatus status,
-      final Chat chat,
-      final Filter filter}) = _$YoutubeScrapperStateImpl;
+      final Chat chat}) = _$YoutubeScrapperStateImpl;
+  const _YoutubeScrapperState._() : super._();
 
   @override
   YoutubeScrapperStatus get status;
   @override
   Chat get chat;
-  @override
-  Filter get filter;
   @override
   @JsonKey(ignore: true)
   _$$YoutubeScrapperStateImplCopyWith<_$YoutubeScrapperStateImpl>

@@ -2,11 +2,19 @@ part of 'youtube_scrapper_cubit.dart';
 
 @freezed
 class YoutubeScrapperState with _$YoutubeScrapperState {
+  const YoutubeScrapperState._();
+
   const factory YoutubeScrapperState({
     required YoutubeScrapperStatus status,
     @Default(Chat(messages: <Message>[])) Chat chat,
-    @Default(Filter(authors: <String>[])) Filter filter,
   }) = _YoutubeScrapperState;
+
+  Message lastMessage(String authorName) =>
+      chat.messages.where((message) => message.author == authorName).last;
+
+  Message? lastNewMessage(String authorName) => chat.newMessages
+      .where((message) => message.author == authorName)
+      .lastOrNull;
 }
 
 @freezed
@@ -30,7 +38,10 @@ class Chat extends Equatable {
 
   const Chat({required this.messages, this.lastMessageId});
 
-  List<String> get authors => Set.of(messages.map((e) => e.author)).toList();
+  List<Author> get authors => Set.of(messages.map((m) => Author(
+      name: m.author,
+      type: m.authorType ?? "",
+      avatarUrl: m.avatarUrl))).toList();
 
   List<Message> get newMessages => lastMessageId == null
       ? messages
@@ -38,40 +49,30 @@ class Chat extends Equatable {
           .getRange(
               messages.indexOf(messages.reversed
                   .firstWhere((element) => element.id == lastMessageId)),
-              messages.length - 1)
+              messages.length)
           .toList();
 
   Chat copyWith(List<Message> newMessages) {
     return Chat(
         lastMessageId: messages.isEmpty ? null : messages.last.id,
-        messages: Set.of([...messages, ...newMessages]).toList());
+        messages: <Message>{...messages, ...newMessages}.toList());
   }
 
   @override
   List<Object?> get props => [messages];
 }
 
-class Filter extends Equatable {
-  final List<String> authors;
+class Author extends Equatable {
+  final String name;
+  final String avatarUrl;
+  final String type;
 
-  const Filter({required this.authors});
-
-  Filter _add(String author) {
-    List<String> copy = List.from(authors);
-    copy.add(author);
-    return Filter(authors: copy);
-  }
-
-  Filter _remove(String author) {
-    List<String> copy = List.from(authors);
-    copy.remove(author);
-    return Filter(authors: copy);
-  }
-
-  Filter copyWith(String author) {
-    return authors.contains(author) ? _remove(author) : _add(author);
-  }
+  const Author({
+    required this.name,
+    required this.avatarUrl,
+    required this.type,
+  });
 
   @override
-  List<Object?> get props => [authors];
+  List<Object?> get props => [name];
 }
