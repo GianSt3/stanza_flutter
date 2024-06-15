@@ -7,9 +7,10 @@ import 'dart:typed_data';
 
 import 'package:dio/dio.dart';
 import 'package:eleven_labs/eleven_labs.dart';
+import 'package:eleven_labs/eleven_labs_interface.dart';
 import 'package:path_provider/path_provider.dart';
 
-class ElevenLabsAPI {
+class ElevenLabsAPI implements ElevenLabsInterface{
   // Singleton instance
   static final ElevenLabsAPI _instance = ElevenLabsAPI._internal();
 
@@ -58,6 +59,7 @@ class ElevenLabsAPI {
 
   /// List available voices
   /// Returns a list of [Voice] objects
+  @override
   Future<List<Voice>> listVoices() async {
     try {
       final response = await _dio.get('/v1/voices');
@@ -192,6 +194,7 @@ class ElevenLabsAPI {
   /// Synthesize text to speech
   /// Takes a [TextToSpeechRequest] object and a value from 0 to 1 on how much to optimize for streaming latency
   /// Returns a [HistoryItem] object
+  @override
   Future<Uint8List> synthesize(TextToSpeechRequest request,
       {int optimizeStreamingLatency = 0}) async {
     try {
@@ -307,6 +310,7 @@ class ElevenLabsAPI {
 
   /// Get current user's subscription info
   /// Returns a [SubscriptionInfo] object
+  @override
   Future<SubscriptionInfo> getCurrentUserSubscription() async {
     try {
       final response = await _dio.get('/v1/user/subscription');

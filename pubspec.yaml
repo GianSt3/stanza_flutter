@@ -9,6 +9,7 @@ environment:
 dependencies:
   audioplayers: ^6.0.0
   desktop_webview_window: ^0.2.3
+  either_dart: ^1.0.0
   eleven_labs:
     path: ./packages/eleven_labs
   equatable: ^2.0.5
@@ -17,6 +18,7 @@ dependencies:
   flutter_bloc: ^8.1.5
   font_awesome_flutter: ^10.7.0
   freezed: ^2.5.2
+  get_it: ^7.7.0
   google_fonts: ^6.2.1
   hydrated_bloc: ^9.1.5
   json_annotation: ^4.9.0

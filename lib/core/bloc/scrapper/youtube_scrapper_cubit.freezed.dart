@@ -118,7 +118,8 @@ class __$$YoutubeScrapperStateImplCopyWithImpl<$Res>
 
 class _$YoutubeScrapperStateImpl extends _YoutubeScrapperState {
   const _$YoutubeScrapperStateImpl(
-      {required this.status, this.chat = const Chat(messages: <Message>[])})
+      {required this.status,
+      this.chat = const Chat(messages: <YoutubeMessage>[])})
       : super._();
 
   @override

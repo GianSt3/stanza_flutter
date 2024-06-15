@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'eleven_labs_voice_cubit.dart';
+part of 'default_voices_cubit.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,37 +14,36 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-ElevenLabsVoiceState _$ElevenLabsVoiceStateFromJson(Map<String, dynamic> json) {
-  return _ElevenLabsVoiceState.fromJson(json);
+DefaultVoicesState _$DefaultVoicesStateFromJson(Map<String, dynamic> json) {
+  return _DefaultVoicesState.fromJson(json);
 }
 
 /// @nodoc
-mixin _$ElevenLabsVoiceState {
-  ElevenLabsVoiceStatus get status => throw _privateConstructorUsedError;
+mixin _$DefaultVoicesState {
+  DefaultVoicesStatus get status => throw _privateConstructorUsedError;
   List<Voice> get voices => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $ElevenLabsVoiceStateCopyWith<ElevenLabsVoiceState> get copyWith =>
+  $DefaultVoicesStateCopyWith<DefaultVoicesState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $ElevenLabsVoiceStateCopyWith<$Res> {
-  factory $ElevenLabsVoiceStateCopyWith(ElevenLabsVoiceState value,
-          $Res Function(ElevenLabsVoiceState) then) =
-      _$ElevenLabsVoiceStateCopyWithImpl<$Res, ElevenLabsVoiceState>;
+abstract class $DefaultVoicesStateCopyWith<$Res> {
+  factory $DefaultVoicesStateCopyWith(
+          DefaultVoicesState value, $Res Function(DefaultVoicesState) then) =
+      _$DefaultVoicesStateCopyWithImpl<$Res, DefaultVoicesState>;
   @useResult
-  $Res call({ElevenLabsVoiceStatus status, List<Voice> voices});
+  $Res call({DefaultVoicesStatus status, List<Voice> voices});
 
-  $ElevenLabsVoiceStatusCopyWith<$Res> get status;
+  $DefaultVoicesStatusCopyWith<$Res> get status;
 }
 
 /// @nodoc
-class _$ElevenLabsVoiceStateCopyWithImpl<$Res,
-        $Val extends ElevenLabsVoiceState>
-    implements $ElevenLabsVoiceStateCopyWith<$Res> {
-  _$ElevenLabsVoiceStateCopyWithImpl(this._value, this._then);
+class _$DefaultVoicesStateCopyWithImpl<$Res, $Val extends DefaultVoicesState>
+    implements $DefaultVoicesStateCopyWith<$Res> {
+  _$DefaultVoicesStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -61,7 +60,7 @@ class _$ElevenLabsVoiceStateCopyWithImpl<$Res,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as ElevenLabsVoiceStatus,
+              as DefaultVoicesStatus,
       voices: null == voices
           ? _value.voices
           : voices // ignore: cast_nullable_to_non_nullable
@@ -71,33 +70,33 @@ class _$ElevenLabsVoiceStateCopyWithImpl<$Res,
 
   @override
   @pragma('vm:prefer-inline')
-  $ElevenLabsVoiceStatusCopyWith<$Res> get status {
-    return $ElevenLabsVoiceStatusCopyWith<$Res>(_value.status, (value) {
+  $DefaultVoicesStatusCopyWith<$Res> get status {
+    return $DefaultVoicesStatusCopyWith<$Res>(_value.status, (value) {
       return _then(_value.copyWith(status: value) as $Val);
     });
   }
 }
 
 /// @nodoc
-abstract class _$$ElevenLabsVoiceStateImplCopyWith<$Res>
-    implements $ElevenLabsVoiceStateCopyWith<$Res> {
-  factory _$$ElevenLabsVoiceStateImplCopyWith(_$ElevenLabsVoiceStateImpl value,
-          $Res Function(_$ElevenLabsVoiceStateImpl) then) =
-      __$$ElevenLabsVoiceStateImplCopyWithImpl<$Res>;
+abstract class _$$DefaultVoicesStateImplCopyWith<$Res>
+    implements $DefaultVoicesStateCopyWith<$Res> {
+  factory _$$DefaultVoicesStateImplCopyWith(_$DefaultVoicesStateImpl value,
+          $Res Function(_$DefaultVoicesStateImpl) then) =
+      __$$DefaultVoicesStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({ElevenLabsVoiceStatus status, List<Voice> voices});
+  $Res call({DefaultVoicesStatus status, List<Voice> voices});
 
   @override
-  $ElevenLabsVoiceStatusCopyWith<$Res> get status;
+  $DefaultVoicesStatusCopyWith<$Res> get status;
 }
 
 /// @nodoc
-class __$$ElevenLabsVoiceStateImplCopyWithImpl<$Res>
-    extends _$ElevenLabsVoiceStateCopyWithImpl<$Res, _$ElevenLabsVoiceStateImpl>
-    implements _$$ElevenLabsVoiceStateImplCopyWith<$Res> {
-  __$$ElevenLabsVoiceStateImplCopyWithImpl(_$ElevenLabsVoiceStateImpl _value,
-      $Res Function(_$ElevenLabsVoiceStateImpl) _then)
+class __$$DefaultVoicesStateImplCopyWithImpl<$Res>
+    extends _$DefaultVoicesStateCopyWithImpl<$Res, _$DefaultVoicesStateImpl>
+    implements _$$DefaultVoicesStateImplCopyWith<$Res> {
+  __$$DefaultVoicesStateImplCopyWithImpl(_$DefaultVoicesStateImpl _value,
+      $Res Function(_$DefaultVoicesStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -106,11 +105,11 @@ class __$$ElevenLabsVoiceStateImplCopyWithImpl<$Res>
     Object? status = null,
     Object? voices = null,
   }) {
-    return _then(_$ElevenLabsVoiceStateImpl(
+    return _then(_$DefaultVoicesStateImpl(
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as ElevenLabsVoiceStatus,
+              as DefaultVoicesStatus,
       voices: null == voices
           ? _value._voices
           : voices // ignore: cast_nullable_to_non_nullable
@@ -121,16 +120,16 @@ class __$$ElevenLabsVoiceStateImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$ElevenLabsVoiceStateImpl implements _ElevenLabsVoiceState {
-  _$ElevenLabsVoiceStateImpl(
+class _$DefaultVoicesStateImpl implements _DefaultVoicesState {
+  _$DefaultVoicesStateImpl(
       {required this.status, final List<Voice> voices = const <Voice>[]})
       : _voices = voices;
 
-  factory _$ElevenLabsVoiceStateImpl.fromJson(Map<String, dynamic> json) =>
-      _$$ElevenLabsVoiceStateImplFromJson(json);
+  factory _$DefaultVoicesStateImpl.fromJson(Map<String, dynamic> json) =>
+      _$$DefaultVoicesStateImplFromJson(json);
 
   @override
-  final ElevenLabsVoiceStatus status;
+  final DefaultVoicesStatus status;
   final List<Voice> _voices;
   @override
   @JsonKey()
@@ -142,14 +141,14 @@ class _$ElevenLabsVoiceStateImpl implements _ElevenLabsVoiceState {
 
   @override
   String toString() {
-    return 'ElevenLabsVoiceState(status: $status, voices: $voices)';
+    return 'DefaultVoicesState(status: $status, voices: $voices)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ElevenLabsVoiceStateImpl &&
+            other is _$DefaultVoicesStateImpl &&
             (identical(other.status, status) || other.status == status) &&
             const DeepCollectionEquality().equals(other._voices, _voices));
   }
@@ -162,39 +161,37 @@ class _$ElevenLabsVoiceStateImpl implements _ElevenLabsVoiceState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ElevenLabsVoiceStateImplCopyWith<_$ElevenLabsVoiceStateImpl>
-      get copyWith =>
-          __$$ElevenLabsVoiceStateImplCopyWithImpl<_$ElevenLabsVoiceStateImpl>(
-              this, _$identity);
+  _$$DefaultVoicesStateImplCopyWith<_$DefaultVoicesStateImpl> get copyWith =>
+      __$$DefaultVoicesStateImplCopyWithImpl<_$DefaultVoicesStateImpl>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$ElevenLabsVoiceStateImplToJson(
+    return _$$DefaultVoicesStateImplToJson(
       this,
     );
   }
 }
 
-abstract class _ElevenLabsVoiceState implements ElevenLabsVoiceState {
-  factory _ElevenLabsVoiceState(
-      {required final ElevenLabsVoiceStatus status,
-      final List<Voice> voices}) = _$ElevenLabsVoiceStateImpl;
+abstract class _DefaultVoicesState implements DefaultVoicesState {
+  factory _DefaultVoicesState(
+      {required final DefaultVoicesStatus status,
+      final List<Voice> voices}) = _$DefaultVoicesStateImpl;
 
-  factory _ElevenLabsVoiceState.fromJson(Map<String, dynamic> json) =
-      _$ElevenLabsVoiceStateImpl.fromJson;
+  factory _DefaultVoicesState.fromJson(Map<String, dynamic> json) =
+      _$DefaultVoicesStateImpl.fromJson;
 
   @override
-  ElevenLabsVoiceStatus get status;
+  DefaultVoicesStatus get status;
   @override
   List<Voice> get voices;
   @override
   @JsonKey(ignore: true)
-  _$$ElevenLabsVoiceStateImplCopyWith<_$ElevenLabsVoiceStateImpl>
-      get copyWith => throw _privateConstructorUsedError;
+  _$$DefaultVoicesStateImplCopyWith<_$DefaultVoicesStateImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
-ElevenLabsVoiceStatus _$ElevenLabsVoiceStatusFromJson(
-    Map<String, dynamic> json) {
+DefaultVoicesStatus _$DefaultVoicesStatusFromJson(Map<String, dynamic> json) {
   switch (json['runtimeType']) {
     case 'initial':
       return _VoiceInitial.fromJson(json);
@@ -206,16 +203,13 @@ ElevenLabsVoiceStatus _$ElevenLabsVoiceStatusFromJson(
       return _VoiceError.fromJson(json);
 
     default:
-      throw CheckedFromJsonException(
-          json,
-          'runtimeType',
-          'ElevenLabsVoiceStatus',
+      throw CheckedFromJsonException(json, 'runtimeType', 'DefaultVoicesStatus',
           'Invalid union type "${json['runtimeType']}"!');
   }
 }
 
 /// @nodoc
-mixin _$ElevenLabsVoiceStatus {
+mixin _$DefaultVoicesStatus {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
@@ -270,17 +264,16 @@ mixin _$ElevenLabsVoiceStatus {
 }
 
 /// @nodoc
-abstract class $ElevenLabsVoiceStatusCopyWith<$Res> {
-  factory $ElevenLabsVoiceStatusCopyWith(ElevenLabsVoiceStatus value,
-          $Res Function(ElevenLabsVoiceStatus) then) =
-      _$ElevenLabsVoiceStatusCopyWithImpl<$Res, ElevenLabsVoiceStatus>;
+abstract class $DefaultVoicesStatusCopyWith<$Res> {
+  factory $DefaultVoicesStatusCopyWith(
+          DefaultVoicesStatus value, $Res Function(DefaultVoicesStatus) then) =
+      _$DefaultVoicesStatusCopyWithImpl<$Res, DefaultVoicesStatus>;
 }
 
 /// @nodoc
-class _$ElevenLabsVoiceStatusCopyWithImpl<$Res,
-        $Val extends ElevenLabsVoiceStatus>
-    implements $ElevenLabsVoiceStatusCopyWith<$Res> {
-  _$ElevenLabsVoiceStatusCopyWithImpl(this._value, this._then);
+class _$DefaultVoicesStatusCopyWithImpl<$Res, $Val extends DefaultVoicesStatus>
+    implements $DefaultVoicesStatusCopyWith<$Res> {
+  _$DefaultVoicesStatusCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -297,7 +290,7 @@ abstract class _$$VoiceInitialImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$VoiceInitialImplCopyWithImpl<$Res>
-    extends _$ElevenLabsVoiceStatusCopyWithImpl<$Res, _$VoiceInitialImpl>
+    extends _$DefaultVoicesStatusCopyWithImpl<$Res, _$VoiceInitialImpl>
     implements _$$VoiceInitialImplCopyWith<$Res> {
   __$$VoiceInitialImplCopyWithImpl(
       _$VoiceInitialImpl _value, $Res Function(_$VoiceInitialImpl) _then)
@@ -317,7 +310,7 @@ class _$VoiceInitialImpl implements _VoiceInitial {
 
   @override
   String toString() {
-    return 'ElevenLabsVoiceStatus.initial()';
+    return 'DefaultVoicesStatus.initial()';
   }
 
   @override
@@ -412,7 +405,7 @@ class _$VoiceInitialImpl implements _VoiceInitial {
   }
 }
 
-abstract class _VoiceInitial implements ElevenLabsVoiceStatus {
+abstract class _VoiceInitial implements DefaultVoicesStatus {
   const factory _VoiceInitial() = _$VoiceInitialImpl;
 
   factory _VoiceInitial.fromJson(Map<String, dynamic> json) =
@@ -428,7 +421,7 @@ abstract class _$$VoiceRefreshingImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$VoiceRefreshingImplCopyWithImpl<$Res>
-    extends _$ElevenLabsVoiceStatusCopyWithImpl<$Res, _$VoiceRefreshingImpl>
+    extends _$DefaultVoicesStatusCopyWithImpl<$Res, _$VoiceRefreshingImpl>
     implements _$$VoiceRefreshingImplCopyWith<$Res> {
   __$$VoiceRefreshingImplCopyWithImpl(
       _$VoiceRefreshingImpl _value, $Res Function(_$VoiceRefreshingImpl) _then)
@@ -449,7 +442,7 @@ class _$VoiceRefreshingImpl implements _VoiceRefreshing {
 
   @override
   String toString() {
-    return 'ElevenLabsVoiceStatus.refreshing()';
+    return 'DefaultVoicesStatus.refreshing()';
   }
 
   @override
@@ -544,7 +537,7 @@ class _$VoiceRefreshingImpl implements _VoiceRefreshing {
   }
 }
 
-abstract class _VoiceRefreshing implements ElevenLabsVoiceStatus {
+abstract class _VoiceRefreshing implements DefaultVoicesStatus {
   const factory _VoiceRefreshing() = _$VoiceRefreshingImpl;
 
   factory _VoiceRefreshing.fromJson(Map<String, dynamic> json) =
@@ -560,7 +553,7 @@ abstract class _$$VoiceLoadedImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$VoiceLoadedImplCopyWithImpl<$Res>
-    extends _$ElevenLabsVoiceStatusCopyWithImpl<$Res, _$VoiceLoadedImpl>
+    extends _$DefaultVoicesStatusCopyWithImpl<$Res, _$VoiceLoadedImpl>
     implements _$$VoiceLoadedImplCopyWith<$Res> {
   __$$VoiceLoadedImplCopyWithImpl(
       _$VoiceLoadedImpl _value, $Res Function(_$VoiceLoadedImpl) _then)
@@ -580,7 +573,7 @@ class _$VoiceLoadedImpl implements _VoiceLoaded {
 
   @override
   String toString() {
-    return 'ElevenLabsVoiceStatus.loaded()';
+    return 'DefaultVoicesStatus.loaded()';
   }
 
   @override
@@ -675,7 +668,7 @@ class _$VoiceLoadedImpl implements _VoiceLoaded {
   }
 }
 
-abstract class _VoiceLoaded implements ElevenLabsVoiceStatus {
+abstract class _VoiceLoaded implements DefaultVoicesStatus {
   const factory _VoiceLoaded() = _$VoiceLoadedImpl;
 
   factory _VoiceLoaded.fromJson(Map<String, dynamic> json) =
@@ -691,7 +684,7 @@ abstract class _$$VoiceErrorImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$VoiceErrorImplCopyWithImpl<$Res>
-    extends _$ElevenLabsVoiceStatusCopyWithImpl<$Res, _$VoiceErrorImpl>
+    extends _$DefaultVoicesStatusCopyWithImpl<$Res, _$VoiceErrorImpl>
     implements _$$VoiceErrorImplCopyWith<$Res> {
   __$$VoiceErrorImplCopyWithImpl(
       _$VoiceErrorImpl _value, $Res Function(_$VoiceErrorImpl) _then)
@@ -711,7 +704,7 @@ class _$VoiceErrorImpl implements _VoiceError {
 
   @override
   String toString() {
-    return 'ElevenLabsVoiceStatus.error()';
+    return 'DefaultVoicesStatus.error()';
   }
 
   @override
@@ -806,7 +799,7 @@ class _$VoiceErrorImpl implements _VoiceError {
   }
 }
 
-abstract class _VoiceError implements ElevenLabsVoiceStatus {
+abstract class _VoiceError implements DefaultVoicesStatus {
   const factory _VoiceError() = _$VoiceErrorImpl;
 
   factory _VoiceError.fromJson(Map<String, dynamic> json) =

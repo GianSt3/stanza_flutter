@@ -6,13 +6,13 @@ class YoutubeScrapperState with _$YoutubeScrapperState {
 
   const factory YoutubeScrapperState({
     required YoutubeScrapperStatus status,
-    @Default(Chat(messages: <Message>[])) Chat chat,
+    @Default(Chat(messages: <YoutubeMessage>[])) Chat chat,
   }) = _YoutubeScrapperState;
 
-  Message lastMessage(String authorName) =>
+  YoutubeMessage lastMessage(String authorName) =>
       chat.messages.where((message) => message.author == authorName).last;
 
-  Message? lastNewMessage(String authorName) => chat.newMessages
+  YoutubeMessage? lastNewMessage(String authorName) => chat.newMessages
       .where((message) => message.author == authorName)
       .lastOrNull;
 }
@@ -33,7 +33,7 @@ class YoutubeScrapperStatus with _$YoutubeScrapperStatus {
 }
 
 class Chat extends Equatable {
-  final List<Message> messages;
+  final List<YoutubeMessage> messages;
   final String? lastMessageId;
 
   const Chat({required this.messages, this.lastMessageId});
@@ -43,7 +43,7 @@ class Chat extends Equatable {
       type: m.authorType ?? "",
       avatarUrl: m.avatarUrl))).toList();
 
-  List<Message> get newMessages => lastMessageId == null
+  List<YoutubeMessage> get newMessages => lastMessageId == null
       ? messages
       : messages
           .getRange(
@@ -52,10 +52,10 @@ class Chat extends Equatable {
               messages.length)
           .toList();
 
-  Chat copyWith(List<Message> newMessages) {
+  Chat copyWith(List<YoutubeMessage> newMessages) {
     return Chat(
         lastMessageId: messages.isEmpty ? null : messages.last.id,
-        messages: <Message>{...messages, ...newMessages}.toList());
+        messages: <YoutubeMessage>{...messages, ...newMessages}.toList());
   }
 
   @override

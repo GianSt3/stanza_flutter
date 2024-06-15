@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:stanza_scrapper/src/features/game/model/audio_message.dart';
+import 'package:stanza_scrapper/utils/logger.dart';
 
 import '../model/player.dart';
 
@@ -13,14 +14,14 @@ class GameCubit extends Cubit<GameState> {
 
   void player(Player player) {
     var copy = state.players.toList();
-    print("GamePlayers ${copy.length}");
+    logger.d("GamePlayers ${copy.length}");
     if (copy.map((e) => e.name).contains(player.name)) {
       int index = copy.indexWhere((element) => element.name == player.name);
       copy.removeAt(index);
       copy.insert(index, player);
-      print("GamePlayers update ${player}");
+      logger.d("GamePlayers update $player");
     } else {
-      print("GamePlayers add ${player}");
+      logger.d("GamePlayers add $player");
       copy.add(player);
     }
     emit(state.copyWith(players: copy));
