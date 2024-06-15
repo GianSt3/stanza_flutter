@@ -7,9 +7,10 @@ import 'dart:typed_data';
 
 import 'package:dio/dio.dart';
 import 'package:eleven_labs/eleven_labs.dart';
+import 'package:eleven_labs/eleven_labs_interface.dart';
 import 'package:path_provider/path_provider.dart';
 
-class ElevenLabsAPI {
+class ElevenLabsAPI implements ElevenLabsInterface{
   // Singleton instance
   static final ElevenLabsAPI _instance = ElevenLabsAPI._internal();
 
@@ -192,6 +193,7 @@ class ElevenLabsAPI {
   /// Synthesize text to speech
   /// Takes a [TextToSpeechRequest] object and a value from 0 to 1 on how much to optimize for streaming latency
   /// Returns a [HistoryItem] object
+  @override
   Future<Uint8List> synthesize(TextToSpeechRequest request,
       {int optimizeStreamingLatency = 0}) async {
     try {

@@ -1,11 +1,11 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:equatable/equatable.dart';
-import 'package:stanza_scrapper/bloc/model/message.dart';
+import 'package:stanza_scrapper/data/model/youtube_message.dart';
 import 'package:stanza_scrapper/src/features/game/model/player.dart';
 
 class AudioMessage extends Equatable {
   final Player player;
-  final Message message;
+  final YoutubeMessage message;
   final BytesSource? source;
   final DateTime created;
 
@@ -17,7 +17,7 @@ class AudioMessage extends Equatable {
   });
 
   factory AudioMessage.now(
-      {required Player player, required Message message, BytesSource? source}) {
+      {required Player player, required YoutubeMessage message, BytesSource? source}) {
     return AudioMessage(
         player: player,
         message: message,

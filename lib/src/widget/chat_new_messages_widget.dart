@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:stanza_scrapper/bloc/scrapper/youtube_scrapper_cubit.dart';
+import 'package:stanza_scrapper/core/bloc/scrapper/youtube_scrapper_cubit.dart';
 
 class ChatNewMessagesWidget extends StatefulWidget {
   const ChatNewMessagesWidget({super.key});

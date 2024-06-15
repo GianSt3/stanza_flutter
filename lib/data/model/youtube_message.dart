@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
-class Message extends Equatable {
-  const Message(
+class YoutubeMessage extends Equatable {
+  const YoutubeMessage(
       {required this.id,
       required this.author,
       required this.avatarUrl,
@@ -16,8 +16,8 @@ class Message extends Equatable {
   final String avatarUrl;
   final String text;
 
-  static Message fromJson(Map<String, dynamic> json) {
-    return Message(
+  static YoutubeMessage fromJson(Map<String, dynamic> json) {
+    return YoutubeMessage(
         id: json['id'],
         author: json['author'],
         avatarUrl: json['avatarUrl'],

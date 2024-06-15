@@ -4,8 +4,9 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:bloc/bloc.dart';
 import 'package:eleven_labs/eleven_labs.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:stanza_scrapper/bloc/model/message.dart';
-import 'package:stanza_scrapper/bloc/scrapper/mock_messages.dart';
+import 'package:stanza_scrapper/data/model/youtube_message.dart';
+import 'package:stanza_scrapper/domain/usecases/elevenlabs/synthesize_use_case.dart';
+import 'package:stanza_scrapper/main.dart';
 import 'package:stanza_scrapper/src/features/game/model/audio_message.dart';
 import 'package:stanza_scrapper/src/features/game/model/player.dart';
 import 'package:stanza_scrapper/utils/logger.dart';
@@ -15,12 +16,13 @@ part 'game_messages_state.dart';
 part 'game_messages_cubit.freezed.dart';
 
 class GameMessagesCubit extends Cubit<GameMessagesState> {
-  final ElevenLabsAPI api;
   final player = AudioPlayer();
 
   late final Timer checkQueue;
 
-  GameMessagesCubit(this.api)
+  final SynthesizeUseCase _synthesizeUseCase = SynthesizeUseCase(injector());
+
+  GameMessagesCubit()
       : super(const GameMessagesState(
             status: GameMessagesStatus.initial(),
             apiStatus: GameMessagesLoadStatus.initial())) {
@@ -39,7 +41,7 @@ class GameMessagesCubit extends Cubit<GameMessagesState> {
     });
   }
 
-  void pushAll(List<Message> messages, List<Player> players) {
+  void pushAll(List<YoutubeMessage> messages, List<Player> players) {
     var temp = state.messages.toList();
     final audioMessages = messages.map((message) => AudioMessage.now(
         message: message,
@@ -107,16 +109,16 @@ class GameMessagesCubit extends Cubit<GameMessagesState> {
 
       final message = temp.lastWhere((element) => element.source == null);
 
-      try {
-        final result = await api.synthesize(TextToSpeechRequest(
-            modelId: "eleven_multilingual_v2",
-            voiceId: message.player.voice.voiceId!,
-            text: message.message.text,
-            voiceSettings: message.player.voice.voiceSettings));
+      final result = await _synthesizeUseCase.call(
+          params: TextToSpeechRequest(
+              modelId: "eleven_multilingual_v2",
+              voiceId: message.player.voice.voiceId!,
+              text: message.message.text,
+              voiceSettings: message.player.voice.voiceSettings));
 
-        // final result = await getAudio(message.message.text);
-
-        final audioMessage = message.copyWith(source: BytesSource(result));
+      if (result.isRight) {
+        final audioMessage =
+            message.copyWith(source: BytesSource(result.right));
 
         final index = temp
             .indexWhere((element) => element.message.id == message.message.id);
@@ -132,11 +134,11 @@ class GameMessagesCubit extends Cubit<GameMessagesState> {
             apiStatus: const GameMessagesLoadStatus.loaded(),
             status: const GameMessagesStatus.loaded(),
             messages: temp));
-      } catch (error) {
-        logger.e("Error during API ", error: error);
+      } else {
+        logger.e("Error during API ", error: result.left);
         emit(state.copyWith(
-          status: GameMessagesStatus.error(
-              error, "Error during API for message ${message.toString()}"),
+          status: GameMessagesStatus.error(result.left,
+              "Error during API for message ${message.toString()}"),
         ));
       }
     }
