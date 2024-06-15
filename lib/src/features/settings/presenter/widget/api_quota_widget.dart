@@ -39,7 +39,14 @@ class _InfoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-        "Used ${(info.usedCharacters / info.totalCharacters * 100).floor()} %");
+    return Column(
+      children: [
+        Text(
+          "${(info.usedCharacters / info.totalCharacters * 100).floor()} %",
+          style: Theme.of(context).textTheme.titleLarge,
+        ),
+        Text("Used ${info.usedCharacters} of ${info.totalCharacters} quota"),
+      ],
+    );
   }
 }

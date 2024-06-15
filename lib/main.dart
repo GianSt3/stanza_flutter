@@ -1,5 +1,6 @@
 import 'package:desktop_webview_window/desktop_webview_window.dart';
 import 'package:eleven_labs/eleven_labs.dart';
+import 'package:flutter/widgets.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
@@ -67,7 +68,20 @@ class _MainAppState extends State<MainApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        canvasColor: Colors.white,
         textTheme: GoogleFonts.kanitTextTheme(Theme.of(context).textTheme),
+        scaffoldBackgroundColor: Colors.white,
+        appBarTheme: const AppBarTheme(backgroundColor: Colors.white),
+        navigationRailTheme:
+            const NavigationRailThemeData(backgroundColor: Colors.white),
+        listTileTheme: ListTileThemeData(
+          dense: false,
+        ),
+        cardTheme: CardTheme(
+            color: Colors.blueGrey.shade50,
+            shadowColor: Colors.black,
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(6)))),
         textButtonTheme: TextButtonThemeData(
             style: TextButton.styleFrom(
           minimumSize: const Size(200, 20),
@@ -78,9 +92,13 @@ class _MainAppState extends State<MainApp> {
               ),
               borderRadius: BorderRadius.circular(3)),
         )),
-        dropdownMenuTheme: Theme.of(context)
-            .dropdownMenuTheme
-            .copyWith(inputDecorationTheme: const InputDecorationTheme()),
+        dropdownMenuTheme: Theme.of(context).dropdownMenuTheme.copyWith(
+              menuStyle: const MenuStyle(
+                  backgroundColor: WidgetStatePropertyAll<Color>(Colors.white)),
+              inputDecorationTheme: const InputDecorationTheme(
+                isDense: true,
+              ),
+            ),
         sliderTheme: Theme.of(context)
             .sliderTheme
             .copyWith(showValueIndicator: ShowValueIndicator.onlyForContinuous),

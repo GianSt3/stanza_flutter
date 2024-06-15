@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:stanza_scrapper/src/features/game/bloc/game_cubit.dart';
 import 'package:stanza_scrapper/src/features/lobby/bloc/lobby_cubit.dart';
 import 'package:stanza_scrapper/src/features/lobby/model/queueing_user.dart';
@@ -14,9 +15,12 @@ class LobbyParticipants extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              "Lobby",
-              style: Theme.of(context).textTheme.titleLarge,
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                "Lobby",
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
             ),
             Container(
               alignment: Alignment.centerRight,
@@ -24,15 +28,23 @@ class LobbyParticipants extends StatelessWidget {
                 onPressed: () {
                   context.read<LobbyCubit>().random();
                 },
-                child: const Text("Random"),
+                child: const Row(
+                  children: [
+                    Text("Random"),
+                    const SizedBox(
+                      width: 12,
+                    ),
+                    Icon(
+                      FontAwesomeIcons.shuffle,
+                      size: 18,
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
         ),
         Container(
-          decoration: BoxDecoration(
-              color: Colors.blueGrey[100],
-              borderRadius: const BorderRadius.all(Radius.circular(5))),
           constraints:
               BoxConstraints(maxHeight: MediaQuery.of(context).size.height / 3),
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -58,6 +70,32 @@ class _Participant extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return Card(
+        child: ListTile(
+      selected: user.nextPlayer,
+      leading: user.nextPlayer
+          ? IconButton(
+              onPressed: () {
+                context.read<GameCubit>().removePlayer(user.name);
+                context.read<LobbyCubit>().remove(user);
+              },
+              icon: const Icon(
+                Icons.remove_circle_rounded,
+                color: Colors.red,
+                size: 18,
+              ))
+          : IconButton(
+              onPressed: () {
+                context.read<LobbyCubit>().promote(user);
+              },
+              icon: const Icon(
+                Icons.add_box_rounded,
+                color: Colors.green,
+                size: 18,
+              )),
+      title: Text(user.name),
+      subtitle: user.type.isNotEmpty ? Text(user.type) : null,
+    ));
     return Row(
       children: [
         Icon(

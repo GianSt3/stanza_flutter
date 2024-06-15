@@ -1,15 +1,10 @@
 import 'dart:async';
-import 'dart:convert';
-import 'dart:math';
 
 import 'package:bloc/bloc.dart';
-import 'package:desktop_webview_window/desktop_webview_window.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:stanza_scrapper/data/model/youtube_message.dart';
-import 'package:path/path.dart' as p;
 import 'package:stanza_scrapper/domain/usecases/youtube/init_youtube_chat_use_case.dart';
 import 'package:stanza_scrapper/domain/usecases/youtube/messages_youtube_chat_use_case.dart';
 import 'package:stanza_scrapper/main.dart';
