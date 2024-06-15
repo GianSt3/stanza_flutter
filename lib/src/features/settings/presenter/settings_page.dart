@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:stanza_scrapper/bloc/eleven_labs/eleven_labs_voice_cubit.dart';
+import 'package:stanza_scrapper/src/features/settings/bloc/default_voices/default_voices_cubit.dart';
 import 'package:stanza_scrapper/src/features/settings/presenter/tabs/voice_custom_tab.dart';
 import 'package:stanza_scrapper/src/features/settings/presenter/tabs/voices_tab_page.dart';
 import 'package:stanza_scrapper/src/features/settings/presenter/widget/api_quota_widget.dart';

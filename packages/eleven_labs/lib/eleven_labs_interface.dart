@@ -9,4 +9,8 @@ abstract class ElevenLabsInterface {
   });
 
   Future<Uint8List> synthesize(TextToSpeechRequest request);
+
+  Future<List<Voice>> listVoices();
+
+  Future<SubscriptionInfo> getCurrentUserSubscription();
 }

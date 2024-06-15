@@ -1,7 +1,7 @@
 import 'package:eleven_labs/eleven_labs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:stanza_scrapper/bloc/eleven_labs/eleven_labs_voice_cubit.dart';
+import 'package:stanza_scrapper/src/features/settings/bloc/default_voices/default_voices_cubit.dart';
 import 'package:stanza_scrapper/src/widget/custom_table.dart';
 
 class VoicesTabPage extends StatelessWidget {
@@ -9,13 +9,13 @@ class VoicesTabPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ElevenLabsVoiceCubit, ElevenLabsVoiceState>(
+    return BlocBuilder<DefaultVoicesCubit, DefaultVoicesState>(
       builder: (context, state) {
         return Column(
           children: [
             TextButton.icon(
               onPressed: state.status.maybeMap(
-                  orElse: () => context.read<ElevenLabsVoiceCubit>().load),
+                  orElse: () => context.read<DefaultVoicesCubit>().load),
               icon: state.status.maybeWhen(
                   loaded: () => const Icon(Icons.update),
                   orElse: () => const Icon(Icons.download)),

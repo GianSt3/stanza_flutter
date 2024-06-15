@@ -59,6 +59,7 @@ class ElevenLabsAPI implements ElevenLabsInterface{
 
   /// List available voices
   /// Returns a list of [Voice] objects
+  @override
   Future<List<Voice>> listVoices() async {
     try {
       final response = await _dio.get('/v1/voices');
@@ -309,6 +310,7 @@ class ElevenLabsAPI implements ElevenLabsInterface{
 
   /// Get current user's subscription info
   /// Returns a [SubscriptionInfo] object
+  @override
   Future<SubscriptionInfo> getCurrentUserSubscription() async {
     try {
       final response = await _dio.get('/v1/user/subscription');

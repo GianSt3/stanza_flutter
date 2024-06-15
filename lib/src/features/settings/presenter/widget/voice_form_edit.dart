@@ -3,10 +3,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:stanza_scrapper/bloc/eleven_labs/eleven_labs_cubit.dart';
-import 'package:stanza_scrapper/bloc/eleven_labs/eleven_labs_voice_cubit.dart';
-import 'package:stanza_scrapper/src/features/settings/bloc/custom_voice_cubit.dart';
-import 'package:stanza_scrapper/src/features/settings/model/custom_voice.dart';
+import 'package:stanza_scrapper/src/features/settings/bloc/text_to_speech/text_to_speech_cubit.dart';
+import 'package:stanza_scrapper/src/features/settings/bloc/default_voices/default_voices_cubit.dart';
+import 'package:stanza_scrapper/src/features/settings/bloc/voice/custom_voice_cubit.dart';
+import 'package:stanza_scrapper/domain/entities/custom_voice.dart';
 import 'package:stanza_scrapper/src/features/settings/presenter/widget/custom_slider.dart';
 
 class VoiceFormEdit extends StatefulWidget {
@@ -58,8 +58,8 @@ class _VoiceFormEditState extends State<VoiceFormEdit> {
                       Row(
                         children: [
                           // Dropdown voices
-                          BlocBuilder<ElevenLabsVoiceCubit,
-                                  ElevenLabsVoiceState>(
+                          BlocBuilder<DefaultVoicesCubit,
+                                  DefaultVoicesState>(
                               builder: (context, voicesState) {
                             return DropdownMenu(
                                 label: const Text("Voice"),
@@ -158,7 +158,7 @@ class _VoiceFormEditState extends State<VoiceFormEdit> {
                                       similarityBoost: similarityValue,
                                       stability: stabilityValue,
                                       style: styleValue);
-                                  context.read<ElevenLabsCubit>().speak(
+                                  context.read<TextToSpeechCubit>().speak(
                                       voiceId: customVoiceState.status
                                           .maybeWhen(
                                               selected: (voice) =>
@@ -171,7 +171,7 @@ class _VoiceFormEditState extends State<VoiceFormEdit> {
                                       voiceSettings: voiceSettings);
                                 }),
                             child:
-                                BlocBuilder<ElevenLabsCubit, ElevenLabsState>(
+                                BlocBuilder<TextToSpeechCubit, TextToSpeechState>(
                               builder: (context, elevenState) {
                                 return Text(elevenState.status.maybeWhen(
                                     loading: () => "Loading...",

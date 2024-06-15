@@ -3,7 +3,7 @@ import 'package:eleven_labs/elevenlabs_types.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:stanza_scrapper/src/features/settings/model/custom_voice.dart';
+import 'package:stanza_scrapper/domain/entities/custom_voice.dart';
 
 part 'custom_voice_state.dart';
 
@@ -50,14 +50,12 @@ class CustomVoiceCubit extends HydratedCubit<CustomVoiceState> {
   @override
   CustomVoiceState? fromJson(Map<String, dynamic> json) {
     final jsonState = CustomVoiceState.fromJson(json);
-    debugPrint("fromJson:\n\tfrom-> $json\n\tto->$jsonState");
     return jsonState;
   }
 
   @override
   Map<String, dynamic>? toJson(CustomVoiceState state) {
     final json = state.toJson();
-    debugPrint("toJson:\n\tfrom-> $state\n\tto->$json");
     return json;
   }
 }

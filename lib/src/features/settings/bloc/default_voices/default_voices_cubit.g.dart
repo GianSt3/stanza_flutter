@@ -1,24 +1,24 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'eleven_labs_voice_cubit.dart';
+part of 'default_voices_cubit.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$ElevenLabsVoiceStateImpl _$$ElevenLabsVoiceStateImplFromJson(
+_$DefaultVoicesStateImpl _$$DefaultVoicesStateImplFromJson(
         Map<String, dynamic> json) =>
-    _$ElevenLabsVoiceStateImpl(
-      status: ElevenLabsVoiceStatus.fromJson(
-          json['status'] as Map<String, dynamic>),
+    _$DefaultVoicesStateImpl(
+      status:
+          DefaultVoicesStatus.fromJson(json['status'] as Map<String, dynamic>),
       voices: (json['voices'] as List<dynamic>?)
               ?.map((e) => Voice.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const <Voice>[],
     );
 
-Map<String, dynamic> _$$ElevenLabsVoiceStateImplToJson(
-        _$ElevenLabsVoiceStateImpl instance) =>
+Map<String, dynamic> _$$DefaultVoicesStateImplToJson(
+        _$DefaultVoicesStateImpl instance) =>
     <String, dynamic>{
       'status': instance.status,
       'voices': instance.voices,

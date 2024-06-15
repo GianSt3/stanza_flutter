@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'eleven_labs_cubit.dart';
+part of 'text_to_speech_cubit.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,29 +15,29 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
-mixin _$ElevenLabsState {
-  ElevenLabStatus get status => throw _privateConstructorUsedError;
+mixin _$TextToSpeechState {
+  TextToSpeechStatus get status => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $ElevenLabsStateCopyWith<ElevenLabsState> get copyWith =>
+  $TextToSpeechStateCopyWith<TextToSpeechState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $ElevenLabsStateCopyWith<$Res> {
-  factory $ElevenLabsStateCopyWith(
-          ElevenLabsState value, $Res Function(ElevenLabsState) then) =
-      _$ElevenLabsStateCopyWithImpl<$Res, ElevenLabsState>;
+abstract class $TextToSpeechStateCopyWith<$Res> {
+  factory $TextToSpeechStateCopyWith(
+          TextToSpeechState value, $Res Function(TextToSpeechState) then) =
+      _$TextToSpeechStateCopyWithImpl<$Res, TextToSpeechState>;
   @useResult
-  $Res call({ElevenLabStatus status});
+  $Res call({TextToSpeechStatus status});
 
-  $ElevenLabStatusCopyWith<$Res> get status;
+  $TextToSpeechStatusCopyWith<$Res> get status;
 }
 
 /// @nodoc
-class _$ElevenLabsStateCopyWithImpl<$Res, $Val extends ElevenLabsState>
-    implements $ElevenLabsStateCopyWith<$Res> {
-  _$ElevenLabsStateCopyWithImpl(this._value, this._then);
+class _$TextToSpeechStateCopyWithImpl<$Res, $Val extends TextToSpeechState>
+    implements $TextToSpeechStateCopyWith<$Res> {
+  _$TextToSpeechStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -53,14 +53,14 @@ class _$ElevenLabsStateCopyWithImpl<$Res, $Val extends ElevenLabsState>
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as ElevenLabStatus,
+              as TextToSpeechStatus,
     ) as $Val);
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $ElevenLabStatusCopyWith<$Res> get status {
-    return $ElevenLabStatusCopyWith<$Res>(_value.status, (value) {
+  $TextToSpeechStatusCopyWith<$Res> get status {
+    return $TextToSpeechStatusCopyWith<$Res>(_value.status, (value) {
       return _then(_value.copyWith(status: value) as $Val);
     });
   }
@@ -68,21 +68,21 @@ class _$ElevenLabsStateCopyWithImpl<$Res, $Val extends ElevenLabsState>
 
 /// @nodoc
 abstract class _$$ElevenLabsStateImplCopyWith<$Res>
-    implements $ElevenLabsStateCopyWith<$Res> {
+    implements $TextToSpeechStateCopyWith<$Res> {
   factory _$$ElevenLabsStateImplCopyWith(_$ElevenLabsStateImpl value,
           $Res Function(_$ElevenLabsStateImpl) then) =
       __$$ElevenLabsStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({ElevenLabStatus status});
+  $Res call({TextToSpeechStatus status});
 
   @override
-  $ElevenLabStatusCopyWith<$Res> get status;
+  $TextToSpeechStatusCopyWith<$Res> get status;
 }
 
 /// @nodoc
 class __$$ElevenLabsStateImplCopyWithImpl<$Res>
-    extends _$ElevenLabsStateCopyWithImpl<$Res, _$ElevenLabsStateImpl>
+    extends _$TextToSpeechStateCopyWithImpl<$Res, _$ElevenLabsStateImpl>
     implements _$$ElevenLabsStateImplCopyWith<$Res> {
   __$$ElevenLabsStateImplCopyWithImpl(
       _$ElevenLabsStateImpl _value, $Res Function(_$ElevenLabsStateImpl) _then)
@@ -97,7 +97,7 @@ class __$$ElevenLabsStateImplCopyWithImpl<$Res>
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as ElevenLabStatus,
+              as TextToSpeechStatus,
     ));
   }
 }
@@ -110,18 +110,18 @@ class _$ElevenLabsStateImpl
   const _$ElevenLabsStateImpl({required this.status});
 
   @override
-  final ElevenLabStatus status;
+  final TextToSpeechStatus status;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ElevenLabsState(status: $status)';
+    return 'TextToSpeechState(status: $status)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(DiagnosticsProperty('type', 'ElevenLabsState'))
+      ..add(DiagnosticsProperty('type', 'TextToSpeechState'))
       ..add(DiagnosticsProperty('status', status));
   }
 
@@ -144,12 +144,12 @@ class _$ElevenLabsStateImpl
           this, _$identity);
 }
 
-abstract class _ElevenLabsState implements ElevenLabsState {
-  const factory _ElevenLabsState({required final ElevenLabStatus status}) =
+abstract class _ElevenLabsState implements TextToSpeechState {
+  const factory _ElevenLabsState({required final TextToSpeechStatus status}) =
       _$ElevenLabsStateImpl;
 
   @override
-  ElevenLabStatus get status;
+  TextToSpeechStatus get status;
   @override
   @JsonKey(ignore: true)
   _$$ElevenLabsStateImplCopyWith<_$ElevenLabsStateImpl> get copyWith =>
@@ -157,7 +157,7 @@ abstract class _ElevenLabsState implements ElevenLabsState {
 }
 
 /// @nodoc
-mixin _$ElevenLabStatus {
+mixin _$TextToSpeechStatus {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
@@ -211,16 +211,16 @@ mixin _$ElevenLabStatus {
 }
 
 /// @nodoc
-abstract class $ElevenLabStatusCopyWith<$Res> {
-  factory $ElevenLabStatusCopyWith(
-          ElevenLabStatus value, $Res Function(ElevenLabStatus) then) =
-      _$ElevenLabStatusCopyWithImpl<$Res, ElevenLabStatus>;
+abstract class $TextToSpeechStatusCopyWith<$Res> {
+  factory $TextToSpeechStatusCopyWith(
+          TextToSpeechStatus value, $Res Function(TextToSpeechStatus) then) =
+      _$TextToSpeechStatusCopyWithImpl<$Res, TextToSpeechStatus>;
 }
 
 /// @nodoc
-class _$ElevenLabStatusCopyWithImpl<$Res, $Val extends ElevenLabStatus>
-    implements $ElevenLabStatusCopyWith<$Res> {
-  _$ElevenLabStatusCopyWithImpl(this._value, this._then);
+class _$TextToSpeechStatusCopyWithImpl<$Res, $Val extends TextToSpeechStatus>
+    implements $TextToSpeechStatusCopyWith<$Res> {
+  _$TextToSpeechStatusCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -237,7 +237,7 @@ abstract class _$$StatusInitialImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$StatusInitialImplCopyWithImpl<$Res>
-    extends _$ElevenLabStatusCopyWithImpl<$Res, _$StatusInitialImpl>
+    extends _$TextToSpeechStatusCopyWithImpl<$Res, _$StatusInitialImpl>
     implements _$$StatusInitialImplCopyWith<$Res> {
   __$$StatusInitialImplCopyWithImpl(
       _$StatusInitialImpl _value, $Res Function(_$StatusInitialImpl) _then)
@@ -253,13 +253,13 @@ class _$StatusInitialImpl
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ElevenLabStatus.initial()';
+    return 'TextToSpeechStatus.initial()';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty('type', 'ElevenLabStatus.initial'));
+    properties.add(DiagnosticsProperty('type', 'TextToSpeechStatus.initial'));
   }
 
   @override
@@ -346,7 +346,7 @@ class _$StatusInitialImpl
   }
 }
 
-abstract class _StatusInitial implements ElevenLabStatus {
+abstract class _StatusInitial implements TextToSpeechStatus {
   const factory _StatusInitial() = _$StatusInitialImpl;
 }
 
@@ -359,7 +359,7 @@ abstract class _$$StatusLoadingImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$StatusLoadingImplCopyWithImpl<$Res>
-    extends _$ElevenLabStatusCopyWithImpl<$Res, _$StatusLoadingImpl>
+    extends _$TextToSpeechStatusCopyWithImpl<$Res, _$StatusLoadingImpl>
     implements _$$StatusLoadingImplCopyWith<$Res> {
   __$$StatusLoadingImplCopyWithImpl(
       _$StatusLoadingImpl _value, $Res Function(_$StatusLoadingImpl) _then)
@@ -375,13 +375,13 @@ class _$StatusLoadingImpl
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ElevenLabStatus.loading()';
+    return 'TextToSpeechStatus.loading()';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty('type', 'ElevenLabStatus.loading'));
+    properties.add(DiagnosticsProperty('type', 'TextToSpeechStatus.loading'));
   }
 
   @override
@@ -468,7 +468,7 @@ class _$StatusLoadingImpl
   }
 }
 
-abstract class _StatusLoading implements ElevenLabStatus {
+abstract class _StatusLoading implements TextToSpeechStatus {
   const factory _StatusLoading() = _$StatusLoadingImpl;
 }
 
@@ -483,7 +483,7 @@ abstract class _$$StatusSpokeImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$StatusSpokeImplCopyWithImpl<$Res>
-    extends _$ElevenLabStatusCopyWithImpl<$Res, _$StatusSpokeImpl>
+    extends _$TextToSpeechStatusCopyWithImpl<$Res, _$StatusSpokeImpl>
     implements _$$StatusSpokeImplCopyWith<$Res> {
   __$$StatusSpokeImplCopyWithImpl(
       _$StatusSpokeImpl _value, $Res Function(_$StatusSpokeImpl) _then)
@@ -520,14 +520,14 @@ class _$StatusSpokeImpl with DiagnosticableTreeMixin implements _StatusSpoke {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ElevenLabStatus.spoke(shortHash: $shortHash, byteAudioVoice: $byteAudioVoice)';
+    return 'TextToSpeechStatus.spoke(shortHash: $shortHash, byteAudioVoice: $byteAudioVoice)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(DiagnosticsProperty('type', 'ElevenLabStatus.spoke'))
+      ..add(DiagnosticsProperty('type', 'TextToSpeechStatus.spoke'))
       ..add(DiagnosticsProperty('shortHash', shortHash))
       ..add(DiagnosticsProperty('byteAudioVoice', byteAudioVoice));
   }
@@ -628,7 +628,7 @@ class _$StatusSpokeImpl with DiagnosticableTreeMixin implements _StatusSpoke {
   }
 }
 
-abstract class _StatusSpoke implements ElevenLabStatus {
+abstract class _StatusSpoke implements TextToSpeechStatus {
   const factory _StatusSpoke(
           final String shortHash, final Uint8List byteAudioVoice) =
       _$StatusSpokeImpl;
@@ -651,7 +651,7 @@ abstract class _$$StatusErrorImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$StatusErrorImplCopyWithImpl<$Res>
-    extends _$ElevenLabStatusCopyWithImpl<$Res, _$StatusErrorImpl>
+    extends _$TextToSpeechStatusCopyWithImpl<$Res, _$StatusErrorImpl>
     implements _$$StatusErrorImplCopyWith<$Res> {
   __$$StatusErrorImplCopyWithImpl(
       _$StatusErrorImpl _value, $Res Function(_$StatusErrorImpl) _then)
@@ -681,14 +681,14 @@ class _$StatusErrorImpl with DiagnosticableTreeMixin implements _StatusError {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ElevenLabStatus.error(error: $error)';
+    return 'TextToSpeechStatus.error(error: $error)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(DiagnosticsProperty('type', 'ElevenLabStatus.error'))
+      ..add(DiagnosticsProperty('type', 'TextToSpeechStatus.error'))
       ..add(DiagnosticsProperty('error', error));
   }
 
@@ -784,7 +784,7 @@ class _$StatusErrorImpl with DiagnosticableTreeMixin implements _StatusError {
   }
 }
 
-abstract class _StatusError implements ElevenLabStatus {
+abstract class _StatusError implements TextToSpeechStatus {
   const factory _StatusError(final String error) = _$StatusErrorImpl;
 
   String get error;

@@ -5,8 +5,8 @@ import 'package:stanza_scrapper/src/features/game/bloc/game_cubit.dart';
 import 'package:stanza_scrapper/src/features/game/model/player.dart';
 import 'package:stanza_scrapper/src/features/lobby/bloc/lobby_cubit.dart';
 import 'package:stanza_scrapper/src/features/lobby/model/queueing_user.dart';
-import 'package:stanza_scrapper/src/features/settings/bloc/custom_voice_cubit.dart';
-import 'package:stanza_scrapper/src/features/settings/model/custom_voice.dart';
+import 'package:stanza_scrapper/src/features/settings/bloc/voice/custom_voice_cubit.dart';
+import 'package:stanza_scrapper/domain/entities/custom_voice.dart';
 
 class GameParticipants extends StatelessWidget {
   const GameParticipants({super.key});
