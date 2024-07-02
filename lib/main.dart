@@ -26,6 +26,8 @@ import 'package:stanza_scrapper/src/stanza.dart';
 
 final injector = GetIt.instance;
 
+const env = String.fromEnvironment('ENV');
+
 void main(List<String> args) async {
   debugPrint('args: $args');
   if (runWebViewTitleBarWidget(args)) {
@@ -66,7 +68,7 @@ class _MainAppState extends State<MainApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
+      debugShowCheckedModeBanner: env == 'DEBUG',
       theme: ThemeData(
         canvasColor: Colors.white,
         textTheme: GoogleFonts.kanitTextTheme(Theme.of(context).textTheme),
@@ -94,7 +96,8 @@ class _MainAppState extends State<MainApp> {
         )),
         dropdownMenuTheme: Theme.of(context).dropdownMenuTheme.copyWith(
               menuStyle: const MenuStyle(
-                  backgroundColor: WidgetStatePropertyAll<Color>(Colors.white)),
+                  backgroundColor:
+                      MaterialStatePropertyAll<Color>(Colors.white)),
               inputDecorationTheme: const InputDecorationTheme(
                 isDense: true,
               ),

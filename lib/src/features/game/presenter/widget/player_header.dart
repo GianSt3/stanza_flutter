@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:stanza_scrapper/src/features/game/presenter/widget/gradient_text.dart';
+import 'package:stanza_scrapper/src/widget/ratio_widget.dart';
 
 import '../../model/player.dart';
 
@@ -14,6 +15,7 @@ class PlayerHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         if (showAvatar && player.image != null)
           CircleAvatar(
@@ -21,15 +23,17 @@ class PlayerHeader extends StatelessWidget {
             backgroundImage: NetworkImage(player.image!),
             backgroundColor: Colors.transparent,
           ),
-        GradientText(
-          player.name,
-          style: GoogleFonts.junge(
-              textStyle:
-                  const TextStyle(fontSize: 36, fontWeight: FontWeight.w900)),
-          gradient: const LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [Colors.yellow, Colors.deepOrange]),
+        RatioWidget(
+          child: (ratio) => GradientText(
+            player.name,
+            style: GoogleFonts.junge(
+                textStyle: TextStyle(
+                    fontSize: ratio * 32, fontWeight: FontWeight.w900)),
+            gradient: const LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [Colors.yellow, Colors.deepOrange]),
+          ),
         ),
       ],
     );

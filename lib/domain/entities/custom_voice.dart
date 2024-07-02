@@ -20,7 +20,7 @@ class CustomVoice {
   ModelId? modelId;
 
   CustomVoice(
-      {this.voiceId, this.name, this.voiceSettings, this.modelId = ModelId.v2});
+      {this.voiceId = '', this.name, this.voiceSettings, this.modelId = ModelId.v2});
 
   Map<String, dynamic> toJson() {
     return {

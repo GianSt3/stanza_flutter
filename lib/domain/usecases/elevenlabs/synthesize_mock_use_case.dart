@@ -3,11 +3,10 @@ import 'dart:math';
 import 'package:either_dart/either.dart';
 import 'package:eleven_labs/eleven_labs.dart';
 import 'package:flutter/services.dart';
-import 'package:stanza_scrapper/core/use_case/use_case.dart';
+import 'package:stanza_scrapper/domain/usecases/elevenlabs/synthesize_use_case.dart';
 
-class SynthesizeUseCase
-    extends FutureUseCase<Either<Exception, Uint8List>, TextToSpeechRequest> {
-  SynthesizeUseCase();
+class SynthesizeMockUseCase extends ISynthesizeUseCase {
+  SynthesizeMockUseCase();
 
   @override
   Future<Either<Exception, Uint8List>> call(
@@ -34,15 +33,26 @@ class SynthesizeUseCase
                           ? files[4]
                           : text.startsWith("Come")
                               ? files[5]
-                              : files[5];
+                              : null;
+      if (fileName != null) {
+        final result = (await rootBundle.load("assets/audio/$fileName.mp3"))
+            .buffer
+            .asUint8List();
 
-      final result = (await rootBundle.load("assets/audio/$fileName.mp3"))
-          .buffer
-          .asUint8List();
+        // Emulate connection delay
+        await Future.delayed(
+            Duration(milliseconds: 500 + Random().nextInt(900)));
+        return Right(result);
+      } else {
+        final result = (await rootBundle.load("assets/audio/beep_038.wav"))
+            .buffer
+            .asUint8List();
 
-      // Emulate connection delay
-      await Future.delayed(Duration(milliseconds: 500 + Random().nextInt(900)));
-      return Right(result);
+        // Emulate connection delay
+        await Future.delayed(
+            Duration(milliseconds: 500 + Random().nextInt(900)));
+        return Right(result);
+      }
     } catch (err) {
       return Left(Exception(err.toString()));
     }
