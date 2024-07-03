@@ -44,8 +44,8 @@ class GamePage extends StatelessWidget {
           AspectRatio(
             aspectRatio: 1443 / 384,
             child: Container(
-              decoration: BoxDecoration(
-                image: const DecorationImage(
+              decoration: const BoxDecoration(
+                image: DecorationImage(
                     image: AssetImage('assets/images/players_box.png'),
                     fit: BoxFit.fill),
               ),
@@ -56,7 +56,6 @@ class GamePage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: state.players
                           .map((player) => Flexible(
-                                flex: 1,
                                 child: GamePlayerWidget(
                                   player: player,
                                 ),

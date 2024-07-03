@@ -19,7 +19,7 @@ class GradientText extends StatelessWidget {
       shaderCallback: (bounds) => gradient.createShader(
         Rect.fromLTWH(0, 0, bounds.width, bounds.height),
       ),
-      child: FittedBox(fit: BoxFit.scaleDown, child: Text(text, style: style)),
+      child: FittedBox(fit: BoxFit.fitWidth, child: Text(text, style: style)),
     );
   }
 }

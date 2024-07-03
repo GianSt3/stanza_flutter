@@ -17,14 +17,21 @@ class GamePlayerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RatioWidget(
-      child: (ratio) => Container(
-        // decoration: BoxDecoration(border: Border.all(color: Colors.white)),
-        padding: EdgeInsets.all(ratio * 16),
+    return LayoutBuilder(
+      builder: (context, constraints) => Container(
+        // decoration: BoxDecoration(
+        //   border: Border.all(color: Colors.white),
+        // ),
+        padding: EdgeInsets.symmetric(
+          horizontal: constraints.maxWidth / 3 * 0.2,
+        ),
         child: Column(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            SizedBox(
+              height: constraints.maxHeight * 0.1,
+            ),
             BlocSelector<GameMessagesCubit, GameMessagesState, String>(
               selector: (state) {
                 /// Last played player's message
@@ -36,17 +43,34 @@ class GamePlayerWidget extends StatelessWidget {
                 return lastMessage?.text ?? "";
               },
               builder: (context, text) {
-                return Padding(
-                  padding: EdgeInsets.only(top: ratio * 16.0),
-                  child: Text(text,
-                      maxLines: 5,
-                      style: GoogleFonts.kanit(
-                          textStyle: const TextStyle(
-                              fontSize: 24, color: Colors.white))),
+                return Expanded(
+                  child: Container(
+                    // decoration: BoxDecoration(
+                    //   border: Border.all(color: Colors.white),
+                    // ),
+                    alignment: Alignment.center,
+                    child: Text(text,
+                        maxLines: 5,
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.kanit(
+                            textStyle: TextStyle(
+                                fontSize: constraints.maxHeight * 0.08,
+                                color: Colors.white))),
+                  ),
                 );
               },
             ),
-            PlayerHeader(player: player),
+            Container(
+                alignment: Alignment.center,
+                // decoration: BoxDecoration(
+                //   border: Border.all(color: Colors.white),
+                // ),
+                width: constraints.maxWidth / 3 * 10,
+                height: constraints.maxHeight * 0.2,
+                child: PlayerHeader(player: player)),
+            SizedBox(
+              height: constraints.maxHeight * 0.04,
+            ),
           ],
         ),
       ),

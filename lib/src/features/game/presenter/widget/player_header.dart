@@ -1,7 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:stanza_scrapper/src/features/game/presenter/widget/gradient_text.dart';
-import 'package:stanza_scrapper/src/widget/ratio_widget.dart';
 
 import '../../model/player.dart';
 
@@ -23,12 +23,13 @@ class PlayerHeader extends StatelessWidget {
             backgroundImage: NetworkImage(player.image!),
             backgroundColor: Colors.transparent,
           ),
-        RatioWidget(
-          child: (ratio) => GradientText(
+        LayoutBuilder(
+          builder: (context, constraints) => GradientText(
             player.name,
             style: GoogleFonts.junge(
                 textStyle: TextStyle(
-                    fontSize: ratio * 32, fontWeight: FontWeight.w900)),
+                    fontSize: constraints.maxHeight * 0.45,
+                    fontWeight: FontWeight.w900)),
             gradient: const LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
