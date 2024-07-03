@@ -42,7 +42,7 @@ class LobbyPage extends StatelessWidget {
         ),
         Divider(),
         // Flexible(child: GameDebugPage()),
-        Expanded(child: GamePage())
+        Flexible(child: GamePage())
       ],
     );
   }

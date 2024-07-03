@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:stanza_scrapper/config/environment/environment.dart';
 import 'package:stanza_scrapper/core/bloc/api_key/api_key_cubit.dart';
 import 'package:stanza_scrapper/data/model/youtube_message.dart';
 import 'package:stanza_scrapper/domain/entities/custom_voice.dart';
@@ -32,7 +33,7 @@ class _StanzaState extends State<Stanza> {
           backgroundColor: Colors.white,
           appBar: AppBar(
             title: Text(titles[currentPageIndex]),
-            actions: env == 'DEBUG'
+            actions: injector.get<Environment>().isDebug()
                 ? [
                     TextButton(
                         onPressed: () {

@@ -46,24 +46,22 @@ class GamePage extends StatelessWidget {
             child: Container(
               decoration: const BoxDecoration(
                 image: DecorationImage(
-                    image: AssetImage('assets/images/players_box.png'),
+                    image: AssetImage('./assets/images/players_box.png'),
                     fit: BoxFit.fill),
               ),
-              child: Expanded(
-                child: BlocBuilder<GameCubit, GameState>(
-                  builder: (context, state) {
-                    return Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: state.players
-                          .map((player) => Flexible(
-                                child: GamePlayerWidget(
-                                  player: player,
-                                ),
-                              ))
-                          .toList(),
-                    );
-                  },
-                ),
+              child: BlocBuilder<GameCubit, GameState>(
+                builder: (context, state) {
+                  return Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: state.players
+                        .map((player) => Flexible(
+                              child: GamePlayerWidget(
+                                player: player,
+                              ),
+                            ))
+                        .toList(),
+                  );
+                },
               ),
             ),
           ),

@@ -4,6 +4,7 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:bloc/bloc.dart';
 import 'package:eleven_labs/eleven_labs.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:stanza_scrapper/config/environment/environment.dart';
 import 'package:stanza_scrapper/data/model/youtube_message.dart';
 import 'package:stanza_scrapper/domain/usecases/elevenlabs/synthesize_mock_use_case.dart';
 import 'package:stanza_scrapper/domain/usecases/elevenlabs/synthesize_use_case.dart';
@@ -22,7 +23,9 @@ class GameMessagesCubit extends Cubit<GameMessagesState> {
   late final Timer checkQueue;
 
   final ISynthesizeUseCase _synthesizeUseCase =
-      env == 'DEBUG' ? SynthesizeMockUseCase() : SynthesizeUseCase(injector());
+      injector.get<Environment>().isDebug()
+          ? SynthesizeMockUseCase()
+          : SynthesizeUseCase(injector());
 
   GameMessagesCubit()
       : super(const GameMessagesState(

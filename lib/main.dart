@@ -8,6 +8,7 @@ import 'package:get_it/get_it.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:stanza_scrapper/config/environment/environment.dart';
 import 'package:stanza_scrapper/src/features/settings/bloc/text_to_speech/text_to_speech_cubit.dart';
 import 'package:stanza_scrapper/src/features/settings/bloc/default_voices/default_voices_cubit.dart';
 
@@ -26,8 +27,6 @@ import 'package:stanza_scrapper/src/stanza.dart';
 
 final injector = GetIt.instance;
 
-const env = String.fromEnvironment('ENV');
-
 void main(List<String> args) async {
   debugPrint('args: $args');
   if (runWebViewTitleBarWidget(args)) {
@@ -40,8 +39,8 @@ void main(List<String> args) async {
 
   injector
     ..registerSingleton<ElevenLabsInterface>(ElevenLabsAPI())
-    ..registerSingleton<YoutubeChatRepositoryInterface>(
-        YoutubeChatRepository());
+    ..registerSingleton<YoutubeChatRepositoryInterface>(YoutubeChatRepository())
+    ..registerSingleton<Environment>(EnvironmentImpl());
 
   runApp(const MainApp());
 }
