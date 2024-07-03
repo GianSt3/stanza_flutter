@@ -26,6 +26,15 @@ class YoutubeMessage extends Equatable {
         authorType: json['authorType']);
   }
 
+  YoutubeMessage copyWith({String? text}) {
+    return YoutubeMessage(
+        id: id,
+        author: author,
+        avatarUrl: avatarUrl,
+        timestamp: timestamp,
+        text: text ?? this.text);
+  }
+
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
     _data['id'] = id;

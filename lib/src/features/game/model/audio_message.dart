@@ -17,7 +17,9 @@ class AudioMessage extends Equatable {
   });
 
   factory AudioMessage.now(
-      {required Player player, required YoutubeMessage message, BytesSource? source}) {
+      {required Player player,
+      required YoutubeMessage message,
+      BytesSource? source}) {
     return AudioMessage(
         player: player,
         message: message,
@@ -25,9 +27,13 @@ class AudioMessage extends Equatable {
         source: source);
   }
 
-  AudioMessage copyWith({required BytesSource source}) {
+  AudioMessage copyWith(
+      {required BytesSource source, YoutubeMessage? message}) {
     return AudioMessage(
-        player: player, message: message, created: created, source: source);
+        player: player,
+        message: message ?? this.message,
+        created: created,
+        source: source);
   }
 
   @override

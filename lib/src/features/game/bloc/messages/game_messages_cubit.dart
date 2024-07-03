@@ -3,9 +3,11 @@ import 'dart:async';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:bloc/bloc.dart';
 import 'package:eleven_labs/eleven_labs.dart';
+import 'package:flutter/services.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:stanza_scrapper/config/environment/environment.dart';
 import 'package:stanza_scrapper/data/model/youtube_message.dart';
+import 'package:stanza_scrapper/domain/usecases/dice/dice_use_case.dart';
 import 'package:stanza_scrapper/domain/usecases/elevenlabs/synthesize_mock_use_case.dart';
 import 'package:stanza_scrapper/domain/usecases/elevenlabs/synthesize_use_case.dart';
 import 'package:stanza_scrapper/main.dart';
@@ -26,6 +28,8 @@ class GameMessagesCubit extends Cubit<GameMessagesState> {
       injector.get<Environment>().isDebug()
           ? SynthesizeMockUseCase()
           : SynthesizeUseCase(injector());
+
+  final DiceUseCase _diceUseCase = DiceUseCase();
 
   GameMessagesCubit()
       : super(const GameMessagesState(
@@ -113,16 +117,21 @@ class GameMessagesCubit extends Cubit<GameMessagesState> {
 
       final message = temp.lastWhere((element) => element.source == null);
 
-      final result = await _synthesizeUseCase.call(
-          params: TextToSpeechRequest(
-              modelId: "eleven_multilingual_v2",
-              voiceId: message.player.voice.voiceId!,
-              text: message.message.text,
-              voiceSettings: message.player.voice.voiceSettings));
+      final diceCommands = _diceUseCase(params: message.message.text);
 
-      if (result.isRight) {
-        final audioMessage =
-            message.copyWith(source: BytesSource(result.right));
+      if (diceCommands.isRight) {
+        /// DICE COMMANDS
+        final audioMessage = message.copyWith(
+            source: BytesSource(
+              (await rootBundle
+                      .load('assets/audio/shake-and-roll-dice-soundbible.mp3'))
+                  .buffer
+                  .asUint8List(),
+            ),
+            // Change the text with the results
+            message: message.message.copyWith(
+              text: diceCommands.right.join(', '),
+            ));
 
         final index = temp
             .indexWhere((element) => element.message.id == message.message.id);
@@ -130,7 +139,7 @@ class GameMessagesCubit extends Cubit<GameMessagesState> {
         temp.insert(index, audioMessage);
 
         logger.d(
-            """AUDIO LOADED [$index] millis ${DateTime.now().difference(startTime).inMilliseconds}
+            """DICE LOADED [$index] millis ${DateTime.now().difference(startTime).inMilliseconds}
             ${message.message.timestamp} - ${message.message.author}: ${message.message.text}
             """);
 
@@ -138,12 +147,42 @@ class GameMessagesCubit extends Cubit<GameMessagesState> {
             apiStatus: const GameMessagesLoadStatus.loaded(),
             status: const GameMessagesStatus.loaded(),
             messages: temp));
+
       } else {
-        logger.e("Error during API ", error: result.left);
-        emit(state.copyWith(
-          status: GameMessagesStatus.error(result.left,
-              "Error during API for message ${message.toString()}"),
-        ));
+
+        /// TEXT TO SPEECH
+        final result = await _synthesizeUseCase.call(
+            params: TextToSpeechRequest(
+                modelId: "eleven_multilingual_v2",
+                voiceId: message.player.voice.voiceId!,
+                text: message.message.text,
+                voiceSettings: message.player.voice.voiceSettings));
+
+        if (result.isRight) {
+          final audioMessage =
+              message.copyWith(source: BytesSource(result.right));
+
+          final index = temp.indexWhere(
+              (element) => element.message.id == message.message.id);
+          temp.removeAt(index);
+          temp.insert(index, audioMessage);
+
+          logger.d(
+              """AUDIO LOADED [$index] millis ${DateTime.now().difference(startTime).inMilliseconds}
+            ${message.message.timestamp} - ${message.message.author}: ${message.message.text}
+            """);
+
+          emit(state.copyWith(
+              apiStatus: const GameMessagesLoadStatus.loaded(),
+              status: const GameMessagesStatus.loaded(),
+              messages: temp));
+        } else {
+          logger.e("Error during API ", error: result.left);
+          emit(state.copyWith(
+            status: GameMessagesStatus.error(result.left,
+                "Error during API for message ${message.toString()}"),
+          ));
+        }
       }
     }
   }
