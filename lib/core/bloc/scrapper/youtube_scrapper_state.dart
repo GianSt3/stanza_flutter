@@ -43,14 +43,17 @@ class Chat extends Equatable {
       type: m.authorType ?? "",
       avatarUrl: m.avatarUrl))).toList();
 
-  List<YoutubeMessage> get newMessages => lastMessageId == null
-      ? messages
-      : messages
-          .getRange(
-              messages.indexOf(messages.reversed
-                  .firstWhere((element) => element.id == lastMessageId)),
-              messages.length)
-          .toList();
+  List<YoutubeMessage> get newMessages =>
+      lastMessageId == null ? messages : getNewMessages();
+
+  List<YoutubeMessage> getNewMessages() {
+    final indexLastMessage = messages.indexOf(
+        messages.reversed.firstWhere((element) => element.id == lastMessageId));
+
+    final newMessages =
+        messages.getRange(indexLastMessage + 1, messages.length);
+    return newMessages.toList();
+  }
 
   Chat copyWith(List<YoutubeMessage> newMessages) {
     return Chat(
