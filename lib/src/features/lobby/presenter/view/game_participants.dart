@@ -6,6 +6,7 @@ import 'package:stanza_scrapper/src/features/game/model/player.dart';
 import 'package:stanza_scrapper/src/features/lobby/bloc/lobby_cubit.dart';
 import 'package:stanza_scrapper/src/features/lobby/model/queueing_user.dart';
 import 'package:stanza_scrapper/src/features/lobby/presenter/widget/chat_card_widget.dart';
+import 'package:stanza_scrapper/src/features/lobby/presenter/widget/player_widget_tile.dart';
 import 'package:stanza_scrapper/src/features/settings/bloc/voice/custom_voice_cubit.dart';
 import 'package:stanza_scrapper/domain/entities/custom_voice.dart';
 import 'package:stanza_scrapper/utils/participant_icon_extension.dart';
@@ -51,92 +52,23 @@ class GameParticipants extends StatelessWidget {
         Container(
           constraints:
               BoxConstraints(maxHeight: MediaQuery.of(context).size.height / 3),
-          child: BlocBuilder<LobbyCubit, LobbyState>(
-            builder: (context, state) {
+          child: BlocSelector<LobbyCubit, LobbyState, List<QueueingUser>>(
+            selector: (state) {
               final players =
-                  state.lobby.where((element) => element.nextPlayer);
+                  state.lobby.where((element) => element.nextPlayer).toList();
+              players.sort((a, b) => a.created.compareTo(b.created));
+              return players;
+            },
+            builder: (context, players) {
               return ListView.builder(
                   itemCount: players.length,
-                  itemBuilder: (context, index) => _Player(
-                      key: Key(players.elementAt(index).name),
+                  itemBuilder: (context, index) => PlayerWidgetTile(
+                      key: Key(players.elementAt(index).created.toString()),
                       user: players.elementAt(index)));
             },
           ),
         ),
       ],
-    );
-  }
-}
-
-class _Player extends StatelessWidget {
-  final QueueingUser user;
-
-  const _Player({super.key, required this.user});
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: ListTile(
-        subtitle: user.type.isNotEmpty ? Text(user.type) : null,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Flexible(
-                child: Text(
-              user.name,
-              overflow: TextOverflow.ellipsis,
-            )),
-            BlocBuilder<CustomVoiceCubit, CustomVoiceState>(
-              builder: (context, state) {
-                return DropdownMenu(
-                    onSelected: (voice) {
-                      if (voice != null) {
-                        context.read<GameCubit>().player(Player(
-                            name: user.name,
-                            image: user.avatarUrl,
-                            voice: voice));
-                      }
-                    },
-                    dropdownMenuEntries: state.voices
-                        .map((e) => DropdownMenuEntry<CustomVoice>(
-                            value: e, label: e.name!))
-                        .toList());
-              },
-            ),
-          ],
-        ),
-        leading: IconButton(
-          onPressed: () {
-            showDialog(
-              context: context,
-              builder: (dialogContext) => AlertDialog(
-                title: Text("Remove ${user.name}"),
-                content:
-                    Text("Are you sure to remove ${user.name} from the game?"),
-                actions: [
-                  TextButton(
-                      onPressed: () {
-                        Navigator.of(context).pop(null);
-                      },
-                      child: const Text("Cancel")),
-                  TextButton(
-                      onPressed: () {
-                        context.read<GameCubit>().removePlayer(user.name);
-                        context.read<LobbyCubit>().demote(user);
-                        Navigator.of(context).pop(null);
-                      },
-                      child: const Text("Confirm"))
-                ],
-              ),
-            );
-          },
-          icon: const Icon(
-            Icons.remove_circle_outlined,
-            color: Colors.red,
-            size: 18,
-          ),
-        ),
-      ),
     );
   }
 }

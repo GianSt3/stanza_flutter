@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:stanza_scrapper/data/model/youtube_message.dart';
 import 'package:stanza_scrapper/domain/youtube/youtube_chat_repository_interface.dart';
+import 'package:stanza_scrapper/utils/logger.dart';
 
 class YoutubeMockChatRepository extends YoutubeChatRepositoryInterface {
   @override
@@ -10,11 +11,13 @@ class YoutubeMockChatRepository extends YoutubeChatRepositoryInterface {
     // Random waiting...
     await Future.delayed(Duration(seconds: 1 + Random().nextInt(5)));
     // Response
-    return await _randomMessages(numberMessages: Random().nextInt(2));
+    return await _randomMessages(numberMessages: Random().nextInt(5));
   }
 
   @override
-  Future<void> init({required String liveId}) async {}
+  Future<void> init({required String liveId}) async {
+    logger.d('Mock Youtube Repository');
+  }
 }
 
 String _randomText() {

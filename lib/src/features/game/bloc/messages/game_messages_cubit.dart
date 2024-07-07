@@ -37,7 +37,7 @@ class GameMessagesCubit extends Cubit<GameMessagesState> {
             apiStatus: GameMessagesLoadStatus.initial())) {
     player.setReleaseMode(ReleaseMode.release);
     // Max volume
-    player.setVolume(1.0);
+    player.setVolume(0);
 
     player.onPlayerComplete.listen((event) {
       // Player completed

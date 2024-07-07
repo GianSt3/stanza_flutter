@@ -9,6 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:stanza_scrapper/config/environment/environment.dart';
+import 'package:stanza_scrapper/data/youtube/youtube_mock_chat_repository.dart';
 import 'package:stanza_scrapper/src/features/settings/bloc/text_to_speech/text_to_speech_cubit.dart';
 import 'package:stanza_scrapper/src/features/settings/bloc/default_voices/default_voices_cubit.dart';
 
@@ -39,8 +40,11 @@ void main(List<String> args) async {
 
   injector
     ..registerSingleton<ElevenLabsInterface>(ElevenLabsAPI())
-    ..registerSingleton<YoutubeChatRepositoryInterface>(YoutubeChatRepository())
-    ..registerSingleton<Environment>(EnvironmentImpl());
+    ..registerSingleton<Environment>(EnvironmentImpl())
+    ..registerSingleton<YoutubeChatRepositoryInterface>(
+        injector.get<Environment>().isDebug()
+            ? YoutubeMockChatRepository()
+            : YoutubeChatRepository());
 
   runApp(const MainApp());
 }

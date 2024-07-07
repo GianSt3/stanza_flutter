@@ -36,10 +36,10 @@ class _LobbyHeaderState extends State<LobbyHeader> {
             .where((message) =>
                 message.text.isNotEmpty &&
                 message.text == keywordController.text)
-            .map((okMessage) => QueueingUser(
+            .map((okMessage) => QueueingUser.create(
                 name: okMessage.author,
                 avatarUrl: okMessage.avatarUrl,
-                type: okMessage.authorType ?? ""))
+                type: okMessage.authorType))
             .toList()
             .forEach((player) => context.read<LobbyCubit>().add(player));
       },
