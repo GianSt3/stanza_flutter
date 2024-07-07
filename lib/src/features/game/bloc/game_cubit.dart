@@ -27,6 +27,25 @@ class GameCubit extends Cubit<GameState> {
     emit(state.copyWith(players: copy));
   }
 
+  void update(
+      {required String oldPlayerName,
+      required String newPlayerName,
+      String? newPlayerAvatar}) {
+    var copy = state.players.toList();
+    int index = copy.indexWhere((element) => element.name == oldPlayerName);
+
+    Player newPlayer = Player(
+        name: newPlayerName,
+        image: newPlayerAvatar,
+        voice: copy.elementAt(index).voice);
+
+    copy.removeAt(index);
+    copy.insert(index, newPlayer);
+    logger.d("GamePlayers change $oldPlayerName for $newPlayerName");
+
+    emit(state.copyWith(players: copy));
+  }
+
   void removePlayer(String name) {
     var copy = state.players.toList();
     int index = copy.indexWhere((element) => element.name == name);

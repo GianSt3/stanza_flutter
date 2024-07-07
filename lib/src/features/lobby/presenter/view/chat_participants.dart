@@ -57,7 +57,7 @@ class _Participant extends StatelessWidget {
         subtitle: author.type.isNotEmpty ? Text(author.type) : null,
         trailing: IconButton(
             onPressed: () {
-              context.read<LobbyCubit>().add(QueueingUser(
+              context.read<LobbyCubit>().add(QueueingUser.create(
                   name: author.name,
                   avatarUrl: author.avatarUrl,
                   type: author.type));
