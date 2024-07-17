@@ -33,9 +33,11 @@ class GameMessageListener extends StatelessWidget {
                 if (playerNewMessages.isNotEmpty) {
                   /// If there is any, put on the queue
                   // TODO add filter for every message
-                  context
-                      .read<GameMessagesCubit>()
-                      .pushAll(playerNewMessages, gameState.players);
+                  context.read<GameMessagesCubit>().pushAll(
+                      playerNewMessages,
+                      gameState.players,
+                      gameState.status
+                          .maybeWhen(mute: () => false, orElse: () => true));
                 } else {
                   logger.d("No new messages.\n${state.chat.newMessages}");
                 }

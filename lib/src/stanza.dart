@@ -52,30 +52,34 @@ class _StanzaState extends State<Stanza> {
                               Player(name: players[2], voice: CustomVoice()));
 
                           /// Add messages
-                          context.read<GameMessagesCubit>().pushAll([
-                            YoutubeMessage(
-                                id: 'ABC',
-                                author: players[0],
-                                avatarUrl: '',
-                                timestamp: '',
-                                text: 'Messaggio dal primo giocatore'),
-                            YoutubeMessage(
-                                id: 'DEF',
-                                author: players[1],
-                                avatarUrl: '',
-                                timestamp: '',
-                                text: 'Messaggio dal secondo giocatore'),
-                            YoutubeMessage(
-                                id: 'GHI',
-                                author: players[2],
-                                avatarUrl: '',
-                                timestamp: '',
-                                text: 'Messaggio dal terzo giocatore')
-                          ], [
-                            Player(name: players[0], voice: CustomVoice()),
-                            Player(name: players[1], voice: CustomVoice()),
-                            Player(name: players[2], voice: CustomVoice())
-                          ]);
+                          context.read<GameMessagesCubit>().pushAll(
+                              [
+                                YoutubeMessage(
+                                    id: 'ABC',
+                                    author: players[0],
+                                    avatarUrl: '',
+                                    timestamp: '',
+                                    text: 'Messaggio dal primo giocatore'),
+                                YoutubeMessage(
+                                    id: 'DEF',
+                                    author: players[1],
+                                    avatarUrl: '',
+                                    timestamp: '',
+                                    text: 'Messaggio dal secondo giocatore'),
+                                YoutubeMessage(
+                                    id: 'GHI',
+                                    author: players[2],
+                                    avatarUrl: '',
+                                    timestamp: '',
+                                    text: 'Messaggio dal terzo giocatore')
+                              ],
+                              [
+                                Player(name: players[0], voice: CustomVoice()),
+                                Player(name: players[1], voice: CustomVoice()),
+                                Player(name: players[2], voice: CustomVoice())
+                              ],
+                              context.read<GameCubit>().state.status.maybeMap(
+                                  mute: (_) => false, orElse: () => true));
                         },
                         child: Text('Load mocked messages'))
                   ]
