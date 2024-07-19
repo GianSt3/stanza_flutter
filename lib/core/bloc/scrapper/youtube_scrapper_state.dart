@@ -38,10 +38,15 @@ class Chat extends Equatable {
 
   const Chat({required this.messages, this.lastMessageId});
 
-  List<Author> get authors => Set.of(messages.map((m) => Author(
-      name: m.author,
-      type: m.authorType ?? "",
-      avatarUrl: m.avatarUrl))).toList();
+  List<Author> get authors =>
+      messages.groupListsBy((element) => element.author).entries.map((e) {
+        final lastMessage = e.value.last;
+        return Author(
+            name: e.key,
+            avatarUrl: lastMessage.avatarUrl,
+            type: lastMessage.authorType ?? "",
+            messageTimestamp: lastMessage.created);
+      }).toList();
 
   List<YoutubeMessage> get newMessages =>
       lastMessageId == null ? messages : getNewMessages();
@@ -69,12 +74,13 @@ class Author extends Equatable {
   final String name;
   final String avatarUrl;
   final String type;
+  final int messageTimestamp;
 
-  const Author({
-    required this.name,
-    required this.avatarUrl,
-    required this.type,
-  });
+  const Author(
+      {required this.name,
+      required this.avatarUrl,
+      required this.type,
+      required this.messageTimestamp});
 
   @override
   List<Object?> get props => [name];

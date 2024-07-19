@@ -61,7 +61,7 @@ class _PlayerWidgetTileState extends State<PlayerWidgetTile> {
                           },
                           dropdownMenuEntries: potentialPlayers
                               .map((e) => DropdownMenuEntry<QueueingUser>(
-                                  value: e, label: e.name!))
+                                  value: e, label: e.name))
                               .toList());
                     })
 

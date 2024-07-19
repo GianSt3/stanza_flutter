@@ -42,7 +42,7 @@ class _InfoWidget extends StatelessWidget {
     return Column(
       children: [
         Text(
-          "${(info.usedCharacters / info.totalCharacters * 100).floor()} %",
+          "${(info.ratio * 100).floor()} %",
           style: Theme.of(context).textTheme.titleLarge,
         ),
         Text("Used ${info.usedCharacters} of ${info.totalCharacters} quota"),
