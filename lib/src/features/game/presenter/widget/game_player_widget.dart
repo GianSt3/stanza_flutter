@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:stanza_scrapper/src/features/game/bloc/game_cubit.dart';
 import 'package:stanza_scrapper/src/features/game/bloc/messages/game_messages_cubit.dart';
+import 'package:stanza_scrapper/src/features/game/model/audio_message.dart';
 import 'package:stanza_scrapper/src/features/game/model/player.dart';
 import 'package:stanza_scrapper/src/features/game/presenter/widget/player_header.dart';
 
@@ -38,18 +39,22 @@ class GamePlayerWidget extends StatelessWidget {
                 SizedBox(
                   height: constraints.maxHeight * 0.1,
                 ),
-                BlocSelector<GameMessagesCubit, GameMessagesState, String>(
+                BlocSelector<GameMessagesCubit, GameMessagesState,
+                    (String text, AudioType type)>(
                   selector: (state) {
                     /// Last played player's message
                     final lastMessage = state.lastPlayerMessages
                         .where(
                             (element) => element.message.author == player.name)
-                        .firstOrNull
-                        ?.message;
+                        .firstOrNull;
 
-                    return lastMessage?.text ?? "";
+                    return (
+                      lastMessage?.message.text ?? "",
+                      lastMessage?.audioType ?? AudioType.textToSpeech
+                    );
                   },
-                  builder: (context, text) {
+                  builder: (context, value) {
+                    final (text, type) = value;
                     return Expanded(
                       child: Container(
                         // decoration: BoxDecoration(
@@ -64,8 +69,13 @@ class GamePlayerWidget extends StatelessWidget {
                             style: GoogleFonts.kanit(
                                 textStyle: TextStyle(
                                     fontSize: constraints.maxHeight * 0.08 -
-                                        (text.length / 20 * constraints.maxHeight/constraints.maxWidth),
-                                    color: Colors.white))),
+                                        (text.length /
+                                            20 *
+                                            constraints.maxHeight /
+                                            constraints.maxWidth),
+                                    color: type == AudioType.silence
+                                        ? Colors.grey.shade300
+                                        : Colors.white))),
                       ),
                     );
                   },
