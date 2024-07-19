@@ -14,24 +14,28 @@ void main() {
           author: 'Christina Potts',
           avatarUrl: '',
           timestamp: '',
+          created: 0,
           text: 'Hi, I am Christina'),
       const YoutubeMessage(
           id: '0b702262-f21a-4322-a081-2ae01c285866',
           author: 'Ernesto Clarke',
           avatarUrl: '',
           timestamp: '',
+          created: 0,
           text: 'Hi, I am Ernesto'),
       const YoutubeMessage(
           id: '1fe7010a-8408-4727-8b80-9bab446f1173',
           author: 'Zara Chavez',
           avatarUrl: '',
           timestamp: '',
+          created: 0,
           text: 'Hi, I am Zara'),
       const YoutubeMessage(
           id: 'c8c00997-f477-4743-b07b-98b47c0b5d94',
           author: 'Emery Wang',
           avatarUrl: '',
           timestamp: '',
+          created: 0,
           text: 'Hi, I am Emery')
     ]);
 
@@ -45,6 +49,7 @@ void main() {
           author: 'Christina Potts',
           avatarUrl: '',
           timestamp: '',
+          created: 0,
           text: 'Hi, I am Christina again'),
     ]);
 
@@ -58,12 +63,14 @@ void main() {
           author: 'Christina Potts',
           avatarUrl: '',
           timestamp: '',
+          created: 0,
           text: 'Hello, Christina here'),
       const YoutubeMessage(
           id: '182459fa-e5b5-40c2-a8df-e6ca1e84a3b5',
           author: 'Christina Potts',
           avatarUrl: '',
           timestamp: '',
+          created: 0,
           text: 'Hello? Is there anybody in there'),
     ]);
 

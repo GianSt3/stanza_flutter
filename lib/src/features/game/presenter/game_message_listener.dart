@@ -37,7 +37,7 @@ class GameMessageListener extends StatelessWidget {
                       playerNewMessages,
                       gameState.players,
                       gameState.status
-                          .maybeWhen(mute: () => false, orElse: () => true));
+                          .maybeWhen(start: () => true, orElse: () => false));
                 } else {
                   logger.d("No new messages.\n${state.chat.newMessages}");
                 }

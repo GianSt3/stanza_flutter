@@ -1,11 +1,11 @@
-import 'package:flutter/cupertino.dart';
+import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stanza_scrapper/core/bloc/scrapper/youtube_scrapper_cubit.dart';
+import 'package:stanza_scrapper/src/features/clock/presenter/clock_widget.dart';
 import 'package:stanza_scrapper/src/features/lobby/bloc/lobby_cubit.dart';
 import 'package:stanza_scrapper/src/features/lobby/model/queueing_user.dart';
-import 'package:stanza_scrapper/src/features/lobby/presenter/widget/chat_card_widget.dart';
 import 'package:stanza_scrapper/utils/participant_icon_extension.dart';
 
 class ChatParticipants extends StatelessWidget {
@@ -31,10 +31,12 @@ class ChatParticipants extends StatelessWidget {
               // Members on top
               authors.sort((a, b) => a.type.compareTo(b.type) * -1);
               return ListView.builder(
-                  itemCount: authors.length,
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) =>
-                      _Participant(author: authors.elementAt(index)));
+                itemCount: authors.length,
+                shrinkWrap: true,
+                itemBuilder: (context, index) => _Participant(
+                    key: Key(authors.elementAt(index).name),
+                    author: authors.elementAt(index)),
+              );
             },
           ),
         ),
@@ -46,14 +48,25 @@ class ChatParticipants extends StatelessWidget {
 class _Participant extends StatelessWidget {
   final Author author;
 
-  const _Participant({super.key, required this.author});
+  const _Participant({
+    super.key,
+    required this.author,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Card(
       child: ListTile(
         leading: author.type.getIcon(),
-        title: Text(author.name),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(author.name),
+            ClockWidget(
+              millis: author.messageTimestamp,
+            )
+          ],
+        ),
         subtitle: author.type.isNotEmpty ? Text(author.type) : null,
         trailing: IconButton(
             onPressed: () {

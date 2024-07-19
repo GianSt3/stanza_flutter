@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:stanza_scrapper/core/bloc/scrapper/youtube_scrapper_cubit.dart';
+import 'package:stanza_scrapper/src/features/clock/presenter/clock_widget.dart';
 import 'package:stanza_scrapper/src/features/game/bloc/game_cubit.dart';
 import 'package:stanza_scrapper/src/features/lobby/bloc/lobby_cubit.dart';
 import 'package:stanza_scrapper/src/features/lobby/model/queueing_user.dart';
@@ -93,42 +95,31 @@ class _Participant extends StatelessWidget {
                 color: Colors.green,
                 size: 18,
               )),
-      title: Text(user.name),
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(user.name),
+
+          /// LAST MESSAGE TIMESTAMP CLOCK
+          BlocBuilder<YoutubeScrapperCubit, YoutubeScrapperState>(
+            buildWhen: (prev, current) =>
+                prev.chat.messages
+                    .where((element) => element.author == user.name)
+                    .length !=
+                current.chat.messages
+                    .where((element) => element.author == user.name)
+                    .length,
+            builder: (context, state) {
+              return ClockWidget(
+                millis: state.chat.messages
+                    .lastWhere((element) => element.author == user.name)
+                    .created,
+              );
+            },
+          )
+        ],
+      ),
       subtitle: user.type.isNotEmpty ? Text(user.type) : null,
     ));
-    return Row(
-      children: [
-        Icon(
-          user.nextPlayer
-              ? Icons.sentiment_satisfied_alt_rounded
-              : Icons.sentiment_satisfied,
-          color: user.nextPlayer ? Colors.green : Colors.grey,
-          size: 18,
-        ),
-        IconButton(
-            onPressed: () {
-              context.read<LobbyCubit>().promote(user);
-            },
-            icon: const Icon(
-              Icons.add_box_outlined,
-              color: Colors.green,
-              size: 18,
-            )),
-        IconButton(
-            onPressed: () {
-              context.read<GameCubit>().removePlayer(user.name);
-              context.read<LobbyCubit>().remove(user);
-            },
-            icon: const Icon(
-              Icons.remove_circle_outline_sharp,
-              color: Colors.red,
-              size: 18,
-            )),
-        const SizedBox(
-          width: 8,
-        ),
-        Text(user.name),
-      ],
-    );
   }
 }

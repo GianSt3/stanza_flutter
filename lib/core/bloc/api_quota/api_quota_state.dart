@@ -13,6 +13,8 @@ class QuotaInfo extends Equatable {
   final int usedCharacters;
   final int totalCharacters;
 
+  double get ratio => usedCharacters / totalCharacters;
+
   const QuotaInfo(
       {required this.usedCharacters, required this.totalCharacters});
 

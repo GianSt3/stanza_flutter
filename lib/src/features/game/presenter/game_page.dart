@@ -23,10 +23,10 @@ class GamePage extends StatelessWidget {
                   return Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      // Text(
-                      //   "Game ${gameState.status.maybeMap(start: (_) => "🔊", orElse: () => "🔇")}",
-                      //   style: Theme.of(context).textTheme.titleLarge,
-                      // ),
+                      Text(
+                        "Game ${gameState.status.maybeMap(start: (_) => "🔊", orElse: () => "🔇")}",
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
                       Text(
                         gameMessageState.status.maybeMap(
                             error: (err) => err.message, orElse: () => ""),
@@ -51,8 +51,10 @@ class GamePage extends StatelessWidget {
               ),
               child: BlocBuilder<GameCubit, GameState>(
                 builder: (context, state) {
+                  /// ROW OF PLAYERS
                   return Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: state.players
                         .map((player) => Flexible(
                               child: GamePlayerWidget(

@@ -10,6 +10,8 @@ part 'game_state.dart';
 part 'game_cubit.freezed.dart';
 
 class GameCubit extends Cubit<GameState> {
+  static int players = 3;
+
   GameCubit() : super(const GameState(status: GameStatus.initial()));
 
   void player(Player player) {
@@ -51,12 +53,17 @@ class GameCubit extends Cubit<GameState> {
     int index = copy.indexWhere((element) => element.name == name);
     if (index != -1) {
       copy.removeAt(index);
+      logger.w("GamePlayers removed $name ");
       emit(state.copyWith(players: copy));
+    }
+    if (copy.length < players) {
+      logger.w("NOT ENOUGH GamePlayers! ");
+      emit(state.copyWith(status: const GameStatus.stop()));
     }
   }
 
   void start() {
-    if (state.players.length < 3) {
+    if (state.players.length < players) {
       emit(state.copyWith(status: const GameStatus.initial()));
     } else {
       emit(state.copyWith(status: const GameStatus.start()));

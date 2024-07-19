@@ -5,6 +5,7 @@ class YoutubeMessage extends Equatable {
       {required this.id,
       required this.author,
       required this.avatarUrl,
+      required this.created,
       required this.timestamp,
       required this.text,
       this.authorType});
@@ -12,6 +13,7 @@ class YoutubeMessage extends Equatable {
   final String id;
   final String author;
   final String timestamp;
+  final int created;
   final String? authorType;
   final String avatarUrl;
   final String text;
@@ -22,6 +24,7 @@ class YoutubeMessage extends Equatable {
         author: json['author'],
         avatarUrl: json['avatarUrl'],
         timestamp: json['timestamp'],
+        created: DateTime.now().millisecondsSinceEpoch,
         text: json['text'],
         authorType: json['authorType']);
   }
@@ -32,18 +35,20 @@ class YoutubeMessage extends Equatable {
         author: author,
         avatarUrl: avatarUrl,
         timestamp: timestamp,
+        created: created,
         text: text ?? this.text);
   }
 
   Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['id'] = id;
-    _data['author'] = author;
-    _data['avatarUrl'] = avatarUrl;
-    _data['timestamp'] = timestamp;
-    _data['text'] = text;
-    _data['authorType'] = authorType;
-    return _data;
+    final data = <String, dynamic>{};
+    data['id'] = id;
+    data['author'] = author;
+    data['avatarUrl'] = avatarUrl;
+    data['timestamp'] = timestamp;
+    data['created'] = created;
+    data['text'] = text;
+    data['authorType'] = authorType;
+    return data;
   }
 
   @override
