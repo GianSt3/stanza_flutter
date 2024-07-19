@@ -51,15 +51,20 @@ class GamePage extends StatelessWidget {
               ),
               child: BlocBuilder<GameCubit, GameState>(
                 builder: (context, state) {
+                  final array = List.generate(
+                      3, (index) => state.players.elementAtOrNull(index));
+
                   /// ROW OF PLAYERS
                   return Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
-                    children: state.players
+                    children: array
                         .map((player) => Flexible(
-                              child: GamePlayerWidget(
-                                player: player,
-                              ),
+                              child: player != null
+                                  ? GamePlayerWidget(
+                                      player: player,
+                                    )
+                                  : const SizedBox.shrink(),
                             ))
                         .toList(),
                   );
