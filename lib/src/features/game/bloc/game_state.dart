@@ -8,7 +8,6 @@ class GameState with _$GameState {
     required GameStatus status,
     @Default(false) bool mute,
     @Default(<Player>[]) List<Player> players,
-    @Default(<AudioMessage>[]) List<AudioMessage> messages,
   }) = _GameState;
 
   bool get canStart => players.length >= 3;

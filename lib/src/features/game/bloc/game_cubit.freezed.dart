@@ -19,7 +19,6 @@ mixin _$GameState {
   GameStatus get status => throw _privateConstructorUsedError;
   bool get mute => throw _privateConstructorUsedError;
   List<Player> get players => throw _privateConstructorUsedError;
-  List<AudioMessage> get messages => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $GameStateCopyWith<GameState> get copyWith =>
@@ -31,11 +30,7 @@ abstract class $GameStateCopyWith<$Res> {
   factory $GameStateCopyWith(GameState value, $Res Function(GameState) then) =
       _$GameStateCopyWithImpl<$Res, GameState>;
   @useResult
-  $Res call(
-      {GameStatus status,
-      bool mute,
-      List<Player> players,
-      List<AudioMessage> messages});
+  $Res call({GameStatus status, bool mute, List<Player> players});
 
   $GameStatusCopyWith<$Res> get status;
 }
@@ -56,7 +51,6 @@ class _$GameStateCopyWithImpl<$Res, $Val extends GameState>
     Object? status = null,
     Object? mute = null,
     Object? players = null,
-    Object? messages = null,
   }) {
     return _then(_value.copyWith(
       status: null == status
@@ -71,10 +65,6 @@ class _$GameStateCopyWithImpl<$Res, $Val extends GameState>
           ? _value.players
           : players // ignore: cast_nullable_to_non_nullable
               as List<Player>,
-      messages: null == messages
-          ? _value.messages
-          : messages // ignore: cast_nullable_to_non_nullable
-              as List<AudioMessage>,
     ) as $Val);
   }
 
@@ -95,11 +85,7 @@ abstract class _$$GameStateImplCopyWith<$Res>
       __$$GameStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {GameStatus status,
-      bool mute,
-      List<Player> players,
-      List<AudioMessage> messages});
+  $Res call({GameStatus status, bool mute, List<Player> players});
 
   @override
   $GameStatusCopyWith<$Res> get status;
@@ -119,7 +105,6 @@ class __$$GameStateImplCopyWithImpl<$Res>
     Object? status = null,
     Object? mute = null,
     Object? players = null,
-    Object? messages = null,
   }) {
     return _then(_$GameStateImpl(
       status: null == status
@@ -134,10 +119,6 @@ class __$$GameStateImplCopyWithImpl<$Res>
           ? _value._players
           : players // ignore: cast_nullable_to_non_nullable
               as List<Player>,
-      messages: null == messages
-          ? _value._messages
-          : messages // ignore: cast_nullable_to_non_nullable
-              as List<AudioMessage>,
     ));
   }
 }
@@ -148,10 +129,8 @@ class _$GameStateImpl extends _GameState {
   const _$GameStateImpl(
       {required this.status,
       this.mute = false,
-      final List<Player> players = const <Player>[],
-      final List<AudioMessage> messages = const <AudioMessage>[]})
+      final List<Player> players = const <Player>[]})
       : _players = players,
-        _messages = messages,
         super._();
 
   @override
@@ -168,18 +147,9 @@ class _$GameStateImpl extends _GameState {
     return EqualUnmodifiableListView(_players);
   }
 
-  final List<AudioMessage> _messages;
-  @override
-  @JsonKey()
-  List<AudioMessage> get messages {
-    if (_messages is EqualUnmodifiableListView) return _messages;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_messages);
-  }
-
   @override
   String toString() {
-    return 'GameState(status: $status, mute: $mute, players: $players, messages: $messages)';
+    return 'GameState(status: $status, mute: $mute, players: $players)';
   }
 
   @override
@@ -189,17 +159,12 @@ class _$GameStateImpl extends _GameState {
             other is _$GameStateImpl &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.mute, mute) || other.mute == mute) &&
-            const DeepCollectionEquality().equals(other._players, _players) &&
-            const DeepCollectionEquality().equals(other._messages, _messages));
+            const DeepCollectionEquality().equals(other._players, _players));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      status,
-      mute,
-      const DeepCollectionEquality().hash(_players),
-      const DeepCollectionEquality().hash(_messages));
+      runtimeType, status, mute, const DeepCollectionEquality().hash(_players));
 
   @JsonKey(ignore: true)
   @override
@@ -212,8 +177,7 @@ abstract class _GameState extends GameState {
   const factory _GameState(
       {required final GameStatus status,
       final bool mute,
-      final List<Player> players,
-      final List<AudioMessage> messages}) = _$GameStateImpl;
+      final List<Player> players}) = _$GameStateImpl;
   const _GameState._() : super._();
 
   @override
@@ -222,8 +186,6 @@ abstract class _GameState extends GameState {
   bool get mute;
   @override
   List<Player> get players;
-  @override
-  List<AudioMessage> get messages;
   @override
   @JsonKey(ignore: true)
   _$$GameStateImplCopyWith<_$GameStateImpl> get copyWith =>
