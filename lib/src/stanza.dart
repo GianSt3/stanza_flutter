@@ -6,6 +6,7 @@ import 'package:stanza_scrapper/config/environment/environment.dart';
 import 'package:stanza_scrapper/core/bloc/api_key/api_key_cubit.dart';
 import 'package:stanza_scrapper/data/model/youtube_message.dart';
 import 'package:stanza_scrapper/domain/entities/custom_voice.dart';
+import 'package:stanza_scrapper/gen/assets.gen.dart';
 import 'package:stanza_scrapper/main.dart';
 import 'package:stanza_scrapper/src/features/clock/bloc/clock_cubit.dart';
 import 'package:stanza_scrapper/src/features/game/bloc/game_cubit.dart';
@@ -123,9 +124,9 @@ class _StanzaState extends State<Stanza> {
               },
               destinations: [
                 NavigationRailDestination(
-                    icon: const Icon(Icons.settings), label: Text(titles[0])),
+                    icon: Assets.icons.settings.svg(), label: Text(titles[0])),
                 NavigationRailDestination(
-                    icon: const Icon(Icons.sports_esports_outlined),
+                    icon: Assets.icons.game.svg(),
                     label: Text(titles[1])),
               ],
               selectedIndex: currentPageIndex,

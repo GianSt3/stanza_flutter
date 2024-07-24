@@ -2,9 +2,11 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:stanza_scrapper/core/bloc/api_quota/api_quota_cubit.dart';
 import 'package:stanza_scrapper/core/bloc/scrapper/youtube_scrapper_cubit.dart';
+import 'package:stanza_scrapper/gen/assets.gen.dart';
 import 'package:stanza_scrapper/src/features/lobby/bloc/lobby_cubit.dart';
 import 'package:stanza_scrapper/src/features/lobby/model/queueing_user.dart';
 
@@ -100,7 +102,7 @@ class _LobbyHeaderState extends State<LobbyHeader> {
                           ),
                         ),
                         IconButton(
-                          icon: const Icon(FontAwesomeIcons.play),
+                          icon: Assets.icons.start.svg(theme: SvgTheme(currentColor: Theme.of(context).disabledColor)),
                           iconSize: 24,
                           onPressed: state.status.mapOrNull(
                               initial: (_) => () => context

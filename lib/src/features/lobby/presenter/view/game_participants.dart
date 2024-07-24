@@ -60,8 +60,9 @@ class GameParticipants extends StatelessWidget {
               return players;
             },
             builder: (context, players) {
-              return ListView.builder(
+              return ListView.separated(
                   itemCount: players.length,
+                  separatorBuilder: (context, index) => const Divider(),
                   itemBuilder: (context, index) => PlayerWidgetTile(
                       key: Key(players.elementAt(index).created.toString()),
                       user: players.elementAt(index)));

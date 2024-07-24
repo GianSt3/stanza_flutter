@@ -1,5 +1,6 @@
 import 'package:desktop_webview_window/desktop_webview_window.dart';
 import 'package:eleven_labs/eleven_labs.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,6 +26,7 @@ import 'package:stanza_scrapper/src/features/lobby/bloc/blacklist/blacklist_cubi
 import 'package:stanza_scrapper/src/features/lobby/bloc/lobby_cubit.dart';
 import 'package:stanza_scrapper/src/features/settings/bloc/voice/custom_voice_cubit.dart';
 import 'package:stanza_scrapper/src/stanza.dart';
+import 'package:stanza_scrapper/utils/logger.dart';
 
 final injector = GetIt.instance;
 
@@ -81,12 +83,24 @@ class _MainAppState extends State<MainApp> {
             const NavigationRailThemeData(backgroundColor: Colors.white),
         listTileTheme: ListTileThemeData(
           dense: false,
+          selectedTileColor: Colors.grey.shade50,
+          selectedColor: Colors.grey,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(4),
+            ),
+          ),
         ),
         cardTheme: CardTheme(
-            color: Colors.blueGrey.shade50,
-            shadowColor: Colors.black,
-            shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(6)))),
+          elevation: 0,
+          color: Colors.blueGrey.shade50,
+          shadowColor: Colors.black,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(6),
+            ),
+          ),
+        ),
         textButtonTheme: TextButtonThemeData(
             style: TextButton.styleFrom(
           minimumSize: const Size(200, 20),
@@ -97,14 +111,14 @@ class _MainAppState extends State<MainApp> {
               ),
               borderRadius: BorderRadius.circular(3)),
         )),
-        dropdownMenuTheme: Theme.of(context).dropdownMenuTheme.copyWith(
-              menuStyle: const MenuStyle(
-                  backgroundColor:
-                      MaterialStatePropertyAll<Color>(Colors.white)),
-              inputDecorationTheme: const InputDecorationTheme(
-                isDense: true,
-              ),
-            ),
+        dropdownMenuTheme: const DropdownMenuThemeData(
+          menuStyle: MenuStyle(
+              backgroundColor: WidgetStatePropertyAll<Color>(Colors.white)),
+          inputDecorationTheme: InputDecorationTheme(
+            contentPadding: EdgeInsets.zero,
+            isDense: true,
+          ),
+        ),
         sliderTheme: Theme.of(context)
             .sliderTheme
             .copyWith(showValueIndicator: ShowValueIndicator.onlyForContinuous),

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:stanza_scrapper/core/bloc/scrapper/youtube_scrapper_cubit.dart';
+import 'package:stanza_scrapper/gen/assets.gen.dart';
 import 'package:stanza_scrapper/src/features/clock/presenter/clock_widget.dart';
 import 'package:stanza_scrapper/src/features/game/bloc/game_cubit.dart';
 import 'package:stanza_scrapper/src/features/lobby/bloc/lobby_cubit.dart';
@@ -33,7 +35,7 @@ class LobbyParticipants extends StatelessWidget {
                 child: const Row(
                   children: [
                     Text("Random"),
-                    const SizedBox(
+                    SizedBox(
                       width: 12,
                     ),
                     Icon(
@@ -53,8 +55,9 @@ class LobbyParticipants extends StatelessWidget {
           child: BlocBuilder<LobbyCubit, LobbyState>(
             builder: (context, state) {
               final users = state.lobby;
-              return ListView.builder(
+              return ListView.separated(
                   itemCount: users.length,
+                  separatorBuilder: (context, index) => const Divider(),
                   itemBuilder: (context, index) =>
                       _Participant(user: users.elementAt(index)));
             },
@@ -72,8 +75,7 @@ class _Participant extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-        child: ListTile(
+    return ListTile(
       selected: user.nextPlayer,
       leading: user.nextPlayer
           ? IconButton(
@@ -81,20 +83,22 @@ class _Participant extends StatelessWidget {
                 context.read<GameCubit>().removePlayer(user.name);
                 context.read<LobbyCubit>().remove(user);
               },
-              icon: const Icon(
-                Icons.remove_circle_rounded,
-                color: Colors.red,
-                size: 18,
-              ))
+              icon: Icon(
+                FontAwesomeIcons.trash,
+                size: 20,
+                color: Colors.red.shade700,
+              ),
+            )
           : IconButton(
               onPressed: () {
                 context.read<LobbyCubit>().promote(user);
               },
-              icon: const Icon(
-                Icons.add_box_rounded,
-                color: Colors.green,
-                size: 18,
-              )),
+              icon: Icon(
+                FontAwesomeIcons.squareArrowUpRight,
+                size: 20,
+                color: Colors.green.shade700,
+              ),
+            ),
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -119,7 +123,11 @@ class _Participant extends StatelessWidget {
           )
         ],
       ),
-      subtitle: user.type.isNotEmpty ? Text(user.type) : null,
-    ));
+      subtitle: user.type.isNotEmpty
+          ? Text(
+              user.type,
+            )
+          : null,
+    );
   }
 }
