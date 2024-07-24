@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:stanza_scrapper/src/features/game/model/audio_message.dart';
 import 'package:stanza_scrapper/utils/logger.dart';
 
 import '../model/player.dart';
@@ -71,6 +70,6 @@ class GameCubit extends Cubit<GameState> {
   }
 
   void stop() {
-    emit(state.copyWith(status: const GameStatus.initial()));
+    emit(state.copyWith(status: const GameStatus.stop()));
   }
 }
