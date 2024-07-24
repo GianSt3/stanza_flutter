@@ -1,9 +1,7 @@
-import 'package:eleven_labs/elevenlabs_types.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:stanza_scrapper/src/features/settings/bloc/default_voices/default_voices_cubit.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:stanza_scrapper/gen/assets.gen.dart';
 import 'package:stanza_scrapper/src/features/settings/presenter/tabs/voice_custom_tab.dart';
 import 'package:stanza_scrapper/src/features/settings/presenter/tabs/voices_tab_page.dart';
 import 'package:stanza_scrapper/src/features/settings/presenter/widget/api_quota_widget.dart';
@@ -19,16 +17,16 @@ class SettingsPage extends StatelessWidget {
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(kToolbarHeight),
           child: AppBar(
-            bottom: const TabBar(
+            bottom: TabBar(
               tabs: <Widget>[
                 Tab(
-                  icon: Icon(Icons.dashboard),
+                  icon: Assets.icons.dashboard.svg(),
                 ),
                 Tab(
-                  icon: Icon(Icons.tune),
+                  icon: Assets.icons.config.svg(),
                 ),
                 Tab(
-                  icon: Icon(Icons.info_outline),
+                  icon: Assets.icons.info.svg(),
                 ),
               ],
             ),

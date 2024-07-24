@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:stanza_scrapper/gen/assets.gen.dart';
 import 'package:stanza_scrapper/src/features/clock/bloc/clock_cubit.dart';
 
 class ClockWidget extends StatelessWidget {
@@ -48,11 +50,8 @@ class ClockWidget extends StatelessWidget {
           const SizedBox(
             width: 2,
           ),
-          Icon(
-            Icons.timer_outlined,
-            size: 14,
-            color: timeColor(snapshot),
-          ),
+          Assets.icons.watch.svg(
+              width: 14, theme: SvgTheme(currentColor: timeColor(snapshot)))
         ],
       );
     });

@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:stanza_scrapper/data/model/youtube_message.dart';
 import 'package:stanza_scrapper/domain/youtube/youtube_chat_repository_interface.dart';
@@ -31,21 +32,25 @@ String _randomText() {
     "Un tiro molto fortunato il suo, molto fortunato - Un tiro molto fortunato il suo, molto fortunato - ",
     "Non ci posso credere, oggi non è proprio giornata",
     "/me Questo è un messaggio fuori character"
-    "/d20"
+        "/d20"
   ];
   final rnd = Random();
   return mockText[rnd.nextInt(mockText.length)];
 }
 
-String _randomAuthor() {
-  final mockText = [
-    "Cat",
-    "Dog",
-    "Elicopter",
-    "Mouse",
-  ];
+MapEntry<String, String> _randomAuthor() {
+  final mockText = {
+    "Cat": "owner",
+    "Dog": "moderator",
+    "Elicopter": "",
+    "Mouse": "member",
+  };
   final rnd = Random();
-  return mockText[rnd.nextInt(mockText.length)];
+  final rndIndex = rnd.nextInt(mockText.length);
+  final entry =
+      mockText.entries.whereIndexed((index, entry) => index == rndIndex).first;
+
+  return entry;
 }
 
 Future<List<YoutubeMessage>> _randomMessages({int numberMessages = 1}) async {
@@ -53,10 +58,12 @@ Future<List<YoutubeMessage>> _randomMessages({int numberMessages = 1}) async {
   for (var i = 0; i < numberMessages; i++) {
     await Future.delayed(const Duration(milliseconds: 250));
     final now = DateTime.now();
+    final author = _randomAuthor();
     result.add(
       YoutubeMessage(
           id: UniqueKey().toString(),
-          author: _randomAuthor(),
+          author: author.key,
+          authorType: author.value,
           avatarUrl:
               "https://yt4.ggpht.com/BNbBwvNq1seIjO_lIzdq1X84JDvpWofXwJq_NLPFULD2Ic-tFPmgNePR3W0qcKd3pyiMvxLBYQ=s32-c-k-c0x00ffffff-no-rj",
           timestamp: "${now.hour}:${now.minute}:${now.second}",
