@@ -1,5 +1,5 @@
-import 'package:json_annotation/json_annotation.dart';
 import 'package:dio/dio.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 part 'elevenlabs_types.g.dart';
 
@@ -162,7 +162,6 @@ class Language {
   Map<String, dynamic> toJson() => _$LanguageToJson(this);
 }
 
-
 class Samples {
   String? sampleId;
   String? fileName;
@@ -207,7 +206,18 @@ class FineTuning {
   ManualVerification? manualVerification;
 
   FineTuning(
-      {this.isAllowedToFineTune, this.finetuningState, this.verificationFailures, this.verificationAttemptsCount, this.manualVerificationRequested, this.language, this.finetuningProgress, this.message, this.datasetDurationSeconds, this.verificationAttempts, this.sliceIds, this.manualVerification});
+      {this.isAllowedToFineTune,
+      this.finetuningState,
+      this.verificationFailures,
+      this.verificationAttemptsCount,
+      this.manualVerificationRequested,
+      this.language,
+      this.finetuningProgress,
+      this.message,
+      this.datasetDurationSeconds,
+      this.verificationAttempts,
+      this.sliceIds,
+      this.manualVerification});
 
   FineTuning.fromJson(Map<String, dynamic> json) {
     isAllowedToFineTune = json['is_allowed_to_fine_tune'];
@@ -216,10 +226,10 @@ class FineTuning {
     verificationAttemptsCount = json['verification_attempts_count'];
     manualVerificationRequested = json['manual_verification_requested'];
     language = json['language'];
-    finetuningProgress =
-    json['finetuning_progress'] != null ? new FinetuningProgress.fromJson(
-        json['finetuning_progress']) : null;
-    message = json['message'];
+    finetuningProgress = json['finetuning_progress'] != null
+        ? new FinetuningProgress.fromJson(json['finetuning_progress'])
+        : null;
+    // message = json['message'];
     datasetDurationSeconds = json['dataset_duration_seconds'];
     if (json['verification_attempts'] != null) {
       verificationAttempts = <VerificationAttempts>[];
@@ -228,10 +238,10 @@ class FineTuning {
       });
     }
     sliceIds =
-    json['slice_ids'] != null ? json['slice_ids'].cast<String>() : null;
-    manualVerification =
-    json['manual_verification'] != null ? new ManualVerification.fromJson(
-        json['manual_verification']) : null;
+        json['slice_ids'] != null ? json['slice_ids'].cast<String>() : null;
+    manualVerification = json['manual_verification'] != null
+        ? new ManualVerification.fromJson(json['manual_verification'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -260,13 +270,9 @@ class FineTuning {
 }
 
 class FinetuningProgress {
-
-
   FinetuningProgress();
 
-  FinetuningProgress.fromJson
-      (Map<String, dynamic> json) {
-  }
+  FinetuningProgress.fromJson(Map<String, dynamic> json) {}
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
@@ -283,7 +289,12 @@ class VerificationAttempts {
   Recording? recording;
 
   VerificationAttempts(
-      {this.text, this.dateUnix, this.accepted, this.similarity, this.levenshteinDistance, this.recording});
+      {this.text,
+      this.dateUnix,
+      this.accepted,
+      this.similarity,
+      this.levenshteinDistance,
+      this.recording});
 
   VerificationAttempts.fromJson(Map<String, dynamic> json) {
     text = json['text'];
@@ -318,7 +329,11 @@ class Recording {
   String? transcription;
 
   Recording(
-      {this.recordingId, this.mimeType, this.sizeBytes, this.uploadDateUnix, this.transcription});
+      {this.recordingId,
+      this.mimeType,
+      this.sizeBytes,
+      this.uploadDateUnix,
+      this.transcription});
 
   Recording.fromJson(Map<String, dynamic> json) {
     recordingId = json['recording_id'];
@@ -376,7 +391,11 @@ class Files {
   int? uploadDateUnix;
 
   Files(
-      {this.fileId, this.fileName, this.mimeType, this.sizeBytes, this.uploadDateUnix});
+      {this.fileId,
+      this.fileName,
+      this.mimeType,
+      this.sizeBytes,
+      this.uploadDateUnix});
 
   Files.fromJson(Map<String, dynamic> json) {
     fileId = json['file_id'];
@@ -455,7 +474,35 @@ class Sharing {
   String? tiktokUsername;
 
   Sharing(
-      {this.status, this.historyItemSampleId, this.dateUnix, this.whitelistedEmails, this.publicOwnerId, this.originalVoiceId, this.financialRewardsEnabled, this.freeUsersAllowed, this.liveModerationEnabled, this.rate, this.noticePeriod, this.disableAtUnix, this.voiceMixingAllowed, this.featured, this.category, this.readerAppEnabled, this.banReason, this.likedByCount, this.clonedByCount, this.name, this.description, this.labels, this.reviewStatus, this.reviewMessage, this.enabledInLibrary, this.instagramUsername, this.twitterUsername, this.youtubeUsername, this.tiktokUsername});
+      {this.status,
+      this.historyItemSampleId,
+      this.dateUnix,
+      this.whitelistedEmails,
+      this.publicOwnerId,
+      this.originalVoiceId,
+      this.financialRewardsEnabled,
+      this.freeUsersAllowed,
+      this.liveModerationEnabled,
+      this.rate,
+      this.noticePeriod,
+      this.disableAtUnix,
+      this.voiceMixingAllowed,
+      this.featured,
+      this.category,
+      this.readerAppEnabled,
+      this.banReason,
+      this.likedByCount,
+      this.clonedByCount,
+      this.name,
+      this.description,
+      this.labels,
+      this.reviewStatus,
+      this.reviewMessage,
+      this.enabledInLibrary,
+      this.instagramUsername,
+      this.twitterUsername,
+      this.youtubeUsername,
+      this.tiktokUsername});
 
   Sharing.fromJson(Map<String, dynamic> json) {
     status = json['status'];
@@ -537,7 +584,12 @@ class VoiceVerification {
   List<VerificationAttempts>? verificationAttempts;
 
   VoiceVerification(
-      {this.requiresVerification, this.isVerified, this.verificationFailures, this.verificationAttemptsCount, this.language, this.verificationAttempts});
+      {this.requiresVerification,
+      this.isVerified,
+      this.verificationFailures,
+      this.verificationAttemptsCount,
+      this.language,
+      this.verificationAttempts});
 
   VoiceVerification.fromJson(Map<String, dynamic> json) {
     requiresVerification = json['requires_verification'];
@@ -587,7 +639,22 @@ class Voice {
   String? permissionOnResource;
 
   Voice(
-      {this.voiceId, this.name, this.samples, this.category, this.fineTuning, this.labels, this.description, this.previewUrl, this.availableForTiers, this.settings, this.sharing, this.highQualityBaseModelIds, this.safetyControl, this.voiceVerification, this.ownerId, this.permissionOnResource});
+      {this.voiceId,
+      this.name,
+      this.samples,
+      this.category,
+      this.fineTuning,
+      this.labels,
+      this.description,
+      this.previewUrl,
+      this.availableForTiers,
+      this.settings,
+      this.sharing,
+      this.highQualityBaseModelIds,
+      this.safetyControl,
+      this.voiceVerification,
+      this.ownerId,
+      this.permissionOnResource});
 
   Voice.fromJson(Map<String, dynamic> json) {
     voiceId = json['voice_id'];
@@ -602,22 +669,22 @@ class Voice {
     fineTuning = json['fine_tuning'] != null
         ? new FineTuning.fromJson(json['fine_tuning'])
         : null;
-    labels = json['labels'] != null
-        ? new Labels.fromJson(json['labels'])
-        : null;
+    labels =
+        json['labels'] != null ? new Labels.fromJson(json['labels']) : null;
     description = json['description'];
     previewUrl = json['preview_url'];
     availableForTiers = json['available_for_tiers'].cast<String>();
-    settings =
-    json['settings'] != null ? new Settings.fromJson(json['settings']) : null;
+    settings = json['settings'] != null
+        ? new Settings.fromJson(json['settings'])
+        : null;
     sharing =
-    json['sharing'] != null ? new Sharing.fromJson(json['sharing']) : null;
+        json['sharing'] != null ? new Sharing.fromJson(json['sharing']) : null;
     highQualityBaseModelIds =
         json['high_quality_base_model_ids'].cast<String>();
     safetyControl = json['safety_control'];
-    voiceVerification =
-    json['voice_verification'] != null ? new VoiceVerification.fromJson(
-        json['voice_verification']) : null;
+    voiceVerification = json['voice_verification'] != null
+        ? new VoiceVerification.fromJson(json['voice_verification'])
+        : null;
     ownerId = json['owner_id'];
     permissionOnResource = json['permission_on_resource'];
   }
@@ -684,13 +751,11 @@ class Labels {
   }
 }
 
-
 enum FineTuningState<String> {
   notStarted,
   isFineTuning,
   fineTuned,
 }
-
 
 class FineTuningStateConverter
     implements JsonConverter<FineTuningState, String> {
@@ -711,11 +776,7 @@ class FineTuningStateConverter
   }
 
   @override
-  String toJson(FineTuningState object) =>
-      object
-          .toString()
-          .split('.')
-          .last;
+  String toJson(FineTuningState object) => object.toString().split('.').last;
 }
 
 /// Verification Attempt JSON Object
@@ -747,7 +808,6 @@ class VerificationAttempt {
   Map<String, dynamic> toJson() => _$VerificationAttemptToJson(this);
 }
 
-
 /// Sample JSON Object
 ///
 /// Nested within Voice response
@@ -777,7 +837,6 @@ class Sample {
 
   Map<String, dynamic> toJson() => _$SampleToJson(this);
 }
-
 
 /// Add Voice Request JSON Object
 ///
