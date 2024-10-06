@@ -1,17 +1,17 @@
 abstract class Environment<T> {
-  bool isDebug();
+  bool isMockEnabled();
 
-  T when({required T Function() debug, required T Function() orElse});
+  T when({required T Function() mock, required T Function() orElse});
 }
 
-const env = String.fromEnvironment('ENV');
+const flavor = String.fromEnvironment('FLAVOR');
 
 class EnvironmentImpl implements Environment {
   @override
-  bool isDebug() => env == 'DEBUG';
+  bool isMockEnabled() => flavor == 'MOCK';
 
   @override
-  when({required Function() debug, required Function() orElse}) {
-    isDebug() ? debug() : orElse();
+  when({required Function() mock, required Function() orElse}) {
+    isMockEnabled() ? mock() : orElse();
   }
 }

@@ -6,13 +6,12 @@ import 'package:stanza_scrapper/domain/usecases/elevenlabs/subscription_info_moc
 import 'package:stanza_scrapper/domain/usecases/elevenlabs/subscription_info_use_case.dart';
 import 'package:stanza_scrapper/main.dart';
 
-part 'api_quota_state.dart';
-
 part 'api_quota_cubit.freezed.dart';
+part 'api_quota_state.dart';
 
 class ApiQuotaCubit extends Cubit<ApiQuotaState> {
   final ISubscriptionInfoUseCase _subscriptionInfoUseCase =
-      injector.get<Environment>().isDebug()
+      injector.get<Environment>().isMockEnabled()
           ? SubscriptionInfoMockUseCase()
           : SubscriptionInfoUseCase(injector());
 
