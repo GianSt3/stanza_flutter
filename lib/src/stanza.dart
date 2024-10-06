@@ -37,7 +37,7 @@ class _StanzaState extends State<Stanza> {
           backgroundColor: Colors.white,
           appBar: AppBar(
             title: Text(titles[currentPageIndex]),
-            actions: injector.get<Environment>().isDebug()
+            actions: injector.get<Environment>().isMockEnabled()
                 ? [
                     TextButton(
                         onPressed: () {
@@ -126,8 +126,7 @@ class _StanzaState extends State<Stanza> {
                 NavigationRailDestination(
                     icon: Assets.icons.settings.svg(), label: Text(titles[0])),
                 NavigationRailDestination(
-                    icon: Assets.icons.game.svg(),
-                    label: Text(titles[1])),
+                    icon: Assets.icons.game.svg(), label: Text(titles[1])),
               ],
               selectedIndex: currentPageIndex,
             ),

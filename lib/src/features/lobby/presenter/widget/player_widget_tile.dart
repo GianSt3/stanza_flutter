@@ -43,26 +43,29 @@ class _PlayerWidgetTileState extends State<PlayerWidgetTile> {
 
                     /// DROPDOWN CHANGE PLAYER
                     return DropdownMenu(
-                        label: const Text("Player"),
-                        onSelected: (newPlayer) {
-                          if (newPlayer != null) {
-                            context.read<LobbyCubit>().promote(newPlayer);
-                            context.read<GameCubit>().update(
-                                oldPlayerName: widget.user.name,
-                                newPlayerName: newPlayer.name,
-                                newPlayerAvatar: newPlayer.avatarUrl);
+                      label: const Text("Player"),
+                      onSelected: (newPlayer) {
+                        if (newPlayer != null) {
+                          context.read<LobbyCubit>().promote(newPlayer);
+                          context.read<GameCubit>().update(
+                              oldPlayerName: widget.user.name,
+                              newPlayerName: newPlayer.name,
+                              newPlayerAvatar: newPlayer.avatarUrl);
 
-                            context.read<LobbyCubit>().demote(widget.user);
-                          }
+                          context.read<LobbyCubit>().demote(widget.user);
+                        }
 
-                          setState(() {
-                            _changingPlayer = false;
-                          });
-                        },
-                        dropdownMenuEntries: potentialPlayers
-                            .map((e) => DropdownMenuEntry<QueueingUser>(
-                                value: e, label: e.name))
-                            .toList());
+                        setState(() {
+                          _changingPlayer = false;
+                        });
+                      },
+                      dropdownMenuEntries: potentialPlayers
+                          .map(
+                            (e) => DropdownMenuEntry<QueueingUser>(
+                                value: e, label: e.name),
+                          )
+                          .toList(),
+                    );
                   })
 
               /// PLAYER NAME
@@ -87,10 +90,13 @@ class _PlayerWidgetTileState extends State<PlayerWidgetTile> {
                       initialSelection: playerVoice,
                       onSelected: (voice) {
                         if (voice != null) {
-                          context.read<GameCubit>().player(Player(
-                              name: widget.user.name,
-                              image: widget.user.avatarUrl,
-                              voice: voice));
+                          context.read<GameCubit>().player(
+                                Player(
+                                  name: widget.user.name,
+                                  image: widget.user.avatarUrl,
+                                  voice: voice,
+                                ),
+                              );
                         }
                       },
                       dropdownMenuEntries: state.voices

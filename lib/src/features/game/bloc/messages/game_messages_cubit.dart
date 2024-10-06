@@ -13,14 +13,12 @@ import 'package:stanza_scrapper/domain/usecases/dice/dice_use_case.dart';
 import 'package:stanza_scrapper/domain/usecases/elevenlabs/synthesize_mock_use_case.dart';
 import 'package:stanza_scrapper/domain/usecases/elevenlabs/synthesize_use_case.dart';
 import 'package:stanza_scrapper/main.dart';
-import 'package:stanza_scrapper/src/features/game/bloc/game_cubit.dart';
 import 'package:stanza_scrapper/src/features/game/model/audio_message.dart';
 import 'package:stanza_scrapper/src/features/game/model/player.dart';
 import 'package:stanza_scrapper/utils/logger.dart';
 
-part 'game_messages_state.dart';
-
 part 'game_messages_cubit.freezed.dart';
+part 'game_messages_state.dart';
 
 class GameMessagesCubit extends Cubit<GameMessagesState> {
   final player = AudioPlayer();
@@ -28,7 +26,7 @@ class GameMessagesCubit extends Cubit<GameMessagesState> {
   late final Timer checkQueue;
 
   final ISynthesizeUseCase _synthesizeUseCase =
-      injector.get<Environment>().isDebug()
+      injector.get<Environment>().isMockEnabled()
           ? SynthesizeMockUseCase()
           : SynthesizeUseCase(injector());
 
