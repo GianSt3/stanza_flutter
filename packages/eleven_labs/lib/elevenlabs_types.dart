@@ -452,7 +452,7 @@ class Sharing {
   bool? financialRewardsEnabled;
   bool? freeUsersAllowed;
   bool? liveModerationEnabled;
-  int? rate;
+  double? rate;
   int? noticePeriod;
   int? disableAtUnix;
   bool? voiceMixingAllowed;
