@@ -1,6 +1,4 @@
-import 'package:eleven_labs/eleven_labs.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stanza_scrapper/src/features/settings/bloc/default_voices/default_voices_cubit.dart';
 import 'package:stanza_scrapper/src/widget/custom_table.dart';
 
