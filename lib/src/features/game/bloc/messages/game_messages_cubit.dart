@@ -137,7 +137,8 @@ class GameMessagesCubit extends Cubit<GameMessagesState> {
             audioType: AudioType.dice,
             // Change the text with the results
             message: message.message.copyWith(
-              text: diceCommands.right.join(', '),
+              text:
+                  "${message.message.text.replaceAll("/", "")}:\n${diceCommands.right.join(', ')}",
             ));
 
         final index = temp
