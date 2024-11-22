@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:stanza_scrapper/gen/assets.gen.dart';
 import 'package:stanza_scrapper/src/features/settings/presenter/tabs/voice_custom_tab.dart';
 import 'package:stanza_scrapper/src/features/settings/presenter/tabs/voices_tab_page.dart';
