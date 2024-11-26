@@ -68,7 +68,7 @@ class _MainAppState extends State<MainApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: flavor == 'DEBUG',
+      debugShowCheckedModeBanner: injector.get<Environment>().isMockEnabled(),
       theme: ThemeData(
         canvasColor: Colors.white,
         textTheme: GoogleFonts.kanitTextTheme(Theme.of(context).textTheme),
