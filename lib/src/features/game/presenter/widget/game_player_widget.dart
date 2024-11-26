@@ -27,43 +27,51 @@ class GamePlayerWidget extends StatelessWidget {
         }
 
         /// PLAYER MESSAGES
-        return LayoutBuilder(
-          builder: (context, constraints) => Container(
-            padding: EdgeInsets.symmetric(
-              horizontal: constraints.maxWidth / 3 * 0.2,
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                SizedBox(
-                  height: constraints.maxHeight * 0.1,
-                ),
-                BlocSelector<GameMessagesCubit, GameMessagesState,
-                    (String text, AudioType type)>(
-                  selector: (state) {
-                    /// Last played player's message
-                    final lastMessage = state.lastPlayerMessages
-                        .where(
-                            (element) => element.message.author == player.name)
-                        .firstOrNull;
+        return BlocSelector<GameMessagesCubit, GameMessagesState,
+            (String text, AudioType type)>(selector: (state) {
+          /// Last played player's message
+          final lastMessage = state.lastPlayerMessages
+              .where((element) => element.message.author == player.name)
+              .firstOrNull;
 
-                    return (
-                      lastMessage?.message.text ?? "",
-                      lastMessage?.audioType ?? AudioType.textToSpeech
-                    );
-                  },
-                  builder: (context, value) {
-                    final (text, type) = value;
-                    return Expanded(
-                      child: Container(
-                        // decoration: BoxDecoration(
-                        //   border: Border.all(color: Colors.white),
-                        // ),
-                        alignment: Alignment.center,
+          return (
+            lastMessage?.message.text ?? "",
+            lastMessage?.audioType ?? AudioType.textToSpeech
+          );
+        }, builder: (context, value) {
+          final (text, type) = value;
 
-                        /// PLAYER MESSAGE
-                        child: Text(text,
+          return LayoutBuilder(
+            builder: (context, constraints) => Container(
+              padding: EdgeInsets.symmetric(
+                horizontal: constraints.maxWidth / 3 * 0.2,
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SizedBox(
+                    height: constraints.maxHeight * 0.1,
+                  ),
+                  Expanded(
+                    child: Container(
+                      // decoration: BoxDecoration(
+                      //   border: Border.all(color: Colors.white),
+                      // ),
+                      alignment: Alignment.center,
+
+                      /// PLAYER MESSAGE
+                      child: AnimatedSwitcher(
+                        duration: const Duration(milliseconds: 250),
+                        transitionBuilder: (child, animation) {
+                          return FadeTransition(
+                            opacity: animation,
+                            child: child,
+                          );
+                        },
+                        child: Text(
+                            key: ValueKey(text),
+                            text,
                             maxLines: 10,
                             textAlign: TextAlign.center,
                             style: GoogleFonts.kanit(
@@ -73,30 +81,33 @@ class GamePlayerWidget extends StatelessWidget {
                                             20 *
                                             constraints.maxHeight /
                                             constraints.maxWidth),
+                                    fontStyle: type == AudioType.me
+                                        ? FontStyle.italic
+                                        : null,
                                     color: type == AudioType.silence
                                         ? Colors.grey.shade300
                                         : Colors.white))),
                       ),
-                    );
-                  },
-                ),
+                    ),
+                  ),
 
-                /// PLAYER NAME
-                Container(
-                    alignment: Alignment.center,
-                    // decoration: BoxDecoration(
-                    //   border: Border.all(color: Colors.white),
-                    // ),
-                    width: constraints.maxWidth / 3 * 10,
-                    height: constraints.maxHeight * 0.2,
-                    child: PlayerHeader(player: player)),
-                SizedBox(
-                  height: constraints.maxHeight * 0.04,
-                ),
-              ],
+                  /// PLAYER NAME
+                  Container(
+                      alignment: Alignment.center,
+                      // decoration: BoxDecoration(
+                      //   border: Border.all(color: Colors.white),
+                      // ),
+                      width: constraints.maxWidth / 3 * 10,
+                      height: constraints.maxHeight * 0.2,
+                      child: PlayerHeader(player: player)),
+                  SizedBox(
+                    height: constraints.maxHeight * 0.04,
+                  ),
+                ],
+              ),
             ),
-          ),
-        );
+          );
+        });
       },
     );
   }
