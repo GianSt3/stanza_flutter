@@ -24,6 +24,7 @@ class Stanza extends StatefulWidget {
 
 class _StanzaState extends State<Stanza> {
   int currentPageIndex = 0;
+  String appVersion = injector.get<Environment>().appVersion;
   List<String> titles = [
     "Settings",
     "Stanza",
@@ -110,6 +111,9 @@ class _StanzaState extends State<Stanza> {
           ),
           drawer: IntrinsicWidth(
             child: NavigationRail(
+              leading: Text(
+                "v $appVersion",
+              ),
               onDestinationSelected: (index) {
                 state.maybeWhen(
                     loaded: (_) => setState(() {
