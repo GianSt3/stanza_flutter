@@ -13,6 +13,7 @@ import 'package:stanza_scrapper/src/features/game/bloc/game_cubit.dart';
 import 'package:stanza_scrapper/src/features/game/bloc/messages/game_messages_cubit.dart';
 import 'package:stanza_scrapper/src/features/game/model/player.dart';
 import 'package:stanza_scrapper/src/features/lobby/presenter/lobby_page.dart';
+import 'package:stanza_scrapper/src/features/lobby_firestore/presenter/lobby_firestore_page.dart';
 import 'package:stanza_scrapper/src/features/settings/presenter/settings_page.dart';
 
 class Stanza extends StatefulWidget {
@@ -28,6 +29,7 @@ class _StanzaState extends State<Stanza> {
   List<String> titles = [
     "Settings",
     "Stanza",
+    "Stanza Four Fun",
   ];
 
   @override
@@ -133,6 +135,8 @@ class _StanzaState extends State<Stanza> {
                     icon: Assets.icons.settings.svg(), label: Text(titles[0])),
                 NavigationRailDestination(
                     icon: Assets.icons.game.svg(), label: Text(titles[1])),
+                NavigationRailDestination(
+                    icon: Assets.icons.game.svg(), label: Text(titles[1])),
               ],
               selectedIndex: currentPageIndex,
             ),
@@ -143,6 +147,7 @@ class _StanzaState extends State<Stanza> {
               create: (context) => ClockCubit(),
               child: const LobbyPage(),
             ),
+            LobbyFirestorePage(),
           ][currentPageIndex],
         );
       },

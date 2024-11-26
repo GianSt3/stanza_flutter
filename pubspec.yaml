@@ -8,12 +8,15 @@ environment:
 
 dependencies:
   audioplayers: ^6.0.0
+  cloud_firestore: ^5.5.0
   collection: ^1.18.0
   desktop_webview_window: ^0.2.3
   either_dart: ^1.0.0
   eleven_labs:
     path: ./packages/eleven_labs
+  envied: ^0.3.0+3
   equatable: ^2.0.5
+  firebase_core: ^3.8.0
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.5
@@ -34,8 +37,9 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
-  build_runner: ^2.4.9
+  build_runner: ^2.4.13
   json_serializable: ^6.8.0
+  envied_generator: ^0.3.0+3
 
 scripts:
   gen: dart run build_runner build --delete-conflicting-outputs

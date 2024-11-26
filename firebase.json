@@ -1,0 +1,14 @@
+{
+  "flutter": {
+    "platforms": {
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "stanza-live",
+          "configurations": {
+            "windows": "1:388231722293:web:87f4fe5c15211119d1c87c"
+          }
+        }
+      }
+    }
+  }
+}
