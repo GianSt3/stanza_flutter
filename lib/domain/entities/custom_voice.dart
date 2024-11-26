@@ -16,16 +16,22 @@ enum ModelId {
 class CustomVoice {
   String? voiceId;
   String? name;
+  String? originalName;
   VoiceSettings? voiceSettings;
   ModelId? modelId;
 
   CustomVoice(
-      {this.voiceId = '', this.name, this.voiceSettings, this.modelId = ModelId.v2});
+      {this.voiceId = '',
+      this.name,
+      this.originalName,
+      this.voiceSettings,
+      this.modelId = ModelId.v2});
 
   Map<String, dynamic> toJson() {
     return {
       "voiceId": voiceId,
       "name": name,
+      "originalName": originalName,
       "voiceSettings": voiceSettings?.toJson()
     };
   }
@@ -33,6 +39,7 @@ class CustomVoice {
   CustomVoice.fromJson(Map<String, dynamic> json) {
     voiceId = json["voiceId"];
     name = json["name"];
+    originalName = json["originalName"];
     voiceSettings = json["voiceSettings"] != null
         ? VoiceSettings.fromJson(json["voiceSettings"])
         : null;
@@ -54,6 +61,6 @@ class CustomVoice {
 
   @override
   String toString() {
-    return 'CustomVoice{voiceId: $voiceId, name: $name, model: $modelId, voiceSettings: $voiceSettings}';
+    return 'CustomVoice{voiceId: $voiceId, name: $name, original name: $originalName, model: $modelId, voiceSettings: $voiceSettings}';
   }
 }
