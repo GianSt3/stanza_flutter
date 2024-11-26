@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stanza_scrapper/src/features/settings/bloc/voice/custom_voice_cubit.dart';
 import 'package:stanza_scrapper/src/features/settings/presenter/widget/voice_form_edit.dart';
@@ -41,10 +39,18 @@ class _VoiceCustomTabState extends State<VoiceCustomTab> {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 16.0),
+                  child: Text(
+                    "Elenco voci salvate",
+                    style: Theme.of(context).textTheme.headlineLarge,
+                  ),
+                ),
                 Flexible(
                   child: CustomTable(
                     columnNames: const [
                       "Voice ID",
+                      "Original Voice Name",
                       "Name",
                       "Model",
                       "Voice Settings",
@@ -53,6 +59,7 @@ class _VoiceCustomTabState extends State<VoiceCustomTab> {
                     rowValues: state.voices
                         .map((customVoice) => [
                               Text(customVoice.voiceId ?? ""),
+                              Text(customVoice.originalName ?? ""),
                               Text(customVoice.name ?? ""),
                               Text(customVoice.modelId?.value ?? ""),
                               Text(customVoice.voiceSettings?.toString() ?? ""),
@@ -70,6 +77,13 @@ class _VoiceCustomTabState extends State<VoiceCustomTab> {
                   ),
                 ),
                 const Divider(),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 16.0),
+                  child: Text(
+                    "Creazione nuova custom voice",
+                    style: Theme.of(context).textTheme.headlineLarge,
+                  ),
+                ),
                 const Flexible(child: VoiceFormEdit()),
               ],
             );

@@ -1,12 +1,10 @@
 import 'package:eleven_labs/eleven_labs.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:stanza_scrapper/src/features/settings/bloc/text_to_speech/text_to_speech_cubit.dart';
-import 'package:stanza_scrapper/src/features/settings/bloc/default_voices/default_voices_cubit.dart';
-import 'package:stanza_scrapper/src/features/settings/bloc/voice/custom_voice_cubit.dart';
 import 'package:stanza_scrapper/domain/entities/custom_voice.dart';
+import 'package:stanza_scrapper/src/features/settings/bloc/default_voices/default_voices_cubit.dart';
+import 'package:stanza_scrapper/src/features/settings/bloc/text_to_speech/text_to_speech_cubit.dart';
+import 'package:stanza_scrapper/src/features/settings/bloc/voice/custom_voice_cubit.dart';
 import 'package:stanza_scrapper/src/features/settings/presenter/widget/custom_slider.dart';
 
 class VoiceFormEdit extends StatefulWidget {
@@ -45,194 +43,199 @@ class _VoiceFormEditState extends State<VoiceFormEdit> {
         });
       }),
       builder: (context, customVoiceState) {
-        return Form(
-          key: _formKey,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Flexible(
-                  flex: 1,
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          // Dropdown voices
-                          BlocBuilder<DefaultVoicesCubit,
-                                  DefaultVoicesState>(
-                              builder: (context, voicesState) {
-                            return DropdownMenu(
-                                label: const Text("Voice"),
-                                onSelected: (voice) => context
-                                    .read<CustomVoiceCubit>()
-                                    .selected(voice!),
-                                dropdownMenuEntries: voicesState.voices
-                                    .map((e) => DropdownMenuEntry<Voice>(
+        return Container(
+          constraints: const BoxConstraints(maxHeight: 250),
+          child: Form(
+            key: _formKey,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  Flexible(
+                    flex: 1,
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            // Dropdown voices
+                            BlocBuilder<DefaultVoicesCubit, DefaultVoicesState>(
+                                builder: (context, voicesState) {
+                              return DropdownMenu(
+                                  label: const Text("Voice"),
+                                  onSelected: (voice) => context
+                                      .read<CustomVoiceCubit>()
+                                      .selected(voice!),
+                                  dropdownMenuEntries: voicesState.voices
+                                      .map((e) => DropdownMenuEntry<Voice>(
+                                          value: e, label: e.name ?? ""))
+                                      .toList());
+                            }),
+                            const SizedBox(
+                              width: 32,
+                            ),
+                            DropdownMenu(
+                                label: const Text("Voice Model"),
+                                onSelected: (model) {
+                                  setState(() {
+                                    if (model != null) {
+                                      modelId = model;
+                                    }
+                                  });
+                                },
+                                dropdownMenuEntries: ModelId.values
+                                    .map((e) => DropdownMenuEntry<ModelId>(
                                         value: e, label: e.name ?? ""))
-                                    .toList());
-                          }),
-                          const SizedBox(
-                            width: 32,
-                          ),
-                          DropdownMenu(
-                              label: const Text("Voice Model"),
-                              onSelected: (model) {
-                                setState(() {
-                                  if (model != null) {
-                                    modelId = model;
-                                  }
-                                });
-                              },
-                              dropdownMenuEntries: ModelId.values
-                                  .map((e) => DropdownMenuEntry<ModelId>(
-                                      value: e, label: e.name ?? ""))
-                                  .toList()),
-                          const SizedBox(
-                            width: 32,
-                          ),
-                          Flexible(
-                            child: TextFormField(
-                              controller: textSampleController,
-                              validator: (text) =>
-                                  text == null ? "Please insert a text" : null,
-                              maxLines: 1,
-                              decoration: const InputDecoration(
-                                labelText: "Text to read",
+                                    .toList()),
+                            const SizedBox(
+                              width: 32,
+                            ),
+                            Flexible(
+                              child: TextFormField(
+                                controller: textSampleController,
+                                validator: (text) => text == null
+                                    ? "Please insert a text"
+                                    : null,
+                                maxLines: 1,
+                                decoration: const InputDecoration(
+                                  labelText: "Text to read",
+                                ),
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                      Container(
-                        padding: const EdgeInsets.all(8),
-                        child: Column(
-                          children: [
-                            CustomSlider(
-                                title:
-                                    "Style (${styleValue.toStringAsFixed(2)})",
-                                value: styleValue,
-                                onChanged: (value) {
-                                  setState(() {
-                                    styleValue = value;
-                                  });
-                                }),
-                            CustomSlider(
-                                title:
-                                    "Similarity (${similarityValue.toStringAsFixed(2)})",
-                                value: similarityValue,
-                                onChanged: (value) {
-                                  setState(() {
-                                    similarityValue = value;
-                                  });
-                                }),
-                            CustomSlider(
-                                title:
-                                    "Stability (${stabilityValue.toStringAsFixed(2)})",
-                                value: stabilityValue,
-                                onChanged: (value) {
-                                  setState(() {
-                                    stabilityValue = value;
-                                  });
-                                })
                           ],
                         ),
+                        Container(
+                          padding: const EdgeInsets.all(8),
+                          child: Column(
+                            children: [
+                              CustomSlider(
+                                  title:
+                                      "Style (${styleValue.toStringAsFixed(2)})",
+                                  value: styleValue,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      styleValue = value;
+                                    });
+                                  }),
+                              CustomSlider(
+                                  title:
+                                      "Similarity (${similarityValue.toStringAsFixed(2)})",
+                                  value: similarityValue,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      similarityValue = value;
+                                    });
+                                  }),
+                              CustomSlider(
+                                  title:
+                                      "Stability (${stabilityValue.toStringAsFixed(2)})",
+                                  value: stabilityValue,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      stabilityValue = value;
+                                    });
+                                  })
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 28,
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      BlocBuilder<CustomVoiceCubit, CustomVoiceState>(
+                        builder: (context, state) {
+                          return TextButton(
+                              onPressed: () =>
+                                  state.status.mapOrNull(selected: (voice) {
+                                    if (!_formKey.currentState!.validate()) {
+                                      return null;
+                                    }
+                                    voiceSettings = VoiceSettings(
+                                        similarityBoost: similarityValue,
+                                        stability: stabilityValue,
+                                        style: styleValue);
+                                    context.read<TextToSpeechCubit>().speak(
+                                        voiceId: customVoiceState.status
+                                            .maybeWhen(
+                                                selected: (voice) =>
+                                                    voice.voiceId!,
+                                                customize: (voice) =>
+                                                    voice.voiceId!,
+                                                orElse: () => ""),
+                                        text: textSampleController.text,
+                                        modelId: modelId.value,
+                                        voiceSettings: voiceSettings);
+                                  }),
+                              child: BlocBuilder<TextToSpeechCubit,
+                                  TextToSpeechState>(
+                                builder: (context, elevenState) {
+                                  return Text(elevenState.status.maybeWhen(
+                                      loading: () => "Loading...",
+                                      error: (err) => "Error! $err\nTry again",
+                                      orElse: () => "Try this setting"));
+                                },
+                              ));
+                        },
                       ),
+                      BlocBuilder<CustomVoiceCubit, CustomVoiceState>(
+                        builder: (context, state) {
+                          return TextButton(
+                              onPressed: () async {
+                                final String? name = await showDialog<String>(
+                                    context: context,
+                                    builder: (context) => AlertDialog(
+                                          title:
+                                              const Text("Choose a voice name"),
+                                          content: TextField(
+                                            controller:
+                                                textCustomVoiceNameController,
+                                            autofocus: true,
+                                            decoration: const InputDecoration(
+                                                hintText: "Custom voice name"),
+                                          ),
+                                          actions: [
+                                            TextButton(
+                                                onPressed: () {
+                                                  Navigator.of(context)
+                                                      .pop(null);
+                                                },
+                                                child: const Text("Cancel")),
+                                            TextButton(
+                                                onPressed: () {
+                                                  Navigator.of(context).pop(
+                                                      textCustomVoiceNameController
+                                                          .text);
+                                                },
+                                                child: const Text("Save"))
+                                          ],
+                                        ));
+                                if (name != null && name.isNotEmpty) {
+                                  state.status.whenOrNull(
+                                      selected: (voice) => context
+                                          .read<CustomVoiceCubit>()
+                                          .save(
+                                              voiceId: voice.voiceId!,
+                                              voiceOriginalName: voice.name!,
+                                              modelId: modelId,
+                                              settings: voiceSettings,
+                                              voiceName: name));
+                                  textCustomVoiceNameController.text = "";
+                                }
+                              },
+                              child: const Text("Save"));
+                        },
+                      ),
+                      TextButton(
+                          onPressed: context.read<CustomVoiceCubit>().reset,
+                          child: const Text("Cancel"))
                     ],
                   ),
-                ),
-                const SizedBox(
-                  width: 28,
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    BlocBuilder<CustomVoiceCubit, CustomVoiceState>(
-                      builder: (context, state) {
-                        return TextButton(
-                            onPressed: () =>
-                                state.status.mapOrNull(selected: (voice) {
-                                  if (!_formKey.currentState!.validate()) {
-                                    return null;
-                                  }
-                                  voiceSettings = VoiceSettings(
-                                      similarityBoost: similarityValue,
-                                      stability: stabilityValue,
-                                      style: styleValue);
-                                  context.read<TextToSpeechCubit>().speak(
-                                      voiceId: customVoiceState.status
-                                          .maybeWhen(
-                                              selected: (voice) =>
-                                                  voice.voiceId!,
-                                              customize: (voice) =>
-                                                  voice.voiceId!,
-                                              orElse: () => ""),
-                                      text: textSampleController.text,
-                                      modelId: modelId.value,
-                                      voiceSettings: voiceSettings);
-                                }),
-                            child:
-                                BlocBuilder<TextToSpeechCubit, TextToSpeechState>(
-                              builder: (context, elevenState) {
-                                return Text(elevenState.status.maybeWhen(
-                                    loading: () => "Loading...",
-                                    error: (err) => "Error! $err\nTry again",
-                                    orElse: () => "Try this setting"));
-                              },
-                            ));
-                      },
-                    ),
-                    BlocBuilder<CustomVoiceCubit, CustomVoiceState>(
-                      builder: (context, state) {
-                        return TextButton(
-                            onPressed: () async {
-                              final String? name = await showDialog<String>(
-                                  context: context,
-                                  builder: (context) => AlertDialog(
-                                        title:
-                                            const Text("Choose a voice name"),
-                                        content: TextField(
-                                          controller:
-                                              textCustomVoiceNameController,
-                                          autofocus: true,
-                                          decoration: const InputDecoration(
-                                              hintText: "Custom voice name"),
-                                        ),
-                                        actions: [
-                                          TextButton(
-                                              onPressed: () {
-                                                Navigator.of(context).pop(null);
-                                              },
-                                              child: const Text("Cancel")),
-                                          TextButton(
-                                              onPressed: () {
-                                                Navigator.of(context).pop(
-                                                    textCustomVoiceNameController
-                                                        .text);
-                                              },
-                                              child: const Text("Save"))
-                                        ],
-                                      ));
-                              if (name != null && name.isNotEmpty) {
-                                state.status.whenOrNull(
-                                    selected: (voice) => context
-                                        .read<CustomVoiceCubit>()
-                                        .save(
-                                            voiceId: voice.voiceId!,
-                                            modelId: modelId,
-                                            settings: voiceSettings,
-                                            voiceName: name));
-                                textCustomVoiceNameController.text = "";
-                              }
-                            },
-                            child: const Text("Save"));
-                      },
-                    ),
-                    TextButton(
-                        onPressed: context.read<CustomVoiceCubit>().reset,
-                        child: const Text("Cancel"))
-                  ],
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         );
