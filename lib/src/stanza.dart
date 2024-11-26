@@ -59,6 +59,8 @@ class _StanzaState extends State<Stanza> {
 
                           final messages = [
                             "The quick brown fox jumps over the lazy dog.",
+                            "/me The quick brown fox jumps over the lazy dog.",
+                            "/1d20",
                             "Innovation distinguishes between a leader and a follower. Stay creative and lead.",
                             "Success usually comes to those who are too busy to be looking for it. Keep pushing forward without looking back.",
                             "In the middle of difficulty lies opportunity. Embrace challenges as stepping stones to growth and achievement. Your perseverance will lead you to new heights.",
