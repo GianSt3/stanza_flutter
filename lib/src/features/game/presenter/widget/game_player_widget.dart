@@ -81,6 +81,9 @@ class GamePlayerWidget extends StatelessWidget {
                                             20 *
                                             constraints.maxHeight /
                                             constraints.maxWidth),
+                                    fontStyle: type == AudioType.me
+                                        ? FontStyle.italic
+                                        : null,
                                     color: type == AudioType.silence
                                         ? Colors.grey.shade300
                                         : Colors.white))),
