@@ -13,70 +13,101 @@ class LobbyFirestoreHeader extends StatefulWidget {
 class _LobbyFirestoreHeaderState extends State<LobbyFirestoreHeader> {
   final TextEditingController _roomId = TextEditingController();
   bool hasStarted = false;
-  String _firebaseDocId = "";
+  late DocumentReference _firebaseDoc;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          children: [
-            SizedBox(
-              width: 150,
-              child: TextField(
-                enabled: !hasStarted,
-                controller: _roomId,
-                decoration: const InputDecoration(labelText: "Room Id"),
+    return Container(
+      color: Colors.blueGrey.shade100,
+      child: Column(
+        children: [
+          Row(
+            children: [
+              SizedBox(
+                width: 150,
+                child: TextField(
+                  enabled: !hasStarted,
+                  controller: _roomId,
+                  decoration: const InputDecoration(labelText: "Room Id"),
+                ),
               ),
-            ),
-            TextButton(
-                onPressed: () {
-                  setState(() {
-                    _roomId.text = getRandomRoomId();
-                  });
-                },
-                child: Text("Generate Room Id")),
-          ],
-        ),
-        TextButton(
+              TextButton(
+                  onPressed: () {
+                    setState(() {
+                      _roomId.text = getRandomRoomId();
+                    });
+                  },
+                  child: Text("Generate Room Id")),
+            ],
+          ),
+          TextButton(
             onPressed: !hasStarted
                 ? () async {
-                    final doc = await FirebaseFirestore.instance
-                        .collection("funroom")
-                        .add({
-                      'text': "open",
-                      'roomId': _roomId.text,
+                    final doc = FirebaseFirestore.instance
+                        .collection("_config")
+                        .doc("funroom");
+
+                    doc.set({
+                      'game': true,
+                      'gameVersion': '0.1.0',
                       'timestamp': FieldValue.serverTimestamp()
                     });
 
                     setState(() {
-                      _firebaseDocId = doc.id;
+                      _firebaseDoc = doc;
                       hasStarted = true;
                     });
                   }
                 : null,
-            child: Text("START")),
-        TextButton(
+            child: Text("START"),
+          ),
+          TextButton(
             onPressed: hasStarted
                 ? () async {
-                    await FirebaseFirestore.instance
-                        .collection("funroom")
-                        .doc(_firebaseDocId)
-                        .delete();
+                    _firebaseDoc.update({
+                      "game": false,
+                      'timestamp': FieldValue.serverTimestamp()
+                    });
                     setState(() {
                       hasStarted = false;
                     });
                   }
                 : null,
-            child: Text("STOP"))
-      ],
+            child: Text("STOP"),
+          ),
+          SizedBox(
+            height: 300,
+            child: StreamBuilder(
+                stream: FirebaseFirestore.instance
+                    .collection("messages")
+                    .orderBy('timestamp')
+                    .snapshots(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    final messages = snapshot.data?.docs ?? [];
+                    if (messages.isEmpty) {
+                      return Text("No messages");
+                    }
+                    return ListView.builder(
+                        itemCount: messages.length,
+                        itemBuilder: (context, index) {
+                          final message = messages[index].data();
+                          return Text(
+                              "${message['nickname']}: ${message['message']}");
+                        });
+                  }
+
+                  return Text("No data");
+                }),
+          ),
+        ],
+      ),
     );
   }
 
   String getRandomRoomId({int times = 4, String rnd = ""}) {
-    print("times $times result $rnd");
     const String characters =
-        "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        "abcdefghijklmnopqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ";
     final char = characters[Random().nextInt(characters.length)];
     final result = rnd + char;
     if (times <= 0) {
