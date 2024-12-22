@@ -12,96 +12,116 @@ class LobbyFirestoreHeader extends StatefulWidget {
 
 class _LobbyFirestoreHeaderState extends State<LobbyFirestoreHeader> {
   final TextEditingController _roomId = TextEditingController();
+  final TextEditingController _gameVersion =
+      TextEditingController(text: '0.1.0');
+
   bool hasStarted = false;
   late DocumentReference _firebaseDoc;
 
   @override
+  void dispose() {
+    _roomId.dispose();
+    _gameVersion.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.blueGrey.shade100,
-      child: Column(
-        children: [
-          Row(
-            children: [
-              SizedBox(
-                width: 150,
-                child: TextField(
-                  enabled: !hasStarted,
-                  controller: _roomId,
-                  decoration: const InputDecoration(labelText: "Room Id"),
-                ),
+    return Column(
+      children: [
+        Row(
+          children: [
+            SizedBox(
+              width: 150,
+              child: TextField(
+                enabled: !hasStarted,
+                controller: _gameVersion,
+                decoration: const InputDecoration(labelText: "Game Version"),
               ),
-              TextButton(
-                  onPressed: () {
-                    setState(() {
-                      _roomId.text = getRandomRoomId();
-                    });
-                  },
-                  child: Text("Generate Room Id")),
-            ],
-          ),
-          TextButton(
-            onPressed: !hasStarted
-                ? () async {
-                    final doc = FirebaseFirestore.instance
-                        .collection("_config")
-                        .doc("funroom");
+            ),
+            const SizedBox(
+              width: 32,
+            ),
+            SizedBox(
+              width: 150,
+              child: TextField(
+                enabled: !hasStarted,
+                controller: _roomId,
+                decoration: const InputDecoration(labelText: "Room Id"),
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                setState(() {
+                  _roomId.text = getRandomRoomCodeId();
+                });
+              },
+              child: Text("Generate Room Id"),
+            ),
+            TextButton(
+              onPressed: !hasStarted
+                  ? () async {
+                      final doc = FirebaseFirestore.instance
+                          .collection("_config")
+                          .doc("funroom");
 
-                    doc.set({
-                      'game': true,
-                      'gameVersion': '0.1.0',
-                      'timestamp': FieldValue.serverTimestamp()
-                    });
+                      doc.set({
+                        'game': true,
+                        'gameVersion': _gameVersion.text,
+                        "room": _roomId.text,
+                        'timestamp': FieldValue.serverTimestamp()
+                      });
 
-                    setState(() {
-                      _firebaseDoc = doc;
-                      hasStarted = true;
-                    });
-                  }
-                : null,
-            child: Text("START"),
-          ),
-          TextButton(
-            onPressed: hasStarted
-                ? () async {
-                    _firebaseDoc.update({
-                      "game": false,
-                      'timestamp': FieldValue.serverTimestamp()
-                    });
-                    setState(() {
-                      hasStarted = false;
-                    });
-                  }
-                : null,
-            child: Text("STOP"),
-          ),
-          SizedBox(
-            height: 300,
-            child: StreamBuilder(
-                stream: FirebaseFirestore.instance
-                    .collection("messages")
-                    .orderBy('timestamp')
-                    .snapshots(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    final messages = snapshot.data?.docs ?? [];
-                    if (messages.isEmpty) {
-                      return Text("No messages");
+                      setState(() {
+                        _firebaseDoc = doc;
+                        hasStarted = true;
+                      });
                     }
-                    return ListView.builder(
-                        itemCount: messages.length,
-                        itemBuilder: (context, index) {
-                          final message = messages[index].data();
-                          return Text(
-                              "${message['nickname']}: ${message['message']}");
-                        });
+                  : null,
+              child: Text("START"),
+            ),
+            TextButton(
+              onPressed: hasStarted
+                  ? () async {
+                      _firebaseDoc.update({
+                        "game": false,
+                        'timestamp': FieldValue.serverTimestamp()
+                      });
+                      setState(() {
+                        hasStarted = false;
+                      });
+                    }
+                  : null,
+              child: Text("STOP"),
+            )
+          ],
+        ),
+        SizedBox(
+          height: 300,
+          child: StreamBuilder(
+              stream: FirebaseFirestore.instance
+                  .collection("messages")
+                  .orderBy('timestamp')
+                  .snapshots(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  final messages = snapshot.data?.docs ?? [];
+                  if (messages.isEmpty) {
+                    return Text("No messages");
                   }
+                  return ListView.builder(
+                      itemCount: messages.length,
+                      itemBuilder: (context, index) {
+                        final message = messages[index].data();
+                        return Text(
+                            "${(message['timestamp'] as Timestamp).toDate()} - ${message['nickname']}: ${message['message']}");
+                      });
+                }
 
-                  return Text("No data");
-                }),
-          ),
-        ],
-      ),
+                return Text("No data");
+              }),
+        ),
+      ],
     );
   }
 
@@ -114,6 +134,17 @@ class _LobbyFirestoreHeaderState extends State<LobbyFirestoreHeader> {
       return result;
     } else {
       return getRandomRoomId(times: times - 1, rnd: result);
+    }
+  }
+
+  String getRandomRoomCodeId({int times = 3, String rnd = ""}) {
+    const String digits = "0123456789";
+    final char = digits[Random().nextInt(digits.length)];
+    final result = rnd + char;
+    if (times <= 0) {
+      return result;
+    } else {
+      return getRandomRoomCodeId(times: times - 1, rnd: result);
     }
   }
 }

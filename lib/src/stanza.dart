@@ -147,7 +147,7 @@ class _StanzaState extends State<Stanza> {
               create: (context) => ClockCubit(),
               child: const LobbyPage(),
             ),
-            LobbyFirestorePage(),
+            const LobbyFirestorePage(),
           ][currentPageIndex],
         );
       },

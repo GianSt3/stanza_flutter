@@ -9,8 +9,12 @@ import 'package:stanza_scrapper/src/features/lobby/bloc/lobby_cubit.dart';
 import 'package:stanza_scrapper/src/features/lobby/model/queueing_user.dart';
 import 'package:stanza_scrapper/utils/participant_icon_extension.dart';
 
+enum ParticipantsMode { youtube, firebase }
+
 class ChatParticipants extends StatelessWidget {
-  const ChatParticipants({super.key});
+  final ParticipantsMode mode;
+
+  const ChatParticipants({super.key, this.mode = ParticipantsMode.youtube});
 
   @override
   Widget build(BuildContext context) {
@@ -30,27 +34,33 @@ class ChatParticipants extends StatelessWidget {
             selector: (state) =>
                 state.lobby.map((lobby) => lobby.name).toList(),
             builder: (context, playersLobby) {
-              return BlocBuilder<YoutubeScrapperCubit, YoutubeScrapperState>(
-                builder: (context, state) {
-                  List<Author> authors = state.chat.authors;
-                  // Remove already selected players
-                  authors.removeWhere(
-                      (author) => playersLobby.contains(author.name));
-                  // Members on top
-                  authors.sort((a, b) => a.type.compareTo(b.type) * -1);
+              switch (mode) {
+                case ParticipantsMode.youtube:
+                  return BlocBuilder<YoutubeScrapperCubit,
+                      YoutubeScrapperState>(
+                    builder: (context, state) {
+                      List<Author> authors = state.chat.authors;
+                      // Remove already selected players
+                      authors.removeWhere(
+                          (author) => playersLobby.contains(author.name));
+                      // Members on top
+                      authors.sort((a, b) => a.type.compareTo(b.type) * -1);
 
-                  return ListView.separated(
-                    itemCount: authors.length,
-                    shrinkWrap: true,
-                    separatorBuilder: (context, index) => const Divider(
-                      thickness: 0,
-                    ),
-                    itemBuilder: (context, index) => _Participant(
-                        key: Key(authors.elementAt(index).name),
-                        author: authors.elementAt(index)),
+                      return ListView.separated(
+                        itemCount: authors.length,
+                        shrinkWrap: true,
+                        separatorBuilder: (context, index) => const Divider(
+                          thickness: 0,
+                        ),
+                        itemBuilder: (context, index) => _Participant(
+                            key: Key(authors.elementAt(index).name),
+                            author: authors.elementAt(index)),
+                      );
+                    },
                   );
-                },
-              );
+                case ParticipantsMode.firebase:
+                  return Text('ehi');
+              }
             },
           ),
         ),
