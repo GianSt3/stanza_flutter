@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:stanza_scrapper/core/bloc/scrapper/youtube_scrapper_cubit.dart';
-import 'package:stanza_scrapper/gen/assets.gen.dart';
 import 'package:stanza_scrapper/src/features/clock/presenter/clock_widget.dart';
 import 'package:stanza_scrapper/src/features/game/bloc/game_cubit.dart';
 import 'package:stanza_scrapper/src/features/lobby/bloc/lobby_cubit.dart';
 import 'package:stanza_scrapper/src/features/lobby/model/queueing_user.dart';
+import 'package:stanza_scrapper/src/features/lobby/presenter/model/participants_mode.dart';
+import 'package:stanza_scrapper/src/features/lobby_firestore/bloc/firestore_chat_cubit.dart';
 
 class LobbyParticipants extends StatelessWidget {
-  const LobbyParticipants({super.key});
+  final ParticipantsMode mode;
+
+  const LobbyParticipants({super.key, this.mode = ParticipantsMode.youtube});
 
   @override
   Widget build(BuildContext context) {
@@ -58,8 +60,10 @@ class LobbyParticipants extends StatelessWidget {
               return ListView.separated(
                   itemCount: users.length,
                   separatorBuilder: (context, index) => const Divider(),
-                  itemBuilder: (context, index) =>
-                      _Participant(user: users.elementAt(index)));
+                  itemBuilder: (context, index) => _Participant(
+                        user: users.elementAt(index),
+                        mode: mode,
+                      ));
             },
           ),
         ),
@@ -70,8 +74,10 @@ class LobbyParticipants extends StatelessWidget {
 
 class _Participant extends StatelessWidget {
   final QueueingUser user;
+  final ParticipantsMode mode;
 
-  const _Participant({super.key, required this.user});
+  const _Participant(
+      {super.key, required this.user, this.mode = ParticipantsMode.youtube});
 
   @override
   Widget build(BuildContext context) {
@@ -105,22 +111,34 @@ class _Participant extends StatelessWidget {
           Text(user.name),
 
           /// LAST MESSAGE TIMESTAMP CLOCK
-          BlocBuilder<YoutubeScrapperCubit, YoutubeScrapperState>(
-            buildWhen: (prev, current) =>
-                prev.chat.messages
-                    .where((element) => element.author == user.name)
-                    .length !=
-                current.chat.messages
-                    .where((element) => element.author == user.name)
-                    .length,
-            builder: (context, state) {
-              return ClockWidget(
-                millis: state.chat.messages
-                    .lastWhere((element) => element.author == user.name)
-                    .created,
-              );
-            },
-          )
+          if (mode == ParticipantsMode.youtube)
+            BlocBuilder<YoutubeScrapperCubit, YoutubeScrapperState>(
+              buildWhen: (prev, current) =>
+                  prev.chat.messages
+                      .where((element) => element.author == user.name)
+                      .length !=
+                  current.chat.messages
+                      .where((element) => element.author == user.name)
+                      .length,
+              builder: (context, state) {
+                return ClockWidget(
+                  millis: state.chat.messages
+                      .lastWhere((element) => element.author == user.name)
+                      .created,
+                );
+              },
+            ),
+          if (mode == ParticipantsMode.firebase)
+            BlocBuilder<FirestoreChatCubit, FirestoreChatState>(
+              builder: (context, state) {
+                return ClockWidget(
+                  millis: state.chat.messages
+                      .lastWhere((element) => element.author == user.name)
+                      .timestamp
+                      .millisecondsSinceEpoch,
+                );
+              },
+            )
         ],
       ),
       subtitle: user.type.isNotEmpty

@@ -11,6 +11,7 @@ import 'package:stanza_scrapper/domain/usecases/elevenlabs/synthesize_use_case.d
 import 'package:stanza_scrapper/domain/usecases/message/message_loader_use_case.dart';
 import 'package:stanza_scrapper/main.dart';
 import 'package:stanza_scrapper/src/features/game/model/audio_message.dart';
+import 'package:stanza_scrapper/src/features/game/model/game_message.dart';
 import 'package:stanza_scrapper/src/features/game/model/player.dart';
 import 'package:stanza_scrapper/utils/logger.dart';
 
@@ -53,7 +54,7 @@ class GameMessagesCubit extends Cubit<GameMessagesState> {
   }
 
   void pushAll(
-      List<YoutubeMessage> messages, List<Player> players, bool playable) {
+      List<GameMessage> messages, List<Player> players, bool playable) {
     var temp = state.messages.toList();
     final audioMessages = messages.map((message) => AudioMessage.now(
           message: message,

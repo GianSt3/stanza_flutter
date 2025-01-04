@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:stanza_scrapper/domain/usecases/dice/dice_use_case.dart';
 
+// ignore_for_file: avoid_print
 void main() {
   final usecase = DiceUseCase();
   test('No command get an Exception', () {

@@ -1,15 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stanza_scrapper/src/features/game/bloc/game_cubit.dart';
-import 'package:stanza_scrapper/src/features/game/model/player.dart';
 import 'package:stanza_scrapper/src/features/lobby/bloc/lobby_cubit.dart';
 import 'package:stanza_scrapper/src/features/lobby/model/queueing_user.dart';
-import 'package:stanza_scrapper/src/features/lobby/presenter/widget/chat_card_widget.dart';
 import 'package:stanza_scrapper/src/features/lobby/presenter/widget/player_widget_tile.dart';
-import 'package:stanza_scrapper/src/features/settings/bloc/voice/custom_voice_cubit.dart';
-import 'package:stanza_scrapper/domain/entities/custom_voice.dart';
-import 'package:stanza_scrapper/utils/participant_icon_extension.dart';
 
 class GameParticipants extends StatelessWidget {
   const GameParticipants({super.key});

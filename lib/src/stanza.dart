@@ -29,7 +29,7 @@ class _StanzaState extends State<Stanza> {
   List<String> titles = [
     "Settings",
     "Stanza",
-    "Stanza Four Fun",
+    "Stanza4Fun",
   ];
 
   @override
@@ -113,22 +113,25 @@ class _StanzaState extends State<Stanza> {
           ),
           drawer: IntrinsicWidth(
             child: NavigationRail(
+              extended: true,
               leading: Text(
                 "v $appVersion",
               ),
               onDestinationSelected: (index) {
                 state.maybeWhen(
-                    loaded: (_) => setState(() {
-                          currentPageIndex = index;
-                        }),
-                    orElse: () => showDialog(
-                        context: context,
-                        builder: (context) => const AlertDialog(
-                              title: Text("Api KEY Not Found"),
-                              icon: Icon(Icons.warning_amber),
-                              content: Text(
-                                  "Can't find any valid apiKey for IA services. Please insert one before any other action. "),
-                            )));
+                  loaded: (_) => setState(() {
+                    currentPageIndex = index;
+                  }),
+                  orElse: () => showDialog(
+                    context: context,
+                    builder: (context) => const AlertDialog(
+                      title: Text("Api KEY Not Found"),
+                      icon: Icon(Icons.warning_amber),
+                      content: Text(
+                          "Can't find any valid apiKey for IA services. Please insert one before any other action."),
+                    ),
+                  ),
+                );
               },
               destinations: [
                 NavigationRailDestination(
@@ -136,7 +139,8 @@ class _StanzaState extends State<Stanza> {
                 NavigationRailDestination(
                     icon: Assets.icons.game.svg(), label: Text(titles[1])),
                 NavigationRailDestination(
-                    icon: Assets.icons.game.svg(), label: Text(titles[1])),
+                    icon: const Icon(Icons.smartphone_outlined),
+                    label: Text(titles[1])),
               ],
               selectedIndex: currentPageIndex,
             ),

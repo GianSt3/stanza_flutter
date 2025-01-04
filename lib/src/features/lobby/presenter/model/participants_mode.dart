@@ -1,0 +1,1 @@
+enum ParticipantsMode { youtube, firebase }
