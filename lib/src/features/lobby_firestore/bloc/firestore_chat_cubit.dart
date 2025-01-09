@@ -50,13 +50,13 @@ class FirestoreChatCubit extends Cubit<FirestoreChatState> {
       );
     }).toList();
 
-    final stateMessage = state.chat.messages.toList();
-    stateMessage.addAll(messages);
+    final copy = state.chat.messages.toList();
+    copy.addAll(messages);
 
     emit(
       state.copyWith(
         status: const FirestoreChatStateStatus.reading(),
-        chat: Chat(messages: stateMessage),
+        chat: Chat(messages: copy),
       ),
     );
   }

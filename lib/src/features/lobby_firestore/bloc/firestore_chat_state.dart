@@ -70,13 +70,25 @@ class Message extends Equatable implements GameMessage {
 
   @override
   GameMessage copyWith({required String text}) {
-    // TODO: implement copyWith
-    throw UnimplementedError();
+    return Message(
+      deviceId: deviceId,
+      author: author,
+      timestamp: timestamp,
+      text: text,
+    );
   }
 
   @override
-  String get id => "$author${timestamp.toString()}";
+  String get id => "$author${timestamp.millisecondsSinceEpoch}";
 
   @override
   String get formattedTimestamp => timestamp.toString();
+
+  static Message fromJson(Map<String, dynamic> json) {
+    return Message(
+        deviceId: json['deviceInfo'],
+        author: json['nickname'],
+        text: json['message'],
+        timestamp: json['timestamp']);
+  }
 }

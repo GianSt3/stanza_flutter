@@ -1,6 +1,5 @@
 import 'package:either_dart/either.dart';
 import 'package:stanza_scrapper/core/use_case/use_case.dart';
-import 'package:stanza_scrapper/utils/logger.dart';
 
 class SwearWordFilterUseCase extends UseCase<Either<String, String>, String> {
   static const Map<String, String> replacements = {
@@ -67,11 +66,11 @@ class SwearWordFilterUseCase extends UseCase<Either<String, String>, String> {
         return match[0]!; // If no replacement found, return the original match
       });
       stopwatch.stop();
-      logger.d('Text censored in ${stopwatch.elapsedMilliseconds} ms');
+      // logger.d('Text censored in ${stopwatch.elapsedMilliseconds} ms');
       return Left(censored);
     } else {
       stopwatch.stop();
-      logger.d('Text already ok: ${stopwatch.elapsedMilliseconds} ms');
+      // logger.d('Text already ok: ${stopwatch.elapsedMilliseconds} ms');
       return Right(params);
     }
   }

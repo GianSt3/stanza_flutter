@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -18,10 +19,39 @@ class _LobbyFirestoreHeaderState extends State<LobbyFirestoreHeader> {
   bool hasStarted = false;
   late DocumentReference _firebaseDoc;
 
+  late StreamSubscription _streamSubscription;
+
+  @override
+  void initState() {
+    super.initState();
+    _firebaseDoc =
+        FirebaseFirestore.instance.collection("_config").doc("funroom");
+    _streamSubscription = FirebaseFirestore.instance
+        .collection('_config')
+        .doc("funroom")
+        .snapshots()
+        .listen((snapshot) {
+      if (!snapshot.exists) {
+        return;
+      }
+      final data = snapshot.data();
+      if (data != null) {
+        _updateGameAvailable(data['game'] as bool);
+      }
+    });
+  }
+
+  void _updateGameAvailable(bool started) {
+    setState(() {
+      hasStarted = started;
+    });
+  }
+
   @override
   void dispose() {
     _roomId.dispose();
     _gameVersion.dispose();
+    _streamSubscription.cancel();
     super.dispose();
   }
 
@@ -61,20 +91,11 @@ class _LobbyFirestoreHeaderState extends State<LobbyFirestoreHeader> {
             TextButton(
               onPressed: !hasStarted
                   ? () async {
-                      final doc = FirebaseFirestore.instance
-                          .collection("_config")
-                          .doc("funroom");
-
-                      doc.set({
+                      _firebaseDoc.set({
                         'game': true,
                         'gameVersion': _gameVersion.text,
                         "room": _roomId.text,
                         'timestamp': FieldValue.serverTimestamp()
-                      });
-
-                      setState(() {
-                        _firebaseDoc = doc;
-                        hasStarted = true;
                       });
                     }
                   : null,
@@ -86,9 +107,6 @@ class _LobbyFirestoreHeaderState extends State<LobbyFirestoreHeader> {
                       _firebaseDoc.update({
                         "game": false,
                         'timestamp': FieldValue.serverTimestamp()
-                      });
-                      setState(() {
-                        hasStarted = false;
                       });
                     }
                   : null,

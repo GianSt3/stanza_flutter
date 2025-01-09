@@ -5,9 +5,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../model/queueing_user.dart';
 
-part 'lobby_state.dart';
-
 part 'lobby_cubit.freezed.dart';
+part 'lobby_state.dart';
 
 class LobbyCubit extends Cubit<LobbyState> {
   LobbyCubit() : super(const LobbyState(status: LobbyStatus.initial()));

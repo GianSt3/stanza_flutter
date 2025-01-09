@@ -4,13 +4,10 @@ import 'package:stanza_scrapper/utils/logger.dart';
 
 import '../model/player.dart';
 
+part 'game_cubit.freezed.dart';
 part 'game_state.dart';
 
-part 'game_cubit.freezed.dart';
-
 class GameCubit extends Cubit<GameState> {
-  static int players = 3;
-
   GameCubit() : super(const GameState(status: GameStatus.initial()));
 
   void player(Player player) {
@@ -55,18 +52,10 @@ class GameCubit extends Cubit<GameState> {
       logger.w("GamePlayers removed $name ");
       emit(state.copyWith(players: copy));
     }
-    if (copy.length < players) {
-      logger.w("NOT ENOUGH GamePlayers! ");
-      emit(state.copyWith(status: const GameStatus.stop()));
-    }
   }
 
   void start() {
-    if (state.players.length < players) {
-      emit(state.copyWith(status: const GameStatus.initial()));
-    } else {
-      emit(state.copyWith(status: const GameStatus.start()));
-    }
+    emit(state.copyWith(status: const GameStatus.start()));
   }
 
   void stop() {
