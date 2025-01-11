@@ -23,6 +23,10 @@ class FirestoreGameMessagesCubit extends Cubit<FirestoreGameMessagesState> {
         .orderBy('timestamp')
         .snapshots()
         .listen((snapshot) {
+      logger.d('''
+      FirestoreGameMessagesCubit new messages... ${snapshot.docs.length}
+      State players? ${state.players.map((p) => p.name).join(',')}
+      ''');
       final docs = snapshot.docs;
       if (docs.isNotEmpty) {
         _read(docs);
@@ -31,8 +35,8 @@ class FirestoreGameMessagesCubit extends Cubit<FirestoreGameMessagesState> {
   }
 
   @override
-  Future<void> close() {
-    _subscription.cancel();
+  Future<void> close() async {
+    await _subscription.cancel();
     return super.close();
   }
 
@@ -58,12 +62,13 @@ class FirestoreGameMessagesCubit extends Cubit<FirestoreGameMessagesState> {
     if (filteredMessages.isEmpty) {
       return;
     }
-    logger.d(
-        'Filtered player messages from Firestore in ${stopwatch.elapsedMilliseconds} ms');
+    logger.d('''
+        Filtered player messages from Firestore in ${stopwatch.elapsedMilliseconds} ms\n
+        [${filteredMessages.length}] messages at ${state.lastTimestamp.millisecondsSinceEpoch}.\n
+        Next timestamp filter: ${filteredMessages.last.timestamp.millisecondsSinceEpoch}.
+        ''');
     emit(FirestoreGameMessagesState.reading(
         filteredMessages.last.timestamp, state.players, state.playable));
-    logger.d('GameListener filteredMessages ${filteredMessages.length}');
-
     addMessages(filteredMessages, state.players, state.playable);
   }
 }

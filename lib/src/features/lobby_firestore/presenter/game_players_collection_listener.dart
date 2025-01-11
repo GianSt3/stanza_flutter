@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stanza_scrapper/src/features/lobby/bloc/lobby_cubit.dart';
+import 'package:stanza_scrapper/utils/logger.dart';
 
 class GamePlayersCollectionListener extends StatefulWidget {
   const GamePlayersCollectionListener({super.key});
@@ -23,6 +24,7 @@ class _GamePlayersCollectionListenerState
 
   @override
   void dispose() {
+    logger.d('GamePlayersCollectionListener dispose');
     _firebaseDoc.delete();
     super.dispose();
   }
@@ -40,6 +42,7 @@ class _GamePlayersCollectionListenerState
             .map((user) => user.name)
             .toList();
         _firebaseDoc.set({'player_users': users});
+        logger.d('player_users $users');
       },
       child: const SizedBox.shrink(),
     );

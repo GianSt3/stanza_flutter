@@ -63,8 +63,7 @@ class GameMessagesCubit extends Cubit<GameMessagesState> {
         ));
     temp.insertAll(0, audioMessages);
 
-    logger.d("""PUSH
-        $temp""");
+    logger.d("PUSH\n$temp");
 
     emit(state.copyWith(
         status: const GameMessagesStatus.added(), messages: temp));
@@ -72,7 +71,7 @@ class GameMessagesCubit extends Cubit<GameMessagesState> {
 
   void pop() {
     logger.d(
-        """POP Audio/Queue ${state.messages.where((element) => element.source != null).length} / ${state.messages.length} - Player: ${player.state}""");
+        "POP Audio/Queue ${state.messages.where((element) => element.source != null).length} / ${state.messages.length} - AudioPlayer: ${player.state}");
     if (player.state == PlayerState.playing) {
       return;
     }
@@ -90,7 +89,7 @@ class GameMessagesCubit extends Cubit<GameMessagesState> {
           messages: tempMessages,
           lastPlayerMessages: tempLastMessages));
 
-      logger.d("""Playing ${audioMessage.toString()}""");
+      logger.d("Playing ${audioMessage.toString()}");
 
       /// AudioPlayer
       player.play(audioMessage.source!);
@@ -101,7 +100,7 @@ class GameMessagesCubit extends Cubit<GameMessagesState> {
           lastMessage.created
               .add(const Duration(seconds: 5))
               .isAfter(DateTime.now())) {
-        logger.w("""Last message is getting older.
+        logger.w("""Last message is getting older 👴.
             ${lastMessage.toString()} 
             All queue:
             ${state.messages}

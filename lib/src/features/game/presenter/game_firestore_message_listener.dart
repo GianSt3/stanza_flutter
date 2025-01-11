@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stanza_scrapper/src/features/game/bloc/game_cubit.dart';
 import 'package:stanza_scrapper/src/features/game/bloc/messages/game_messages_cubit.dart';
 import 'package:stanza_scrapper/src/features/lobby_firestore/bloc/firestore_game_messages_cubit.dart';
+import 'package:stanza_scrapper/utils/logger.dart';
 
 class GameFirestoreMessageListener extends StatelessWidget {
   final Widget child;
@@ -30,6 +31,8 @@ class GameFirestoreMessageListener extends StatelessWidget {
                     currentState.players.map((player) => player.name).toList();
           },
           listener: (context, gameState) {
+            logger.d(
+                'GameState players:${gameState.players}, status:${gameState.status}');
             context.read<FirestoreGameMessagesCubit>().setParameters(
                 gameState.players,
                 gameState.status

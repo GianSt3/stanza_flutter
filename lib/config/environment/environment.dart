@@ -5,6 +5,8 @@ abstract class Environment<T> {
 
   String get appVersion;
 
+  String get appName;
+
   T when({required T Function() mock, required T Function() orElse});
 }
 
@@ -31,4 +33,7 @@ class EnvironmentImpl implements Environment {
 
   @override
   String get appVersion => packageInfo.version;
+
+  @override
+  String get appName => packageInfo.appName;
 }

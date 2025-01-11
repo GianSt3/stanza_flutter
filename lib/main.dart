@@ -23,6 +23,7 @@ import 'package:stanza_scrapper/src/features/settings/bloc/default_voices/defaul
 import 'package:stanza_scrapper/src/features/settings/bloc/text_to_speech/text_to_speech_cubit.dart';
 import 'package:stanza_scrapper/src/features/settings/bloc/voice/custom_voice_cubit.dart';
 import 'package:stanza_scrapper/src/stanza.dart';
+import 'package:stanza_scrapper/utils/logger.dart';
 
 import 'firebase_options.dart';
 
@@ -34,6 +35,7 @@ void main(List<String> args) async {
     return;
   }
   WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -49,7 +51,7 @@ void main(List<String> args) async {
         injector.get<Environment>().isMockEnabled()
             ? YoutubeMockChatRepository()
             : YoutubeChatRepository());
-
+  await initializeLogger();
   runApp(const MainApp());
 }
 

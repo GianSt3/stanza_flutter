@@ -7,6 +7,7 @@ import 'package:equatable/equatable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:stanza_scrapper/domain/usecases/firestore/swearword_filter_use_case.dart';
 import 'package:stanza_scrapper/src/features/game/model/game_message.dart';
+import 'package:stanza_scrapper/utils/logger.dart';
 
 part 'firestore_chat_cubit.freezed.dart';
 part 'firestore_chat_state.dart';
@@ -33,6 +34,7 @@ class FirestoreChatCubit extends Cubit<FirestoreChatState> {
 
   @override
   Future<void> close() async {
+    logger.d('FirestoreChatCubit dispose');
     _subscription.cancel();
     super.close();
   }
