@@ -4,6 +4,7 @@ import 'package:eleven_labs/elevenlabs_types.dart';
 import 'package:flutter/services.dart';
 import 'package:stanza_scrapper/core/use_case/use_case.dart';
 import 'package:stanza_scrapper/domain/usecases/elevenlabs/synthesize_use_case.dart';
+import 'package:stanza_scrapper/gen/assets.gen.dart';
 import 'package:stanza_scrapper/src/features/game/bloc/messages/game_messages_cubit.dart';
 import 'package:stanza_scrapper/src/features/game/model/audio_message.dart';
 import 'package:stanza_scrapper/utils/logger.dart';
@@ -47,8 +48,7 @@ class MessageLoaderUseCase extends FutureUseCase<
 
       final audioMessage = message.copyWith(
           source: BytesSource(
-            (await rootBundle
-                    .load('assets/audio/shake-and-roll-dice-soundbible.mp3'))
+            (await rootBundle.load(Assets.audio.shakeAndRollDiceSoundbible))
                 .buffer
                 .asUint8List(),
           ),
@@ -73,7 +73,7 @@ class MessageLoaderUseCase extends FutureUseCase<
 
       final audioMessage = message.copyWith(
           source: BytesSource(
-            (await rootBundle.load('assets/audio/pop_up_sound_effect.mp3'))
+            (await rootBundle.load(Assets.audio.popUpSoundEffect))
                 .buffer
                 .asUint8List(),
           ),
@@ -126,7 +126,7 @@ class MessageLoaderUseCase extends FutureUseCase<
         /// SILENCE
         final audioMessage = message.copyWith(
             source: BytesSource(
-              (await rootBundle.load('assets/audio/silence_sound_effect.mp3'))
+              (await rootBundle.load(Assets.audio.silenceSoundEffect))
                   .buffer
                   .asUint8List(),
             ),
