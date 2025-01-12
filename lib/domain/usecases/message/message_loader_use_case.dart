@@ -34,7 +34,7 @@ class MessageLoaderUseCase extends FutureUseCase<
           "Message list is empty or there's no need to load any audio source."));
     }
 
-    final startTime = DateTime.now();
+    final stopwatch = Stopwatch()..start();
 
     final message = messageList.lastWhere((element) => element.source == null);
     final messageId = messageList
@@ -57,11 +57,9 @@ class MessageLoaderUseCase extends FutureUseCase<
           message: message.message.copyWith(
             text: textWithDiceResults,
           ));
-
+      stopwatch.stop();
       logger.d(
-          """DICE LOADED [$messageId] millis ${DateTime.now().difference(startTime).inMilliseconds}
-            ${message.message.formattedTimestamp} - ${message.message.author}: ${message.message.text}
-            """);
+          "🎲 DICE LOADED at[$messageId] ${stopwatch.elapsedMilliseconds} ms ${message.message.formattedTimestamp} - ${message.message.author}: ${message.message.text}");
 
       return Right(
         _loadSource(messageList, params, message, audioMessage),
@@ -85,10 +83,9 @@ class MessageLoaderUseCase extends FutureUseCase<
             text: meCommand.right,
           ));
 
+      stopwatch.stop();
       logger.d(
-          """ME LOADED [$messageId] millis ${DateTime.now().difference(startTime).inMilliseconds}
-            ${message.message.formattedTimestamp} - ${message.message.author}: ${message.message.text}
-            """);
+          "🧑 ME LOADED at[$messageId] ${stopwatch.elapsedMilliseconds} ms ${message.message.formattedTimestamp} - ${message.message.author}: ${message.message.text} ");
 
       return Right(
         _loadSource(messageList, params, message, audioMessage),
@@ -112,10 +109,9 @@ class MessageLoaderUseCase extends FutureUseCase<
           final audioMessage =
               message.copyWith(source: BytesSource(result.right));
 
+          stopwatch.stop();
           logger.d(
-              """AUDIO LOADED [$messageId] millis ${DateTime.now().difference(startTime).inMilliseconds}
-            ${message.message.formattedTimestamp} - ${message.message.author}: ${message.message.text}
-            """);
+              "🎚️ AUDIO LOADED at[$messageId] ${stopwatch.elapsedMilliseconds} ms ${message.message.formattedTimestamp} - ${message.message.author}: ${message.message.text} ");
 
           return Right(
             _loadSource(messageList, params, message, audioMessage),
@@ -140,10 +136,9 @@ class MessageLoaderUseCase extends FutureUseCase<
               text: message.message.text,
             ));
 
+        stopwatch.stop();
         logger.d(
-            """SILENCE LOADED [$messageId] millis ${DateTime.now().difference(startTime).inMilliseconds}
-            ${message.message.formattedTimestamp} - ${message.message.author}: ${message.message.text}
-            """);
+            "🔇 SILENCE LOADED at[$messageId] ${stopwatch.elapsedMilliseconds} ms ${message.message.formattedTimestamp} - ${message.message.author}: ${message.message.text}");
 
         return Right(
           _loadSource(messageList, params, message, audioMessage),
