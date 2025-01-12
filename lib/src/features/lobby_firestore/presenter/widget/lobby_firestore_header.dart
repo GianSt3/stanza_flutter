@@ -21,6 +21,10 @@ class _LobbyFirestoreHeaderState extends State<LobbyFirestoreHeader> {
 
   late StreamSubscription _streamSubscription;
 
+  final ScrollController _scrollController = ScrollController();
+
+  bool showChat = true;
+
   @override
   void initState() {
     super.initState();
@@ -49,10 +53,17 @@ class _LobbyFirestoreHeaderState extends State<LobbyFirestoreHeader> {
 
   @override
   void dispose() {
+    _scrollController.dispose();
     _roomId.dispose();
     _gameVersion.dispose();
     _streamSubscription.cancel();
     super.dispose();
+  }
+
+  void _scrollToBottom() {
+    if (_scrollController.hasClients) {
+      _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+    }
   }
 
   @override
@@ -111,33 +122,55 @@ class _LobbyFirestoreHeaderState extends State<LobbyFirestoreHeader> {
                     }
                   : null,
               child: Text("STOP"),
-            )
+            ),
+
+            // Move Button on the right
+            const Spacer(),
+            IconButton(
+              onPressed: () {
+                setState(() {
+                  showChat = !showChat;
+                });
+              },
+              icon: showChat
+                  ? const Icon(Icons.bug_report)
+                  : const Icon(Icons.bug_report_outlined),
+              color: showChat ? Colors.black : Colors.green.shade700,
+            ),
           ],
         ),
-        SizedBox(
-          height: 300,
-          child: StreamBuilder(
-              stream: FirebaseFirestore.instance
-                  .collection("messages")
-                  .orderBy('timestamp')
-                  .snapshots(),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  final messages = snapshot.data?.docs ?? [];
-                  if (messages.isEmpty) {
-                    return Text("No messages");
-                  }
-                  return ListView.builder(
-                      itemCount: messages.length,
-                      itemBuilder: (context, index) {
-                        final message = messages[index].data();
-                        return Text(
-                            "${(message['timestamp'] as Timestamp).toDate()} - ${message['nickname']}: ${message['message']}");
-                      });
-                }
+        Visibility(
+          visible: showChat,
+          child: SizedBox(
+            height: 300,
+            child: StreamBuilder(
+                stream: FirebaseFirestore.instance
+                    .collection("messages")
+                    .orderBy('timestamp')
+                    .snapshots(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    final messages = snapshot.data?.docs ?? [];
+                    if (messages.isEmpty) {
+                      return Text("No messages");
+                    }
+                    // Scroll to the bottom when new data arrives
+                    WidgetsBinding.instance
+                        .addPostFrameCallback((_) => _scrollToBottom());
 
-                return Text("No data");
-              }),
+                    return ListView.builder(
+                        controller: _scrollController,
+                        itemCount: messages.length,
+                        itemBuilder: (context, index) {
+                          final message = messages[index].data();
+                          return Text(
+                              "${(message['timestamp'] as Timestamp).toDate()} - ${message['nickname']}: ${message['message']}");
+                        });
+                  }
+
+                  return Text("No data");
+                }),
+          ),
         ),
       ],
     );
