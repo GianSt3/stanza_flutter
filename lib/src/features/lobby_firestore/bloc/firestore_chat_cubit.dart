@@ -40,6 +40,7 @@ class FirestoreChatCubit extends Cubit<FirestoreChatState> {
   }
 
   void _read(List<QueryDocumentSnapshot<Map<String, dynamic>>> docs) {
+    final stopwatch = Stopwatch()..start();
     final messages = docs.map((doc) {
       final data = doc.data();
       final cleanedText =
@@ -54,7 +55,9 @@ class FirestoreChatCubit extends Cubit<FirestoreChatState> {
 
     final copy = state.chat.messages.toList();
     copy.addAll(messages);
-
+    stopwatch.stop();
+    logger.d(
+        'Firestore new messages[${messages.length}], read in ${stopwatch.elapsedMilliseconds} ms');
     emit(
       state.copyWith(
         status: const FirestoreChatStateStatus.reading(),

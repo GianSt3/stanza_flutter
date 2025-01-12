@@ -131,11 +131,12 @@ class _Participant extends StatelessWidget {
           if (mode == ParticipantsMode.firebase)
             BlocBuilder<FirestoreChatCubit, FirestoreChatState>(
               builder: (context, state) {
+                final lastActivityTimestamp = state.chat.authors
+                    .lastWhere((element) => element.name == user.name)
+                    .lastActivityTimestamp;
+
                 return ClockWidget(
-                  millis: state.chat.messages
-                      .lastWhere((element) => element.author == user.name)
-                      .timestamp
-                      .millisecondsSinceEpoch,
+                  millis: lastActivityTimestamp,
                 );
               },
             )

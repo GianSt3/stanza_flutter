@@ -60,8 +60,10 @@ class ChatParticipants extends StatelessWidget {
                   return BlocBuilder<FirestoreChatCubit, FirestoreChatState>(
                     builder: (context, state) {
                       List<FirebaseAuthor> authors = state.chat.authors;
+                      // Remove already selected players
                       authors.removeWhere(
                           (author) => playersLobby.contains(author.name));
+
                       return ListView.separated(
                         itemCount: authors.length,
                         shrinkWrap: true,
