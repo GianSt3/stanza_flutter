@@ -1,19 +1,19 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:stanza_scrapper/config/environment/environment.dart';
+import 'package:stanza_scrapper/app/app.dart';
 import 'package:stanza_scrapper/domain/usecases/elevenlabs/subscription_info_mock_use_case.dart';
 import 'package:stanza_scrapper/domain/usecases/elevenlabs/subscription_info_use_case.dart';
-import 'package:stanza_scrapper/main.dart';
+import 'package:stanza_scrapper/injection/dependency_injection.dart';
 
 part 'api_quota_cubit.freezed.dart';
 part 'api_quota_state.dart';
 
 class ApiQuotaCubit extends Cubit<ApiQuotaState> {
   final ISubscriptionInfoUseCase _subscriptionInfoUseCase =
-      injector.get<Environment>().isMockEnabled()
+      provide<Environment>().isMockEnabled()
           ? SubscriptionInfoMockUseCase()
-          : SubscriptionInfoUseCase(injector());
+          : SubscriptionInfoUseCase(provide());
 
   ApiQuotaCubit() : super(const ApiQuotaState.initial());
 

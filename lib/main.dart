@@ -3,19 +3,16 @@ import 'package:eleven_labs/eleven_labs.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:stanza_scrapper/config/environment/environment.dart';
+import 'package:stanza_scrapper/app/app.dart';
 import 'package:stanza_scrapper/core/api_key_guard.dart';
 import 'package:stanza_scrapper/core/bloc/api_key/api_key_cubit.dart';
 import 'package:stanza_scrapper/core/bloc/api_quota/api_quota_cubit.dart';
 import 'package:stanza_scrapper/core/bloc/scrapper/youtube_scrapper_cubit.dart';
 import 'package:stanza_scrapper/core/utils/utils.dart';
-import 'package:stanza_scrapper/data/youtube/youtube_chat_repository.dart';
-import 'package:stanza_scrapper/data/youtube/youtube_mock_chat_repository.dart';
-import 'package:stanza_scrapper/domain/youtube/youtube_chat_repository_interface.dart';
+import 'package:stanza_scrapper/injection/dependency_injection.dart';
 import 'package:stanza_scrapper/src/features/game/bloc/game_cubit.dart';
 import 'package:stanza_scrapper/src/features/game/bloc/messages/game_messages_cubit.dart';
 import 'package:stanza_scrapper/src/features/lobby/bloc/blacklist/blacklist_cubit.dart';
@@ -26,8 +23,6 @@ import 'package:stanza_scrapper/src/features/settings/bloc/voice/custom_voice_cu
 import 'package:stanza_scrapper/src/stanza.dart';
 
 import 'firebase_options.dart';
-
-final injector = GetIt.instance;
 
 void main(List<String> args) async {
   debugPrint('args: $args');
@@ -44,13 +39,7 @@ void main(List<String> args) async {
     storageDirectory: await getApplicationDocumentsDirectory(),
   );
 
-  injector
-    ..registerSingleton<ElevenLabsInterface>(ElevenLabsAPI())
-    ..registerSingleton<Environment>(EnvironmentImpl())
-    ..registerSingleton<YoutubeChatRepositoryInterface>(
-        injector.get<Environment>().isMockEnabled()
-            ? YoutubeMockChatRepository()
-            : YoutubeChatRepository());
+  await initDependencyInjection();
   await initializeLogger();
   runApp(const MainApp());
 }
@@ -77,7 +66,7 @@ class _MainAppState extends State<MainApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: injector.get<Environment>().isMockEnabled(),
+      debugShowCheckedModeBanner: provide<Environment>().isMockEnabled(),
       theme: ThemeData(
         canvasColor: Colors.white,
         textTheme: GoogleFonts.kanitTextTheme(Theme.of(context).textTheme),
@@ -184,8 +173,7 @@ class _MainAppState extends State<MainApp> {
             );
           }),
           child: (apiKey) {
-            injector
-                .get<ElevenLabsInterface>()
+            provide<ElevenLabsInterface>()
                 .init(config: ElevenLabsConfig(apiKey: apiKey));
             return const Stanza();
           },

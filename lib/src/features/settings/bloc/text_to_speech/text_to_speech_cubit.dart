@@ -1,22 +1,17 @@
-import 'dart:ffi';
-import 'dart:typed_data';
-
 import 'package:audioplayers/audioplayers.dart';
 import 'package:bloc/bloc.dart';
 import 'package:eleven_labs/eleven_labs.dart';
-import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:stanza_scrapper/domain/usecases/elevenlabs/synthesize_use_case.dart';
-import 'package:stanza_scrapper/main.dart';
-
-part 'text_to_speech_state.dart';
+import 'package:stanza_scrapper/injection/dependency_injection.dart';
 
 part 'text_to_speech_cubit.freezed.dart';
+part 'text_to_speech_state.dart';
 
 class TextToSpeechCubit extends Cubit<TextToSpeechState> {
-  final SynthesizeUseCase _synthesizeUseCase = SynthesizeUseCase(injector());
+  final SynthesizeUseCase _synthesizeUseCase = SynthesizeUseCase(provide());
 
   TextToSpeechCubit()
       : super(const TextToSpeechState(status: TextToSpeechStatus.initial()));

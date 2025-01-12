@@ -2,12 +2,12 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:stanza_scrapper/config/environment/environment.dart';
+import 'package:stanza_scrapper/app/app.dart';
 import 'package:stanza_scrapper/core/bloc/api_key/api_key_cubit.dart';
 import 'package:stanza_scrapper/data/model/youtube_message.dart';
 import 'package:stanza_scrapper/domain/entities/custom_voice.dart';
 import 'package:stanza_scrapper/gen/assets.gen.dart';
-import 'package:stanza_scrapper/main.dart';
+import 'package:stanza_scrapper/injection/dependency_injection.dart';
 import 'package:stanza_scrapper/src/features/clock/bloc/clock_cubit.dart';
 import 'package:stanza_scrapper/src/features/game/bloc/game_cubit.dart';
 import 'package:stanza_scrapper/src/features/game/bloc/messages/game_messages_cubit.dart';
@@ -25,7 +25,7 @@ class Stanza extends StatefulWidget {
 
 class _StanzaState extends State<Stanza> {
   int currentPageIndex = 0;
-  String appVersion = injector.get<Environment>().appVersion;
+  String appVersion = provide<Environment>().appVersion;
   List<String> titles = [
     "Settings",
     "Stanza",
@@ -40,7 +40,7 @@ class _StanzaState extends State<Stanza> {
           backgroundColor: Colors.white,
           appBar: AppBar(
             title: Text(titles[currentPageIndex]),
-            actions: injector.get<Environment>().isMockEnabled()
+            actions: provide<Environment>().isMockEnabled()
                 ? [
                     TextButton(
                         onPressed: () {

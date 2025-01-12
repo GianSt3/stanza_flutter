@@ -6,13 +6,13 @@ import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
-import 'package:stanza_scrapper/config/environment/environment.dart';
-import 'package:stanza_scrapper/main.dart';
+import 'package:stanza_scrapper/app/app.dart';
+import 'package:stanza_scrapper/injection/dependency_injection.dart';
 
 late final Logger logger;
 
 Future<void> initializeLogger() async {
-  final logFile = await _getLogFile(injector.get());
+  final logFile = await _getLogFile(provide());
   logger = Logger(
       filter: ProductionFilter(),
       printer: _AppPrinter(),

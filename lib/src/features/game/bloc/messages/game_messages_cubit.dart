@@ -4,12 +4,12 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:stanza_scrapper/config/environment/environment.dart';
+import 'package:stanza_scrapper/app/app.dart';
 import 'package:stanza_scrapper/core/utils/utils.dart';
 import 'package:stanza_scrapper/domain/usecases/elevenlabs/synthesize_mock_use_case.dart';
 import 'package:stanza_scrapper/domain/usecases/elevenlabs/synthesize_use_case.dart';
 import 'package:stanza_scrapper/domain/usecases/message/message_loader_use_case.dart';
-import 'package:stanza_scrapper/main.dart';
+import 'package:stanza_scrapper/injection/dependency_injection.dart';
 import 'package:stanza_scrapper/src/features/game/model/audio_message.dart';
 import 'package:stanza_scrapper/src/features/game/model/game_message.dart';
 import 'package:stanza_scrapper/src/features/game/model/player.dart';
@@ -23,10 +23,10 @@ class GameMessagesCubit extends Cubit<GameMessagesState> {
   late final Timer checkQueue;
 
   final MessageLoaderUseCase _messageLoaderUseCase = MessageLoaderUseCase(
-    synthesize: injector.get<Environment>().isMockEnabled()
+    synthesize: provide<Environment>().isMockEnabled()
         ? SynthesizeMockUseCase()
         : SynthesizeUseCase(
-            injector(),
+            provide(),
           ),
   );
 
