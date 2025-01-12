@@ -21,12 +21,29 @@ class ClockWidget extends StatelessWidget {
   final DateTime? dateTime;
   final int? millis;
 
-  Color timeColor(int seconds) {
+  Color timeColor(Duration duration) {
+    int seconds = duration.inSeconds;
+
     if (seconds > 300) return Colors.black;
     if (seconds > 120) return Colors.red.shade800;
     if (seconds > 60) return Colors.orange.shade800;
     if (seconds > 30) return Colors.yellow.shade800;
     return Colors.green.shade800;
+  }
+
+  String formatDuration(Duration duration) {
+    final days = duration.inDays;
+    final hours = duration.inHours % 24;
+    final minutes = duration.inMinutes % 60;
+    final seconds = duration.inSeconds % 60;
+
+    if (days > 0) {
+      return "$days day${days > 1 ? 's' : ''}, ${formatter.format(hours)}:${formatter.format(minutes)}:${formatter.format(seconds)}";
+    } else if (hours > 0) {
+      return "${formatter.format(hours)}:${formatter.format(minutes)}:${formatter.format(seconds)}";
+    } else {
+      return "${formatter.format(minutes)}:${formatter.format(seconds)}";
+    }
   }
 
   @override
@@ -43,9 +60,7 @@ class ClockWidget extends StatelessWidget {
         orElse: () => Duration.zero,
       );
 
-      final int seconds = snapshot.inSeconds;
-      final int minutes = snapshot.inMinutes;
-      final color = timeColor(seconds);
+      final color = timeColor(snapshot);
 
       return Row(
         mainAxisSize: MainAxisSize.min,
@@ -53,7 +68,7 @@ class ClockWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            "${formatter.format(minutes)}:${ClockWidget.formatter.format(seconds)}",
+            formatDuration(snapshot),
             style: GoogleFonts.notoSans(
               textStyle: Theme.of(context).textTheme.bodySmall?.copyWith(
                     color: color,
