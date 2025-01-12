@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:stanza_scrapper/core/bloc/scrapper/youtube_scrapper_cubit.dart';
+import 'package:stanza_scrapper/core/utils/utils.dart';
 import 'package:stanza_scrapper/src/features/clock/presenter/clock_widget.dart';
 import 'package:stanza_scrapper/src/features/lobby/bloc/lobby_cubit.dart';
 import 'package:stanza_scrapper/src/features/lobby/model/queueing_user.dart';
 import 'package:stanza_scrapper/src/features/lobby/presenter/model/participants_mode.dart';
 import 'package:stanza_scrapper/src/features/lobby_firestore/bloc/firestore_chat_cubit.dart';
-import 'package:stanza_scrapper/utils/participant_icon_extension.dart';
 
 class ChatParticipants extends StatelessWidget {
   final ParticipantsMode mode;

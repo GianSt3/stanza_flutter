@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:stanza_scrapper/utils/logger.dart';
+import 'package:stanza_scrapper/core/utils/utils.dart';
 
 import '../model/player.dart';
 

@@ -2,9 +2,9 @@ import 'dart:math';
 
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:stanza_scrapper/core/utils/utils.dart';
 import 'package:stanza_scrapper/data/model/youtube_message.dart';
 import 'package:stanza_scrapper/domain/youtube/youtube_chat_repository_interface.dart';
-import 'package:stanza_scrapper/utils/logger.dart';
 
 class YoutubeMockChatRepository extends YoutubeChatRepositoryInterface {
   @override

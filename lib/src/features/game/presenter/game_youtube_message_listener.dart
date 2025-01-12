@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stanza_scrapper/core/bloc/scrapper/youtube_scrapper_cubit.dart';
+import 'package:stanza_scrapper/core/utils/utils.dart';
 import 'package:stanza_scrapper/src/features/game/bloc/game_cubit.dart';
 import 'package:stanza_scrapper/src/features/game/bloc/messages/game_messages_cubit.dart';
-import 'package:stanza_scrapper/utils/logger.dart';
 
 class GameYoutubeMessageListener extends StatelessWidget {
   const GameYoutubeMessageListener({

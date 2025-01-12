@@ -3,11 +3,11 @@ import 'package:either_dart/either.dart';
 import 'package:eleven_labs/elevenlabs_types.dart';
 import 'package:flutter/services.dart';
 import 'package:stanza_scrapper/core/use_case/use_case.dart';
+import 'package:stanza_scrapper/core/utils/utils.dart';
 import 'package:stanza_scrapper/domain/usecases/elevenlabs/synthesize_use_case.dart';
 import 'package:stanza_scrapper/gen/assets.gen.dart';
 import 'package:stanza_scrapper/src/features/game/bloc/messages/game_messages_cubit.dart';
 import 'package:stanza_scrapper/src/features/game/model/audio_message.dart';
-import 'package:stanza_scrapper/utils/logger.dart';
 
 import '../commands/me_use_case.dart';
 import '../dice/dice_use_case.dart';

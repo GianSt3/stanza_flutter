@@ -12,6 +12,7 @@ import 'package:stanza_scrapper/core/api_key_guard.dart';
 import 'package:stanza_scrapper/core/bloc/api_key/api_key_cubit.dart';
 import 'package:stanza_scrapper/core/bloc/api_quota/api_quota_cubit.dart';
 import 'package:stanza_scrapper/core/bloc/scrapper/youtube_scrapper_cubit.dart';
+import 'package:stanza_scrapper/core/utils/utils.dart';
 import 'package:stanza_scrapper/data/youtube/youtube_chat_repository.dart';
 import 'package:stanza_scrapper/data/youtube/youtube_mock_chat_repository.dart';
 import 'package:stanza_scrapper/domain/youtube/youtube_chat_repository_interface.dart';
@@ -23,7 +24,6 @@ import 'package:stanza_scrapper/src/features/settings/bloc/default_voices/defaul
 import 'package:stanza_scrapper/src/features/settings/bloc/text_to_speech/text_to_speech_cubit.dart';
 import 'package:stanza_scrapper/src/features/settings/bloc/voice/custom_voice_cubit.dart';
 import 'package:stanza_scrapper/src/stanza.dart';
-import 'package:stanza_scrapper/utils/logger.dart';
 
 import 'firebase_options.dart';
 

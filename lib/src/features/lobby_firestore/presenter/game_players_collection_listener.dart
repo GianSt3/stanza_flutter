@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:stanza_scrapper/core/utils/utils.dart';
 import 'package:stanza_scrapper/src/features/lobby/bloc/lobby_cubit.dart';
-import 'package:stanza_scrapper/utils/logger.dart';
 
 class GamePlayersCollectionListener extends StatefulWidget {
   const GamePlayersCollectionListener({super.key});

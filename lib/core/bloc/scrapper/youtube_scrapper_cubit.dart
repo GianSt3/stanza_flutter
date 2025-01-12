@@ -3,17 +3,15 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:stanza_scrapper/core/utils/utils.dart';
 import 'package:stanza_scrapper/data/model/youtube_message.dart';
 import 'package:stanza_scrapper/domain/usecases/youtube/init_youtube_chat_use_case.dart';
 import 'package:stanza_scrapper/domain/usecases/youtube/messages_youtube_chat_use_case.dart';
 import 'package:stanza_scrapper/main.dart';
-import 'package:stanza_scrapper/utils/logger.dart';
-
-part 'youtube_scrapper_state.dart';
 
 part 'youtube_scrapper_cubit.freezed.dart';
+part 'youtube_scrapper_state.dart';
 
 class YoutubeScrapperCubit extends Cubit<YoutubeScrapperState> {
   YoutubeScrapperCubit()

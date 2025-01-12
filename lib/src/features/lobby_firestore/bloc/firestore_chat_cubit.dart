@@ -5,9 +5,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:stanza_scrapper/core/utils/utils.dart';
 import 'package:stanza_scrapper/domain/usecases/firestore/swearword_filter_use_case.dart';
 import 'package:stanza_scrapper/src/features/game/model/game_message.dart';
-import 'package:stanza_scrapper/utils/logger.dart';
 
 part 'firestore_chat_cubit.freezed.dart';
 part 'firestore_chat_state.dart';

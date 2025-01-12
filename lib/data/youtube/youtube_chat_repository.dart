@@ -1,11 +1,11 @@
 import 'dart:convert';
 
 import 'package:desktop_webview_window/desktop_webview_window.dart';
+import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
+import 'package:stanza_scrapper/core/utils/utils.dart';
 import 'package:stanza_scrapper/data/model/youtube_message.dart';
 import 'package:stanza_scrapper/domain/youtube/youtube_chat_repository_interface.dart';
-import 'package:path/path.dart' as p;
-import 'package:stanza_scrapper/utils/logger.dart';
 
 class YoutubeChatRepository extends YoutubeChatRepositoryInterface {
   late Webview webview;
