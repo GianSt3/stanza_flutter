@@ -7,7 +7,7 @@ import 'package:stanza_scrapper/domain/youtube/youtube_chat_repository_interface
 
 final _injector = GetIt.instance;
 
-T provide<T extends Object>() => _injector<T>();
+T resolve<T extends Object>() => _injector.get<T>();
 
 Future<void> initDependencyInjection() async {
   _injector

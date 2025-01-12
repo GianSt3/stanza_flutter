@@ -11,9 +11,9 @@ part 'api_quota_state.dart';
 
 class ApiQuotaCubit extends Cubit<ApiQuotaState> {
   final ISubscriptionInfoUseCase _subscriptionInfoUseCase =
-      provide<Environment>().isMockEnabled()
+      resolve<Environment>().isMockEnabled()
           ? SubscriptionInfoMockUseCase()
-          : SubscriptionInfoUseCase(provide());
+          : SubscriptionInfoUseCase(resolve());
 
   ApiQuotaCubit() : super(const ApiQuotaState.initial());
 

@@ -11,7 +11,7 @@ part 'text_to_speech_cubit.freezed.dart';
 part 'text_to_speech_state.dart';
 
 class TextToSpeechCubit extends Cubit<TextToSpeechState> {
-  final SynthesizeUseCase _synthesizeUseCase = SynthesizeUseCase(provide());
+  final SynthesizeUseCase _synthesizeUseCase = SynthesizeUseCase(resolve());
 
   TextToSpeechCubit()
       : super(const TextToSpeechState(status: TextToSpeechStatus.initial()));

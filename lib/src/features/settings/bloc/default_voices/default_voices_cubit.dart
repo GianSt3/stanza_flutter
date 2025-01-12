@@ -9,7 +9,7 @@ part 'default_voices_cubit.g.dart';
 part 'default_voices_state.dart';
 
 class DefaultVoicesCubit extends HydratedCubit<DefaultVoicesState> {
-  final ListVoicesUseCase _listVoicesUseCase = ListVoicesUseCase(provide());
+  final ListVoicesUseCase _listVoicesUseCase = ListVoicesUseCase(resolve());
 
   DefaultVoicesCubit()
       : super(DefaultVoicesState(

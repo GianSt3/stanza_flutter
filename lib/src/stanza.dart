@@ -25,7 +25,7 @@ class Stanza extends StatefulWidget {
 
 class _StanzaState extends State<Stanza> {
   int currentPageIndex = 0;
-  String appVersion = provide<Environment>().appVersion;
+  String appVersion = resolve<Environment>().appVersion;
   List<String> titles = [
     "Settings",
     "Stanza",
@@ -40,7 +40,7 @@ class _StanzaState extends State<Stanza> {
           backgroundColor: Colors.white,
           appBar: AppBar(
             title: Text(titles[currentPageIndex]),
-            actions: provide<Environment>().isMockEnabled()
+            actions: resolve<Environment>().isMockEnabled()
                 ? [
                     TextButton(
                         onPressed: () {

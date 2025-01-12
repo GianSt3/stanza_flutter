@@ -19,9 +19,9 @@ class YoutubeScrapperCubit extends Cubit<YoutubeScrapperState> {
             status: YoutubeScrapperStatus.initial()));
 
   final InitYoutubeChatUseCase _initYoutubeChatUseCase =
-      InitYoutubeChatUseCase(provide());
+      InitYoutubeChatUseCase(resolve());
   final MessagesYoutubeChatUseCase _messagesYoutubeChatUseCase =
-      MessagesYoutubeChatUseCase(provide());
+      MessagesYoutubeChatUseCase(resolve());
 
   void start(String liveId) async {
     _initYoutubeChatUseCase.call(params: liveId);

@@ -23,10 +23,10 @@ class GameMessagesCubit extends Cubit<GameMessagesState> {
   late final Timer checkQueue;
 
   final MessageLoaderUseCase _messageLoaderUseCase = MessageLoaderUseCase(
-    synthesize: provide<Environment>().isMockEnabled()
+    synthesize: resolve<Environment>().isMockEnabled()
         ? SynthesizeMockUseCase()
         : SynthesizeUseCase(
-            provide(),
+            resolve(),
           ),
   );
 

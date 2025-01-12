@@ -66,7 +66,7 @@ class _MainAppState extends State<MainApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: provide<Environment>().isMockEnabled(),
+      debugShowCheckedModeBanner: resolve<Environment>().isMockEnabled(),
       theme: ThemeData(
         canvasColor: Colors.white,
         textTheme: GoogleFonts.kanitTextTheme(Theme.of(context).textTheme),
@@ -173,7 +173,7 @@ class _MainAppState extends State<MainApp> {
             );
           }),
           child: (apiKey) {
-            provide<ElevenLabsInterface>()
+            resolve<ElevenLabsInterface>()
                 .init(config: ElevenLabsConfig(apiKey: apiKey));
             return const Stanza();
           },

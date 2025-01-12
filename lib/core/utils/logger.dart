@@ -12,7 +12,7 @@ import 'package:stanza_scrapper/injection/dependency_injection.dart';
 late final Logger logger;
 
 Future<void> initializeLogger() async {
-  final logFile = await _getLogFile(provide());
+  final logFile = await _getLogFile(resolve());
   logger = Logger(
       filter: ProductionFilter(),
       printer: _AppPrinter(),
