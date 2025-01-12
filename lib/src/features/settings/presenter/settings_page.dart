@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:stanza_scrapper/gen/assets.gen.dart';
+import 'package:stanza_scrapper/app/gen/assets.gen.dart';
 import 'package:stanza_scrapper/src/features/settings/presenter/tabs/voice_custom_tab.dart';
 import 'package:stanza_scrapper/src/features/settings/presenter/tabs/voices_tab_page.dart';
 import 'package:stanza_scrapper/src/features/settings/presenter/widget/api_quota_widget.dart';

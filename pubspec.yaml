@@ -46,6 +46,7 @@ scripts:
   build_windows: flutter build windows --release -t lib/main.dart
 
 flutter_gen:
+  output: lib/app/gen/
   integrations:
     flutter_svg: true
 
