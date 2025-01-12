@@ -60,7 +60,7 @@ class MessageLoaderUseCase extends FutureUseCase<
 
       logger.d(
           """DICE LOADED [$messageId] millis ${DateTime.now().difference(startTime).inMilliseconds}
-            ${message.message.timestamp} - ${message.message.author}: ${message.message.text}
+            ${message.message.formattedTimestamp} - ${message.message.author}: ${message.message.text}
             """);
 
       return Right(
@@ -87,7 +87,7 @@ class MessageLoaderUseCase extends FutureUseCase<
 
       logger.d(
           """ME LOADED [$messageId] millis ${DateTime.now().difference(startTime).inMilliseconds}
-            ${message.message.timestamp} - ${message.message.author}: ${message.message.text}
+            ${message.message.formattedTimestamp} - ${message.message.author}: ${message.message.text}
             """);
 
       return Right(
@@ -114,7 +114,7 @@ class MessageLoaderUseCase extends FutureUseCase<
 
           logger.d(
               """AUDIO LOADED [$messageId] millis ${DateTime.now().difference(startTime).inMilliseconds}
-            ${message.message.timestamp} - ${message.message.author}: ${message.message.text}
+            ${message.message.formattedTimestamp} - ${message.message.author}: ${message.message.text}
             """);
 
           return Right(
@@ -142,7 +142,7 @@ class MessageLoaderUseCase extends FutureUseCase<
 
         logger.d(
             """SILENCE LOADED [$messageId] millis ${DateTime.now().difference(startTime).inMilliseconds}
-            ${message.message.timestamp} - ${message.message.author}: ${message.message.text}
+            ${message.message.formattedTimestamp} - ${message.message.author}: ${message.message.text}
             """);
 
         return Right(
