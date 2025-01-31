@@ -14,6 +14,7 @@ import 'package:stanza_scrapper/src/features/game/bloc/messages/game_messages_cu
 import 'package:stanza_scrapper/src/features/game/model/player.dart';
 import 'package:stanza_scrapper/src/features/lobby/presenter/lobby_page.dart';
 import 'package:stanza_scrapper/src/features/lobby_firestore/presenter/lobby_firestore_page.dart';
+import 'package:stanza_scrapper/src/features/poll/presenter/poll_page.dart';
 import 'package:stanza_scrapper/src/features/settings/presenter/settings_page.dart';
 
 class Stanza extends StatefulWidget {
@@ -23,13 +24,21 @@ class Stanza extends StatefulWidget {
   State<Stanza> createState() => _StanzaState();
 }
 
+class _Titles {
+  final Widget icon;
+  final String title;
+
+  _Titles(this.icon, this.title);
+}
+
 class _StanzaState extends State<Stanza> {
   int currentPageIndex = 0;
   String appVersion = resolve<Environment>().appVersion;
-  List<String> titles = [
-    "Settings",
-    "Stanza",
-    "Stanza4Fun",
+  List<_Titles> titles = [
+    _Titles(Assets.icons.settings.svg(), "Settings"),
+    _Titles(Assets.icons.settings.svg(), "Poll"),
+    _Titles(Assets.icons.game.svg(), "Stanza"),
+    _Titles(const Icon(Icons.smartphone_outlined), "Stanza4Fun"),
   ];
 
   @override
@@ -39,7 +48,7 @@ class _StanzaState extends State<Stanza> {
         return Scaffold(
           backgroundColor: Colors.white,
           appBar: AppBar(
-            title: Text(titles[currentPageIndex]),
+            title: Text(titles[currentPageIndex].title),
             actions: resolve<Environment>().isMockEnabled()
                 ? [
                     TextButton(
@@ -133,20 +142,16 @@ class _StanzaState extends State<Stanza> {
                   ),
                 );
               },
-              destinations: [
-                NavigationRailDestination(
-                    icon: Assets.icons.settings.svg(), label: Text(titles[0])),
-                NavigationRailDestination(
-                    icon: Assets.icons.game.svg(), label: Text(titles[1])),
-                NavigationRailDestination(
-                    icon: const Icon(Icons.smartphone_outlined),
-                    label: Text(titles[1])),
-              ],
+              destinations: titles
+                  .map((title) => NavigationRailDestination(
+                      icon: title.icon, label: Text(title.title)))
+                  .toList(),
               selectedIndex: currentPageIndex,
             ),
           ),
           body: [
             const SettingsPage(),
+            const PollPage(),
             BlocProvider(
               create: (context) => ClockCubit(),
               child: const LobbyPage(),

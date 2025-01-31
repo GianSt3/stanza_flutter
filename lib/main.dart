@@ -17,6 +17,7 @@ import 'package:stanza_scrapper/src/features/game/bloc/game_cubit.dart';
 import 'package:stanza_scrapper/src/features/game/bloc/messages/game_messages_cubit.dart';
 import 'package:stanza_scrapper/src/features/lobby/bloc/blacklist/blacklist_cubit.dart';
 import 'package:stanza_scrapper/src/features/lobby/bloc/lobby_cubit.dart';
+import 'package:stanza_scrapper/src/features/poll/bloc/list/poll_list_cubit.dart';
 import 'package:stanza_scrapper/src/features/settings/bloc/default_voices/default_voices_cubit.dart';
 import 'package:stanza_scrapper/src/features/settings/bloc/text_to_speech/text_to_speech_cubit.dart';
 import 'package:stanza_scrapper/src/features/settings/bloc/voice/custom_voice_cubit.dart';
@@ -148,6 +149,9 @@ class _MainAppState extends State<MainApp> {
           BlocProvider(
             create: (context) => ApiQuotaCubit(),
           ),
+          BlocProvider(
+            create: (context) => PollListCubit(),
+          ),
         ],
         child: ApiKeyGuard(
           missing: Builder(builder: (context) {
@@ -175,7 +179,17 @@ class _MainAppState extends State<MainApp> {
           child: (apiKey) {
             resolve<ElevenLabsInterface>()
                 .init(config: ElevenLabsConfig(apiKey: apiKey));
-            return const Stanza();
+            // 1920x1080
+            if (const String.fromEnvironment('GRID') == 'TRUE') {
+              return const GridPaper(
+                  divisions: 10,
+                  interval: 500,
+                  subdivisions: 5,
+                  color: Colors.black26,
+                  child: Stanza());
+            } else {
+              return const Stanza();
+            }
           },
         ),
       ),
