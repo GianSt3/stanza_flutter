@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:stanza_scrapper/src/features/poll/model/poll.dart';
+
+import '../../model/poll.dart';
 
 part 'poll_list_cubit.freezed.dart';
 part 'poll_list_cubit.g.dart';
@@ -19,6 +20,16 @@ class PollListCubit extends HydratedCubit<PollListState> {
     final polls = state.polls.toList();
     polls.removeWhere((poll) => poll.question == question);
     emit(PollListState.loaded(polls));
+  }
+
+  void setFavorite(String question, bool favorite) {
+    final updatedPolls = state.polls.map((perform) {
+      if (perform.question == question) {
+        return perform.copyWith(favorite: favorite);
+      }
+      return perform;
+    }).toList();
+    emit(PollListState.loaded(updatedPolls));
   }
 
   @override

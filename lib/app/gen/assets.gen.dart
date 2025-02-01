@@ -99,6 +99,10 @@ class $AssetsIconsGen {
   /// File path: assets/icons/ox.svg
   SvgGenImage get ox => const SvgGenImage('assets/icons/ox.svg');
 
+  /// File path: assets/icons/phone-configuration.svg
+  SvgGenImage get phoneConfiguration =>
+      const SvgGenImage('assets/icons/phone-configuration.svg');
+
   /// File path: assets/icons/random.svg
   SvgGenImage get random => const SvgGenImage('assets/icons/random.svg');
 
@@ -150,6 +154,7 @@ class $AssetsIconsGen {
         globalRefresh,
         info,
         ox,
+        phoneConfiguration,
         random,
         removeCircle,
         settings,

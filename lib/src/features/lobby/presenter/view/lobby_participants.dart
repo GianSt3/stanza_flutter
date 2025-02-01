@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:stanza_scrapper/core/bloc/scrapper/youtube_scrapper_cubit.dart';
-import 'package:stanza_scrapper/src/features/clock/presenter/clock_widget.dart';
-import 'package:stanza_scrapper/src/features/game/bloc/game_cubit.dart';
-import 'package:stanza_scrapper/src/features/lobby/bloc/lobby_cubit.dart';
-import 'package:stanza_scrapper/src/features/lobby/model/queueing_user.dart';
-import 'package:stanza_scrapper/src/features/lobby/presenter/model/participants_mode.dart';
-import 'package:stanza_scrapper/src/features/lobby_firestore/bloc/firestore_chat_cubit.dart';
+
+import '../../../../../core/bloc/scrapper/youtube_scrapper_cubit.dart';
+import '../../../clock/presenter/clock_widget.dart';
+import '../../../game/bloc/game_cubit.dart';
+import '../../../lobby_firestore/bloc/firestore_chat_cubit.dart';
+import '../../bloc/lobby_cubit.dart';
+import '../../model/queueing_user.dart';
+import '../model/participants_mode.dart';
 
 class LobbyParticipants extends StatelessWidget {
   final ParticipantsMode mode;
@@ -24,7 +25,7 @@ class LobbyParticipants extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                "Lobby",
+                'Lobby',
                 style: Theme.of(context).textTheme.titleLarge,
               ),
             ),
@@ -36,7 +37,7 @@ class LobbyParticipants extends StatelessWidget {
                 },
                 child: const Row(
                   children: [
-                    Text("Random"),
+                    Text('Random'),
                     SizedBox(
                       width: 12,
                     ),
@@ -77,7 +78,7 @@ class _Participant extends StatelessWidget {
   final ParticipantsMode mode;
 
   const _Participant(
-      {super.key, required this.user, this.mode = ParticipantsMode.youtube});
+      {required this.user, this.mode = ParticipantsMode.youtube});
 
   @override
   Widget build(BuildContext context) {
@@ -131,6 +132,9 @@ class _Participant extends StatelessWidget {
           if (mode == ParticipantsMode.firebase)
             BlocBuilder<FirestoreChatCubit, FirestoreChatState>(
               builder: (context, state) {
+                if (state.status == const FirestoreChatStateStatus.error()) {
+                  return const Center(child: Text('Firebase error.'));
+                }
                 final lastActivityTimestamp = state.chat.authors
                     .lastWhere((element) => element.name == user.name)
                     .lastActivityTimestamp;

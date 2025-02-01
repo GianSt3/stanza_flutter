@@ -22,6 +22,7 @@ Poll _$PollFromJson(Map<String, dynamic> json) {
 mixin _$Poll {
   String get question => throw _privateConstructorUsedError;
   List<String> get answers => throw _privateConstructorUsedError;
+  bool? get favorite => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -33,7 +34,7 @@ abstract class $PollCopyWith<$Res> {
   factory $PollCopyWith(Poll value, $Res Function(Poll) then) =
       _$PollCopyWithImpl<$Res, Poll>;
   @useResult
-  $Res call({String question, List<String> answers});
+  $Res call({String question, List<String> answers, bool? favorite});
 }
 
 /// @nodoc
@@ -51,6 +52,7 @@ class _$PollCopyWithImpl<$Res, $Val extends Poll>
   $Res call({
     Object? question = null,
     Object? answers = null,
+    Object? favorite = freezed,
   }) {
     return _then(_value.copyWith(
       question: null == question
@@ -61,6 +63,10 @@ class _$PollCopyWithImpl<$Res, $Val extends Poll>
           ? _value.answers
           : answers // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      favorite: freezed == favorite
+          ? _value.favorite
+          : favorite // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ) as $Val);
   }
 }
@@ -72,7 +78,7 @@ abstract class _$$PollImplCopyWith<$Res> implements $PollCopyWith<$Res> {
       __$$PollImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String question, List<String> answers});
+  $Res call({String question, List<String> answers, bool? favorite});
 }
 
 /// @nodoc
@@ -87,6 +93,7 @@ class __$$PollImplCopyWithImpl<$Res>
   $Res call({
     Object? question = null,
     Object? answers = null,
+    Object? favorite = freezed,
   }) {
     return _then(_$PollImpl(
       question: null == question
@@ -97,16 +104,23 @@ class __$$PollImplCopyWithImpl<$Res>
           ? _value._answers
           : answers // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      favorite: freezed == favorite
+          ? _value.favorite
+          : favorite // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$PollImpl implements _Poll {
+class _$PollImpl extends _Poll {
   const _$PollImpl(
-      {required this.question, required final List<String> answers})
-      : _answers = answers;
+      {required this.question,
+      required final List<String> answers,
+      this.favorite})
+      : _answers = answers,
+        super._();
 
   factory _$PollImpl.fromJson(Map<String, dynamic> json) =>
       _$$PollImplFromJson(json);
@@ -122,8 +136,11 @@ class _$PollImpl implements _Poll {
   }
 
   @override
+  final bool? favorite;
+
+  @override
   String toString() {
-    return 'Poll(question: $question, answers: $answers)';
+    return 'Poll(question: $question, answers: $answers, favorite: $favorite)';
   }
 
   @override
@@ -133,13 +150,15 @@ class _$PollImpl implements _Poll {
             other is _$PollImpl &&
             (identical(other.question, question) ||
                 other.question == question) &&
-            const DeepCollectionEquality().equals(other._answers, _answers));
+            const DeepCollectionEquality().equals(other._answers, _answers) &&
+            (identical(other.favorite, favorite) ||
+                other.favorite == favorite));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, question, const DeepCollectionEquality().hash(_answers));
+  int get hashCode => Object.hash(runtimeType, question,
+      const DeepCollectionEquality().hash(_answers), favorite);
 
   @JsonKey(ignore: true)
   @override
@@ -155,10 +174,12 @@ class _$PollImpl implements _Poll {
   }
 }
 
-abstract class _Poll implements Poll {
+abstract class _Poll extends Poll {
   const factory _Poll(
       {required final String question,
-      required final List<String> answers}) = _$PollImpl;
+      required final List<String> answers,
+      final bool? favorite}) = _$PollImpl;
+  const _Poll._() : super._();
 
   factory _Poll.fromJson(Map<String, dynamic> json) = _$PollImpl.fromJson;
 
@@ -166,6 +187,8 @@ abstract class _Poll implements Poll {
   String get question;
   @override
   List<String> get answers;
+  @override
+  bool? get favorite;
   @override
   @JsonKey(ignore: true)
   _$$PollImplCopyWith<_$PollImpl> get copyWith =>

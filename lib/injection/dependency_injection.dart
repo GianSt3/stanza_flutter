@@ -1,9 +1,9 @@
 import 'package:eleven_labs/eleven_labs.dart';
 import 'package:get_it/get_it.dart';
-import 'package:stanza_scrapper/app/app.dart';
-import 'package:stanza_scrapper/data/youtube/youtube_chat_repository.dart';
-import 'package:stanza_scrapper/data/youtube/youtube_mock_chat_repository.dart';
-import 'package:stanza_scrapper/domain/youtube/youtube_chat_repository_interface.dart';
+import '../app/app.dart';
+import '../data/youtube/youtube_chat_repository.dart';
+import '../data/youtube/youtube_mock_chat_repository.dart';
+import '../domain/youtube/youtube_chat_repository_interface.dart';
 
 final _injector = GetIt.instance;
 

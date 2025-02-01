@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:stanza_scrapper/core/bloc/scrapper/youtube_scrapper_cubit.dart';
-import 'package:stanza_scrapper/core/utils/utils.dart';
-import 'package:stanza_scrapper/src/features/clock/presenter/clock_widget.dart';
-import 'package:stanza_scrapper/src/features/lobby/bloc/lobby_cubit.dart';
-import 'package:stanza_scrapper/src/features/lobby/model/queueing_user.dart';
-import 'package:stanza_scrapper/src/features/lobby/presenter/model/participants_mode.dart';
-import 'package:stanza_scrapper/src/features/lobby_firestore/bloc/firestore_chat_cubit.dart';
+
+import '../../../../../core/bloc/scrapper/youtube_scrapper_cubit.dart';
+import '../../../../../core/utils/utils.dart';
+import '../../../clock/presenter/clock_widget.dart';
+import '../../../lobby_firestore/bloc/firestore_chat_cubit.dart';
+import '../../bloc/lobby_cubit.dart';
+import '../../model/queueing_user.dart';
+import '../model/participants_mode.dart';
 
 class ChatParticipants extends StatelessWidget {
   final ParticipantsMode mode;
@@ -22,7 +23,7 @@ class ChatParticipants extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Text(
-            "Chat Participants",
+            'Chat Participants',
             style: Theme.of(context).textTheme.titleLarge,
           ),
         ),
@@ -59,6 +60,10 @@ class ChatParticipants extends StatelessWidget {
                 case ParticipantsMode.firebase:
                   return BlocBuilder<FirestoreChatCubit, FirestoreChatState>(
                     builder: (context, state) {
+                      if (state.status ==
+                          const FirestoreChatStateStatus.error()) {
+                        return const Center(child: Text('Firebase error.'));
+                      }
                       List<FirebaseAuthor> authors = state.chat.authors;
                       // Remove already selected players
                       authors.removeWhere(

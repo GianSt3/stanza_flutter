@@ -3,9 +3,9 @@ import 'dart:convert';
 import 'package:desktop_webview_window/desktop_webview_window.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
-import 'package:stanza_scrapper/core/utils/utils.dart';
-import 'package:stanza_scrapper/data/model/youtube_message.dart';
-import 'package:stanza_scrapper/domain/youtube/youtube_chat_repository_interface.dart';
+import '../../core/utils/utils.dart';
+import '../model/youtube_message.dart';
+import '../../domain/youtube/youtube_chat_repository_interface.dart';
 
 class YoutubeChatRepository extends YoutubeChatRepositoryInterface {
   late Webview webview;
@@ -57,20 +57,20 @@ test();
 
       return messages;
     } else {
-      logger.e("Empty result");
-      throw Exception("Empty result");
+      logger.e('Empty result');
+      throw Exception('Empty result');
     }
   }
 
   @override
   Future<void> init({required String liveId}) async {
-    final url = "https://www.youtube.com/live_chat?is_popout=1&v=$liveId";
+    final url = 'https://www.youtube.com/live_chat?is_popout=1&v=$liveId';
 
     webview = await WebviewWindow.create(
       configuration: CreateConfiguration(
         windowHeight: 750,
         windowWidth: 700,
-        title: "Do NOT close $url",
+        title: 'Do NOT close $url',
         titleBarTopPadding: 0,
         userDataFolderWindows: await _getWebViewPath(),
       ),

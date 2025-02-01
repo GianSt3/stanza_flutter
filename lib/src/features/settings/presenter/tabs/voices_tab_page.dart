@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:stanza_scrapper/src/features/settings/bloc/default_voices/default_voices_cubit.dart';
-import 'package:stanza_scrapper/src/widget/custom_table.dart';
+import '../../bloc/default_voices/default_voices_cubit.dart';
+import '../../../../widget/custom_table.dart';
 
 class VoicesTabPage extends StatelessWidget {
   const VoicesTabPage({super.key});
@@ -19,32 +19,32 @@ class VoicesTabPage extends StatelessWidget {
                   loaded: () => const Icon(Icons.update),
                   orElse: () => const Icon(Icons.download)),
               label: state.status.maybeWhen(
-                  loaded: () => const Text("Reload Voices"),
-                  orElse: () => const Text("Load Voices")),
+                  loaded: () => const Text('Reload Voices'),
+                  orElse: () => const Text('Load Voices')),
             ),
             Expanded(
                 child: SingleChildScrollView(
               child: CustomTable(
                   columnNames: const [
-                    "Voice ID",
-                    "Name",
-                    "Gender",
-                    "Language",
-                    "Accent",
-                    "Age",
-                    "Description",
-                    "Use case"
+                    'Voice ID',
+                    'Name',
+                    'Gender',
+                    'Language',
+                    'Accent',
+                    'Age',
+                    'Description',
+                    'Use case'
                   ],
                   rowValues: state.voices
                       .map((voice) => [
-                            Text(voice.voiceId ?? ""),
-                            Text(voice.name ?? ""),
-                            Text(voice.labels?.gender ?? ""),
-                            Text(voice.fineTuning?.language ?? ""),
-                            Text(voice.labels?.accent ?? ""),
-                            Text(voice.labels?.age ?? ""),
-                            Text(voice.labels?.description ?? ""),
-                            Text(voice.labels?.useCase ?? ""),
+                            Text(voice.voiceId ?? ''),
+                            Text(voice.name ?? ''),
+                            Text(voice.labels?.gender ?? ''),
+                            Text(voice.fineTuning?.language ?? ''),
+                            Text(voice.labels?.accent ?? ''),
+                            Text(voice.labels?.age ?? ''),
+                            Text(voice.labels?.description ?? ''),
+                            Text(voice.labels?.useCase ?? ''),
                           ].toList())
                       .toList()),
             )),

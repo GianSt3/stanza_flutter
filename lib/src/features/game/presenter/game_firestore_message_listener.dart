@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:stanza_scrapper/core/utils/utils.dart';
-import 'package:stanza_scrapper/src/features/game/bloc/game_cubit.dart';
-import 'package:stanza_scrapper/src/features/game/bloc/messages/game_messages_cubit.dart';
-import 'package:stanza_scrapper/src/features/lobby_firestore/bloc/firestore_game_messages_cubit.dart';
+import '../../../../core/utils/utils.dart';
+import '../bloc/game_cubit.dart';
+import '../bloc/messages/game_messages_cubit.dart';
+import '../../lobby_firestore/bloc/firestore_game_messages_cubit.dart';
 
 class GameFirestoreMessageListener extends StatelessWidget {
   final Widget child;

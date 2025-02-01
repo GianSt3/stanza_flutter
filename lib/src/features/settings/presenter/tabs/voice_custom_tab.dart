@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:stanza_scrapper/src/features/settings/bloc/voice/custom_voice_cubit.dart';
-import 'package:stanza_scrapper/src/features/settings/presenter/widget/voice_form_edit.dart';
-import 'package:stanza_scrapper/src/widget/custom_table.dart';
+import '../../bloc/voice/custom_voice_cubit.dart';
+import '../widget/voice_form_edit.dart';
+import '../../../../widget/custom_table.dart';
 
 class VoiceCustomTab extends StatefulWidget {
   const VoiceCustomTab({super.key});
@@ -31,7 +31,7 @@ class _VoiceCustomTabState extends State<VoiceCustomTab> {
           if (state.voices.isEmpty) {
             return const Column(
               children: [
-                Text("No custom voices..."),
+                Text('No custom voices...'),
                 Flexible(child: VoiceFormEdit()),
               ],
             );
@@ -42,27 +42,27 @@ class _VoiceCustomTabState extends State<VoiceCustomTab> {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 16.0),
                   child: Text(
-                    "Elenco voci salvate",
+                    'Elenco voci salvate',
                     style: Theme.of(context).textTheme.headlineLarge,
                   ),
                 ),
                 Flexible(
                   child: CustomTable(
                     columnNames: const [
-                      "Voice ID",
-                      "Original Voice Name",
-                      "Name",
-                      "Model",
-                      "Voice Settings",
-                      ""
+                      'Voice ID',
+                      'Original Voice Name',
+                      'Name',
+                      'Model',
+                      'Voice Settings',
+                      ''
                     ],
                     rowValues: state.voices
                         .map((customVoice) => [
-                              Text(customVoice.voiceId ?? ""),
-                              Text(customVoice.originalName ?? ""),
-                              Text(customVoice.name ?? ""),
-                              Text(customVoice.modelId?.value ?? ""),
-                              Text(customVoice.voiceSettings?.toString() ?? ""),
+                              Text(customVoice.voiceId ?? ''),
+                              Text(customVoice.originalName ?? ''),
+                              Text(customVoice.name ?? ''),
+                              Text(customVoice.modelId?.value ?? ''),
+                              Text(customVoice.voiceSettings?.toString() ?? ''),
                               IconButton(
                                   onPressed: () => context
                                       .read<CustomVoiceCubit>()
@@ -80,7 +80,7 @@ class _VoiceCustomTabState extends State<VoiceCustomTab> {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 16.0),
                   child: Text(
-                    "Creazione nuova custom voice",
+                    'Creazione nuova custom voice',
                     style: Theme.of(context).textTheme.headlineLarge,
                   ),
                 ),

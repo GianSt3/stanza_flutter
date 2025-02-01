@@ -2,12 +2,12 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:either_dart/either.dart';
 import 'package:eleven_labs/elevenlabs_types.dart';
 import 'package:flutter/services.dart';
-import 'package:stanza_scrapper/app/gen/assets.gen.dart';
-import 'package:stanza_scrapper/core/use_case/use_case.dart';
-import 'package:stanza_scrapper/core/utils/utils.dart';
-import 'package:stanza_scrapper/domain/usecases/elevenlabs/synthesize_use_case.dart';
-import 'package:stanza_scrapper/src/features/game/bloc/messages/game_messages_cubit.dart';
-import 'package:stanza_scrapper/src/features/game/model/audio_message.dart';
+import '../../../app/gen/assets.gen.dart';
+import '../../../core/use_case/use_case.dart';
+import '../../../core/utils/utils.dart';
+import '../elevenlabs/synthesize_use_case.dart';
+import '../../../src/features/game/bloc/messages/game_messages_cubit.dart';
+import '../../../src/features/game/model/audio_message.dart';
 
 import '../commands/me_use_case.dart';
 import '../dice/dice_use_case.dart';
@@ -59,7 +59,7 @@ class MessageLoaderUseCase extends FutureUseCase<
           ));
       stopwatch.stop();
       logger.d(
-          "🎲 DICE LOADED at[$messageId] ${stopwatch.elapsedMilliseconds} ms ${message.message.formattedTimestamp} - ${message.message.author}: ${message.message.text}");
+          '🎲 DICE LOADED at[$messageId] ${stopwatch.elapsedMilliseconds} ms ${message.message.formattedTimestamp} - ${message.message.author}: ${message.message.text}');
 
       return Right(
         _loadSource(messageList, params, message, audioMessage),
@@ -85,7 +85,7 @@ class MessageLoaderUseCase extends FutureUseCase<
 
       stopwatch.stop();
       logger.d(
-          "🧑 ME LOADED at[$messageId] ${stopwatch.elapsedMilliseconds} ms ${message.message.formattedTimestamp} - ${message.message.author}: ${message.message.text} ");
+          '🧑 ME LOADED at[$messageId] ${stopwatch.elapsedMilliseconds} ms ${message.message.formattedTimestamp} - ${message.message.author}: ${message.message.text} ');
 
       return Right(
         _loadSource(messageList, params, message, audioMessage),
@@ -100,7 +100,7 @@ class MessageLoaderUseCase extends FutureUseCase<
         /// TEXT TO SPEECH
         final result = await _synthesizeUseCase.call(
             params: TextToSpeechRequest(
-                modelId: "eleven_multilingual_v2",
+                modelId: 'eleven_multilingual_v2',
                 voiceId: message.player.voice.voiceId!,
                 text: message.message.text,
                 voiceSettings: message.player.voice.voiceSettings));
@@ -111,13 +111,13 @@ class MessageLoaderUseCase extends FutureUseCase<
 
           stopwatch.stop();
           logger.d(
-              "🎚️ AUDIO LOADED at[$messageId] ${stopwatch.elapsedMilliseconds} ms ${message.message.formattedTimestamp} - ${message.message.author}: ${message.message.text} ");
+              '🎚️ AUDIO LOADED at[$messageId] ${stopwatch.elapsedMilliseconds} ms ${message.message.formattedTimestamp} - ${message.message.author}: ${message.message.text} ');
 
           return Right(
             _loadSource(messageList, params, message, audioMessage),
           );
         } else {
-          logger.e("Error during API ", error: result.left);
+          logger.e('Error during API ', error: result.left);
           return Left(result.left);
         }
 
@@ -138,7 +138,7 @@ class MessageLoaderUseCase extends FutureUseCase<
 
         stopwatch.stop();
         logger.d(
-            "🔇 SILENCE LOADED at[$messageId] ${stopwatch.elapsedMilliseconds} ms ${message.message.formattedTimestamp} - ${message.message.author}: ${message.message.text}");
+            '🔇 SILENCE LOADED at[$messageId] ${stopwatch.elapsedMilliseconds} ms ${message.message.formattedTimestamp} - ${message.message.author}: ${message.message.text}');
 
         return Right(
           _loadSource(messageList, params, message, audioMessage),
@@ -147,7 +147,7 @@ class MessageLoaderUseCase extends FutureUseCase<
       default:
     }
 
-    return Left(Exception("Something wrong with this message."));
+    return Left(Exception('Something wrong with this message.'));
   }
 
   /// Change the message from the list, loading the actual sound and/or text

@@ -3,11 +3,11 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:stanza_scrapper/app/gen/assets.gen.dart';
-import 'package:stanza_scrapper/core/bloc/api_quota/api_quota_cubit.dart';
-import 'package:stanza_scrapper/core/bloc/scrapper/youtube_scrapper_cubit.dart';
-import 'package:stanza_scrapper/src/features/lobby/bloc/lobby_cubit.dart';
-import 'package:stanza_scrapper/src/features/lobby/model/queueing_user.dart';
+import '../../../../../app/gen/assets.gen.dart';
+import '../../../../../core/bloc/api_quota/api_quota_cubit.dart';
+import '../../../../../core/bloc/scrapper/youtube_scrapper_cubit.dart';
+import '../../bloc/lobby_cubit.dart';
+import '../../model/queueing_user.dart';
 
 class LobbyHeader extends StatefulWidget {
   static const padding = 16.0;
@@ -19,8 +19,8 @@ class LobbyHeader extends StatefulWidget {
 }
 
 class _LobbyHeaderState extends State<LobbyHeader> {
-  final chatIdController = TextEditingController(text: "");
-  final keywordController = TextEditingController(text: "");
+  final chatIdController = TextEditingController(text: '');
+  final keywordController = TextEditingController(text: '');
   late Timer checkQuota;
 
   @override
@@ -97,7 +97,7 @@ class _LobbyHeaderState extends State<LobbyHeader> {
                             enabled: state.status.maybeMap(
                                 reading: (_) => false, orElse: () => true),
                             decoration: const InputDecoration(
-                                labelText: "Youtube Chat Id"),
+                                labelText: 'Youtube Chat Id'),
                           ),
                         ),
                         IconButton(

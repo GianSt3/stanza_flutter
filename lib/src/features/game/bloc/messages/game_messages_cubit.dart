@@ -4,15 +4,15 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:stanza_scrapper/app/app.dart';
-import 'package:stanza_scrapper/core/utils/utils.dart';
-import 'package:stanza_scrapper/domain/usecases/elevenlabs/synthesize_mock_use_case.dart';
-import 'package:stanza_scrapper/domain/usecases/elevenlabs/synthesize_use_case.dart';
-import 'package:stanza_scrapper/domain/usecases/message/message_loader_use_case.dart';
-import 'package:stanza_scrapper/injection/dependency_injection.dart';
-import 'package:stanza_scrapper/src/features/game/model/audio_message.dart';
-import 'package:stanza_scrapper/src/features/game/model/game_message.dart';
-import 'package:stanza_scrapper/src/features/game/model/player.dart';
+import '../../../../../app/app.dart';
+import '../../../../../core/utils/utils.dart';
+import '../../../../../domain/usecases/elevenlabs/synthesize_mock_use_case.dart';
+import '../../../../../domain/usecases/elevenlabs/synthesize_use_case.dart';
+import '../../../../../domain/usecases/message/message_loader_use_case.dart';
+import '../../../../../injection/dependency_injection.dart';
+import '../../model/audio_message.dart';
+import '../../model/game_message.dart';
+import '../../model/player.dart';
 
 part 'game_messages_cubit.freezed.dart';
 part 'game_messages_state.dart';
@@ -63,7 +63,7 @@ class GameMessagesCubit extends Cubit<GameMessagesState> {
         ));
     temp.insertAll(0, audioMessages);
 
-    logger.d("PUSH\n$temp");
+    logger.d('PUSH\n$temp');
 
     emit(state.copyWith(
         status: const GameMessagesStatus.added(), messages: temp));
@@ -71,7 +71,7 @@ class GameMessagesCubit extends Cubit<GameMessagesState> {
 
   void pop() {
     logger.d(
-        "POP Audio/Queue ${state.messages.where((element) => element.source != null).length} / ${state.messages.length} - AudioPlayer: ${player.state}");
+        'POP Audio/Queue ${state.messages.where((element) => element.source != null).length} / ${state.messages.length} - AudioPlayer: ${player.state}');
     if (player.state == PlayerState.playing) {
       return;
     }
@@ -89,7 +89,7 @@ class GameMessagesCubit extends Cubit<GameMessagesState> {
           messages: tempMessages,
           lastPlayerMessages: tempLastMessages));
 
-      logger.d("Playing ${audioMessage.toString()}");
+      logger.d('Playing ${audioMessage.toString()}');
 
       /// AudioPlayer
       player.play(audioMessage.source!);
@@ -100,11 +100,11 @@ class GameMessagesCubit extends Cubit<GameMessagesState> {
           lastMessage.created
               .add(const Duration(seconds: 5))
               .isAfter(DateTime.now())) {
-        logger.w("""Last message is getting older 👴.
+        logger.w('''Last message is getting older 👴.
             ${lastMessage.toString()} 
             All queue:
             ${state.messages}
-            """);
+            ''');
       }
     }
   }
@@ -125,7 +125,7 @@ class GameMessagesCubit extends Cubit<GameMessagesState> {
       if (result.isRight) {
         emit(result.right);
       } else {
-        logger.e("Error during load source. ", error: result.left);
+        logger.e('Error during load source. ', error: result.left);
       }
     }
   }

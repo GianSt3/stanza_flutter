@@ -12,7 +12,7 @@ class QueueingUser extends Equatable {
       required this.name,
       required this.avatarUrl,
       this.nextPlayer = false,
-      this.type = ""});
+      this.type = ''});
 
   factory QueueingUser.create(
           {required String name, required String avatarUrl, String? type}) =>

@@ -1,6 +1,6 @@
 import 'package:either_dart/either.dart';
 import 'package:eleven_labs/eleven_labs.dart';
-import 'package:stanza_scrapper/core/use_case/use_case.dart';
+import '../../../core/use_case/use_case.dart';
 
 class ListVoicesUseCase
     extends FutureUseCase<Either<Exception, List<Voice>>, void> {

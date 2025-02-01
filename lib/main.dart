@@ -6,24 +6,25 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:stanza_scrapper/app/app.dart';
-import 'package:stanza_scrapper/core/api_key_guard.dart';
-import 'package:stanza_scrapper/core/bloc/api_key/api_key_cubit.dart';
-import 'package:stanza_scrapper/core/bloc/api_quota/api_quota_cubit.dart';
-import 'package:stanza_scrapper/core/bloc/scrapper/youtube_scrapper_cubit.dart';
-import 'package:stanza_scrapper/core/utils/utils.dart';
-import 'package:stanza_scrapper/injection/dependency_injection.dart';
-import 'package:stanza_scrapper/src/features/game/bloc/game_cubit.dart';
-import 'package:stanza_scrapper/src/features/game/bloc/messages/game_messages_cubit.dart';
-import 'package:stanza_scrapper/src/features/lobby/bloc/blacklist/blacklist_cubit.dart';
-import 'package:stanza_scrapper/src/features/lobby/bloc/lobby_cubit.dart';
-import 'package:stanza_scrapper/src/features/poll/bloc/list/poll_list_cubit.dart';
-import 'package:stanza_scrapper/src/features/settings/bloc/default_voices/default_voices_cubit.dart';
-import 'package:stanza_scrapper/src/features/settings/bloc/text_to_speech/text_to_speech_cubit.dart';
-import 'package:stanza_scrapper/src/features/settings/bloc/voice/custom_voice_cubit.dart';
-import 'package:stanza_scrapper/src/stanza.dart';
 
+import 'app/app.dart';
+import 'core/api_key_guard.dart';
+import 'core/bloc/api_key/api_key_cubit.dart';
+import 'core/bloc/api_quota/api_quota_cubit.dart';
+import 'core/bloc/scrapper/youtube_scrapper_cubit.dart';
+import 'core/utils/utils.dart';
 import 'firebase_options.dart';
+import 'injection/dependency_injection.dart';
+import 'src/features/game/bloc/game_cubit.dart';
+import 'src/features/game/bloc/messages/game_messages_cubit.dart';
+import 'src/features/lobby/bloc/blacklist/blacklist_cubit.dart';
+import 'src/features/lobby/bloc/lobby_cubit.dart';
+import 'src/features/minigame_setup/perform/bloc/perform_list_cubit.dart';
+import 'src/features/minigame_setup/poll/bloc/list/poll_list_cubit.dart';
+import 'src/features/settings/bloc/default_voices/default_voices_cubit.dart';
+import 'src/features/settings/bloc/text_to_speech/text_to_speech_cubit.dart';
+import 'src/features/settings/bloc/voice/custom_voice_cubit.dart';
+import 'src/stanza.dart';
 
 void main(List<String> args) async {
   debugPrint('args: $args');
@@ -60,7 +61,7 @@ class _MainAppState extends State<MainApp> {
     super.initState();
 
     WebviewWindow.isWebviewAvailable().then((value) {
-      print("available!");
+      print('available!');
     });
   }
 
@@ -152,6 +153,9 @@ class _MainAppState extends State<MainApp> {
           BlocProvider(
             create: (context) => PollListCubit(),
           ),
+          BlocProvider(
+            create: (context) => PerformListCubit(),
+          ),
         ],
         child: ApiKeyGuard(
           missing: Builder(builder: (context) {
@@ -161,7 +165,7 @@ class _MainAppState extends State<MainApp> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text("Insert the Api Key for IA services"),
+                    const Text('Insert the Api Key for IA services'),
                     TextField(
                       controller: apiKeyController,
                       obscureText: true,
@@ -170,7 +174,7 @@ class _MainAppState extends State<MainApp> {
                         onPressed: () => context
                             .read<ApiKeyCubit>()
                             .store(apiKeyController.text),
-                        child: const Text("Save"))
+                        child: const Text('Save'))
                   ],
                 ),
               ),

@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:stanza_scrapper/src/features/game/model/game_message.dart';
+import '../../src/features/game/model/game_message.dart';
 
 class YoutubeMessage extends Equatable implements GameMessage {
   const YoutubeMessage(
@@ -61,7 +61,7 @@ class YoutubeMessage extends Equatable implements GameMessage {
 
   @override
   String toString() {
-    return "[$id]-$timestamp - $author: $text";
+    return '[$id]-$timestamp - $author: $text';
   }
 
   @override

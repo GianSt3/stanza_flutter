@@ -1,7 +1,7 @@
 import 'package:either_dart/either.dart';
-import 'package:stanza_scrapper/core/use_case/use_case.dart';
-import 'package:stanza_scrapper/data/model/youtube_message.dart';
-import 'package:stanza_scrapper/domain/youtube/youtube_chat_repository_interface.dart';
+import '../../../core/use_case/use_case.dart';
+import '../../../data/model/youtube_message.dart';
+import '../../youtube/youtube_chat_repository_interface.dart';
 
 class MessagesYoutubeChatUseCase
     extends FutureUseCase<Either<Exception, List<YoutubeMessage>>, void> {

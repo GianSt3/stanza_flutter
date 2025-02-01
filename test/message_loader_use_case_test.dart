@@ -30,7 +30,7 @@ void main() {
       apiStatus: const GameMessagesLoadStatus.initial(),
       messages: [
         AudioMessage(
-            player: Player(name: "Giovanni Giorgio", voice: CustomVoice()),
+            player: Player(name: 'Giovanni Giorgio', voice: CustomVoice()),
             message: const YoutubeMessage(
                 id: 'b173cba8-716e-4086-abe1-8fba52461ea1',
                 author: 'Giovanni Giorgio',
@@ -60,7 +60,7 @@ void main() {
       apiStatus: const GameMessagesLoadStatus.initial(),
       messages: [
         AudioMessage(
-            player: Player(name: "Giovanni Giorgio", voice: CustomVoice()),
+            player: Player(name: 'Giovanni Giorgio', voice: CustomVoice()),
             message: const YoutubeMessage(
                 id: 'b173cba8-716e-4086-abe1-8fba52461ea1',
                 author: 'Giovanni Giorgio',
@@ -86,7 +86,7 @@ void main() {
       apiStatus: const GameMessagesLoadStatus.initial(),
       messages: [
         AudioMessage(
-            player: Player(name: "Giovanni Giorgio", voice: CustomVoice()),
+            player: Player(name: 'Giovanni Giorgio', voice: CustomVoice()),
             message: const YoutubeMessage(
                 id: 'b173cba8-716e-4086-abe1-8fba52461ea1',
                 author: 'Giovanni Giorgio',
@@ -110,7 +110,7 @@ class _MockSynthesize extends ISynthesizeUseCase {
   @override
   Future<Either<Exception, Uint8List>> call(
       {required TextToSpeechRequest params}) async {
-    final result = (await rootBundle.load("assets/audio/beep_038.wav"))
+    final result = (await rootBundle.load('assets/audio/beep_038.wav'))
         .buffer
         .asUint8List();
     return Right(result);

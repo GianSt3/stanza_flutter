@@ -6,8 +6,8 @@ import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
-import 'package:stanza_scrapper/app/app.dart';
-import 'package:stanza_scrapper/injection/dependency_injection.dart';
+import '../../app/app.dart';
+import '../../injection/dependency_injection.dart';
 
 late final Logger logger;
 
@@ -29,7 +29,7 @@ Future<File?> _getLogFile(Environment env) async {
       logDirectory.createSync(recursive: true);
     }
     final logFile = File(
-        path.join(logDirectory.path, "${env.appName}_${env.appVersion}.log"));
+        path.join(logDirectory.path, '${env.appName}_${env.appVersion}.log'));
     if (!logFile.existsSync()) {
       logFile.createSync();
     }

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:stanza_scrapper/src/features/game/bloc/game_cubit.dart';
-import 'package:stanza_scrapper/src/features/lobby/bloc/lobby_cubit.dart';
-import 'package:stanza_scrapper/src/features/lobby/model/queueing_user.dart';
-import 'package:stanza_scrapper/src/features/lobby/presenter/widget/player_widget_tile.dart';
+import '../../../game/bloc/game_cubit.dart';
+import '../../bloc/lobby_cubit.dart';
+import '../../model/queueing_user.dart';
+import '../widget/player_widget_tile.dart';
 
 class GameParticipants extends StatelessWidget {
   const GameParticipants({super.key});
@@ -18,7 +18,7 @@ class GameParticipants extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                "Game",
+                'Game',
                 style: Theme.of(context).textTheme.titleLarge,
               ),
             ),
@@ -28,7 +28,7 @@ class GameParticipants extends StatelessWidget {
                       onPressed: () => context.read<GameCubit>().stop(),
                       child: const Row(
                         children: [
-                          Text("Mute"),
+                          Text('Mute'),
                           Icon(Icons.volume_off_outlined)
                         ],
                       )),
@@ -36,7 +36,7 @@ class GameParticipants extends StatelessWidget {
                       onPressed: () => context.read<GameCubit>().start(),
                       child: const Row(
                         children: [
-                          Text("Speak"),
+                          Text('Speak'),
                           Icon(Icons.volume_up_outlined)
                         ],
                       ))),

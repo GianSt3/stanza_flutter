@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:stanza_scrapper/src/features/game/bloc/game_cubit.dart';
-import 'package:stanza_scrapper/src/features/game/bloc/messages/game_messages_cubit.dart';
-import 'package:stanza_scrapper/src/features/game/model/audio_message.dart';
-import 'package:stanza_scrapper/src/features/game/model/player.dart';
-import 'package:stanza_scrapper/src/features/game/presenter/widget/player_header.dart';
+import '../../bloc/game_cubit.dart';
+import '../../bloc/messages/game_messages_cubit.dart';
+import '../../model/audio_message.dart';
+import '../../model/player.dart';
+import 'player_header.dart';
 
 class GamePlayerWidget extends StatelessWidget {
   final Player player;
@@ -35,7 +35,7 @@ class GamePlayerWidget extends StatelessWidget {
               .firstOrNull;
 
           return (
-            lastMessage?.message.text ?? "",
+            lastMessage?.message.text ?? '',
             lastMessage?.audioType ?? AudioType.textToSpeech
           );
         }, builder: (context, value) {

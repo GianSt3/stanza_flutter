@@ -1,10 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:stanza_scrapper/src/features/game/presenter/game_page.dart';
-import 'package:stanza_scrapper/src/features/lobby/presenter/view/chat_participants.dart';
-import 'package:stanza_scrapper/src/features/lobby/presenter/view/game_participants.dart';
-import 'package:stanza_scrapper/src/features/lobby/presenter/widget/lobby_header.dart';
-import 'package:stanza_scrapper/src/features/lobby/presenter/view/lobby_participants.dart';
+import '../../game/presenter/game_page.dart';
+import 'view/chat_participants.dart';
+import 'view/game_participants.dart';
+import 'widget/lobby_header.dart';
+import 'view/lobby_participants.dart';
 
 class LobbyPage extends StatelessWidget {
   const LobbyPage({super.key});

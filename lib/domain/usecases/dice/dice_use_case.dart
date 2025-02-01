@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:either_dart/either.dart';
-import 'package:stanza_scrapper/core/use_case/use_case.dart';
+import '../../../core/use_case/use_case.dart';
 
 class DiceUseCase extends UseCase<Either<Exception, List<int>>, String> {
   RegExp singleLaunch = RegExp(r'/d(\d+)');

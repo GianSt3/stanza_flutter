@@ -4,11 +4,11 @@ import 'package:bloc/bloc.dart';
 import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:stanza_scrapper/core/utils/utils.dart';
-import 'package:stanza_scrapper/data/model/youtube_message.dart';
-import 'package:stanza_scrapper/domain/usecases/youtube/init_youtube_chat_use_case.dart';
-import 'package:stanza_scrapper/domain/usecases/youtube/messages_youtube_chat_use_case.dart';
-import 'package:stanza_scrapper/injection/dependency_injection.dart';
+import '../../utils/utils.dart';
+import '../../../data/model/youtube_message.dart';
+import '../../../domain/usecases/youtube/init_youtube_chat_use_case.dart';
+import '../../../domain/usecases/youtube/messages_youtube_chat_use_case.dart';
+import '../../../injection/dependency_injection.dart';
 
 part 'youtube_scrapper_cubit.freezed.dart';
 part 'youtube_scrapper_state.dart';
@@ -31,7 +31,7 @@ class YoutubeScrapperCubit extends Cubit<YoutubeScrapperState> {
 
   void read() {
     state.status.maybeWhen(
-        stop: () => logger.d("Reading stopped"),
+        stop: () => logger.d('Reading stopped'),
         orElse: () async {
           final result = await _messagesYoutubeChatUseCase.call();
           if (result.isRight) {

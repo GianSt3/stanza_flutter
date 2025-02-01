@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:stanza_scrapper/domain/entities/custom_voice.dart';
+import '../../../../domain/entities/custom_voice.dart';
 
 class Player extends Equatable {
   final String name;
@@ -12,5 +12,5 @@ class Player extends Equatable {
   List<Object?> get props => [name, voice];
 
   @override
-  String toString() => "Player($name, voice:${voice.name})";
+  String toString() => 'Player($name, voice:${voice.name})';
 }

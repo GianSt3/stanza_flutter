@@ -1,11 +1,11 @@
 import 'package:eleven_labs/eleven_labs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:stanza_scrapper/domain/entities/custom_voice.dart';
-import 'package:stanza_scrapper/src/features/settings/bloc/default_voices/default_voices_cubit.dart';
-import 'package:stanza_scrapper/src/features/settings/bloc/text_to_speech/text_to_speech_cubit.dart';
-import 'package:stanza_scrapper/src/features/settings/bloc/voice/custom_voice_cubit.dart';
-import 'package:stanza_scrapper/src/features/settings/presenter/widget/custom_slider.dart';
+import '../../../../../domain/entities/custom_voice.dart';
+import '../../bloc/default_voices/default_voices_cubit.dart';
+import '../../bloc/text_to_speech/text_to_speech_cubit.dart';
+import '../../bloc/voice/custom_voice_cubit.dart';
+import 'custom_slider.dart';
 
 class VoiceFormEdit extends StatefulWidget {
   const VoiceFormEdit({super.key});
@@ -16,7 +16,7 @@ class VoiceFormEdit extends StatefulWidget {
 
 class _VoiceFormEditState extends State<VoiceFormEdit> {
   TextEditingController textSampleController = TextEditingController(
-      text: "Questo è un esempio di testo da far leggere alla IA! ");
+      text: 'Questo è un esempio di testo da far leggere alla IA! ');
 
   TextEditingController textCustomVoiceNameController = TextEditingController();
   double styleValue = 0.5;
@@ -41,6 +41,7 @@ class _VoiceFormEditState extends State<VoiceFormEdit> {
         setState(() {
           styleValue = voice.settings?.style?.toDouble() ?? 0.5;
         });
+        return null;
       }),
       builder: (context, customVoiceState) {
         return Container(
@@ -61,20 +62,20 @@ class _VoiceFormEditState extends State<VoiceFormEdit> {
                             BlocBuilder<DefaultVoicesCubit, DefaultVoicesState>(
                                 builder: (context, voicesState) {
                               return DropdownMenu(
-                                  label: const Text("Voice"),
+                                  label: const Text('Voice'),
                                   onSelected: (voice) => context
                                       .read<CustomVoiceCubit>()
                                       .selected(voice!),
                                   dropdownMenuEntries: voicesState.voices
                                       .map((e) => DropdownMenuEntry<Voice>(
-                                          value: e, label: e.name ?? ""))
+                                          value: e, label: e.name ?? ''))
                                       .toList());
                             }),
                             const SizedBox(
                               width: 32,
                             ),
                             DropdownMenu(
-                                label: const Text("Voice Model"),
+                                label: const Text('Voice Model'),
                                 onSelected: (model) {
                                   setState(() {
                                     if (model != null) {
@@ -84,7 +85,7 @@ class _VoiceFormEditState extends State<VoiceFormEdit> {
                                 },
                                 dropdownMenuEntries: ModelId.values
                                     .map((e) => DropdownMenuEntry<ModelId>(
-                                        value: e, label: e.name ?? ""))
+                                        value: e, label: e.name ?? ''))
                                     .toList()),
                             const SizedBox(
                               width: 32,
@@ -93,11 +94,11 @@ class _VoiceFormEditState extends State<VoiceFormEdit> {
                               child: TextFormField(
                                 controller: textSampleController,
                                 validator: (text) => text == null
-                                    ? "Please insert a text"
+                                    ? 'Please insert a text'
                                     : null,
                                 maxLines: 1,
                                 decoration: const InputDecoration(
-                                  labelText: "Text to read",
+                                  labelText: 'Text to read',
                                 ),
                               ),
                             ),
@@ -109,7 +110,7 @@ class _VoiceFormEditState extends State<VoiceFormEdit> {
                             children: [
                               CustomSlider(
                                   title:
-                                      "Style (${styleValue.toStringAsFixed(2)})",
+                                      'Style (${styleValue.toStringAsFixed(2)})',
                                   value: styleValue,
                                   onChanged: (value) {
                                     setState(() {
@@ -118,7 +119,7 @@ class _VoiceFormEditState extends State<VoiceFormEdit> {
                                   }),
                               CustomSlider(
                                   title:
-                                      "Similarity (${similarityValue.toStringAsFixed(2)})",
+                                      'Similarity (${similarityValue.toStringAsFixed(2)})',
                                   value: similarityValue,
                                   onChanged: (value) {
                                     setState(() {
@@ -127,7 +128,7 @@ class _VoiceFormEditState extends State<VoiceFormEdit> {
                                   }),
                               CustomSlider(
                                   title:
-                                      "Stability (${stabilityValue.toStringAsFixed(2)})",
+                                      'Stability (${stabilityValue.toStringAsFixed(2)})',
                                   value: stabilityValue,
                                   onChanged: (value) {
                                     setState(() {
@@ -165,18 +166,19 @@ class _VoiceFormEditState extends State<VoiceFormEdit> {
                                                     voice.voiceId!,
                                                 customize: (voice) =>
                                                     voice.voiceId!,
-                                                orElse: () => ""),
+                                                orElse: () => ''),
                                         text: textSampleController.text,
                                         modelId: modelId.value,
                                         voiceSettings: voiceSettings);
+                                    return null;
                                   }),
                               child: BlocBuilder<TextToSpeechCubit,
                                   TextToSpeechState>(
                                 builder: (context, elevenState) {
                                   return Text(elevenState.status.maybeWhen(
-                                      loading: () => "Loading...",
-                                      error: (err) => "Error! $err\nTry again",
-                                      orElse: () => "Try this setting"));
+                                      loading: () => 'Loading...',
+                                      error: (err) => 'Error! $err\nTry again',
+                                      orElse: () => 'Try this setting'));
                                 },
                               ));
                         },
@@ -189,13 +191,13 @@ class _VoiceFormEditState extends State<VoiceFormEdit> {
                                     context: context,
                                     builder: (context) => AlertDialog(
                                           title:
-                                              const Text("Choose a voice name"),
+                                              const Text('Choose a voice name'),
                                           content: TextField(
                                             controller:
                                                 textCustomVoiceNameController,
                                             autofocus: true,
                                             decoration: const InputDecoration(
-                                                hintText: "Custom voice name"),
+                                                hintText: 'Custom voice name'),
                                           ),
                                           actions: [
                                             TextButton(
@@ -203,14 +205,14 @@ class _VoiceFormEditState extends State<VoiceFormEdit> {
                                                   Navigator.of(context)
                                                       .pop(null);
                                                 },
-                                                child: const Text("Cancel")),
+                                                child: const Text('Cancel')),
                                             TextButton(
                                                 onPressed: () {
                                                   Navigator.of(context).pop(
                                                       textCustomVoiceNameController
                                                           .text);
                                                 },
-                                                child: const Text("Save"))
+                                                child: const Text('Save'))
                                           ],
                                         ));
                                 if (name != null && name.isNotEmpty) {
@@ -223,15 +225,15 @@ class _VoiceFormEditState extends State<VoiceFormEdit> {
                                               modelId: modelId,
                                               settings: voiceSettings,
                                               voiceName: name));
-                                  textCustomVoiceNameController.text = "";
+                                  textCustomVoiceNameController.text = '';
                                 }
                               },
-                              child: const Text("Save"));
+                              child: const Text('Save'));
                         },
                       ),
                       TextButton(
                           onPressed: context.read<CustomVoiceCubit>().reset,
-                          child: const Text("Cancel"))
+                          child: const Text('Cancel'))
                     ],
                   ),
                 ],

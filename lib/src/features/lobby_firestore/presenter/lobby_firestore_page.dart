@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:stanza_scrapper/src/features/clock/bloc/clock_cubit.dart';
-import 'package:stanza_scrapper/src/features/game/presenter/game_page.dart';
-import 'package:stanza_scrapper/src/features/game/presenter/model/game_mode.dart';
-import 'package:stanza_scrapper/src/features/lobby/presenter/model/participants_mode.dart';
-import 'package:stanza_scrapper/src/features/lobby/presenter/view/chat_participants.dart';
-import 'package:stanza_scrapper/src/features/lobby/presenter/view/game_participants.dart';
-import 'package:stanza_scrapper/src/features/lobby/presenter/view/lobby_participants.dart';
-import 'package:stanza_scrapper/src/features/lobby_firestore/bloc/firestore_chat_cubit.dart';
-import 'package:stanza_scrapper/src/features/lobby_firestore/presenter/game_players_collection_listener.dart';
-import 'package:stanza_scrapper/src/features/lobby_firestore/presenter/lobby_players_collection_listener.dart';
-import 'package:stanza_scrapper/src/features/lobby_firestore/presenter/widget/lobby_firestore_header.dart';
+
+import '../../clock/bloc/clock_cubit.dart';
+import '../../game/presenter/game_page.dart';
+import '../../game/presenter/model/game_mode.dart';
+import '../../lobby/presenter/model/participants_mode.dart';
+import '../../lobby/presenter/view/chat_participants.dart';
+import '../../lobby/presenter/view/game_participants.dart';
+import '../../lobby/presenter/view/lobby_participants.dart';
+import '../bloc/firebase_listeners/game_players_collection_listener.dart';
+import '../bloc/firebase_listeners/lobby_players_collection_listener.dart';
+import '../bloc/firestore_chat_cubit.dart';
+import 'widget/lobby_firestore_header.dart';
 
 class LobbyFirestorePage extends StatelessWidget {
   const LobbyFirestorePage({super.key});

@@ -2,9 +2,9 @@ import 'dart:math';
 
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:stanza_scrapper/core/utils/utils.dart';
-import 'package:stanza_scrapper/data/model/youtube_message.dart';
-import 'package:stanza_scrapper/domain/youtube/youtube_chat_repository_interface.dart';
+import '../../core/utils/utils.dart';
+import '../model/youtube_message.dart';
+import '../../domain/youtube/youtube_chat_repository_interface.dart';
 
 class YoutubeMockChatRepository extends YoutubeChatRepositoryInterface {
   @override
@@ -23,16 +23,16 @@ class YoutubeMockChatRepository extends YoutubeChatRepositoryInterface {
 
 String _randomText() {
   final mockText = [
-    "Caspita, ho appena lanciato un dado e ho fatto un pessimo risultato",
-    "Caspita, ho appena lanciato un dado e ho fatto un pessimo risultato, HO DETTO Caspita, ho appena lanciato un dado e ho fatto un pessimo risultato",
-    "Evviva, ho lanciato un dado e ho ottenuto il punteggio più alto!",
-    "Ehi ma siamo sicuri che non stia barando?",
-    "Come stai amico mio?",
-    "Un tiro molto fortunato il suo, molto fortunato",
-    "Un tiro molto fortunato il suo, molto fortunato - Un tiro molto fortunato il suo, molto fortunato - ",
-    "Non ci posso credere, oggi non è proprio giornata",
-    "/me Questo è un messaggio fuori character"
-        "/d20"
+    'Caspita, ho appena lanciato un dado e ho fatto un pessimo risultato',
+    'Caspita, ho appena lanciato un dado e ho fatto un pessimo risultato, HO DETTO Caspita, ho appena lanciato un dado e ho fatto un pessimo risultato',
+    'Evviva, ho lanciato un dado e ho ottenuto il punteggio più alto!',
+    'Ehi ma siamo sicuri che non stia barando?',
+    'Come stai amico mio?',
+    'Un tiro molto fortunato il suo, molto fortunato',
+    'Un tiro molto fortunato il suo, molto fortunato - Un tiro molto fortunato il suo, molto fortunato - ',
+    'Non ci posso credere, oggi non è proprio giornata',
+    '/me Questo è un messaggio fuori character'
+        '/d20'
   ];
   final rnd = Random();
   return mockText[rnd.nextInt(mockText.length)];
@@ -40,10 +40,10 @@ String _randomText() {
 
 MapEntry<String, String> _randomAuthor() {
   final mockText = {
-    "Cat": "owner",
-    "Dog": "moderator",
-    "Elicopter": "",
-    "Mouse": "member",
+    'Cat': 'owner',
+    'Dog': 'moderator',
+    'Elicopter': '',
+    'Mouse': 'member',
   };
   final rnd = Random();
   final rndIndex = rnd.nextInt(mockText.length);
@@ -65,8 +65,8 @@ Future<List<YoutubeMessage>> _randomMessages({int numberMessages = 1}) async {
           author: author.key,
           authorType: author.value,
           avatarUrl:
-              "https://yt4.ggpht.com/BNbBwvNq1seIjO_lIzdq1X84JDvpWofXwJq_NLPFULD2Ic-tFPmgNePR3W0qcKd3pyiMvxLBYQ=s32-c-k-c0x00ffffff-no-rj",
-          timestamp: "${now.hour}:${now.minute}:${now.second}",
+              'https://yt4.ggpht.com/BNbBwvNq1seIjO_lIzdq1X84JDvpWofXwJq_NLPFULD2Ic-tFPmgNePR3W0qcKd3pyiMvxLBYQ=s32-c-k-c0x00ffffff-no-rj',
+          timestamp: '${now.hour}:${now.minute}:${now.second}',
           created: now.millisecondsSinceEpoch,
           text: _randomText()),
     );

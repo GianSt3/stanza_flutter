@@ -1,1 +1,9 @@
 include: package:flutter_lints/flutter.yaml
+
+linter:
+  rules:
+    - prefer_final_fields
+    - prefer_final_in_for_each
+    - prefer_single_quotes
+    - prefer_relative_imports
+    - cancel_subscriptions

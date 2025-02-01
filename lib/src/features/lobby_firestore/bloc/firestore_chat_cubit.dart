@@ -5,9 +5,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:stanza_scrapper/core/utils/utils.dart';
-import 'package:stanza_scrapper/domain/usecases/firestore/swearword_filter_use_case.dart';
-import 'package:stanza_scrapper/src/features/game/model/game_message.dart';
+
+import '../../../../core/utils/utils.dart';
+import '../../../../domain/usecases/firestore/swearword_filter_use_case.dart';
+import '../../game/model/game_message.dart';
 
 part 'firestore_chat_cubit.freezed.dart';
 part 'firestore_chat_state.dart';
@@ -22,13 +23,18 @@ class FirestoreChatCubit extends Cubit<FirestoreChatState> {
             status: FirestoreChatStateStatus.initial(),
             chat: Chat(messages: []))) {
     _subscription = FirebaseFirestore.instance
-        .collection("messages")
+        .collection('messages')
         .snapshots()
         .listen((snapshot) {
       final docs = snapshot.docs;
       if (docs.isNotEmpty) {
         _read(docs);
       }
+    }, onError: (error) {
+      logger.e('FirestoreChatCubit error: $error');
+      emit(state.copyWith(
+        status: const FirestoreChatStateStatus.error(),
+      ));
     });
   }
 

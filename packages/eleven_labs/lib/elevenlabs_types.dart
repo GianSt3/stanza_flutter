@@ -181,12 +181,12 @@ class Samples {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['sample_id'] = this.sampleId;
-    data['file_name'] = this.fileName;
-    data['mime_type'] = this.mimeType;
-    data['size_bytes'] = this.sizeBytes;
-    data['hash'] = this.hash;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['sample_id'] = sampleId;
+    data['file_name'] = fileName;
+    data['mime_type'] = mimeType;
+    data['size_bytes'] = sizeBytes;
+    data['hash'] = hash;
     return data;
   }
 }
@@ -227,43 +227,43 @@ class FineTuning {
     manualVerificationRequested = json['manual_verification_requested'];
     language = json['language'];
     finetuningProgress = json['finetuning_progress'] != null
-        ? new FinetuningProgress.fromJson(json['finetuning_progress'])
+        ? FinetuningProgress.fromJson(json['finetuning_progress'])
         : null;
     // message = json['message'];
     datasetDurationSeconds = json['dataset_duration_seconds'];
     if (json['verification_attempts'] != null) {
       verificationAttempts = <VerificationAttempts>[];
       json['verification_attempts'].forEach((v) {
-        verificationAttempts!.add(new VerificationAttempts.fromJson(v));
+        verificationAttempts!.add(VerificationAttempts.fromJson(v));
       });
     }
     sliceIds =
-        json['slice_ids'] != null ? json['slice_ids'].cast<String>() : null;
+        json['slice_ids']?.cast<String>();
     manualVerification = json['manual_verification'] != null
-        ? new ManualVerification.fromJson(json['manual_verification'])
+        ? ManualVerification.fromJson(json['manual_verification'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['is_allowed_to_fine_tune'] = this.isAllowedToFineTune;
-    data['finetuning_state'] = this.finetuningState;
-    data['verification_failures'] = this.verificationFailures;
-    data['verification_attempts_count'] = this.verificationAttemptsCount;
-    data['manual_verification_requested'] = this.manualVerificationRequested;
-    data['language'] = this.language;
-    if (this.finetuningProgress != null) {
-      data['finetuning_progress'] = this.finetuningProgress!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['is_allowed_to_fine_tune'] = isAllowedToFineTune;
+    data['finetuning_state'] = finetuningState;
+    data['verification_failures'] = verificationFailures;
+    data['verification_attempts_count'] = verificationAttemptsCount;
+    data['manual_verification_requested'] = manualVerificationRequested;
+    data['language'] = language;
+    if (finetuningProgress != null) {
+      data['finetuning_progress'] = finetuningProgress!.toJson();
     }
-    data['message'] = this.message;
-    data['dataset_duration_seconds'] = this.datasetDurationSeconds;
-    if (this.verificationAttempts != null) {
+    data['message'] = message;
+    data['dataset_duration_seconds'] = datasetDurationSeconds;
+    if (verificationAttempts != null) {
       data['verification_attempts'] =
-          this.verificationAttempts!.map((v) => v.toJson()).toList();
+          verificationAttempts!.map((v) => v.toJson()).toList();
     }
-    data['slice_ids'] = this.sliceIds;
-    if (this.manualVerification != null) {
-      data['manual_verification'] = this.manualVerification!.toJson();
+    data['slice_ids'] = sliceIds;
+    if (manualVerification != null) {
+      data['manual_verification'] = manualVerification!.toJson();
     }
     return data;
   }
@@ -272,10 +272,10 @@ class FineTuning {
 class FinetuningProgress {
   FinetuningProgress();
 
-  FinetuningProgress.fromJson(Map<String, dynamic> json) {}
+  FinetuningProgress.fromJson(Map<String, dynamic> json);
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     return data;
   }
 }
@@ -303,19 +303,19 @@ class VerificationAttempts {
     similarity = json['similarity'];
     levenshteinDistance = json['levenshtein_distance'];
     recording = json['recording'] != null
-        ? new Recording.fromJson(json['recording'])
+        ? Recording.fromJson(json['recording'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['text'] = this.text;
-    data['date_unix'] = this.dateUnix;
-    data['accepted'] = this.accepted;
-    data['similarity'] = this.similarity;
-    data['levenshtein_distance'] = this.levenshteinDistance;
-    if (this.recording != null) {
-      data['recording'] = this.recording!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['text'] = text;
+    data['date_unix'] = dateUnix;
+    data['accepted'] = accepted;
+    data['similarity'] = similarity;
+    data['levenshtein_distance'] = levenshteinDistance;
+    if (recording != null) {
+      data['recording'] = recording!.toJson();
     }
     return data;
   }
@@ -344,12 +344,12 @@ class Recording {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['recording_id'] = this.recordingId;
-    data['mime_type'] = this.mimeType;
-    data['size_bytes'] = this.sizeBytes;
-    data['upload_date_unix'] = this.uploadDateUnix;
-    data['transcription'] = this.transcription;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['recording_id'] = recordingId;
+    data['mime_type'] = mimeType;
+    data['size_bytes'] = sizeBytes;
+    data['upload_date_unix'] = uploadDateUnix;
+    data['transcription'] = transcription;
     return data;
   }
 }
@@ -367,17 +367,17 @@ class ManualVerification {
     if (json['files'] != null) {
       files = <Files>[];
       json['files'].forEach((v) {
-        files!.add(new Files.fromJson(v));
+        files!.add(Files.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['extra_text'] = this.extraText;
-    data['request_time_unix'] = this.requestTimeUnix;
-    if (this.files != null) {
-      data['files'] = this.files!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['extra_text'] = extraText;
+    data['request_time_unix'] = requestTimeUnix;
+    if (files != null) {
+      data['files'] = files!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -406,12 +406,12 @@ class Files {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['file_id'] = this.fileId;
-    data['file_name'] = this.fileName;
-    data['mime_type'] = this.mimeType;
-    data['size_bytes'] = this.sizeBytes;
-    data['upload_date_unix'] = this.uploadDateUnix;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['file_id'] = fileId;
+    data['file_name'] = fileName;
+    data['mime_type'] = mimeType;
+    data['size_bytes'] = sizeBytes;
+    data['upload_date_unix'] = uploadDateUnix;
     return data;
   }
 }
@@ -433,11 +433,11 @@ class Settings {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['stability'] = this.stability;
-    data['similarity_boost'] = this.similarityBoost;
-    data['style'] = this.style;
-    data['use_speaker_boost'] = this.useSpeakerBoost;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['stability'] = stability;
+    data['similarity_boost'] = similarityBoost;
+    data['style'] = style;
+    data['use_speaker_boost'] = useSpeakerBoost;
     return data;
   }
 }
@@ -527,7 +527,7 @@ class Sharing {
     name = json['name'];
     description = json['description'];
     labels = json['labels'] != null
-        ? new FinetuningProgress.fromJson(json['labels'])
+        ? FinetuningProgress.fromJson(json['labels'])
         : null;
     reviewStatus = json['review_status'];
     reviewMessage = json['review_message'];
@@ -539,38 +539,38 @@ class Sharing {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    data['history_item_sample_id'] = this.historyItemSampleId;
-    data['date_unix'] = this.dateUnix;
-    data['whitelisted_emails'] = this.whitelistedEmails;
-    data['public_owner_id'] = this.publicOwnerId;
-    data['original_voice_id'] = this.originalVoiceId;
-    data['financial_rewards_enabled'] = this.financialRewardsEnabled;
-    data['free_users_allowed'] = this.freeUsersAllowed;
-    data['live_moderation_enabled'] = this.liveModerationEnabled;
-    data['rate'] = this.rate;
-    data['notice_period'] = this.noticePeriod;
-    data['disable_at_unix'] = this.disableAtUnix;
-    data['voice_mixing_allowed'] = this.voiceMixingAllowed;
-    data['featured'] = this.featured;
-    data['category'] = this.category;
-    data['reader_app_enabled'] = this.readerAppEnabled;
-    data['ban_reason'] = this.banReason;
-    data['liked_by_count'] = this.likedByCount;
-    data['cloned_by_count'] = this.clonedByCount;
-    data['name'] = this.name;
-    data['description'] = this.description;
-    if (this.labels != null) {
-      data['labels'] = this.labels!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['status'] = status;
+    data['history_item_sample_id'] = historyItemSampleId;
+    data['date_unix'] = dateUnix;
+    data['whitelisted_emails'] = whitelistedEmails;
+    data['public_owner_id'] = publicOwnerId;
+    data['original_voice_id'] = originalVoiceId;
+    data['financial_rewards_enabled'] = financialRewardsEnabled;
+    data['free_users_allowed'] = freeUsersAllowed;
+    data['live_moderation_enabled'] = liveModerationEnabled;
+    data['rate'] = rate;
+    data['notice_period'] = noticePeriod;
+    data['disable_at_unix'] = disableAtUnix;
+    data['voice_mixing_allowed'] = voiceMixingAllowed;
+    data['featured'] = featured;
+    data['category'] = category;
+    data['reader_app_enabled'] = readerAppEnabled;
+    data['ban_reason'] = banReason;
+    data['liked_by_count'] = likedByCount;
+    data['cloned_by_count'] = clonedByCount;
+    data['name'] = name;
+    data['description'] = description;
+    if (labels != null) {
+      data['labels'] = labels!.toJson();
     }
-    data['review_status'] = this.reviewStatus;
-    data['review_message'] = this.reviewMessage;
-    data['enabled_in_library'] = this.enabledInLibrary;
-    data['instagram_username'] = this.instagramUsername;
-    data['twitter_username'] = this.twitterUsername;
-    data['youtube_username'] = this.youtubeUsername;
-    data['tiktok_username'] = this.tiktokUsername;
+    data['review_status'] = reviewStatus;
+    data['review_message'] = reviewMessage;
+    data['enabled_in_library'] = enabledInLibrary;
+    data['instagram_username'] = instagramUsername;
+    data['twitter_username'] = twitterUsername;
+    data['youtube_username'] = youtubeUsername;
+    data['tiktok_username'] = tiktokUsername;
     return data;
   }
 }
@@ -600,21 +600,21 @@ class VoiceVerification {
     if (json['verification_attempts'] != null) {
       verificationAttempts = <VerificationAttempts>[];
       json['verification_attempts'].forEach((v) {
-        verificationAttempts!.add(new VerificationAttempts.fromJson(v));
+        verificationAttempts!.add(VerificationAttempts.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['requires_verification'] = this.requiresVerification;
-    data['is_verified'] = this.isVerified;
-    data['verification_failures'] = this.verificationFailures;
-    data['verification_attempts_count'] = this.verificationAttemptsCount;
-    data['language'] = this.language;
-    if (this.verificationAttempts != null) {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['requires_verification'] = requiresVerification;
+    data['is_verified'] = isVerified;
+    data['verification_failures'] = verificationFailures;
+    data['verification_attempts_count'] = verificationAttemptsCount;
+    data['language'] = language;
+    if (verificationAttempts != null) {
       data['verification_attempts'] =
-          this.verificationAttempts!.map((v) => v.toJson()).toList();
+          verificationAttempts!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -662,63 +662,63 @@ class Voice {
     if (json['samples'] != null) {
       samples = <Samples>[];
       json['samples'].forEach((v) {
-        samples!.add(new Samples.fromJson(v));
+        samples!.add(Samples.fromJson(v));
       });
     }
     category = json['category'];
     fineTuning = json['fine_tuning'] != null
-        ? new FineTuning.fromJson(json['fine_tuning'])
+        ? FineTuning.fromJson(json['fine_tuning'])
         : null;
     labels =
-        json['labels'] != null ? new Labels.fromJson(json['labels']) : null;
+        json['labels'] != null ? Labels.fromJson(json['labels']) : null;
     description = json['description'];
     previewUrl = json['preview_url'];
     availableForTiers = json['available_for_tiers'].cast<String>();
     settings = json['settings'] != null
-        ? new Settings.fromJson(json['settings'])
+        ? Settings.fromJson(json['settings'])
         : null;
     sharing =
-        json['sharing'] != null ? new Sharing.fromJson(json['sharing']) : null;
+        json['sharing'] != null ? Sharing.fromJson(json['sharing']) : null;
     highQualityBaseModelIds =
         json['high_quality_base_model_ids'].cast<String>();
     safetyControl = json['safety_control'];
     voiceVerification = json['voice_verification'] != null
-        ? new VoiceVerification.fromJson(json['voice_verification'])
+        ? VoiceVerification.fromJson(json['voice_verification'])
         : null;
     ownerId = json['owner_id'];
     permissionOnResource = json['permission_on_resource'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['voice_id'] = this.voiceId;
-    data['name'] = this.name;
-    if (this.samples != null) {
-      data['samples'] = this.samples!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['voice_id'] = voiceId;
+    data['name'] = name;
+    if (samples != null) {
+      data['samples'] = samples!.map((v) => v.toJson()).toList();
     }
-    data['category'] = this.category;
-    if (this.fineTuning != null) {
-      data['fine_tuning'] = this.fineTuning!.toJson();
+    data['category'] = category;
+    if (fineTuning != null) {
+      data['fine_tuning'] = fineTuning!.toJson();
     }
-    if (this.labels != null) {
-      data['labels'] = this.labels!.toJson();
+    if (labels != null) {
+      data['labels'] = labels!.toJson();
     }
-    data['description'] = this.description;
-    data['preview_url'] = this.previewUrl;
-    data['available_for_tiers'] = this.availableForTiers;
-    if (this.settings != null) {
-      data['settings'] = this.settings!.toJson();
+    data['description'] = description;
+    data['preview_url'] = previewUrl;
+    data['available_for_tiers'] = availableForTiers;
+    if (settings != null) {
+      data['settings'] = settings!.toJson();
     }
-    if (this.sharing != null) {
-      data['sharing'] = this.sharing!.toJson();
+    if (sharing != null) {
+      data['sharing'] = sharing!.toJson();
     }
-    data['high_quality_base_model_ids'] = this.highQualityBaseModelIds;
-    data['safety_control'] = this.safetyControl;
-    if (this.voiceVerification != null) {
-      data['voice_verification'] = this.voiceVerification!.toJson();
+    data['high_quality_base_model_ids'] = highQualityBaseModelIds;
+    data['safety_control'] = safetyControl;
+    if (voiceVerification != null) {
+      data['voice_verification'] = voiceVerification!.toJson();
     }
-    data['owner_id'] = this.ownerId;
-    data['permission_on_resource'] = this.permissionOnResource;
+    data['owner_id'] = ownerId;
+    data['permission_on_resource'] = permissionOnResource;
     return data;
   }
 }
@@ -741,12 +741,12 @@ class Labels {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['accent'] = this.accent;
-    data['description'] = this.description;
-    data['age'] = this.age;
-    data['gender'] = this.gender;
-    data['use case'] = this.useCase;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['accent'] = accent;
+    data['description'] = description;
+    data['age'] = age;
+    data['gender'] = gender;
+    data['use case'] = useCase;
     return data;
   }
 }

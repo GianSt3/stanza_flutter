@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:stanza_scrapper/domain/entities/custom_voice.dart';
-import 'package:stanza_scrapper/src/features/game/bloc/game_cubit.dart';
-import 'package:stanza_scrapper/src/features/game/model/player.dart';
-import 'package:stanza_scrapper/src/features/lobby/bloc/lobby_cubit.dart';
-import 'package:stanza_scrapper/src/features/lobby/model/queueing_user.dart';
-import 'package:stanza_scrapper/src/features/settings/bloc/voice/custom_voice_cubit.dart';
+import '../../../../../domain/entities/custom_voice.dart';
+import '../../../game/bloc/game_cubit.dart';
+import '../../../game/model/player.dart';
+import '../../bloc/lobby_cubit.dart';
+import '../../model/queueing_user.dart';
+import '../../../settings/bloc/voice/custom_voice_cubit.dart';
 
 class PlayerWidgetTile extends StatefulWidget {
   const PlayerWidgetTile({super.key, required this.user});
@@ -38,12 +38,12 @@ class _PlayerWidgetTileState extends State<PlayerWidgetTile> {
                           () => setState(() {
                                 _changingPlayer = false;
                               }));
-                      return const Text("Add other player to the Lobby");
+                      return const Text('Add other player to the Lobby');
                     }
 
                     /// DROPDOWN CHANGE PLAYER
                     return DropdownMenu(
-                      label: const Text("Player"),
+                      label: const Text('Player'),
                       onSelected: (newPlayer) {
                         if (newPlayer != null) {
                           context.read<LobbyCubit>().promote(newPlayer);
@@ -85,7 +85,7 @@ class _PlayerWidgetTileState extends State<PlayerWidgetTile> {
               return BlocBuilder<CustomVoiceCubit, CustomVoiceState>(
                 builder: (context, state) {
                   return DropdownMenu(
-                      label: const Text("Voice"),
+                      label: const Text('Voice'),
                       enabled: !_changingPlayer,
                       initialSelection: playerVoice,
                       onSelected: (voice) {
@@ -119,15 +119,15 @@ class _PlayerWidgetTileState extends State<PlayerWidgetTile> {
                 showDialog(
                   context: context,
                   builder: (dialogContext) => AlertDialog(
-                    title: Text("Remove ${widget.user.name}"),
+                    title: Text('Remove ${widget.user.name}'),
                     content: Text(
-                        "Are you sure to remove ${widget.user.name} from the game?"),
+                        'Are you sure to remove ${widget.user.name} from the game?'),
                     actions: [
                       TextButton(
                           onPressed: () {
                             Navigator.of(context).pop(null);
                           },
-                          child: const Text("Cancel")),
+                          child: const Text('Cancel')),
                       TextButton(
                           onPressed: () {
                             context
@@ -136,7 +136,7 @@ class _PlayerWidgetTileState extends State<PlayerWidgetTile> {
                             context.read<LobbyCubit>().demote(widget.user);
                             Navigator.of(context).pop(null);
                           },
-                          child: const Text("Confirm"))
+                          child: const Text('Confirm'))
                     ],
                   ),
                 );

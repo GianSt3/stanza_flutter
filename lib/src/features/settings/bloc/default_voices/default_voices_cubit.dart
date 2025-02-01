@@ -1,8 +1,8 @@
 import 'package:eleven_labs/eleven_labs.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:stanza_scrapper/domain/usecases/elevenlabs/list_voices_use_case.dart';
-import 'package:stanza_scrapper/injection/dependency_injection.dart';
+import '../../../../../domain/usecases/elevenlabs/list_voices_use_case.dart';
+import '../../../../../injection/dependency_injection.dart';
 
 part 'default_voices_cubit.freezed.dart';
 part 'default_voices_cubit.g.dart';

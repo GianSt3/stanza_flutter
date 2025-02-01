@@ -23,16 +23,17 @@ class _LobbyFirestoreHeaderState extends State<LobbyFirestoreHeader> {
 
   final ScrollController _scrollController = ScrollController();
 
-  bool showChat = true;
+  bool showChat = false;
+  bool showMiniGames = false;
 
   @override
   void initState() {
     super.initState();
     _firebaseDoc =
-        FirebaseFirestore.instance.collection("_config").doc("funroom");
+        FirebaseFirestore.instance.collection('_config').doc('funroom');
     _streamSubscription = FirebaseFirestore.instance
         .collection('_config')
-        .doc("funroom")
+        .doc('funroom')
         .snapshots()
         .listen((snapshot) {
       if (!snapshot.exists) {
@@ -176,9 +177,9 @@ class _LobbyFirestoreHeaderState extends State<LobbyFirestoreHeader> {
     );
   }
 
-  String getRandomRoomId({int times = 4, String rnd = ""}) {
+  String getRandomRoomId({int times = 4, String rnd = ''}) {
     const String characters =
-        "abcdefghijklmnopqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ";
+        'abcdefghijklmnopqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ';
     final char = characters[Random().nextInt(characters.length)];
     final result = rnd + char;
     if (times <= 0) {
@@ -188,8 +189,8 @@ class _LobbyFirestoreHeaderState extends State<LobbyFirestoreHeader> {
     }
   }
 
-  String getRandomRoomCodeId({int times = 3, String rnd = ""}) {
-    const String digits = "0123456789";
+  String getRandomRoomCodeId({int times = 3, String rnd = ''}) {
+    const String digits = '0123456789';
     final char = digits[Random().nextInt(digits.length)];
     final result = rnd + char;
     if (times <= 0) {

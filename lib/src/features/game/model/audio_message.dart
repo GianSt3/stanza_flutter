@@ -1,7 +1,7 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:equatable/equatable.dart';
-import 'package:stanza_scrapper/src/features/game/model/game_message.dart';
-import 'package:stanza_scrapper/src/features/game/model/player.dart';
+import 'game_message.dart';
+import 'player.dart';
 
 enum AudioType { textToSpeech, dice, me, silence }
 
@@ -49,5 +49,5 @@ class AudioMessage extends Equatable {
 
   @override
   String toString() =>
-      "AudioMessage(audio:[${source != null}] $created - ${message.author}:${message.text}, )";
+      'AudioMessage(audio:[${source != null}] $created - ${message.author}:${message.text}, )';
 }

@@ -48,14 +48,14 @@ class LobbyCubit extends Cubit<LobbyState> {
     final alreadyChosen =
         userList.where((element) => element.nextPlayer).toList();
     final userLeft = userList.where((element) => !element.nextPlayer).toList();
-    print("alreadyChosen ${alreadyChosen.length} left: ${userLeft.length}");
+    print('alreadyChosen ${alreadyChosen.length} left: ${userLeft.length}');
 
     if (alreadyChosen.isEmpty && userLeft.length == choice) {
-      print("Empty");
+      print('Empty');
       emit(state.copyWith(
           lobby: userLeft.map((e) => e.copyWith(true)).toList()));
     } else if (userLeft.length > choice - alreadyChosen.length) {
-      print("Random");
+      print('Random');
       Random random = Random();
       List<QueueingUser> randomUsers = [];
 
@@ -64,18 +64,18 @@ class LobbyCubit extends Cubit<LobbyState> {
         QueueingUser randomUser;
         do {
           randomUser = userLeft.elementAt(random.nextInt(userLeft.length));
-          print("Random ${randomUser.name}");
+          print('Random ${randomUser.name}');
           counter++;
           if (counter > 50) {
             break;
           }
         } while (randomUsers.contains(randomUser));
 
-        print("Chose $randomUser");
+        print('Chose $randomUser');
         randomUsers.add(randomUser);
       }
 
-      print("Choosen list $randomUsers");
+      print('Choosen list $randomUsers');
 
       var copy = state.lobby.toList();
       for (var i = 0; i < randomUsers.length; i++) {
@@ -86,7 +86,7 @@ class LobbyCubit extends Cubit<LobbyState> {
       }
       emit(state.copyWith(lobby: copy));
     } else {
-      print("Not so many player :(");
+      print('Not so many player :(');
     }
   }
 }

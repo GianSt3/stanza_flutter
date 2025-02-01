@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:stanza_scrapper/core/bloc/api_quota/api_quota_cubit.dart';
+import '../../../../../core/bloc/api_quota/api_quota_cubit.dart';
 
 class ApiQuotaWidget extends StatelessWidget {
   const ApiQuotaWidget({super.key});
@@ -22,18 +22,18 @@ class ApiQuotaWidget extends StatelessWidget {
 }
 
 class _InfoButton extends StatelessWidget {
-  const _InfoButton({super.key});
+  const _InfoButton();
 
   @override
   Widget build(BuildContext context) {
     return TextButton(
         onPressed: context.read<ApiQuotaCubit>().check,
-        child: const Text("Update info"));
+        child: const Text('Update info'));
   }
 }
 
 class _InfoWidget extends StatelessWidget {
-  const _InfoWidget({super.key, required this.info});
+  const _InfoWidget({required this.info});
 
   final QuotaInfo info;
 
@@ -42,10 +42,10 @@ class _InfoWidget extends StatelessWidget {
     return Column(
       children: [
         Text(
-          "${(info.ratio * 100).floor()} %",
+          '${(info.ratio * 100).floor()} %',
           style: Theme.of(context).textTheme.titleLarge,
         ),
-        Text("Used ${info.usedCharacters} of ${info.totalCharacters} quota"),
+        Text('Used ${info.usedCharacters} of ${info.totalCharacters} quota'),
       ],
     );
   }

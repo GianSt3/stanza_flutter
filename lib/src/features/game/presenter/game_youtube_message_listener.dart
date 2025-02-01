@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:stanza_scrapper/core/bloc/scrapper/youtube_scrapper_cubit.dart';
-import 'package:stanza_scrapper/core/utils/utils.dart';
-import 'package:stanza_scrapper/src/features/game/bloc/game_cubit.dart';
-import 'package:stanza_scrapper/src/features/game/bloc/messages/game_messages_cubit.dart';
+import '../../../../core/bloc/scrapper/youtube_scrapper_cubit.dart';
+import '../../../../core/utils/utils.dart';
+import '../bloc/game_cubit.dart';
+import '../bloc/messages/game_messages_cubit.dart';
 
 class GameYoutubeMessageListener extends StatelessWidget {
   const GameYoutubeMessageListener({
@@ -42,7 +42,7 @@ class GameYoutubeMessageListener extends StatelessWidget {
                       gameState.status
                           .maybeWhen(start: () => true, orElse: () => false));
                 } else {
-                  logger.d("No new messages.\n${state.chat.newMessages}");
+                  logger.d('No new messages.\n${state.chat.newMessages}');
                 }
               });
             },

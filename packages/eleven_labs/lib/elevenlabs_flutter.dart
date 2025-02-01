@@ -1,14 +1,11 @@
 library elevenlabs_flutter;
 
 import 'dart:async';
-import 'dart:ffi';
 import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:dio/dio.dart';
 import 'package:eleven_labs/eleven_labs.dart';
-import 'package:eleven_labs/eleven_labs_interface.dart';
-import 'package:path_provider/path_provider.dart';
 
 class ElevenLabsAPI implements ElevenLabsInterface{
   // Singleton instance
@@ -23,6 +20,7 @@ class ElevenLabsAPI implements ElevenLabsInterface{
 
   /// Initialize API
   /// Takes [baseUrl] and [apiKey] as arguments
+  @override
   Future<void> init({
     required ElevenLabsConfig config,
   }) async {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:stanza_scrapper/core/bloc/scrapper/youtube_scrapper_cubit.dart';
-import 'package:stanza_scrapper/src/features/game/bloc/game_cubit.dart';
+import '../../../../core/bloc/scrapper/youtube_scrapper_cubit.dart';
+import '../bloc/game_cubit.dart';
 
 import '../model/player.dart';
 
@@ -29,7 +29,7 @@ class GameDebugPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: state.chat.messages.reversed
                         .map((e) =>
-                            Text("${e.timestamp} - ${e.author}: ${e.text}"))
+                            Text('${e.timestamp} - ${e.author}: ${e.text}'))
                         .toList(),
                   ),
                 );
@@ -46,7 +46,7 @@ class _Player extends StatelessWidget {
   final Player player;
   static const int maxMessageLength = 30;
 
-  const _Player({super.key, required this.player});
+  const _Player({required this.player});
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +65,7 @@ class _Player extends StatelessWidget {
                   ?.copyWith(color: Colors.blueGrey.shade800),
             ),
             Text(
-              "${lastMessage.timestamp} ${lastMessage.text}",
+              '${lastMessage.timestamp} ${lastMessage.text}',
               style: Theme.of(context)
                   .textTheme
                   .bodyMedium
@@ -77,7 +77,7 @@ class _Player extends StatelessWidget {
                 .reversed
                 .take(5)
                 .map((playerMessage) => Text(
-                    "${playerMessage.timestamp} ${playerMessage.text.substring(0, playerMessage.text.length > maxMessageLength ? maxMessageLength : playerMessage.text.length)}"))
+                    '${playerMessage.timestamp} ${playerMessage.text.substring(0, playerMessage.text.length > maxMessageLength ? maxMessageLength : playerMessage.text.length)}'))
                 .toList(),
           ],
         ));

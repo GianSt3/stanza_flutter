@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:stanza_scrapper/src/features/game/bloc/game_cubit.dart';
-import 'package:stanza_scrapper/src/features/game/bloc/messages/game_messages_cubit.dart';
-import 'package:stanza_scrapper/src/features/game/presenter/game_firestore_message_listener.dart';
-import 'package:stanza_scrapper/src/features/game/presenter/game_youtube_message_listener.dart';
-import 'package:stanza_scrapper/src/features/game/presenter/model/game_mode.dart';
-import 'package:stanza_scrapper/src/features/game/presenter/widget/game_player_widget.dart';
+import '../bloc/game_cubit.dart';
+import '../bloc/messages/game_messages_cubit.dart';
+import 'game_firestore_message_listener.dart';
+import 'game_youtube_message_listener.dart';
+import 'model/game_mode.dart';
+import 'widget/game_player_widget.dart';
 
 class GamePage extends StatelessWidget {
   final GameMode mode;
@@ -28,9 +28,7 @@ class GamePage extends StatelessWidget {
 }
 
 class _GamePage extends StatelessWidget {
-  const _GamePage({
-    super.key,
-  });
+  const _GamePage();
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +48,7 @@ class _GamePage extends StatelessWidget {
                     ),
                     Text(
                       gameMessageState.status.maybeMap(
-                          error: (err) => err.message, orElse: () => ""),
+                          error: (err) => err.message, orElse: () => ''),
                       style: Theme.of(context)
                           .textTheme
                           .bodySmall

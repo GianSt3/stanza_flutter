@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:stanza_scrapper/app/gen/assets.gen.dart';
-import 'package:stanza_scrapper/src/features/clock/bloc/clock_cubit.dart';
+import '../../../../app/gen/assets.gen.dart';
+import '../bloc/clock_cubit.dart';
 
 class ClockWidget extends StatelessWidget {
   static final NumberFormat formatter = NumberFormat('00');
@@ -40,9 +40,9 @@ class ClockWidget extends StatelessWidget {
     if (days > 0) {
       return "$days day${days > 1 ? 's' : ''}, ${formatter.format(hours)}:${formatter.format(minutes)}:${formatter.format(seconds)}";
     } else if (hours > 0) {
-      return "${formatter.format(hours)}:${formatter.format(minutes)}:${formatter.format(seconds)}";
+      return '${formatter.format(hours)}:${formatter.format(minutes)}:${formatter.format(seconds)}';
     } else {
-      return "${formatter.format(minutes)}:${formatter.format(seconds)}";
+      return '${formatter.format(minutes)}:${formatter.format(seconds)}';
     }
   }
 

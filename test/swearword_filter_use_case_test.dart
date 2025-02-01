@@ -22,7 +22,7 @@ void main() {
     const text = 'Ma sei coglione?';
     final result = usecase(params: text);
     expect(result.isLeft, true);
-    expect(result.swap().right, 'Ma sei [censored]?');
+    expect(result.swap().right, 'Ma sei sciocco?');
   });
 
   test('Test', () {

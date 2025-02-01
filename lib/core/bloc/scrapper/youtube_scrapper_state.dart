@@ -44,7 +44,7 @@ class Chat extends Equatable {
         return Author(
             name: e.key,
             avatarUrl: lastMessage.avatarUrl,
-            type: lastMessage.authorType ?? "",
+            type: lastMessage.authorType ?? '',
             messageTimestamp: lastMessage.created);
       }).toList();
 

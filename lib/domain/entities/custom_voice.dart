@@ -1,8 +1,8 @@
 import 'package:eleven_labs/eleven_labs.dart';
 
 enum ModelId {
-  v1("eleven_multilingual_v1"),
-  v2("eleven_multilingual_v2");
+  v1('eleven_multilingual_v1'),
+  v2('eleven_multilingual_v2');
 
   final String value;
 
@@ -29,22 +29,22 @@ class CustomVoice {
 
   Map<String, dynamic> toJson() {
     return {
-      "voiceId": voiceId,
-      "name": name,
-      "originalName": originalName,
-      "voiceSettings": voiceSettings?.toJson()
+      'voiceId': voiceId,
+      'name': name,
+      'originalName': originalName,
+      'voiceSettings': voiceSettings?.toJson()
     };
   }
 
   CustomVoice.fromJson(Map<String, dynamic> json) {
-    voiceId = json["voiceId"];
-    name = json["name"];
-    originalName = json["originalName"];
-    voiceSettings = json["voiceSettings"] != null
-        ? VoiceSettings.fromJson(json["voiceSettings"])
+    voiceId = json['voiceId'];
+    name = json['name'];
+    originalName = json['originalName'];
+    voiceSettings = json['voiceSettings'] != null
+        ? VoiceSettings.fromJson(json['voiceSettings'])
         : null;
-    modelId = json["modelId"] != null
-        ? ModelId.fromString(json["modelId"])
+    modelId = json['modelId'] != null
+        ? ModelId.fromString(json['modelId'])
         : ModelId.v2;
   }
 

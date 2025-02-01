@@ -1,7 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:stanza_scrapper/src/features/game/presenter/widget/gradient_text.dart';
+import 'gradient_text.dart';
 
 import '../../model/player.dart';
 

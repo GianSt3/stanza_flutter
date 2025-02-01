@@ -4,8 +4,8 @@ import 'package:eleven_labs/eleven_labs.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:stanza_scrapper/domain/usecases/elevenlabs/synthesize_use_case.dart';
-import 'package:stanza_scrapper/injection/dependency_injection.dart';
+import '../../../../../domain/usecases/elevenlabs/synthesize_use_case.dart';
+import '../../../../../injection/dependency_injection.dart';
 
 part 'text_to_speech_cubit.freezed.dart';
 part 'text_to_speech_state.dart';
@@ -19,7 +19,7 @@ class TextToSpeechCubit extends Cubit<TextToSpeechState> {
   void speak(
       {required String voiceId,
       required String text,
-      String modelId = "eleven_multilingual_v2",
+      String modelId = 'eleven_multilingual_v2',
       VoiceSettings? voiceSettings}) async {
     final hash = shortHash(text);
     final player = AudioPlayer();

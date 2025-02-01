@@ -3,9 +3,9 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:stanza_scrapper/core/utils/utils.dart';
-import 'package:stanza_scrapper/src/features/game/model/player.dart';
-import 'package:stanza_scrapper/src/features/lobby_firestore/bloc/firestore_chat_cubit.dart';
+import '../../../../core/utils/utils.dart';
+import '../../game/model/player.dart';
+import 'firestore_chat_cubit.dart';
 
 part 'firestore_game_messages_cubit.freezed.dart';
 part 'firestore_game_messages_state.dart';

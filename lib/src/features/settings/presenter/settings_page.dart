@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:stanza_scrapper/app/gen/assets.gen.dart';
-import 'package:stanza_scrapper/src/features/settings/presenter/tabs/voice_custom_tab.dart';
-import 'package:stanza_scrapper/src/features/settings/presenter/tabs/voices_tab_page.dart';
-import 'package:stanza_scrapper/src/features/settings/presenter/widget/api_quota_widget.dart';
+import '../../../../app/gen/assets.gen.dart';
+import 'tabs/voice_custom_tab.dart';
+import 'tabs/voices_tab_page.dart';
+import 'widget/api_quota_widget.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});

@@ -1,5 +1,5 @@
-import 'package:stanza_scrapper/core/use_case/use_case.dart';
-import 'package:stanza_scrapper/domain/youtube/youtube_chat_repository_interface.dart';
+import '../../../core/use_case/use_case.dart';
+import '../../youtube/youtube_chat_repository_interface.dart';
 
 class InitYoutubeChatUseCase extends UseCase<void, String> {
   final YoutubeChatRepositoryInterface _youtubeRepository;

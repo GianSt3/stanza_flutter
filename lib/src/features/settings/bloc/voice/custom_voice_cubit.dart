@@ -2,7 +2,7 @@ import 'package:eleven_labs/eleven_labs.dart';
 import 'package:eleven_labs/elevenlabs_types.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:stanza_scrapper/domain/entities/custom_voice.dart';
+import '../../../../../domain/entities/custom_voice.dart';
 
 part 'custom_voice_cubit.freezed.dart';
 part 'custom_voice_cubit.g.dart';

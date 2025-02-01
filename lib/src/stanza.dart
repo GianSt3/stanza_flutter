@@ -1,21 +1,16 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:stanza_scrapper/app/app.dart';
-import 'package:stanza_scrapper/app/gen/assets.gen.dart';
-import 'package:stanza_scrapper/core/bloc/api_key/api_key_cubit.dart';
-import 'package:stanza_scrapper/data/model/youtube_message.dart';
-import 'package:stanza_scrapper/domain/entities/custom_voice.dart';
-import 'package:stanza_scrapper/injection/dependency_injection.dart';
-import 'package:stanza_scrapper/src/features/clock/bloc/clock_cubit.dart';
-import 'package:stanza_scrapper/src/features/game/bloc/game_cubit.dart';
-import 'package:stanza_scrapper/src/features/game/bloc/messages/game_messages_cubit.dart';
-import 'package:stanza_scrapper/src/features/game/model/player.dart';
-import 'package:stanza_scrapper/src/features/lobby/presenter/lobby_page.dart';
-import 'package:stanza_scrapper/src/features/lobby_firestore/presenter/lobby_firestore_page.dart';
-import 'package:stanza_scrapper/src/features/poll/presenter/poll_page.dart';
-import 'package:stanza_scrapper/src/features/settings/presenter/settings_page.dart';
+
+import '../app/app.dart';
+import '../app/gen/assets.gen.dart';
+import '../core/bloc/api_key/api_key_cubit.dart';
+import '../injection/dependency_injection.dart';
+import 'features/clock/bloc/clock_cubit.dart';
+import 'features/lobby/presenter/lobby_page.dart';
+import 'features/lobby_firestore/presenter/lobby_firestore_page.dart';
+import 'features/minigame_setup/presenter/minigame_setup_page.dart';
+import 'features/settings/presenter/settings_page.dart';
+import 'widget/mock_button_widget.dart';
 
 class Stanza extends StatefulWidget {
   const Stanza({super.key});
@@ -31,134 +26,81 @@ class _Titles {
   _Titles(this.icon, this.title);
 }
 
-class _StanzaState extends State<Stanza> {
+class _StanzaState extends State<Stanza> with TickerProviderStateMixin {
   int currentPageIndex = 0;
   String appVersion = resolve<Environment>().appVersion;
   List<_Titles> titles = [
-    _Titles(Assets.icons.settings.svg(), "Settings"),
-    _Titles(Assets.icons.settings.svg(), "Poll"),
-    _Titles(Assets.icons.game.svg(), "Stanza"),
-    _Titles(const Icon(Icons.smartphone_outlined), "Stanza4Fun"),
+    _Titles(Assets.icons.settings.svg(), 'Settings'),
+    _Titles(Assets.icons.phoneConfiguration.svg(width: 25), 'Setup minigames'),
+    _Titles(Assets.icons.game.svg(), 'Stanza'),
+    _Titles(const Icon(Icons.smartphone_outlined), 'Stanza4Fun'),
   ];
+
+  Map<int, List<Widget>> _actions = {
+    0: [],
+    1: [],
+    2: [],
+    3: [IconButton(icon: const Icon(Icons.add), onPressed: () {})],
+  };
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ApiKeyCubit, ApiKeyState>(
-      builder: (context, state) {
-        return Scaffold(
-          backgroundColor: Colors.white,
-          appBar: AppBar(
-            title: Text(titles[currentPageIndex].title),
-            actions: resolve<Environment>().isMockEnabled()
-                ? [
-                    TextButton(
-                        onPressed: () {
-                          const players = [
-                            'Anton De la rois',
-                            'Giuseppy',
-                            'Arnaldo'
-                          ];
-
-                          /// Add players
-                          context.read<GameCubit>().player(
-                              Player(name: players[0], voice: CustomVoice()));
-                          context.read<GameCubit>().player(
-                              Player(name: players[1], voice: CustomVoice()));
-                          context.read<GameCubit>().player(
-                              Player(name: players[2], voice: CustomVoice()));
-
-                          final now = DateTime.now();
-
-                          final messages = [
-                            "The quick brown fox jumps over the lazy dog.",
-                            "/me The quick brown fox jumps over the lazy dog.",
-                            "/1d20",
-                            "Innovation distinguishes between a leader and a follower. Stay creative and lead.",
-                            "Success usually comes to those who are too busy to be looking for it. Keep pushing forward without looking back.",
-                            "In the middle of difficulty lies opportunity. Embrace challenges as stepping stones to growth and achievement. Your perseverance will lead you to new heights.",
-                            "Happiness is not something ready-made. It comes from your own actions. Cultivate positivity, act with kindness, and spread joy. Your efforts will create a ripple effect of happiness around you.",
-                            "Life is a series of natural and spontaneous changes. Don't resist them; that only creates sorrow. Let reality be reality. Let things flow naturally forward in whatever way they like. Embrace change and grow with each new experience, for it leads to personal growth and wisdom."
-                          ];
-
-                          /// Add messages
-                          context.read<GameMessagesCubit>().pushAll(
-                              [
-                                YoutubeMessage(
-                                    id: 'ABC',
-                                    author: players[0],
-                                    avatarUrl: '',
-                                    timestamp: '',
-                                    created: now.millisecondsSinceEpoch,
-                                    text: messages[
-                                        Random().nextInt(messages.length)]),
-                                YoutubeMessage(
-                                    id: 'DEF',
-                                    author: players[1],
-                                    avatarUrl: '',
-                                    timestamp: '',
-                                    created: now.millisecondsSinceEpoch,
-                                    text: messages[
-                                        Random().nextInt(messages.length)]),
-                                YoutubeMessage(
-                                    id: 'GHI',
-                                    author: players[2],
-                                    avatarUrl: '',
-                                    timestamp: '',
-                                    created: now.millisecondsSinceEpoch,
-                                    text: messages[
-                                        Random().nextInt(messages.length)])
-                              ],
-                              [
-                                Player(name: players[0], voice: CustomVoice()),
-                                Player(name: players[1], voice: CustomVoice()),
-                                Player(name: players[2], voice: CustomVoice())
-                              ],
-                              context.read<GameCubit>().state.status.maybeMap(
-                                  mute: (_) => false, orElse: () => true));
-                        },
-                        child: Text('Load mocked messages'))
-                  ]
-                : null,
-          ),
-          drawer: IntrinsicWidth(
-            child: NavigationRail(
-              extended: true,
-              leading: Text(
-                "v $appVersion",
-              ),
-              onDestinationSelected: (index) {
-                state.maybeWhen(
-                  loaded: (_) => setState(() {
-                    currentPageIndex = index;
-                  }),
-                  orElse: () => showDialog(
-                    context: context,
-                    builder: (context) => const AlertDialog(
-                      title: Text("Api KEY Not Found"),
-                      icon: Icon(Icons.warning_amber),
-                      content: Text(
-                          "Can't find any valid apiKey for IA services. Please insert one before any other action."),
+      builder: (context, apiKeyState) {
+        return Builder(builder: (context) {
+          return Scaffold(
+            backgroundColor: Colors.white,
+            appBar: AppBar(
+              title: Text(titles[currentPageIndex].title),
+              actions: resolve<Environment>().isMockEnabled()
+                  ? [const MockButtonWidget(), ...?_actions[currentPageIndex]]
+                  : _actions[currentPageIndex],
+            ),
+            drawer: IntrinsicWidth(
+              child: NavigationRail(
+                extended: true,
+                leading: Text(
+                  'v $appVersion',
+                ),
+                onDestinationSelected: (index) {
+                  apiKeyState.maybeWhen(
+                    loaded: (_) => setState(() {
+                      currentPageIndex = index;
+                    }),
+                    orElse: () => showDialog(
+                      context: context,
+                      builder: (context) => const AlertDialog(
+                        title: Text('Api KEY Not Found'),
+                        icon: Icon(Icons.warning_amber),
+                        content: Text(
+                            "Can't find any valid apiKey for IA services. Please insert one before any other action."),
+                      ),
                     ),
-                  ),
-                );
-              },
-              destinations: titles
-                  .map((title) => NavigationRailDestination(
-                      icon: title.icon, label: Text(title.title)))
-                  .toList(),
-              selectedIndex: currentPageIndex,
+                  );
+                },
+                destinations: titles
+                    .map((title) => NavigationRailDestination(
+                        icon: title.icon, label: Text(title.title)))
+                    .toList(),
+                selectedIndex: currentPageIndex,
+              ),
             ),
-          ),
-          body: [
-            const SettingsPage(),
-            const PollPage(),
-            BlocProvider(
-              create: (context) => ClockCubit(),
-              child: const LobbyPage(),
-            ),
-            const LobbyFirestorePage(),
-          ][currentPageIndex],
-        );
+            body: [
+              const SettingsPage(),
+              const MinigameSetupPage(),
+              BlocProvider(
+                create: (context) => ClockCubit(),
+                child: const LobbyPage(),
+              ),
+              const LobbyFirestorePage(),
+            ][currentPageIndex],
+          );
+        });
       },
     );
   }

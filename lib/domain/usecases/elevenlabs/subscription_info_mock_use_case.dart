@@ -1,6 +1,6 @@
 import 'package:either_dart/either.dart';
 import 'package:eleven_labs/eleven_labs.dart';
-import 'package:stanza_scrapper/domain/usecases/elevenlabs/subscription_info_use_case.dart';
+import 'subscription_info_use_case.dart';
 
 class SubscriptionInfoMockUseCase extends ISubscriptionInfoUseCase {
   SubscriptionInfoMockUseCase();
