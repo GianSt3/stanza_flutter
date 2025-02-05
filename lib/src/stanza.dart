@@ -10,6 +10,8 @@ import 'features/lobby/presenter/lobby_page.dart';
 import 'features/lobby_firestore/presenter/lobby_firestore_page.dart';
 import 'features/minigame_setup/presenter/minigame_setup_page.dart';
 import 'features/settings/presenter/settings_page.dart';
+import 'widget/icon_button_game_sound_widget.dart';
+import 'widget/icon_button_random_lobby_widget.dart';
 import 'widget/mock_button_widget.dart';
 
 class Stanza extends StatefulWidget {
@@ -36,16 +38,32 @@ class _StanzaState extends State<Stanza> with TickerProviderStateMixin {
     _Titles(const Icon(Icons.smartphone_outlined), 'Stanza4Fun'),
   ];
 
-  Map<int, List<Widget>> _actions = {
-    0: [],
-    1: [],
-    2: [],
-    3: [IconButton(icon: const Icon(Icons.add), onPressed: () {})],
-  };
+  late final Map<int, List<Widget>> _actions;
+
+  bool showChat = true;
 
   @override
   void initState() {
     super.initState();
+    _actions = {
+      0: [],
+      1: [],
+      2: [
+        const IconButtonRandomLobbyWidget(),
+        const IconButtonGameSoundWidget(),
+      ],
+      3: [
+        const IconButtonRandomLobbyWidget(),
+        const IconButtonGameSoundWidget(),
+        IconButton(
+            icon: const Icon(Icons.display_settings),
+            onPressed: () {
+              setState(() {
+                showChat = !showChat;
+              });
+            })
+      ],
+    };
   }
 
   @override
@@ -97,7 +115,9 @@ class _StanzaState extends State<Stanza> with TickerProviderStateMixin {
                 create: (context) => ClockCubit(),
                 child: const LobbyPage(),
               ),
-              const LobbyFirestorePage(),
+              LobbyFirestorePage(
+                showChat: showChat,
+              ),
             ][currentPageIndex],
           );
         });

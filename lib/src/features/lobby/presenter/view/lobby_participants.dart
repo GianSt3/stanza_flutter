@@ -17,48 +17,22 @@ class LobbyParticipants extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                'Lobby',
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              'Lobby',
+              style: Theme.of(context).textTheme.titleLarge,
             ),
-            Container(
-              alignment: Alignment.centerRight,
-              child: TextButton(
-                onPressed: () {
-                  context.read<LobbyCubit>().random();
-                },
-                child: const Row(
-                  children: [
-                    Text('Random'),
-                    SizedBox(
-                      width: 12,
-                    ),
-                    Icon(
-                      FontAwesomeIcons.shuffle,
-                      size: 18,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-        Container(
-          constraints:
-              BoxConstraints(maxHeight: MediaQuery.of(context).size.height / 3),
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: BlocBuilder<LobbyCubit, LobbyState>(
+          ),
+          BlocBuilder<LobbyCubit, LobbyState>(
             builder: (context, state) {
               final users = state.lobby;
               return ListView.separated(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
                   itemCount: users.length,
                   separatorBuilder: (context, index) => const Divider(),
                   itemBuilder: (context, index) => _Participant(
@@ -67,8 +41,8 @@ class LobbyParticipants extends StatelessWidget {
                       ));
             },
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
@@ -106,13 +80,36 @@ class _Participant extends StatelessWidget {
                 color: Colors.green.shade700,
               ),
             ),
-      title: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(user.name),
+      title: _TitleWidget(
+        user: user,
+        mode: mode,
+      ),
+      subtitle: user.type.isNotEmpty
+          ? Text(
+              user.type,
+            )
+          : null,
+    );
+  }
+}
 
-          /// LAST MESSAGE TIMESTAMP CLOCK
-          if (mode == ParticipantsMode.youtube)
+class _TitleWidget extends StatelessWidget {
+  final QueueingUser user;
+  final ParticipantsMode mode;
+
+  const _TitleWidget({
+    required this.user,
+    required this.mode,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    switch (mode) {
+      case ParticipantsMode.youtube:
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(user.name),
             BlocBuilder<YoutubeScrapperCubit, YoutubeScrapperState>(
               buildWhen: (prev, current) =>
                   prev.chat.messages
@@ -129,7 +126,13 @@ class _Participant extends StatelessWidget {
                 );
               },
             ),
-          if (mode == ParticipantsMode.firebase)
+          ],
+        );
+      case ParticipantsMode.firebase:
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(user.name),
             BlocBuilder<FirestoreChatCubit, FirestoreChatState>(
               builder: (context, state) {
                 if (state.status == const FirestoreChatStateStatus.error()) {
@@ -143,14 +146,9 @@ class _Participant extends StatelessWidget {
                   millis: lastActivityTimestamp,
                 );
               },
-            )
-        ],
-      ),
-      subtitle: user.type.isNotEmpty
-          ? Text(
-              user.type,
-            )
-          : null,
-    );
+            ),
+          ],
+        );
+    }
   }
 }

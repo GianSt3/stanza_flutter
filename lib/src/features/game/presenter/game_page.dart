@@ -1,29 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../bloc/game_cubit.dart';
 import '../bloc/messages/game_messages_cubit.dart';
-import 'game_firestore_message_listener.dart';
 import 'game_youtube_message_listener.dart';
-import 'model/game_mode.dart';
 import 'widget/game_player_widget.dart';
 
 class GamePage extends StatelessWidget {
-  final GameMode mode;
-
-  const GamePage({super.key, this.mode = GameMode.youtube});
+  const GamePage({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
-    switch (mode) {
-      case GameMode.youtube:
-        return const GameYoutubeMessageListener(
-          child: _GamePage(),
-        );
-      case GameMode.firebase:
-        return const GameFirestoreMessageListener(
-          child: _GamePage(),
-        );
-    }
+    return const GameYoutubeMessageListener(
+      child: _GamePage(),
+    );
   }
 }
 
