@@ -41,6 +41,4 @@ class PollListCubit extends HydratedCubit<PollListState> {
   Map<String, dynamic>? toJson(PollListState state) {
     return state.toJson();
   }
-
-  void select(Poll poll) {}
 }

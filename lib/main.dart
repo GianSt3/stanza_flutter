@@ -19,6 +19,7 @@ import 'src/features/game/bloc/game_cubit.dart';
 import 'src/features/game/bloc/messages/game_messages_cubit.dart';
 import 'src/features/lobby/bloc/blacklist/blacklist_cubit.dart';
 import 'src/features/lobby/bloc/lobby_cubit.dart';
+import 'src/features/minigame_setup/bloc/minigame_setup_cubit.dart';
 import 'src/features/minigame_setup/perform/bloc/perform_list_cubit.dart';
 import 'src/features/minigame_setup/poll/bloc/list/poll_list_cubit.dart';
 import 'src/features/settings/bloc/default_voices/default_voices_cubit.dart';
@@ -155,6 +156,9 @@ class _MainAppState extends State<MainApp> {
           ),
           BlocProvider(
             create: (context) => PerformListCubit(),
+          ),
+          BlocProvider(
+            create: (context) => MinigameSetupCubit(),
           ),
         ],
         child: ApiKeyGuard(

@@ -142,10 +142,11 @@ class __$$InitialImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$InitialImpl implements _Initial {
+class _$InitialImpl extends _Initial {
   const _$InitialImpl(final List<Perform> performs, {final String? $type})
       : _performs = performs,
-        $type = $type ?? 'initial';
+        $type = $type ?? 'initial',
+        super._();
 
   factory _$InitialImpl.fromJson(Map<String, dynamic> json) =>
       _$$InitialImplFromJson(json);
@@ -255,8 +256,9 @@ class _$InitialImpl implements _Initial {
   }
 }
 
-abstract class _Initial implements PerformListState {
+abstract class _Initial extends PerformListState {
   const factory _Initial(final List<Perform> performs) = _$InitialImpl;
+  const _Initial._() : super._();
 
   factory _Initial.fromJson(Map<String, dynamic> json) = _$InitialImpl.fromJson;
 
@@ -303,10 +305,11 @@ class __$$LoadedImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$LoadedImpl implements _Loaded {
+class _$LoadedImpl extends _Loaded {
   const _$LoadedImpl(final List<Perform> performs, {final String? $type})
       : _performs = performs,
-        $type = $type ?? 'loaded';
+        $type = $type ?? 'loaded',
+        super._();
 
   factory _$LoadedImpl.fromJson(Map<String, dynamic> json) =>
       _$$LoadedImplFromJson(json);
@@ -416,8 +419,9 @@ class _$LoadedImpl implements _Loaded {
   }
 }
 
-abstract class _Loaded implements PerformListState {
+abstract class _Loaded extends PerformListState {
   const factory _Loaded(final List<Perform> performs) = _$LoadedImpl;
+  const _Loaded._() : super._();
 
   factory _Loaded.fromJson(Map<String, dynamic> json) = _$LoadedImpl.fromJson;
 

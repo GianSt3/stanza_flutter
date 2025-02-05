@@ -41,6 +41,4 @@ class PerformListCubit extends HydratedCubit<PerformListState> {
   Map<String, dynamic> toJson(PerformListState state) {
     return state.toJson();
   }
-
-  void select(Perform perform) {}
 }
