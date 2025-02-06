@@ -1,8 +1,15 @@
+import 'dart:async';
+import 'dart:math';
+
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../../../../core/utils/logger.dart';
 import '../perform/model/perform.dart';
+import '../perform/model/perform_firebase.dart';
 import '../poll/model/poll.dart';
+import '../poll/model/poll_firebase.dart';
 
 part 'minigame_setup_cubit.freezed.dart';
 part 'minigame_setup_state.dart';
@@ -14,23 +21,67 @@ class MinigameSetupCubit extends Cubit<MinigameSetupState> {
             status: MinigameSetupStateStatus.idle(),
             data: MinigameSetupStateData(poll: null, perform: null),
           ),
-        );
-
-  void setPoll(Poll poll) {
-    emit(state.copyWith(
-      status: const MinigameSetupStateStatus.poll(),
-      data: state.data.copyWith(poll: poll),
-    ));
+        ) {
+    _init();
   }
 
-  void setPerform(Perform perform) {
+  late DocumentReference<PollFirebase?> _firebaseDocPoll;
+  late StreamSubscription<DocumentSnapshot> _pollSubscription;
+  late DocumentReference<PerformFirebase?> _firebaseDocPerform;
+
+  void _init() {
+    _firebaseDocPoll = FirebaseFirestore.instance
+        .collection('_minigame')
+        .doc('poll')
+        .withConverter<PollFirebase?>(
+          fromFirestore: (snapshot, _) => snapshot.data() != null
+              ? PollFirebase.fromJson(snapshot.data()!)
+              : null,
+          toFirestore: (poll, _) => poll?.toJson() ?? {},
+        );
+    _firebaseDocPerform = FirebaseFirestore.instance
+        .collection('_minigame')
+        .doc('perform')
+        .withConverter<PerformFirebase?>(
+          fromFirestore: (snapshot, _) => snapshot.data() != null
+              ? PerformFirebase.fromJson(snapshot.data()!)
+              : null,
+          toFirestore: (perform, _) => perform?.toJson() ?? {},
+        );
+
+    _pollSubscription = _firebaseDocPoll.snapshots().listen((snapshot) {
+      if (snapshot.exists && snapshot.data() != null) {
+        final pollFirebase = snapshot.data();
+        emit(state.copyWith(
+          status: const MinigameSetupStateStatus.poll(),
+          data: state.data.copyWith(poll: pollFirebase),
+        ));
+      }
+    });
+  }
+
+  void setPoll(Poll poll) {
+    final pollFirebase = PollFirebase.fromPoll(poll);
+    emit(state.copyWith(
+      status: const MinigameSetupStateStatus.poll(),
+      data: state.data.copyWith(poll: pollFirebase),
+    ));
+    _firebaseDocPoll.set(pollFirebase);
+  }
+
+  void setPerform(Perform perform, List<String> userList) {
+    String selectedUser = userList[Random().nextInt(userList.length)];
+    final performFirebase =
+        PerformFirebase.fromPerform(perform, selectedUser, 'deviceId');
     emit(state.copyWith(
       status: const MinigameSetupStateStatus.perform(),
-      data: state.data.copyWith(perform: perform),
+      data: state.data.copyWith(perform: performFirebase),
     ));
+    _firebaseDocPerform.set(performFirebase);
   }
 
   void reset() {
+    logger.d('reset');
     emit(state.copyWith(
       status: const MinigameSetupStateStatus.reset(),
       data: const MinigameSetupStateData(poll: null, perform: null),
@@ -39,6 +90,7 @@ class MinigameSetupCubit extends Cubit<MinigameSetupState> {
 
   @override
   Future<void> close() async {
+    await _pollSubscription.cancel();
     reset();
     super.close();
   }

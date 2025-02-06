@@ -855,8 +855,8 @@ abstract class _Reset implements MinigameSetupStateStatus {
 
 /// @nodoc
 mixin _$MinigameSetupStateData {
-  Poll? get poll => throw _privateConstructorUsedError;
-  Perform? get perform => throw _privateConstructorUsedError;
+  PollFirebase? get poll => throw _privateConstructorUsedError;
+  PerformFirebase? get perform => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $MinigameSetupStateDataCopyWith<MinigameSetupStateData> get copyWith =>
@@ -869,10 +869,10 @@ abstract class $MinigameSetupStateDataCopyWith<$Res> {
           $Res Function(MinigameSetupStateData) then) =
       _$MinigameSetupStateDataCopyWithImpl<$Res, MinigameSetupStateData>;
   @useResult
-  $Res call({Poll? poll, Perform? perform});
+  $Res call({PollFirebase? poll, PerformFirebase? perform});
 
-  $PollCopyWith<$Res>? get poll;
-  $PerformCopyWith<$Res>? get perform;
+  $PollFirebaseCopyWith<$Res>? get poll;
+  $PerformFirebaseCopyWith<$Res>? get perform;
 }
 
 /// @nodoc
@@ -896,34 +896,34 @@ class _$MinigameSetupStateDataCopyWithImpl<$Res,
       poll: freezed == poll
           ? _value.poll
           : poll // ignore: cast_nullable_to_non_nullable
-              as Poll?,
+              as PollFirebase?,
       perform: freezed == perform
           ? _value.perform
           : perform // ignore: cast_nullable_to_non_nullable
-              as Perform?,
+              as PerformFirebase?,
     ) as $Val);
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $PollCopyWith<$Res>? get poll {
+  $PollFirebaseCopyWith<$Res>? get poll {
     if (_value.poll == null) {
       return null;
     }
 
-    return $PollCopyWith<$Res>(_value.poll!, (value) {
+    return $PollFirebaseCopyWith<$Res>(_value.poll!, (value) {
       return _then(_value.copyWith(poll: value) as $Val);
     });
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $PerformCopyWith<$Res>? get perform {
+  $PerformFirebaseCopyWith<$Res>? get perform {
     if (_value.perform == null) {
       return null;
     }
 
-    return $PerformCopyWith<$Res>(_value.perform!, (value) {
+    return $PerformFirebaseCopyWith<$Res>(_value.perform!, (value) {
       return _then(_value.copyWith(perform: value) as $Val);
     });
   }
@@ -938,12 +938,12 @@ abstract class _$$MinigameSetupStateDataImplCopyWith<$Res>
       __$$MinigameSetupStateDataImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Poll? poll, Perform? perform});
+  $Res call({PollFirebase? poll, PerformFirebase? perform});
 
   @override
-  $PollCopyWith<$Res>? get poll;
+  $PollFirebaseCopyWith<$Res>? get poll;
   @override
-  $PerformCopyWith<$Res>? get perform;
+  $PerformFirebaseCopyWith<$Res>? get perform;
 }
 
 /// @nodoc
@@ -966,11 +966,11 @@ class __$$MinigameSetupStateDataImplCopyWithImpl<$Res>
       poll: freezed == poll
           ? _value.poll
           : poll // ignore: cast_nullable_to_non_nullable
-              as Poll?,
+              as PollFirebase?,
       perform: freezed == perform
           ? _value.perform
           : perform // ignore: cast_nullable_to_non_nullable
-              as Perform?,
+              as PerformFirebase?,
     ));
   }
 }
@@ -981,9 +981,9 @@ class _$MinigameSetupStateDataImpl implements _MinigameSetupStateData {
   const _$MinigameSetupStateDataImpl({this.poll, this.perform});
 
   @override
-  final Poll? poll;
+  final PollFirebase? poll;
   @override
-  final Perform? perform;
+  final PerformFirebase? perform;
 
   @override
   String toString() {
@@ -1012,13 +1012,13 @@ class _$MinigameSetupStateDataImpl implements _MinigameSetupStateData {
 
 abstract class _MinigameSetupStateData implements MinigameSetupStateData {
   const factory _MinigameSetupStateData(
-      {final Poll? poll,
-      final Perform? perform}) = _$MinigameSetupStateDataImpl;
+      {final PollFirebase? poll,
+      final PerformFirebase? perform}) = _$MinigameSetupStateDataImpl;
 
   @override
-  Poll? get poll;
+  PollFirebase? get poll;
   @override
-  Perform? get perform;
+  PerformFirebase? get perform;
   @override
   @JsonKey(ignore: true)
   _$$MinigameSetupStateDataImplCopyWith<_$MinigameSetupStateDataImpl>

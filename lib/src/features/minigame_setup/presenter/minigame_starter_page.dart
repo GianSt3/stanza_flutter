@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../lobby/bloc/lobby_cubit.dart';
 import '../bloc/minigame_setup_cubit.dart';
 import '../perform/bloc/perform_list_cubit.dart';
 import '../poll/bloc/list/poll_list_cubit.dart';
@@ -38,9 +39,15 @@ class MinigameStarterPage extends StatelessWidget {
                       .map((perform) => ListTile(
                             title: Text(perform.title),
                             onTap: () {
-                              context
-                                  .read<MinigameSetupCubit>()
-                                  .setPerform(perform);
+                              context.read<MinigameSetupCubit>().setPerform(
+                                    perform,
+                                    context
+                                        .read<LobbyCubit>()
+                                        .state
+                                        .lobby
+                                        .map((user) => user.name)
+                                        .toList(),
+                                  );
                             },
                           ))
                       .toList(),

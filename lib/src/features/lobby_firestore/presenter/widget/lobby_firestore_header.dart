@@ -31,6 +31,16 @@ class _LobbyFirestoreHeaderState extends State<LobbyFirestoreHeader> {
     super.initState();
     _firebaseDoc =
         FirebaseFirestore.instance.collection('_config').doc('funroom');
+    _firebaseDoc.get().then((snapshot) {
+      if (!snapshot.exists) {
+        _firebaseDoc.set({
+          'game': false,
+          'gameVersion': _gameVersion.text,
+          "room": _roomId.text,
+          'timestamp': FieldValue.serverTimestamp()
+        });
+      }
+    });
     _streamSubscription = FirebaseFirestore.instance
         .collection('_config')
         .doc('funroom')

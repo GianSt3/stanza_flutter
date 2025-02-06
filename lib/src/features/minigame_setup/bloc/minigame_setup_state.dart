@@ -26,7 +26,7 @@ class MinigameSetupStateStatus with _$MinigameSetupStateStatus {
 @freezed
 class MinigameSetupStateData with _$MinigameSetupStateData {
   const factory MinigameSetupStateData({
-    Poll? poll,
-    Perform? perform,
+    PollFirebase? poll,
+    PerformFirebase? perform,
   }) = _MinigameSetupStateData;
 }
