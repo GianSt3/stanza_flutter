@@ -1,3 +1,5 @@
+import 'package:uuid/uuid.dart';
+
 import 'poll.dart';
 
 class PollFirebase {
@@ -13,7 +15,7 @@ class PollFirebase {
     return PollFirebase(
       question: poll.question,
       answers: poll.answers
-          .map((answer) => Answer(text: answer, votes: []))
+          .map((answer) => Answer(text: answer, id: const Uuid().v4()))
           .toList(),
     );
   }
@@ -37,50 +39,24 @@ class PollFirebase {
 
 class Answer {
   final String text;
-  final List<Vote> votes;
+  final String id;
 
   Answer({
     required this.text,
-    required this.votes,
+    required this.id,
   });
 
   factory Answer.fromJson(Map<String, dynamic> json) {
     return Answer(
       text: json['text'] as String,
-      votes: (json['votes'] as List<dynamic>)
-          .map((e) => Vote.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      id: json['id'] as String,
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
       'text': text,
-      'votes': votes.map((e) => e.toJson()).toList(),
-    };
-  }
-}
-
-class Vote {
-  final String nickname;
-  final String deviceId;
-
-  Vote({
-    required this.nickname,
-    required this.deviceId,
-  });
-
-  factory Vote.fromJson(Map<String, dynamic> json) {
-    return Vote(
-      nickname: json['nickname'] as String,
-      deviceId: json['deviceId'] as String,
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'nickname': nickname,
-      'deviceId': deviceId,
+      'id': id,
     };
   }
 }

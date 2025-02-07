@@ -6,12 +6,14 @@ import '../../lobby/presenter/model/participants_mode.dart';
 import '../../lobby/presenter/view/chat_participants.dart';
 import '../../lobby/presenter/view/game_participants.dart';
 import '../../lobby/presenter/view/lobby_participants.dart';
+import '../../minigame_setup/bloc/minigame_setup_cubit.dart';
 import '../../minigame_setup/presenter/minigame_starter_page.dart';
 import '../bloc/firebase_listeners/game_players_collection_listener.dart';
 import '../bloc/firebase_listeners/lobby_players_collection_listener.dart';
 import '../bloc/firestore_chat_cubit.dart';
 import 'firestore_game_page.dart';
 import 'widget/lobby_firestore_header.dart';
+import 'widget/poll_minigame_content.dart';
 
 class LobbyFirestorePage extends StatelessWidget {
   const LobbyFirestorePage({super.key, this.showChat = true});
@@ -84,6 +86,22 @@ class LobbyFirestorePage extends StatelessWidget {
                   // Container where minigames will be displayed
                   child: Container(
                     color: Colors.green,
+                    child: Center(child:
+                        BlocBuilder<MinigameSetupCubit, MinigameSetupState>(
+                      builder: (context, state) {
+                        return state.status.maybeMap(
+                          poll: (_) {
+                            return const PollMinigameContent();
+                          },
+                          perform: (_) {
+                            return Text('Perform');
+                          },
+                          orElse: () {
+                            return Text('Minigames');
+                          },
+                        );
+                      },
+                    )),
                   ),
                 ),
                 const FirestoreGamePage(),

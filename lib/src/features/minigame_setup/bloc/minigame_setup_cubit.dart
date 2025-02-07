@@ -26,7 +26,7 @@ class MinigameSetupCubit extends Cubit<MinigameSetupState> {
   }
 
   late DocumentReference<PollFirebase?> _firebaseDocPoll;
-  late StreamSubscription<DocumentSnapshot> _pollSubscription;
+  late StreamSubscription<QuerySnapshot> _votesSubscription;
 
   late DocumentReference<PerformFirebase?> _firebaseDocPerform;
 
@@ -41,6 +41,19 @@ class MinigameSetupCubit extends Cubit<MinigameSetupState> {
           toFirestore: (poll, _) => poll?.toJson() ?? {},
         );
 
+    _votesSubscription = FirebaseFirestore.instance
+        .collection('_minigame_poll_votes')
+        .snapshots()
+        .listen((snapshot) {
+      if (snapshot.docs.isNotEmpty) {
+        // Handle the votes data here
+        // For example, you can update the state with the new votes
+        final votes = snapshot.docs.map((doc) => doc.data()).toList();
+        // Update the state with the new votes
+        // emit(state.copyWith(votes: votes));
+      }
+    });
+
     _firebaseDocPerform = FirebaseFirestore.instance
         .collection('_minigame')
         .doc('perform')
@@ -50,19 +63,10 @@ class MinigameSetupCubit extends Cubit<MinigameSetupState> {
               : null,
           toFirestore: (perform, _) => perform?.toJson() ?? {},
         );
-
-    _pollSubscription = _firebaseDocPoll.snapshots().listen((snapshot) {
-      if (snapshot.exists && snapshot.data() != null) {
-        final pollFirebase = snapshot.data();
-        emit(state.copyWith(
-          status: const MinigameSetupStateStatus.poll(),
-          data: state.data.copyWith(poll: pollFirebase),
-        ));
-      }
-    });
   }
 
   void setPoll(Poll poll) async {
+    reset();
     final pollFirebase = PollFirebase.fromPoll(poll);
     emit(state.copyWith(
       status: const MinigameSetupStateStatus.poll(),
@@ -98,7 +102,7 @@ class MinigameSetupCubit extends Cubit<MinigameSetupState> {
 
   @override
   Future<void> close() async {
-    await _pollSubscription.cancel();
+    await _votesSubscription.cancel();
     reset();
     super.close();
   }
