@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../perform/presenter/perform_setup_page.dart';
 import '../poll/presenter/poll_setup_page.dart';
 
+/// Page to setup a minigame, saving on pc
 class MinigameSetupPage extends StatelessWidget {
   const MinigameSetupPage({super.key});
 

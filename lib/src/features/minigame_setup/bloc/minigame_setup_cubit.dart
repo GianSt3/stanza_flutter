@@ -27,6 +27,7 @@ class MinigameSetupCubit extends Cubit<MinigameSetupState> {
 
   late DocumentReference<PollFirebase?> _firebaseDocPoll;
   late StreamSubscription<DocumentSnapshot> _pollSubscription;
+
   late DocumentReference<PerformFirebase?> _firebaseDocPerform;
 
   void _init() {
@@ -39,6 +40,7 @@ class MinigameSetupCubit extends Cubit<MinigameSetupState> {
               : null,
           toFirestore: (poll, _) => poll?.toJson() ?? {},
         );
+
     _firebaseDocPerform = FirebaseFirestore.instance
         .collection('_minigame')
         .doc('perform')
@@ -60,16 +62,20 @@ class MinigameSetupCubit extends Cubit<MinigameSetupState> {
     });
   }
 
-  void setPoll(Poll poll) {
+  void setPoll(Poll poll) async {
     final pollFirebase = PollFirebase.fromPoll(poll);
     emit(state.copyWith(
       status: const MinigameSetupStateStatus.poll(),
       data: state.data.copyWith(poll: pollFirebase),
     ));
-    _firebaseDocPoll.set(pollFirebase);
+    await _firebaseDocPoll.set(pollFirebase);
   }
 
   void setPerform(Perform perform, List<String> userList) {
+    if (userList.isEmpty) {
+      logger.e('No users in lobby');
+      return;
+    }
     String selectedUser = userList[Random().nextInt(userList.length)];
     final performFirebase =
         PerformFirebase.fromPerform(perform, selectedUser, 'deviceId');
@@ -86,6 +92,8 @@ class MinigameSetupCubit extends Cubit<MinigameSetupState> {
       status: const MinigameSetupStateStatus.reset(),
       data: const MinigameSetupStateData(poll: null, perform: null),
     ));
+    _firebaseDocPerform.delete();
+    _firebaseDocPoll.delete();
   }
 
   @override

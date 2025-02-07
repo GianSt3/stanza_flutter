@@ -870,9 +870,6 @@ abstract class $MinigameSetupStateDataCopyWith<$Res> {
       _$MinigameSetupStateDataCopyWithImpl<$Res, MinigameSetupStateData>;
   @useResult
   $Res call({PollFirebase? poll, PerformFirebase? perform});
-
-  $PollFirebaseCopyWith<$Res>? get poll;
-  $PerformFirebaseCopyWith<$Res>? get perform;
 }
 
 /// @nodoc
@@ -903,30 +900,6 @@ class _$MinigameSetupStateDataCopyWithImpl<$Res,
               as PerformFirebase?,
     ) as $Val);
   }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $PollFirebaseCopyWith<$Res>? get poll {
-    if (_value.poll == null) {
-      return null;
-    }
-
-    return $PollFirebaseCopyWith<$Res>(_value.poll!, (value) {
-      return _then(_value.copyWith(poll: value) as $Val);
-    });
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $PerformFirebaseCopyWith<$Res>? get perform {
-    if (_value.perform == null) {
-      return null;
-    }
-
-    return $PerformFirebaseCopyWith<$Res>(_value.perform!, (value) {
-      return _then(_value.copyWith(perform: value) as $Val);
-    });
-  }
 }
 
 /// @nodoc
@@ -939,11 +912,6 @@ abstract class _$$MinigameSetupStateDataImplCopyWith<$Res>
   @override
   @useResult
   $Res call({PollFirebase? poll, PerformFirebase? perform});
-
-  @override
-  $PollFirebaseCopyWith<$Res>? get poll;
-  @override
-  $PerformFirebaseCopyWith<$Res>? get perform;
 }
 
 /// @nodoc

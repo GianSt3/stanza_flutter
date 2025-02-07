@@ -1,18 +1,13 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
-
 import 'poll.dart';
 
-part 'poll_firebase.freezed.dart';
-part 'poll_firebase.g.dart';
+class PollFirebase {
+  final String question;
+  final List<Answer> answers;
 
-@freezed
-class PollFirebase with _$PollFirebase {
-  const PollFirebase._();
-
-  const factory PollFirebase({
-    required String question,
-    required List<Answer> answers,
-  }) = _PollFirebase;
+  PollFirebase({
+    required this.question,
+    required this.answers,
+  });
 
   factory PollFirebase.fromPoll(Poll poll) {
     return PollFirebase(
@@ -23,30 +18,69 @@ class PollFirebase with _$PollFirebase {
     );
   }
 
-  factory PollFirebase.fromJson(Map<String, Object?> json) =>
-      _$PollFirebaseFromJson(json);
+  factory PollFirebase.fromJson(Map<String, dynamic> json) {
+    return PollFirebase(
+      question: json['question'] as String,
+      answers: (json['answers'] as List<dynamic>)
+          .map((e) => Answer.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'question': question,
+      'answers': answers.map((e) => e.toJson()).toList(),
+    };
+  }
 }
 
-@freezed
-class Answer with _$Answer {
-  const Answer._();
+class Answer {
+  final String text;
+  final List<Vote> votes;
 
-  const factory Answer({
-    required String text,
-    required List<Vote> votes,
-  }) = _Answer;
+  Answer({
+    required this.text,
+    required this.votes,
+  });
 
-  factory Answer.fromJson(Map<String, Object?> json) => _$AnswerFromJson(json);
+  factory Answer.fromJson(Map<String, dynamic> json) {
+    return Answer(
+      text: json['text'] as String,
+      votes: (json['votes'] as List<dynamic>)
+          .map((e) => Vote.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'text': text,
+      'votes': votes.map((e) => e.toJson()).toList(),
+    };
+  }
 }
 
-@freezed
-class Vote with _$Vote {
-  const Vote._();
+class Vote {
+  final String nickname;
+  final String deviceId;
 
-  const factory Vote({
-    required String nickname,
-    required String deviceId,
-  }) = _Vote;
+  Vote({
+    required this.nickname,
+    required this.deviceId,
+  });
 
-  factory Vote.fromJson(Map<String, Object?> json) => _$VoteFromJson(json);
+  factory Vote.fromJson(Map<String, dynamic> json) {
+    return Vote(
+      nickname: json['nickname'] as String,
+      deviceId: json['deviceId'] as String,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'nickname': nickname,
+      'deviceId': deviceId,
+    };
+  }
 }

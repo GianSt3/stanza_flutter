@@ -6,8 +6,14 @@ import '../bloc/minigame_setup_cubit.dart';
 import '../perform/bloc/perform_list_cubit.dart';
 import '../poll/bloc/list/poll_list_cubit.dart';
 
+/// Page to start a minigame
 class MinigameStarterPage extends StatelessWidget {
-  const MinigameStarterPage({super.key});
+  MinigameStarterPage({super.key});
+
+  final ExpansionTileController _expansionPollTileController =
+      ExpansionTileController();
+  final ExpansionTileController _expansionPerformTileController =
+      ExpansionTileController();
 
   @override
   Widget build(BuildContext context) {
@@ -15,9 +21,16 @@ class MinigameStarterPage extends StatelessWidget {
         width: MediaQuery.of(context).size.width / 6,
         child: Column(
           children: [
+            TextButton(
+              onPressed: () {
+                context.read<MinigameSetupCubit>().reset();
+              },
+              child: const Text('Reset'),
+            ),
             BlocBuilder<PollListCubit, PollListState>(
               builder: (context, state) {
                 return ExpansionTile(
+                    controller: _expansionPollTileController,
                     title: const Text('Poll'),
                     children: state.sortedPolls
                         .map((poll) => ListTile(
@@ -26,6 +39,7 @@ class MinigameStarterPage extends StatelessWidget {
                                 context
                                     .read<MinigameSetupCubit>()
                                     .setPoll(poll);
+                                _expansionPollTileController.collapse();
                               },
                             ))
                         .toList());
@@ -34,20 +48,26 @@ class MinigameStarterPage extends StatelessWidget {
             BlocBuilder<PerformListCubit, PerformListState>(
               builder: (context, state) => state.maybeMap(
                 loaded: (loaded) => ExpansionTile(
+                  controller: _expansionPerformTileController,
                   title: const Text('Perform'),
                   children: loaded.sortedPerforms
                       .map((perform) => ListTile(
                             title: Text(perform.title),
                             onTap: () {
+                              final users = context
+                                  .read<LobbyCubit>()
+                                  .state
+                                  .lobby
+                                  .map((user) => user.name)
+                                  .toList();
+                              if (users.isEmpty) {
+                                return;
+                              }
                               context.read<MinigameSetupCubit>().setPerform(
                                     perform,
-                                    context
-                                        .read<LobbyCubit>()
-                                        .state
-                                        .lobby
-                                        .map((user) => user.name)
-                                        .toList(),
+                                    users,
                                   );
+                              _expansionPerformTileController.collapse();
                             },
                           ))
                       .toList(),

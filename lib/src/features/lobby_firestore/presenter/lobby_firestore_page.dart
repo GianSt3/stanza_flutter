@@ -42,7 +42,7 @@ class LobbyFirestorePage extends StatelessWidget {
                   width: MediaQuery.of(context).size.width / 6,
                   child: Column(
                     children: [
-                      const MinigameStarterPage(),
+                      MinigameStarterPage(),
                       showChat
                           ? const Flexible(
                               child: Column(
