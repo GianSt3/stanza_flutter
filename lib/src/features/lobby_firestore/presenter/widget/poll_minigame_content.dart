@@ -1,6 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../core/constants/firebase_constants.dart';
+import '../../../minigame_setup/bloc/minigame_setup_cubit.dart';
 import '../../../minigame_setup/poll/model/poll_firebase.dart';
 
 class PollMinigameContent extends StatefulWidget {
@@ -11,49 +14,57 @@ class PollMinigameContent extends StatefulWidget {
 }
 
 class _PollMinigameContentState extends State<PollMinigameContent> {
-  late DocumentReference<PollFirebase?> _firebaseDocPoll;
+  late CollectionReference _firebaseCollectionVotes;
 
   @override
   void initState() {
     super.initState();
-    _firebaseDocPoll = FirebaseFirestore.instance
-        .collection('_minigame')
-        .doc('poll')
-        .withConverter<PollFirebase?>(
-          fromFirestore: (snapshot, _) => snapshot.data() != null
-              ? PollFirebase.fromJson(snapshot.data()!)
-              : null,
-          toFirestore: (poll, _) => poll?.toJson() ?? {},
-        );
+    _firebaseCollectionVotes = FirebaseFirestore.instance
+        .collection(FirebaseConstants.collection.pollVotes);
   }
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<DocumentSnapshot<PollFirebase?>>(
-      stream: _firebaseDocPoll.snapshots(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const CircularProgressIndicator();
-        }
-        if (!snapshot.hasData ||
-            snapshot.data == null ||
-            !snapshot.data!.exists) {
-          return const Text('No data available');
-        }
+    return BlocBuilder<MinigameSetupCubit, MinigameSetupState>(
+      builder: (context, state) {
+        return state.status.maybeWhen(
+          poll: () {
+            if (state.data.poll == null) {
+              return const Text('No poll data available');
+            }
+            return StreamBuilder<QuerySnapshot>(
+              stream: _firebaseCollectionVotes.snapshots(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const CircularProgressIndicator();
+                }
+                if (!snapshot.hasData || snapshot.data == null) {
+                  return const Text('No data available');
+                }
 
-        final pollData = snapshot.data!.data();
-        if (pollData == null) {
-          return const Text('No data available');
-        }
+                final List<Answer> votes = snapshot.data!.docs.map((doc) {
+                  final data = doc.data() as Map<String, dynamic>;
+                  return Answer.fromJson(
+                      data['answer'] as Map<String, dynamic>);
+                }).toList();
 
-        return ListView.builder(
-          itemCount: pollData.answers.length,
-          itemBuilder: (context, index) {
-            final answer = pollData.answers[index];
-            return ListTile(
-              title: Text(answer.text),
-              subtitle: Text('Votes: '),
+                return ListView.builder(
+                  itemCount: state.data.poll?.answers.length ?? 0,
+                  itemBuilder: (context, index) {
+                    final answer = state.data.poll!.answers[index];
+                    var listTile = ListTile(
+                      title: Text(answer.text),
+                      subtitle: Text(
+                          'Votes: ${votes.where((vote) => vote.id == answer.id).length}'),
+                    );
+                    return listTile;
+                  },
+                );
+              },
             );
+          },
+          orElse: () {
+            return const Text('Waiting for poll data...');
           },
         );
       },

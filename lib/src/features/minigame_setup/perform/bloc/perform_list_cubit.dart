@@ -7,6 +7,7 @@ part 'perform_list_cubit.freezed.dart';
 part 'perform_list_cubit.g.dart';
 part 'perform_list_state.dart';
 
+/// Store the list of performs
 class PerformListCubit extends HydratedCubit<PerformListState> {
   PerformListCubit() : super(const PerformListState.initial([]));
 

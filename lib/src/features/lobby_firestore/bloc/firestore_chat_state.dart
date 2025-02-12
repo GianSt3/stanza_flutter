@@ -47,6 +47,10 @@ class FirebaseAuthor extends Equatable {
   const FirebaseAuthor(
       {required this.name, required this.lastActivityTimestamp});
 
+  int get secondsSinceLastActivity => DateTime.now()
+      .difference(DateTime.fromMillisecondsSinceEpoch(lastActivityTimestamp))
+      .inSeconds;
+
   @override
   List<Object?> get props => [name, lastActivityTimestamp];
 }

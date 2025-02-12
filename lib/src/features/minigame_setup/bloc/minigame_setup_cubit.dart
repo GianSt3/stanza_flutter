@@ -5,6 +5,7 @@ import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../../../../core/constants/firebase_constants.dart';
 import '../../../../core/utils/logger.dart';
 import '../perform/model/perform.dart';
 import '../perform/model/perform_firebase.dart';
@@ -41,22 +42,26 @@ class MinigameSetupCubit extends Cubit<MinigameSetupState> {
           toFirestore: (poll, _) => poll?.toJson() ?? {},
         );
 
-    _votesSubscription = FirebaseFirestore.instance
-        .collection('_minigame_poll_votes')
-        .snapshots()
-        .listen((snapshot) {
-      if (snapshot.docs.isNotEmpty) {
-        // Handle the votes data here
-        // For example, you can update the state with the new votes
-        final votes = snapshot.docs.map((doc) => doc.data()).toList();
-        // Update the state with the new votes
-        // emit(state.copyWith(votes: votes));
-      }
-    });
+    // _votesSubscription = FirebaseFirestore.instance
+    //     .collection(FirebaseConstants.collection.pollVotes)
+    //     .snapshots()
+    //     .listen((snapshot) {
+    //   if (snapshot.docs.isNotEmpty) {
+    //     // Handle the votes data here
+    //     // For example, you can update the state with the new votes
+    //     final List<Answer> votes = snapshot.docs.map((doc) {
+    //       final data = doc.data();
+    //       return Answer.fromJson(data['answer'] as Map<String, dynamic>);
+    //     }).toList();
+    //
+    //     // Update the state with the new votes
+    //     // emit(state.copyWith(votes: votes));
+    //   }
+    // });
 
     _firebaseDocPerform = FirebaseFirestore.instance
-        .collection('_minigame')
-        .doc('perform')
+        .collection(FirebaseConstants.collection.minigame)
+        .doc(FirebaseConstants.doc.perform)
         .withConverter<PerformFirebase?>(
           fromFirestore: (snapshot, _) => snapshot.data() != null
               ? PerformFirebase.fromJson(snapshot.data()!)
@@ -81,6 +86,7 @@ class MinigameSetupCubit extends Cubit<MinigameSetupState> {
       return;
     }
     String selectedUser = userList[Random().nextInt(userList.length)];
+    logger.d('Selected user: $selectedUser');
     final performFirebase =
         PerformFirebase.fromPerform(perform, selectedUser, 'deviceId');
     emit(state.copyWith(
@@ -90,7 +96,7 @@ class MinigameSetupCubit extends Cubit<MinigameSetupState> {
     _firebaseDocPerform.set(performFirebase);
   }
 
-  void reset() {
+  void reset() async {
     logger.d('reset');
     emit(state.copyWith(
       status: const MinigameSetupStateStatus.reset(),
@@ -98,11 +104,19 @@ class MinigameSetupCubit extends Cubit<MinigameSetupState> {
     ));
     _firebaseDocPerform.delete();
     _firebaseDocPoll.delete();
+
+    // Delete all documents in the pollVotes collection
+    final pollVotesCollection = FirebaseFirestore.instance
+        .collection(FirebaseConstants.collection.pollVotes);
+    final snapshot = await pollVotesCollection.get();
+    for (final doc in snapshot.docs) {
+      await doc.reference.delete();
+    }
   }
 
   @override
   Future<void> close() async {
-    await _votesSubscription.cancel();
+    // await _votesSubscription.cancel();
     reset();
     super.close();
   }

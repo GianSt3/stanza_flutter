@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../lobby/bloc/lobby_cubit.dart';
+import '../../lobby_firestore/bloc/firestore_chat_cubit.dart';
+import '../../lobby_firestore/usecases/non_players_use_case.dart';
 import '../bloc/minigame_setup_cubit.dart';
 import '../perform/bloc/perform_list_cubit.dart';
 import '../poll/bloc/list/poll_list_cubit.dart';
@@ -54,19 +56,20 @@ class MinigameStarterPage extends StatelessWidget {
                       .map((perform) => ListTile(
                             title: Text(perform.title),
                             onTap: () {
-                              final users = context
-                                  .read<LobbyCubit>()
-                                  .state
-                                  .lobby
-                                  .map((user) => user.name)
-                                  .toList();
-                              if (users.isEmpty) {
+                              final nonPlayers = NonPlayersUseCase(
+                                firestoreChatCubit:
+                                    context.read<FirestoreChatCubit>(),
+                                lobbyCubit: context.read<LobbyCubit>(),
+                              )();
+
+                              if (nonPlayers.isEmpty) {
                                 return;
+                              } else {
+                                context.read<MinigameSetupCubit>().setPerform(
+                                      perform,
+                                      nonPlayers,
+                                    );
                               }
-                              context.read<MinigameSetupCubit>().setPerform(
-                                    perform,
-                                    users,
-                                  );
                               _expansionPerformTileController.collapse();
                             },
                           ))

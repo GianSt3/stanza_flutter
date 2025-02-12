@@ -1,9 +1,10 @@
 import 'package:either_dart/either.dart';
 import 'package:eleven_labs/eleven_labs.dart';
+
 import '../../../core/use_case/use_case.dart';
 
 abstract class ISubscriptionInfoUseCase
-    extends VoidFutureUseCase<Either<Exception, SubscriptionInfo>, void> {}
+    extends VoidFutureUseCase<Either<Exception, SubscriptionInfo>> {}
 
 class SubscriptionInfoUseCase extends ISubscriptionInfoUseCase {
   final ElevenLabsInterface _elevenLabsInterface;
