@@ -13,6 +13,7 @@ import '../bloc/firebase_listeners/lobby_players_collection_listener.dart';
 import '../bloc/firestore_chat_cubit.dart';
 import 'firestore_game_page.dart';
 import 'widget/lobby_firestore_header.dart';
+import 'widget/perform_minigame_content.dart';
 import 'widget/poll_minigame_content.dart';
 
 class LobbyFirestorePage extends StatelessWidget {
@@ -94,7 +95,7 @@ class LobbyFirestorePage extends StatelessWidget {
                             return const PollMinigameContent();
                           },
                           perform: (_) {
-                            return Text('Perform');
+                            return const PerformMinigameContent();
                           },
                           orElse: () {
                             return Text('Minigames');

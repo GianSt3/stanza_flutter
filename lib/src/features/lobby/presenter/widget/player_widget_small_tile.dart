@@ -23,9 +23,8 @@ class _PlayerWidgetSmallTileState extends State<PlayerWidgetSmallTile> {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      // subtitle: widget.user.type.isNotEmpty ? Text(widget.user.type) : null,
-      title: Column(
+    return Column(children: [
+      Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           _changingPlayer
@@ -74,71 +73,71 @@ class _PlayerWidgetSmallTileState extends State<PlayerWidgetSmallTile> {
                   widget.user.name,
                   overflow: TextOverflow.ellipsis,
                 ),
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              /// REMOVE PLAYER
+              if (!_changingPlayer)
+                IconButton(
+                  onPressed: () {
+                    context.read<GameCubit>().removePlayer(widget.user.name);
+                    context.read<LobbyCubit>().demote(widget.user);
+                  },
+                  icon: Icon(
+                    FontAwesomeIcons.trash,
+                    size: 12,
+                    color: Colors.red.shade700,
+                  ),
+                ),
 
-          /// CUSTOM VOICE
-          BlocSelector<GameCubit, GameState, CustomVoice?>(
-            selector: (state) => state.players
-                .where((element) => element.name == widget.user.name)
-                .firstOrNull
-                ?.voice,
-            builder: (context, playerVoice) {
-              return BlocBuilder<CustomVoiceCubit, CustomVoiceState>(
-                builder: (context, state) {
-                  return DropdownMenu(
-                      label: const Text('Voice'),
-                      enabled: !_changingPlayer,
-                      initialSelection: playerVoice,
-                      onSelected: (voice) {
-                        if (voice != null) {
-                          context.read<GameCubit>().player(
-                                Player(
-                                  name: widget.user.name,
-                                  image: widget.user.avatarUrl,
-                                  voice: voice,
-                                ),
-                              );
-                        }
-                      },
-                      dropdownMenuEntries: state.voices
-                          .map((e) => DropdownMenuEntry<CustomVoice>(
-                              value: e, label: e.name!))
-                          .toList());
-                },
-              );
+              /// CHANGE PLAYER
+              if (!_changingPlayer)
+                IconButton(
+                    onPressed: () => setState(() {
+                          _changingPlayer = true;
+                        }),
+                    icon: Icon(
+                      FontAwesomeIcons.rightLeft,
+                      size: 12,
+                      color: Colors.orange.shade400,
+                    ))
+            ],
+          )
+        ],
+      ),
+
+      /// CUSTOM VOICE
+      BlocSelector<GameCubit, GameState, CustomVoice?>(
+        selector: (state) => state.players
+            .where((element) => element.name == widget.user.name)
+            .firstOrNull
+            ?.voice,
+        builder: (context, playerVoice) {
+          return BlocBuilder<CustomVoiceCubit, CustomVoiceState>(
+            builder: (context, state) {
+              return DropdownMenu(
+                  label: const Text('Voice'),
+                  enabled: !_changingPlayer,
+                  initialSelection: playerVoice,
+                  onSelected: (voice) {
+                    if (voice != null) {
+                      context.read<GameCubit>().player(
+                            Player(
+                              name: widget.user.name,
+                              image: widget.user.avatarUrl,
+                              voice: voice,
+                            ),
+                          );
+                    }
+                  },
+                  dropdownMenuEntries: state.voices
+                      .map((e) => DropdownMenuEntry<CustomVoice>(
+                          value: e, label: e.name!))
+                      .toList());
             },
-          ),
-        ],
+          );
+        },
       ),
-      trailing: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          /// REMOVE PLAYER
-          if (!_changingPlayer)
-            IconButton(
-              onPressed: () {
-                context.read<GameCubit>().removePlayer(widget.user.name);
-                context.read<LobbyCubit>().demote(widget.user);
-              },
-              icon: Icon(
-                FontAwesomeIcons.trash,
-                size: 20,
-                color: Colors.red.shade700,
-              ),
-            ),
-
-          /// CHANGE PLAYER
-          if (!_changingPlayer)
-            IconButton(
-                onPressed: () => setState(() {
-                      _changingPlayer = true;
-                    }),
-                icon: Icon(
-                  FontAwesomeIcons.rightLeft,
-                  size: 20,
-                  color: Colors.orange.shade400,
-                ))
-        ],
-      ),
-    );
+    ]);
   }
 }
