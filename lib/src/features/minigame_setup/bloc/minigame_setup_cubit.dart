@@ -72,7 +72,8 @@ class MinigameSetupCubit extends Cubit<MinigameSetupState> {
 
   void setPoll(Poll poll) async {
     reset();
-    final pollFirebase = PollFirebase.fromPoll(poll);
+    final pollFirebase = PollFirebase.fromPoll(poll,
+        Timestamp.fromDate(DateTime.now().add(const Duration(seconds: 60))));
     emit(state.copyWith(
       status: const MinigameSetupStateStatus.poll(),
       data: state.data.copyWith(poll: pollFirebase),
