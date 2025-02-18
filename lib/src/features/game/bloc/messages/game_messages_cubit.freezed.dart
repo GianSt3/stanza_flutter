@@ -21,6 +21,7 @@ mixin _$GameMessagesState {
   List<AudioMessage> get messages => throw _privateConstructorUsedError;
   List<AudioMessage> get lastPlayerMessages =>
       throw _privateConstructorUsedError;
+  List<AudioMessage> get popMessages => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $GameMessagesStateCopyWith<GameMessagesState> get copyWith =>
@@ -37,7 +38,8 @@ abstract class $GameMessagesStateCopyWith<$Res> {
       {GameMessagesStatus status,
       GameMessagesLoadStatus apiStatus,
       List<AudioMessage> messages,
-      List<AudioMessage> lastPlayerMessages});
+      List<AudioMessage> lastPlayerMessages,
+      List<AudioMessage> popMessages});
 
   $GameMessagesStatusCopyWith<$Res> get status;
   $GameMessagesLoadStatusCopyWith<$Res> get apiStatus;
@@ -60,6 +62,7 @@ class _$GameMessagesStateCopyWithImpl<$Res, $Val extends GameMessagesState>
     Object? apiStatus = null,
     Object? messages = null,
     Object? lastPlayerMessages = null,
+    Object? popMessages = null,
   }) {
     return _then(_value.copyWith(
       status: null == status
@@ -77,6 +80,10 @@ class _$GameMessagesStateCopyWithImpl<$Res, $Val extends GameMessagesState>
       lastPlayerMessages: null == lastPlayerMessages
           ? _value.lastPlayerMessages
           : lastPlayerMessages // ignore: cast_nullable_to_non_nullable
+              as List<AudioMessage>,
+      popMessages: null == popMessages
+          ? _value.popMessages
+          : popMessages // ignore: cast_nullable_to_non_nullable
               as List<AudioMessage>,
     ) as $Val);
   }
@@ -110,7 +117,8 @@ abstract class _$$GameMessagesStateImplCopyWith<$Res>
       {GameMessagesStatus status,
       GameMessagesLoadStatus apiStatus,
       List<AudioMessage> messages,
-      List<AudioMessage> lastPlayerMessages});
+      List<AudioMessage> lastPlayerMessages,
+      List<AudioMessage> popMessages});
 
   @override
   $GameMessagesStatusCopyWith<$Res> get status;
@@ -133,6 +141,7 @@ class __$$GameMessagesStateImplCopyWithImpl<$Res>
     Object? apiStatus = null,
     Object? messages = null,
     Object? lastPlayerMessages = null,
+    Object? popMessages = null,
   }) {
     return _then(_$GameMessagesStateImpl(
       status: null == status
@@ -151,6 +160,10 @@ class __$$GameMessagesStateImplCopyWithImpl<$Res>
           ? _value._lastPlayerMessages
           : lastPlayerMessages // ignore: cast_nullable_to_non_nullable
               as List<AudioMessage>,
+      popMessages: null == popMessages
+          ? _value._popMessages
+          : popMessages // ignore: cast_nullable_to_non_nullable
+              as List<AudioMessage>,
     ));
   }
 }
@@ -162,9 +175,11 @@ class _$GameMessagesStateImpl extends _GameMessagesState {
       {required this.status,
       required this.apiStatus,
       final List<AudioMessage> messages = const <AudioMessage>[],
-      final List<AudioMessage> lastPlayerMessages = const <AudioMessage>[]})
+      final List<AudioMessage> lastPlayerMessages = const <AudioMessage>[],
+      final List<AudioMessage> popMessages = const <AudioMessage>[]})
       : _messages = messages,
         _lastPlayerMessages = lastPlayerMessages,
+        _popMessages = popMessages,
         super._();
 
   @override
@@ -190,9 +205,18 @@ class _$GameMessagesStateImpl extends _GameMessagesState {
     return EqualUnmodifiableListView(_lastPlayerMessages);
   }
 
+  final List<AudioMessage> _popMessages;
+  @override
+  @JsonKey()
+  List<AudioMessage> get popMessages {
+    if (_popMessages is EqualUnmodifiableListView) return _popMessages;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_popMessages);
+  }
+
   @override
   String toString() {
-    return 'GameMessagesState(status: $status, apiStatus: $apiStatus, messages: $messages, lastPlayerMessages: $lastPlayerMessages)';
+    return 'GameMessagesState(status: $status, apiStatus: $apiStatus, messages: $messages, lastPlayerMessages: $lastPlayerMessages, popMessages: $popMessages)';
   }
 
   @override
@@ -205,7 +229,9 @@ class _$GameMessagesStateImpl extends _GameMessagesState {
                 other.apiStatus == apiStatus) &&
             const DeepCollectionEquality().equals(other._messages, _messages) &&
             const DeepCollectionEquality()
-                .equals(other._lastPlayerMessages, _lastPlayerMessages));
+                .equals(other._lastPlayerMessages, _lastPlayerMessages) &&
+            const DeepCollectionEquality()
+                .equals(other._popMessages, _popMessages));
   }
 
   @override
@@ -214,7 +240,8 @@ class _$GameMessagesStateImpl extends _GameMessagesState {
       status,
       apiStatus,
       const DeepCollectionEquality().hash(_messages),
-      const DeepCollectionEquality().hash(_lastPlayerMessages));
+      const DeepCollectionEquality().hash(_lastPlayerMessages),
+      const DeepCollectionEquality().hash(_popMessages));
 
   @JsonKey(ignore: true)
   @override
@@ -229,7 +256,8 @@ abstract class _GameMessagesState extends GameMessagesState {
       {required final GameMessagesStatus status,
       required final GameMessagesLoadStatus apiStatus,
       final List<AudioMessage> messages,
-      final List<AudioMessage> lastPlayerMessages}) = _$GameMessagesStateImpl;
+      final List<AudioMessage> lastPlayerMessages,
+      final List<AudioMessage> popMessages}) = _$GameMessagesStateImpl;
   const _GameMessagesState._() : super._();
 
   @override
@@ -240,6 +268,8 @@ abstract class _GameMessagesState extends GameMessagesState {
   List<AudioMessage> get messages;
   @override
   List<AudioMessage> get lastPlayerMessages;
+  @override
+  List<AudioMessage> get popMessages;
   @override
   @JsonKey(ignore: true)
   _$$GameMessagesStateImplCopyWith<_$GameMessagesStateImpl> get copyWith =>

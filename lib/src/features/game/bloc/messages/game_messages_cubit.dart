@@ -4,6 +4,7 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+
 import '../../../../../app/app.dart';
 import '../../../../../core/utils/utils.dart';
 import '../../../../../domain/usecases/elevenlabs/synthesize_mock_use_case.dart';
@@ -86,6 +87,7 @@ class GameMessagesCubit extends Cubit<GameMessagesState> {
 
       emit(state.copyWith(
           status: GameMessagesStatus.pop(audioMessage),
+          popMessages: [...state.popMessages, audioMessage],
           messages: tempMessages,
           lastPlayerMessages: tempLastMessages));
 

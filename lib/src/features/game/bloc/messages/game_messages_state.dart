@@ -9,6 +9,7 @@ class GameMessagesState with _$GameMessagesState {
     required GameMessagesLoadStatus apiStatus,
     @Default(<AudioMessage>[]) List<AudioMessage> messages,
     @Default(<AudioMessage>[]) List<AudioMessage> lastPlayerMessages,
+    @Default(<AudioMessage>[]) List<AudioMessage> popMessages,
   }) = _GameMessagesState;
 
   bool get canPop => messages.isNotEmpty && messages.last.source != null;
