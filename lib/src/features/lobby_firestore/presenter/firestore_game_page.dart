@@ -18,6 +18,7 @@ class FirestoreGamePage extends StatelessWidget {
     return AspectRatio(
       aspectRatio: 413 / 1082,
       child: Container(
+        height: MediaQuery.sizeOf(context).height,
         decoration: const BoxDecoration(
           image: DecorationImage(
               image: AssetImage('./assets/images/players_box_vertical.png'),
@@ -32,7 +33,7 @@ class FirestoreGamePage extends StatelessWidget {
                 logger.d('Game not started');
 
                 /// EMPTY
-                return const SizedBox.shrink();
+                return Text('Game not started');
               }
 
               /// PLAYER MESSAGES
@@ -42,13 +43,22 @@ class FirestoreGamePage extends StatelessWidget {
                       3, (index) => state.players.elementAtOrNull(index));
 
                   return Column(
-                    children: array
-                        .map((player) => player != null
-                            ? _GamePlayerWidget(
-                                player: player,
-                              )
-                            : const SizedBox.shrink())
-                        .toList(),
+                    children: [
+                      const AspectRatio(
+                        aspectRatio: 250 / 105,
+                        child: SizedBox.shrink(),
+                      ),
+                      ...array
+                          .map((player) => player != null
+                              ? AspectRatio(
+                                  aspectRatio: 200 / 145,
+                                  child: _GamePlayerWidget(
+                                    player: player,
+                                  ),
+                                )
+                              : const SizedBox.shrink())
+                          .toList()
+                    ],
                   );
                 },
               );
@@ -82,17 +92,11 @@ class _GamePlayerWidget extends StatelessWidget {
       final (text, type) = value;
 
       return LayoutBuilder(
-        builder: (context, constraints) => Container(
-          padding: EdgeInsets.symmetric(
-            horizontal: constraints.maxWidth / 3 * 0.2,
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        key: ValueKey(player.name),
+        builder: (context, constraints) {
+          logger.d('constraints: $constraints');
+          return Column(
             children: [
-              SizedBox(
-                height: constraints.maxHeight * 0.1,
-              ),
               Expanded(
                 child: Container(
                   // decoration: BoxDecoration(
@@ -109,24 +113,28 @@ class _GamePlayerWidget extends StatelessWidget {
                         child: child,
                       );
                     },
-                    child: Text(
-                        key: ValueKey(text),
-                        text,
-                        maxLines: 10,
-                        textAlign: TextAlign.center,
-                        style: GoogleFonts.kanit(
-                            textStyle: TextStyle(
-                                fontSize: constraints.maxHeight * 0.08 -
-                                    (text.length /
-                                        20 *
-                                        constraints.maxHeight /
-                                        constraints.maxWidth),
-                                fontStyle: type == AudioType.me
-                                    ? FontStyle.italic
-                                    : null,
-                                color: type == AudioType.silence
-                                    ? Colors.grey.shade300
-                                    : Colors.white))),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: constraints.maxWidth / 30),
+                      child: Text(
+                          key: ValueKey(text),
+                          text,
+                          maxLines: 10,
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.kanit(
+                              textStyle: TextStyle(
+                                  fontSize: constraints.maxWidth * 0.07 -
+                                      (text.length /
+                                          20 *
+                                          constraints.maxHeight /
+                                          constraints.maxWidth),
+                                  fontStyle: type == AudioType.me
+                                      ? FontStyle.italic
+                                      : null,
+                                  color: type == AudioType.silence
+                                      ? Colors.grey.shade300
+                                      : Colors.white))),
+                    ),
                   ),
                 ),
               ),
@@ -140,12 +148,9 @@ class _GamePlayerWidget extends StatelessWidget {
                   width: constraints.maxWidth / 3 * 10,
                   height: constraints.maxHeight * 0.2,
                   child: PlayerHeader(player: player)),
-              SizedBox(
-                height: constraints.maxHeight * 0.04,
-              ),
             ],
-          ),
-        ),
+          );
+        },
       );
     });
   }
