@@ -98,7 +98,7 @@ class LobbyFirestorePage extends StatelessWidget {
                             return const PerformMinigameContent();
                           },
                           orElse: () {
-                            return Text('Minigames');
+                            return const SizedBox.shrink();
                           },
                         );
                       },
