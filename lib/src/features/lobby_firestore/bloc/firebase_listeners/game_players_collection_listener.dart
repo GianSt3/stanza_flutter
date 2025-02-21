@@ -5,6 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../core/utils/utils.dart';
 import '../../../lobby/bloc/lobby_cubit.dart';
 
+bool _isGameUsersReset = false;
+
 class GamePlayersCollectionListener extends StatefulWidget {
   const GamePlayersCollectionListener({super.key});
 
@@ -21,6 +23,12 @@ class _GamePlayersCollectionListenerState
   void initState() {
     super.initState();
     _firebaseDoc = FirebaseFirestore.instance.collection('_config').doc('game');
+
+    // Reset the player_users list on Firebase only once
+    if (!_isGameUsersReset) {
+      _firebaseDoc.set({'player_users': []});
+      _isGameUsersReset = true;
+    }
   }
 
   @override
@@ -34,7 +42,8 @@ class _GamePlayersCollectionListenerState
   Widget build(BuildContext context) {
     return BlocListener<LobbyCubit, LobbyState>(
       listenWhen: (old, current) {
-        return current.status == const LobbyStatus.promoted() ||
+        return current.status == const LobbyStatus.initial() ||
+            current.status == const LobbyStatus.promoted() ||
             current.status == const LobbyStatus.demoted();
       },
       listener: (context, state) {

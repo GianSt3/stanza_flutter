@@ -5,6 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../core/utils/utils.dart';
 import '../../../lobby/bloc/lobby_cubit.dart';
 
+bool _isLobbyUsersReset = false;
+
 class LobbyPlayersCollectionListener extends StatefulWidget {
   const LobbyPlayersCollectionListener({super.key});
 
@@ -22,6 +24,12 @@ class _LobbyPlayersCollectionListenerState
     super.initState();
     _firebaseDoc =
         FirebaseFirestore.instance.collection('_config').doc('lobby');
+
+    // Reset the lobby_users list on Firebase only once
+    if (!_isLobbyUsersReset) {
+      _firebaseDoc.set({'lobby_users': []});
+      _isLobbyUsersReset = true;
+    }
   }
 
   @override
