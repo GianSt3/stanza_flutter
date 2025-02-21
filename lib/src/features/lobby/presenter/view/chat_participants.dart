@@ -150,32 +150,37 @@ class _FirestoreParticipant extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      title: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(author.name),
-          ClockWidget(
-            millis: author.lastActivityTimestamp,
-          )
-        ],
-      ),
-      trailing: IconButton(
-        onPressed: () {
-          context.read<LobbyCubit>().add(
-                QueueingUser.create(
-                  name: author.name,
-                  avatarUrl: '',
-                ),
-              );
-        },
-        icon: Icon(
-          FontAwesomeIcons.squareArrowUpRight,
-          size: 20,
-          color: Colors.green.shade700,
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              author.name,
+              style: Theme.of(context).textTheme.labelSmall,
+            ),
+            ClockWidget(
+              millis: author.lastActivityTimestamp,
+            )
+          ],
         ),
-      ),
+        IconButton(
+          onPressed: () {
+            context.read<LobbyCubit>().add(
+                  QueueingUser.create(
+                    name: author.name,
+                    avatarUrl: '',
+                  ),
+                );
+          },
+          icon: Icon(
+            FontAwesomeIcons.squareArrowUpRight,
+            size: 16,
+            color: Colors.green.shade700,
+          ),
+        ),
+      ],
     );
   }
 }

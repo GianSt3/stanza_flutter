@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+
 import '../../../../app/gen/assets.gen.dart';
 import '../bloc/clock_cubit.dart';
 
@@ -70,7 +71,7 @@ class ClockWidget extends StatelessWidget {
           Text(
             formatDuration(snapshot),
             style: GoogleFonts.notoSans(
-              textStyle: Theme.of(context).textTheme.bodySmall?.copyWith(
+              textStyle: Theme.of(context).textTheme.labelSmall?.copyWith(
                     color: color,
                   ),
             ),
@@ -79,7 +80,7 @@ class ClockWidget extends StatelessWidget {
             width: 2,
           ),
           Assets.icons.watch.svg(
-            width: 14,
+            width: 12,
             theme: SvgTheme(
               currentColor: color,
             ),
