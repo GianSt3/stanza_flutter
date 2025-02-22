@@ -92,7 +92,16 @@ class LobbyFirestorePage extends StatelessWidget {
                       builder: (context, state) {
                         return state.status.maybeMap(
                           poll: (_) {
-                            return const PollMinigameContent();
+                            final maxVotes = context
+                                    .read<FirestoreChatCubit>()
+                                    .state
+                                    .chat
+                                    .authors
+                                    .length -
+                                3;
+                            return PollMinigameContent(
+                              maxVotes: maxVotes > 0 ? maxVotes : 1,
+                            );
                           },
                           perform: (_) {
                             return const PerformMinigameContent();
