@@ -6,20 +6,26 @@ class PerformFirebase {
   final String nickname;
   final String deviceId;
 
+  /// Nullable boolean to indicate acceptance
+  final bool? accept;
+
   PerformFirebase({
     required this.title,
     required this.content,
     required this.nickname,
     required this.deviceId,
+    this.accept,
   });
 
   factory PerformFirebase.fromPerform(
-      Perform perform, String nickname, String deviceId) {
+      Perform perform, String nickname, String deviceId,
+      {bool? accept}) {
     return PerformFirebase(
       title: perform.title,
       content: perform.content,
       nickname: nickname,
       deviceId: deviceId,
+      accept: accept,
     );
   }
 
@@ -29,6 +35,7 @@ class PerformFirebase {
       content: json['content'] as String,
       nickname: json['nickname'] as String,
       deviceId: json['deviceId'] as String,
+      accept: json['accept'] as bool?, // Parse the nullable boolean
     );
   }
 
@@ -38,6 +45,7 @@ class PerformFirebase {
       'content': content,
       'nickname': nickname,
       'deviceId': deviceId,
+      'accept': accept, // Include the nullable boolean in the JSON
     };
   }
 }

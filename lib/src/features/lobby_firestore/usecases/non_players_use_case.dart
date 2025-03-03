@@ -16,7 +16,7 @@ class NonPlayersUseCase extends VoidUseCase<List<String>> {
   List<String> call() {
     // Get the users that are currently active in the chat (5min)
     final chatUsers = firestoreChatCubit.state.chat.authors
-        .where((user) => user.secondsSinceLastActivity < 300)
+        // .where((user) => user.secondsSinceLastActivity < 300)
         .toList();
 
     // Get the players that are selected to play the game
