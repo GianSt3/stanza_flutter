@@ -30,24 +30,43 @@ class MinigameSetupStateData with _$MinigameSetupStateData {
     PerformFirebase? perform,
     PressedFirebase? press,
   }) = _MinigameSetupStateData;
+
+  factory MinigameSetupStateData.empty() =>
+      const MinigameSetupStateData(poll: null, perform: null, press: null);
 }
 
 class PressedFirebase {
   final bool pressed;
+  final Timestamp timestamp;
+  final Timestamp dueTime;
 
   PressedFirebase({
     required this.pressed,
+    required this.timestamp,
+    required this.dueTime,
   });
+
+  factory PressedFirebase.pressed(Timestamp dueTime) {
+    return PressedFirebase(
+      pressed: true,
+      timestamp: Timestamp.now(),
+      dueTime: dueTime,
+    );
+  }
 
   factory PressedFirebase.fromJson(Map<String, dynamic> json) {
     return PressedFirebase(
       pressed: json['pressed'] as bool,
+      timestamp: json['timestamp'] as Timestamp,
+      dueTime: json['dueTime'] as Timestamp,
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
       'pressed': pressed,
+      'timestamp': timestamp,
+      'dueTime': dueTime,
     };
   }
 }

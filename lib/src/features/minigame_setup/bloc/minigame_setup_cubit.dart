@@ -81,10 +81,10 @@ class MinigameSetupCubit extends Cubit<MinigameSetupState> {
     });
   }
 
-  void setPoll(Poll poll) async {
+  void setPoll(Poll poll, {int seconds = 60}) async {
     reset();
     final pollFirebase = PollFirebase.fromPoll(poll,
-        Timestamp.fromDate(DateTime.now().add(const Duration(seconds: 60))));
+        Timestamp.fromDate(DateTime.now().add(Duration(seconds: seconds))));
     emit(state.copyWith(
       status: const MinigameSetupStateStatus.poll(),
       data: state.data.copyWith(poll: pollFirebase),
@@ -139,17 +139,22 @@ class MinigameSetupCubit extends Cubit<MinigameSetupState> {
     _acceptanceTimerWait();
   }
 
-  void setPress() {
+  void setPress({int seconds = 10}) {
     emit(state.copyWith(status: const MinigameSetupStateStatus.press()));
-    _firebaseDocPress.set(PressedFirebase(pressed: true));
+    _firebaseDocPress.set(PressedFirebase.pressed(
+        Timestamp.fromDate(DateTime.now().add(Duration(seconds: seconds)))));
+    Future.delayed(Duration(seconds: seconds + 5), () {
+      _firebaseDocPress.delete();
+    });
   }
 
   void reset() async {
     logger.d('reset');
     emit(state.copyWith(
       status: const MinigameSetupStateStatus.reset(),
-      data: const MinigameSetupStateData(poll: null, perform: null),
+      data: MinigameSetupStateData.empty(),
     ));
+
     _firebaseDocPerform.delete();
     _firebaseDocPoll.delete();
     _firebaseDocPress.delete();
@@ -158,8 +163,16 @@ class MinigameSetupCubit extends Cubit<MinigameSetupState> {
     // Delete all documents in the pollVotes collection
     final pollVotesCollection = FirebaseFirestore.instance
         .collection(FirebaseConstants.collection.pollVotes);
-    final snapshot = await pollVotesCollection.get();
-    for (final doc in snapshot.docs) {
+    final pollVotesSnapshot = await pollVotesCollection.get();
+    for (final doc in pollVotesSnapshot.docs) {
+      await doc.reference.delete();
+    }
+
+    // Delete all documents in the pressed collection
+    final pressedCollection = FirebaseFirestore.instance
+        .collection(FirebaseConstants.collection.pressedTimesCollection);
+    final pressedSnapshot = await pressedCollection.get();
+    for (final doc in pressedSnapshot.docs) {
       await doc.reference.delete();
     }
   }

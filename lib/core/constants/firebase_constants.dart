@@ -7,6 +7,7 @@ class _Collection {
   final String minigame = '_minigame';
   final String poll = 'polls';
   final String pollVotes = '_minigame_poll_votes';
+  final String pressedTimesCollection = '_minigame_pressed_times';
 }
 
 class _Doc {

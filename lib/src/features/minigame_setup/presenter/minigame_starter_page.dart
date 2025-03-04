@@ -77,7 +77,13 @@ class MinigameStarterPage extends StatelessWidget {
                 ),
                 orElse: () => const SizedBox(),
               ),
-            )
+            ),
+            TextButton(
+              onPressed: () {
+                context.read<MinigameSetupCubit>().setPress();
+              },
+              child: const Text('Pressata'),
+            ),
           ],
         ));
   }

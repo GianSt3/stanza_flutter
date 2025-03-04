@@ -15,6 +15,7 @@ import 'firestore_game_page.dart';
 import 'widget/lobby_firestore_header.dart';
 import 'widget/perform_minigame_content.dart';
 import 'widget/poll_minigame_content.dart';
+import 'widget/pressed_minigame_content.dart';
 
 class LobbyFirestorePage extends StatelessWidget {
   const LobbyFirestorePage({super.key, this.showChat = true});
@@ -105,6 +106,9 @@ class LobbyFirestorePage extends StatelessWidget {
                           },
                           perform: (_) {
                             return const PerformMinigameContent();
+                          },
+                          press: (_) {
+                            return const PressedMinigameContent();
                           },
                           orElse: () {
                             return const SizedBox.shrink();
