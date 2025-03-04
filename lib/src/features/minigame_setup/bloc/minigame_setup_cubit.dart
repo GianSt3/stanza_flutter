@@ -29,6 +29,7 @@ class MinigameSetupCubit extends Cubit<MinigameSetupState> {
   late DocumentReference<PollFirebase?> _firebaseDocPoll;
 
   late DocumentReference<PerformFirebase?> _firebaseDocPerform;
+  late DocumentReference<PressedFirebase?> _firebaseDocPress;
   late StreamSubscription<DocumentSnapshot<PerformFirebase?>>
       _performSubscription;
 
@@ -55,6 +56,16 @@ class MinigameSetupCubit extends Cubit<MinigameSetupState> {
               ? PerformFirebase.fromJson(snapshot.data()!)
               : null,
           toFirestore: (perform, _) => perform?.toJson() ?? {},
+        );
+
+    _firebaseDocPress = FirebaseFirestore.instance
+        .collection(FirebaseConstants.collection.minigame)
+        .doc(FirebaseConstants.doc.pressed)
+        .withConverter<PressedFirebase?>(
+          fromFirestore: (snapshot, _) => snapshot.data() != null
+              ? PressedFirebase.fromJson(snapshot.data()!)
+              : null,
+          toFirestore: (press, _) => press?.toJson() ?? {},
         );
 
     _performSubscription = _firebaseDocPerform.snapshots().listen((snapshot) {
@@ -128,6 +139,11 @@ class MinigameSetupCubit extends Cubit<MinigameSetupState> {
     _acceptanceTimerWait();
   }
 
+  void setPress() {
+    emit(state.copyWith(status: const MinigameSetupStateStatus.press()));
+    _firebaseDocPress.set(PressedFirebase(pressed: true));
+  }
+
   void reset() async {
     logger.d('reset');
     emit(state.copyWith(
@@ -136,6 +152,7 @@ class MinigameSetupCubit extends Cubit<MinigameSetupState> {
     ));
     _firebaseDocPerform.delete();
     _firebaseDocPoll.delete();
+    _firebaseDocPress.delete();
     _performSubscription.cancel();
 
     // Delete all documents in the pollVotes collection

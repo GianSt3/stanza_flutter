@@ -857,6 +857,7 @@ abstract class _Reset implements MinigameSetupStateStatus {
 mixin _$MinigameSetupStateData {
   PollFirebase? get poll => throw _privateConstructorUsedError;
   PerformFirebase? get perform => throw _privateConstructorUsedError;
+  PressedFirebase? get press => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $MinigameSetupStateDataCopyWith<MinigameSetupStateData> get copyWith =>
@@ -869,7 +870,8 @@ abstract class $MinigameSetupStateDataCopyWith<$Res> {
           $Res Function(MinigameSetupStateData) then) =
       _$MinigameSetupStateDataCopyWithImpl<$Res, MinigameSetupStateData>;
   @useResult
-  $Res call({PollFirebase? poll, PerformFirebase? perform});
+  $Res call(
+      {PollFirebase? poll, PerformFirebase? perform, PressedFirebase? press});
 }
 
 /// @nodoc
@@ -888,6 +890,7 @@ class _$MinigameSetupStateDataCopyWithImpl<$Res,
   $Res call({
     Object? poll = freezed,
     Object? perform = freezed,
+    Object? press = freezed,
   }) {
     return _then(_value.copyWith(
       poll: freezed == poll
@@ -898,6 +901,10 @@ class _$MinigameSetupStateDataCopyWithImpl<$Res,
           ? _value.perform
           : perform // ignore: cast_nullable_to_non_nullable
               as PerformFirebase?,
+      press: freezed == press
+          ? _value.press
+          : press // ignore: cast_nullable_to_non_nullable
+              as PressedFirebase?,
     ) as $Val);
   }
 }
@@ -911,7 +918,8 @@ abstract class _$$MinigameSetupStateDataImplCopyWith<$Res>
       __$$MinigameSetupStateDataImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({PollFirebase? poll, PerformFirebase? perform});
+  $Res call(
+      {PollFirebase? poll, PerformFirebase? perform, PressedFirebase? press});
 }
 
 /// @nodoc
@@ -929,6 +937,7 @@ class __$$MinigameSetupStateDataImplCopyWithImpl<$Res>
   $Res call({
     Object? poll = freezed,
     Object? perform = freezed,
+    Object? press = freezed,
   }) {
     return _then(_$MinigameSetupStateDataImpl(
       poll: freezed == poll
@@ -939,6 +948,10 @@ class __$$MinigameSetupStateDataImplCopyWithImpl<$Res>
           ? _value.perform
           : perform // ignore: cast_nullable_to_non_nullable
               as PerformFirebase?,
+      press: freezed == press
+          ? _value.press
+          : press // ignore: cast_nullable_to_non_nullable
+              as PressedFirebase?,
     ));
   }
 }
@@ -946,16 +959,18 @@ class __$$MinigameSetupStateDataImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$MinigameSetupStateDataImpl implements _MinigameSetupStateData {
-  const _$MinigameSetupStateDataImpl({this.poll, this.perform});
+  const _$MinigameSetupStateDataImpl({this.poll, this.perform, this.press});
 
   @override
   final PollFirebase? poll;
   @override
   final PerformFirebase? perform;
+  @override
+  final PressedFirebase? press;
 
   @override
   String toString() {
-    return 'MinigameSetupStateData(poll: $poll, perform: $perform)';
+    return 'MinigameSetupStateData(poll: $poll, perform: $perform, press: $press)';
   }
 
   @override
@@ -964,11 +979,12 @@ class _$MinigameSetupStateDataImpl implements _MinigameSetupStateData {
         (other.runtimeType == runtimeType &&
             other is _$MinigameSetupStateDataImpl &&
             (identical(other.poll, poll) || other.poll == poll) &&
-            (identical(other.perform, perform) || other.perform == perform));
+            (identical(other.perform, perform) || other.perform == perform) &&
+            (identical(other.press, press) || other.press == press));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, poll, perform);
+  int get hashCode => Object.hash(runtimeType, poll, perform, press);
 
   @JsonKey(ignore: true)
   @override
@@ -981,12 +997,15 @@ class _$MinigameSetupStateDataImpl implements _MinigameSetupStateData {
 abstract class _MinigameSetupStateData implements MinigameSetupStateData {
   const factory _MinigameSetupStateData(
       {final PollFirebase? poll,
-      final PerformFirebase? perform}) = _$MinigameSetupStateDataImpl;
+      final PerformFirebase? perform,
+      final PressedFirebase? press}) = _$MinigameSetupStateDataImpl;
 
   @override
   PollFirebase? get poll;
   @override
   PerformFirebase? get perform;
+  @override
+  PressedFirebase? get press;
   @override
   @JsonKey(ignore: true)
   _$$MinigameSetupStateDataImplCopyWith<_$MinigameSetupStateDataImpl>

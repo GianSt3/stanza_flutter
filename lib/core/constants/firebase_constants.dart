@@ -12,4 +12,5 @@ class _Collection {
 class _Doc {
   final String poll = 'poll';
   final String perform = 'perform';
+  final String pressed = 'pressed';
 }

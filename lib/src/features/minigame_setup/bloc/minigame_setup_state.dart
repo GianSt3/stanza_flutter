@@ -28,5 +28,26 @@ class MinigameSetupStateData with _$MinigameSetupStateData {
   const factory MinigameSetupStateData({
     PollFirebase? poll,
     PerformFirebase? perform,
+    PressedFirebase? press,
   }) = _MinigameSetupStateData;
+}
+
+class PressedFirebase {
+  final bool pressed;
+
+  PressedFirebase({
+    required this.pressed,
+  });
+
+  factory PressedFirebase.fromJson(Map<String, dynamic> json) {
+    return PressedFirebase(
+      pressed: json['pressed'] as bool,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'pressed': pressed,
+    };
+  }
 }
