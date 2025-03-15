@@ -6,7 +6,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../../core/constants/firebase_constants.dart';
 import '../../../../core/utils/logger.dart';
-import '../../../../domain/usecases/firestore/perform_user_list_use_case.dart';
+import '../../../../domain/usecases/firestore/perform_user_list/perform_user_list_use_case.dart';
 import '../perform/model/perform.dart';
 import '../perform/model/perform_firebase.dart';
 import '../poll/model/poll.dart';
@@ -16,7 +16,9 @@ part 'minigame_setup_cubit.freezed.dart';
 part 'minigame_setup_state.dart';
 
 class MinigameSetupCubit extends Cubit<MinigameSetupState> {
-  MinigameSetupCubit()
+  PerformUserListUseCase performUserListUseCase;
+
+  MinigameSetupCubit(this.performUserListUseCase)
       : super(
           const MinigameSetupState(
             status: MinigameSetupStateStatus.idle(),
@@ -33,7 +35,8 @@ class MinigameSetupCubit extends Cubit<MinigameSetupState> {
   late StreamSubscription<DocumentSnapshot<PerformFirebase?>>
       _performSubscription;
 
-  PerformUserListUseCase performUserListUseCase = PerformUserListUseCase();
+  MockPerformUserListUseCase mockPerformUserListUseCase =
+      MockPerformUserListUseCase();
 
   Timer? _acceptTimer;
 
@@ -73,6 +76,7 @@ class MinigameSetupCubit extends Cubit<MinigameSetupState> {
       if (perform != null) {
         if (perform.accept == false) {
           logger.d('Perform not accepted');
+          _acceptTimer?.cancel();
           _selectAnotherUser();
         } else if (perform.accept == true) {
           _acceptTimer?.cancel();
@@ -110,7 +114,7 @@ class MinigameSetupCubit extends Cubit<MinigameSetupState> {
 
   void _acceptanceTimerWait() {
     _acceptTimer?.cancel();
-    _acceptTimer = Timer(const Duration(seconds: 10), () {
+    _acceptTimer = Timer(const Duration(seconds: 15), () {
       final currentPerform = state.data.perform;
       if (currentPerform != null && currentPerform.accept != true) {
         logger.d('User did not accept in time');

@@ -1,12 +1,17 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../app/gen/fonts.gen.dart';
 import '../../../../../core/constants/firebase_constants.dart';
+import '../../../../widget/stroke_text_widget.dart';
 import '../../../minigame_setup/bloc/minigame_setup_cubit.dart';
 import '../../../minigame_setup/poll/model/poll_firebase.dart';
 import '../../usecases/max_vote_use_case.dart';
 
+part './poll/answer.dart';
 part './poll/poll_content.dart';
 part './poll/vote_widget.dart';
 

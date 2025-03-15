@@ -13,6 +13,7 @@ import 'core/bloc/api_key/api_key_cubit.dart';
 import 'core/bloc/api_quota/api_quota_cubit.dart';
 import 'core/bloc/scrapper/youtube_scrapper_cubit.dart';
 import 'core/utils/utils.dart';
+import 'domain/usecases/firestore/perform_user_list/perform_user_list_use_case.dart';
 import 'firebase_options.dart';
 import 'injection/dependency_injection.dart';
 import 'src/features/game/bloc/game_cubit.dart';
@@ -158,7 +159,8 @@ class _MainAppState extends State<MainApp> {
             create: (context) => PerformListCubit(),
           ),
           BlocProvider(
-            create: (context) => MinigameSetupCubit(),
+            create: (context) =>
+                MinigameSetupCubit(resolve<PerformUserListUseCase>()),
           ),
         ],
         child: ApiKeyGuard(

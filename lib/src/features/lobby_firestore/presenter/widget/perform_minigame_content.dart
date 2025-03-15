@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/constants/firebase_constants.dart';
+import '../../../../../core/utils/utils.dart';
+import '../../../../widget/stroke_text_widget.dart';
 import '../../../minigame_setup/bloc/minigame_setup_cubit.dart';
 import '../../../minigame_setup/perform/model/perform_firebase.dart';
 
@@ -31,7 +33,8 @@ class _PerformMinigameContentState extends State<PerformMinigameContent> {
         return state.status.maybeWhen(
           perform: () {
             if (state.data.perform == null) {
-              return const Text('No perform data available');
+              logger.d('No perform data available');
+              return const Text('No perform data available.');
             }
             return StreamBuilder<DocumentSnapshot>(
               stream: _firebaseDocPerform.snapshots(),
@@ -46,7 +49,25 @@ class _PerformMinigameContentState extends State<PerformMinigameContent> {
                 final data = snapshot.data!.data() as Map<String, dynamic>;
                 final perform = PerformFirebase.fromJson(data);
 
-                return Text('${perform.nickname}!');
+                return AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 240),
+                  switchInCurve: Curves.easeInOut,
+                  transitionBuilder:
+                      (Widget child, Animation<double> animation) {
+                    return FadeTransition(
+                      opacity: animation,
+                      child: ScaleTransition(
+                        scale: animation,
+                        child: child,
+                      ),
+                    );
+                  },
+                  child: StrokeTextWidget(
+                    text: perform.nickname,
+                    strokeWidth: 5,
+                    key: ValueKey<String>(perform.nickname),
+                  ),
+                );
               },
             );
           },
