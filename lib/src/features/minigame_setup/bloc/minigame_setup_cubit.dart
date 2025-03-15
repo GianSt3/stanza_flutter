@@ -72,13 +72,15 @@ class MinigameSetupCubit extends Cubit<MinigameSetupState> {
         );
 
     _performSubscription = _firebaseDocPerform.snapshots().listen((snapshot) {
+      logger.d('Perform Firebase Doc changed...');
       final PerformFirebase? perform = snapshot.data();
       if (perform != null) {
         if (perform.accept == false) {
-          logger.d('Perform not accepted');
+          logger.d('Perform not accepted by ${perform.nickname}');
           _acceptTimer?.cancel();
           _selectAnotherUser();
         } else if (perform.accept == true) {
+          logger.d('Perform accepted by ${perform.nickname}');
           _acceptTimer?.cancel();
         }
       }
@@ -115,6 +117,8 @@ class MinigameSetupCubit extends Cubit<MinigameSetupState> {
   void _acceptanceTimerWait() {
     _acceptTimer?.cancel();
     _acceptTimer = Timer(const Duration(seconds: 15), () {
+      logger.d(
+          'Perform Accept timer called. Previous user did not answer; selecting another user');
       final currentPerform = state.data.perform;
       if (currentPerform != null && currentPerform.accept != true) {
         logger.d('User did not accept in time');

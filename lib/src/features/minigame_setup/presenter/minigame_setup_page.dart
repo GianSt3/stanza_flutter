@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../profanity/ui/profanity_setup_page.dart';
 import '../perform/presenter/perform_setup_page.dart';
 import '../poll/presenter/poll_setup_page.dart';
 
@@ -10,7 +11,7 @@ class MinigameSetupPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const DefaultTabController(
-        length: 2,
+        length: 3,
         child: Column(
           children: [
             TabBar(tabs: [
@@ -19,12 +20,16 @@ class MinigameSetupPage extends StatelessWidget {
               ),
               Tab(
                 text: 'Perform - Recitata',
+              ),
+              Tab(
+                text: 'Profanity - parole bannate',
               )
             ]),
             Expanded(
               child: TabBarView(children: [
                 PollSetupPage(),
                 PerformSetupPage(),
+                ProfanitySetupPage(),
               ]),
             ),
           ],
