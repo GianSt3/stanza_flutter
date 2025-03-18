@@ -56,7 +56,9 @@ class PressedContent extends StatelessWidget {
           ),
         ),
         StrokeTextWidget(
-          text: 'Continua cosi ${pressed.last.nickname}',
+          text: pressed.isNotEmpty
+              ? 'Continua cosi ${pressed.last.nickname}'
+              : '',
         ),
       ],
     );
