@@ -29,10 +29,11 @@ class MinigameSetupStateData with _$MinigameSetupStateData {
     PollFirebase? poll,
     PerformFirebase? perform,
     PressedFirebase? press,
+    @Default(10) double pressMinigameDuration,
   }) = _MinigameSetupStateData;
 
-  factory MinigameSetupStateData.empty() =>
-      const MinigameSetupStateData(poll: null, perform: null, press: null);
+  factory MinigameSetupStateData.empty() => const MinigameSetupStateData(
+      poll: null, perform: null, press: null, pressMinigameDuration: 10);
 }
 
 class PressedFirebase {

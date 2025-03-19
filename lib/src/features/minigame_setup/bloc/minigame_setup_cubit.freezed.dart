@@ -858,6 +858,7 @@ mixin _$MinigameSetupStateData {
   PollFirebase? get poll => throw _privateConstructorUsedError;
   PerformFirebase? get perform => throw _privateConstructorUsedError;
   PressedFirebase? get press => throw _privateConstructorUsedError;
+  double get pressMinigameDuration => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $MinigameSetupStateDataCopyWith<MinigameSetupStateData> get copyWith =>
@@ -871,7 +872,10 @@ abstract class $MinigameSetupStateDataCopyWith<$Res> {
       _$MinigameSetupStateDataCopyWithImpl<$Res, MinigameSetupStateData>;
   @useResult
   $Res call(
-      {PollFirebase? poll, PerformFirebase? perform, PressedFirebase? press});
+      {PollFirebase? poll,
+      PerformFirebase? perform,
+      PressedFirebase? press,
+      double pressMinigameDuration});
 }
 
 /// @nodoc
@@ -891,6 +895,7 @@ class _$MinigameSetupStateDataCopyWithImpl<$Res,
     Object? poll = freezed,
     Object? perform = freezed,
     Object? press = freezed,
+    Object? pressMinigameDuration = null,
   }) {
     return _then(_value.copyWith(
       poll: freezed == poll
@@ -905,6 +910,10 @@ class _$MinigameSetupStateDataCopyWithImpl<$Res,
           ? _value.press
           : press // ignore: cast_nullable_to_non_nullable
               as PressedFirebase?,
+      pressMinigameDuration: null == pressMinigameDuration
+          ? _value.pressMinigameDuration
+          : pressMinigameDuration // ignore: cast_nullable_to_non_nullable
+              as double,
     ) as $Val);
   }
 }
@@ -919,7 +928,10 @@ abstract class _$$MinigameSetupStateDataImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {PollFirebase? poll, PerformFirebase? perform, PressedFirebase? press});
+      {PollFirebase? poll,
+      PerformFirebase? perform,
+      PressedFirebase? press,
+      double pressMinigameDuration});
 }
 
 /// @nodoc
@@ -938,6 +950,7 @@ class __$$MinigameSetupStateDataImplCopyWithImpl<$Res>
     Object? poll = freezed,
     Object? perform = freezed,
     Object? press = freezed,
+    Object? pressMinigameDuration = null,
   }) {
     return _then(_$MinigameSetupStateDataImpl(
       poll: freezed == poll
@@ -952,6 +965,10 @@ class __$$MinigameSetupStateDataImplCopyWithImpl<$Res>
           ? _value.press
           : press // ignore: cast_nullable_to_non_nullable
               as PressedFirebase?,
+      pressMinigameDuration: null == pressMinigameDuration
+          ? _value.pressMinigameDuration
+          : pressMinigameDuration // ignore: cast_nullable_to_non_nullable
+              as double,
     ));
   }
 }
@@ -959,7 +976,8 @@ class __$$MinigameSetupStateDataImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$MinigameSetupStateDataImpl implements _MinigameSetupStateData {
-  const _$MinigameSetupStateDataImpl({this.poll, this.perform, this.press});
+  const _$MinigameSetupStateDataImpl(
+      {this.poll, this.perform, this.press, this.pressMinigameDuration = 10});
 
   @override
   final PollFirebase? poll;
@@ -967,10 +985,13 @@ class _$MinigameSetupStateDataImpl implements _MinigameSetupStateData {
   final PerformFirebase? perform;
   @override
   final PressedFirebase? press;
+  @override
+  @JsonKey()
+  final double pressMinigameDuration;
 
   @override
   String toString() {
-    return 'MinigameSetupStateData(poll: $poll, perform: $perform, press: $press)';
+    return 'MinigameSetupStateData(poll: $poll, perform: $perform, press: $press, pressMinigameDuration: $pressMinigameDuration)';
   }
 
   @override
@@ -980,11 +1001,14 @@ class _$MinigameSetupStateDataImpl implements _MinigameSetupStateData {
             other is _$MinigameSetupStateDataImpl &&
             (identical(other.poll, poll) || other.poll == poll) &&
             (identical(other.perform, perform) || other.perform == perform) &&
-            (identical(other.press, press) || other.press == press));
+            (identical(other.press, press) || other.press == press) &&
+            (identical(other.pressMinigameDuration, pressMinigameDuration) ||
+                other.pressMinigameDuration == pressMinigameDuration));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, poll, perform, press);
+  int get hashCode =>
+      Object.hash(runtimeType, poll, perform, press, pressMinigameDuration);
 
   @JsonKey(ignore: true)
   @override
@@ -998,7 +1022,8 @@ abstract class _MinigameSetupStateData implements MinigameSetupStateData {
   const factory _MinigameSetupStateData(
       {final PollFirebase? poll,
       final PerformFirebase? perform,
-      final PressedFirebase? press}) = _$MinigameSetupStateDataImpl;
+      final PressedFirebase? press,
+      final double pressMinigameDuration}) = _$MinigameSetupStateDataImpl;
 
   @override
   PollFirebase? get poll;
@@ -1006,6 +1031,8 @@ abstract class _MinigameSetupStateData implements MinigameSetupStateData {
   PerformFirebase? get perform;
   @override
   PressedFirebase? get press;
+  @override
+  double get pressMinigameDuration;
   @override
   @JsonKey(ignore: true)
   _$$MinigameSetupStateDataImplCopyWith<_$MinigameSetupStateDataImpl>

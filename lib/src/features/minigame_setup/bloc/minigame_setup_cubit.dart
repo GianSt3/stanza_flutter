@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../../core/constants/firebase_constants.dart';
@@ -37,6 +38,9 @@ class MinigameSetupCubit extends Cubit<MinigameSetupState> {
 
   MockPerformUserListUseCase mockPerformUserListUseCase =
       MockPerformUserListUseCase();
+
+  final TextEditingController pressedMinigameDurationController =
+      TextEditingController(text: '10');
 
   Timer? _acceptTimer;
 
@@ -105,7 +109,7 @@ class MinigameSetupCubit extends Cubit<MinigameSetupState> {
     }
     final selectedUser = performUserListUseCase.call(params: userList);
     final performFirebase =
-        PerformFirebase.fromPerform(perform, selectedUser, 'deviceId');
+        PerformFirebase.fromPerform(perform, 'Nickname', 'deviceId');
     emit(state.copyWith(
       status: const MinigameSetupStateStatus.perform(),
       data: state.data.copyWith(perform: performFirebase),
@@ -147,8 +151,11 @@ class MinigameSetupCubit extends Cubit<MinigameSetupState> {
     _acceptanceTimerWait();
   }
 
-  void setPress({int seconds = 10}) {
+  void setPress() {
     emit(state.copyWith(status: const MinigameSetupStateStatus.press()));
+    final seconds = pressedMinigameDurationController.text.isNotEmpty
+        ? int.parse(pressedMinigameDurationController.text)
+        : 10;
     _firebaseDocPress.set(PressedFirebase.pressed(
         Timestamp.fromDate(DateTime.now().add(Duration(seconds: seconds)))));
     Future.delayed(Duration(seconds: seconds + 5), () {

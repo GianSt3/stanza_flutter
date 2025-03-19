@@ -3,6 +3,9 @@ import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../minigame_setup/bloc/minigame_setup_cubit.dart';
 
 class LobbyFirestoreHeader extends StatefulWidget {
   const LobbyFirestoreHeader({super.key});
@@ -89,6 +92,18 @@ class _LobbyFirestoreHeaderState extends State<LobbyFirestoreHeader> {
                 enabled: !hasStarted,
                 controller: _gameVersion,
                 decoration: const InputDecoration(labelText: "Game Version"),
+              ),
+            ),
+            const SizedBox(
+              width: 32,
+            ),
+            SizedBox(
+              width: 150,
+              child: TextField(
+                controller: context
+                    .read<MinigameSetupCubit>()
+                    .pressedMinigameDurationController,
+                decoration: const InputDecoration(labelText: "Pressed seconds"),
               ),
             ),
             const SizedBox(
