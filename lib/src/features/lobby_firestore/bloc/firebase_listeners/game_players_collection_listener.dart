@@ -44,7 +44,8 @@ class _GamePlayersCollectionListenerState
       listenWhen: (old, current) {
         return current.status == const LobbyStatus.initial() ||
             current.status == const LobbyStatus.promoted() ||
-            current.status == const LobbyStatus.demoted();
+            current.status == const LobbyStatus.demoted() ||
+            current.status == const LobbyStatus.removed();
       },
       listener: (context, state) {
         final users = state.lobby
