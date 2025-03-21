@@ -27,7 +27,7 @@ class MinigameStarterPage extends StatelessWidget {
               onPressed: () {
                 context.read<MinigameSetupCubit>().reset();
               },
-              child: const Text('Reset'),
+              child: const Text('Reset Minigame'),
             ),
             BlocBuilder<PollListCubit, PollListState>(
               builder: (context, state) {
