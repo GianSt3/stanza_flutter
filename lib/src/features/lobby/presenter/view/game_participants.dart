@@ -17,11 +17,13 @@ class GameParticipants extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              'Game',
-              style: Theme.of(context).textTheme.titleLarge,
+          Container(
+            color: Colors.grey.shade200,
+            child: Center(
+              child: Text(
+                'Game',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
             ),
           ),
           Container(

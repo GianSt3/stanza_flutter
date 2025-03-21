@@ -21,11 +21,13 @@ class ChatParticipants extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              'Chat Participants',
-              style: Theme.of(context).textTheme.titleLarge,
+          Container(
+            color: Colors.grey.shade200,
+            child: Center(
+              child: Text(
+                'Chat Participants',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
             ),
           ),
           SizedBox(
@@ -69,6 +71,11 @@ class ChatParticipants extends StatelessWidget {
                         // Remove already selected players
                         authors.removeWhere(
                             (author) => playersLobby.contains(author.name));
+
+                        authors.sort((a, b) =>
+                            a.lastActivityTimestamp
+                                .compareTo(b.lastActivityTimestamp) *
+                            -1);
 
                         return ListView.separated(
                           itemCount: authors.length,

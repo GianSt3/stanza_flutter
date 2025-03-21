@@ -23,11 +23,13 @@ class LobbyParticipants extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(2.0),
-            child: Text(
-              'Lobby',
-              style: Theme.of(context).textTheme.titleMedium,
+          Container(
+            color: Colors.grey.shade200,
+            child: Center(
+              child: Text(
+                'Lobby',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
             ),
           ),
           BlocBuilder<LobbyCubit, LobbyState>(
