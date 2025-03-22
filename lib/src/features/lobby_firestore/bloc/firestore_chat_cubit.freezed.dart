@@ -173,6 +173,8 @@ mixin _$FirestoreChatStateStatus {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() reading,
+    required TResult Function() deleting,
+    required TResult Function() deleted,
     required TResult Function() error,
   }) =>
       throw _privateConstructorUsedError;
@@ -180,6 +182,8 @@ mixin _$FirestoreChatStateStatus {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? reading,
+    TResult? Function()? deleting,
+    TResult? Function()? deleted,
     TResult? Function()? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -187,6 +191,8 @@ mixin _$FirestoreChatStateStatus {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? reading,
+    TResult Function()? deleting,
+    TResult Function()? deleted,
     TResult Function()? error,
     required TResult orElse(),
   }) =>
@@ -195,6 +201,8 @@ mixin _$FirestoreChatStateStatus {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Reading value) reading,
+    required TResult Function(_Deleting value) deleting,
+    required TResult Function(_Deleted value) deleted,
     required TResult Function(_Error value) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -202,6 +210,8 @@ mixin _$FirestoreChatStateStatus {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Reading value)? reading,
+    TResult? Function(_Deleting value)? deleting,
+    TResult? Function(_Deleted value)? deleted,
     TResult? Function(_Error value)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -209,6 +219,8 @@ mixin _$FirestoreChatStateStatus {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Reading value)? reading,
+    TResult Function(_Deleting value)? deleting,
+    TResult Function(_Deleted value)? deleted,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) =>
@@ -274,6 +286,8 @@ class _$InitialImpl extends _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() reading,
+    required TResult Function() deleting,
+    required TResult Function() deleted,
     required TResult Function() error,
   }) {
     return initial();
@@ -284,6 +298,8 @@ class _$InitialImpl extends _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? reading,
+    TResult? Function()? deleting,
+    TResult? Function()? deleted,
     TResult? Function()? error,
   }) {
     return initial?.call();
@@ -294,6 +310,8 @@ class _$InitialImpl extends _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? reading,
+    TResult Function()? deleting,
+    TResult Function()? deleted,
     TResult Function()? error,
     required TResult orElse(),
   }) {
@@ -308,6 +326,8 @@ class _$InitialImpl extends _Initial {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Reading value) reading,
+    required TResult Function(_Deleting value) deleting,
+    required TResult Function(_Deleted value) deleted,
     required TResult Function(_Error value) error,
   }) {
     return initial(this);
@@ -318,6 +338,8 @@ class _$InitialImpl extends _Initial {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Reading value)? reading,
+    TResult? Function(_Deleting value)? deleting,
+    TResult? Function(_Deleted value)? deleted,
     TResult? Function(_Error value)? error,
   }) {
     return initial?.call(this);
@@ -328,6 +350,8 @@ class _$InitialImpl extends _Initial {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Reading value)? reading,
+    TResult Function(_Deleting value)? deleting,
+    TResult Function(_Deleted value)? deleted,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
@@ -383,6 +407,8 @@ class _$ReadingImpl extends _Reading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() reading,
+    required TResult Function() deleting,
+    required TResult Function() deleted,
     required TResult Function() error,
   }) {
     return reading();
@@ -393,6 +419,8 @@ class _$ReadingImpl extends _Reading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? reading,
+    TResult? Function()? deleting,
+    TResult? Function()? deleted,
     TResult? Function()? error,
   }) {
     return reading?.call();
@@ -403,6 +431,8 @@ class _$ReadingImpl extends _Reading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? reading,
+    TResult Function()? deleting,
+    TResult Function()? deleted,
     TResult Function()? error,
     required TResult orElse(),
   }) {
@@ -417,6 +447,8 @@ class _$ReadingImpl extends _Reading {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Reading value) reading,
+    required TResult Function(_Deleting value) deleting,
+    required TResult Function(_Deleted value) deleted,
     required TResult Function(_Error value) error,
   }) {
     return reading(this);
@@ -427,6 +459,8 @@ class _$ReadingImpl extends _Reading {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Reading value)? reading,
+    TResult? Function(_Deleting value)? deleting,
+    TResult? Function(_Deleted value)? deleted,
     TResult? Function(_Error value)? error,
   }) {
     return reading?.call(this);
@@ -437,6 +471,8 @@ class _$ReadingImpl extends _Reading {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Reading value)? reading,
+    TResult Function(_Deleting value)? deleting,
+    TResult Function(_Deleted value)? deleted,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
@@ -450,6 +486,248 @@ class _$ReadingImpl extends _Reading {
 abstract class _Reading extends FirestoreChatStateStatus {
   const factory _Reading() = _$ReadingImpl;
   const _Reading._() : super._();
+}
+
+/// @nodoc
+abstract class _$$DeletingImplCopyWith<$Res> {
+  factory _$$DeletingImplCopyWith(
+          _$DeletingImpl value, $Res Function(_$DeletingImpl) then) =
+      __$$DeletingImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$DeletingImplCopyWithImpl<$Res>
+    extends _$FirestoreChatStateStatusCopyWithImpl<$Res, _$DeletingImpl>
+    implements _$$DeletingImplCopyWith<$Res> {
+  __$$DeletingImplCopyWithImpl(
+      _$DeletingImpl _value, $Res Function(_$DeletingImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$DeletingImpl extends _Deleting {
+  const _$DeletingImpl() : super._();
+
+  @override
+  String toString() {
+    return 'FirestoreChatStateStatus.deleting()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$DeletingImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() reading,
+    required TResult Function() deleting,
+    required TResult Function() deleted,
+    required TResult Function() error,
+  }) {
+    return deleting();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? reading,
+    TResult? Function()? deleting,
+    TResult? Function()? deleted,
+    TResult? Function()? error,
+  }) {
+    return deleting?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? reading,
+    TResult Function()? deleting,
+    TResult Function()? deleted,
+    TResult Function()? error,
+    required TResult orElse(),
+  }) {
+    if (deleting != null) {
+      return deleting();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_Reading value) reading,
+    required TResult Function(_Deleting value) deleting,
+    required TResult Function(_Deleted value) deleted,
+    required TResult Function(_Error value) error,
+  }) {
+    return deleting(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_Reading value)? reading,
+    TResult? Function(_Deleting value)? deleting,
+    TResult? Function(_Deleted value)? deleted,
+    TResult? Function(_Error value)? error,
+  }) {
+    return deleting?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Reading value)? reading,
+    TResult Function(_Deleting value)? deleting,
+    TResult Function(_Deleted value)? deleted,
+    TResult Function(_Error value)? error,
+    required TResult orElse(),
+  }) {
+    if (deleting != null) {
+      return deleting(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Deleting extends FirestoreChatStateStatus {
+  const factory _Deleting() = _$DeletingImpl;
+  const _Deleting._() : super._();
+}
+
+/// @nodoc
+abstract class _$$DeletedImplCopyWith<$Res> {
+  factory _$$DeletedImplCopyWith(
+          _$DeletedImpl value, $Res Function(_$DeletedImpl) then) =
+      __$$DeletedImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$DeletedImplCopyWithImpl<$Res>
+    extends _$FirestoreChatStateStatusCopyWithImpl<$Res, _$DeletedImpl>
+    implements _$$DeletedImplCopyWith<$Res> {
+  __$$DeletedImplCopyWithImpl(
+      _$DeletedImpl _value, $Res Function(_$DeletedImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$DeletedImpl extends _Deleted {
+  const _$DeletedImpl() : super._();
+
+  @override
+  String toString() {
+    return 'FirestoreChatStateStatus.deleted()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$DeletedImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() reading,
+    required TResult Function() deleting,
+    required TResult Function() deleted,
+    required TResult Function() error,
+  }) {
+    return deleted();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? reading,
+    TResult? Function()? deleting,
+    TResult? Function()? deleted,
+    TResult? Function()? error,
+  }) {
+    return deleted?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? reading,
+    TResult Function()? deleting,
+    TResult Function()? deleted,
+    TResult Function()? error,
+    required TResult orElse(),
+  }) {
+    if (deleted != null) {
+      return deleted();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_Reading value) reading,
+    required TResult Function(_Deleting value) deleting,
+    required TResult Function(_Deleted value) deleted,
+    required TResult Function(_Error value) error,
+  }) {
+    return deleted(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_Reading value)? reading,
+    TResult? Function(_Deleting value)? deleting,
+    TResult? Function(_Deleted value)? deleted,
+    TResult? Function(_Error value)? error,
+  }) {
+    return deleted?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Reading value)? reading,
+    TResult Function(_Deleting value)? deleting,
+    TResult Function(_Deleted value)? deleted,
+    TResult Function(_Error value)? error,
+    required TResult orElse(),
+  }) {
+    if (deleted != null) {
+      return deleted(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Deleted extends FirestoreChatStateStatus {
+  const factory _Deleted() = _$DeletedImpl;
+  const _Deleted._() : super._();
 }
 
 /// @nodoc
@@ -492,6 +770,8 @@ class _$ErrorImpl extends _Error {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() reading,
+    required TResult Function() deleting,
+    required TResult Function() deleted,
     required TResult Function() error,
   }) {
     return error();
@@ -502,6 +782,8 @@ class _$ErrorImpl extends _Error {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? reading,
+    TResult? Function()? deleting,
+    TResult? Function()? deleted,
     TResult? Function()? error,
   }) {
     return error?.call();
@@ -512,6 +794,8 @@ class _$ErrorImpl extends _Error {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? reading,
+    TResult Function()? deleting,
+    TResult Function()? deleted,
     TResult Function()? error,
     required TResult orElse(),
   }) {
@@ -526,6 +810,8 @@ class _$ErrorImpl extends _Error {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Reading value) reading,
+    required TResult Function(_Deleting value) deleting,
+    required TResult Function(_Deleted value) deleted,
     required TResult Function(_Error value) error,
   }) {
     return error(this);
@@ -536,6 +822,8 @@ class _$ErrorImpl extends _Error {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Reading value)? reading,
+    TResult? Function(_Deleting value)? deleting,
+    TResult? Function(_Deleted value)? deleted,
     TResult? Function(_Error value)? error,
   }) {
     return error?.call(this);
@@ -546,6 +834,8 @@ class _$ErrorImpl extends _Error {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Reading value)? reading,
+    TResult Function(_Deleting value)? deleting,
+    TResult Function(_Deleted value)? deleted,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {

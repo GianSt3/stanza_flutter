@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../minigame_setup/bloc/minigame_setup_cubit.dart';
+import '../../bloc/firestore_chat_cubit.dart';
 
 class LobbyFirestoreHeader extends StatefulWidget {
   const LobbyFirestoreHeader({super.key});
@@ -109,22 +110,22 @@ class _LobbyFirestoreHeaderState extends State<LobbyFirestoreHeader> {
             const SizedBox(
               width: 32,
             ),
-            SizedBox(
-              width: 150,
-              child: TextField(
-                enabled: !hasStarted,
-                controller: _roomId,
-                decoration: const InputDecoration(labelText: "Room Id"),
-              ),
-            ),
-            TextButton(
-              onPressed: () {
-                setState(() {
-                  _roomId.text = getRandomRoomCodeId();
-                });
-              },
-              child: Text("Generate Room Id"),
-            ),
+            // SizedBox(
+            //   width: 150,
+            //   child: TextField(
+            //     enabled: !hasStarted,
+            //     controller: _roomId,
+            //     decoration: const InputDecoration(labelText: "Room Id"),
+            //   ),
+            // ),
+            // TextButton(
+            //   onPressed: () {
+            //     setState(() {
+            //       _roomId.text = getRandomRoomCodeId();
+            //     });
+            //   },
+            //   child: Text("Generate Room Id"),
+            // ),
             TextButton(
               onPressed: !hasStarted
                   ? () async {
@@ -148,6 +149,21 @@ class _LobbyFirestoreHeaderState extends State<LobbyFirestoreHeader> {
                     }
                   : null,
               child: Text("STOP"),
+            ),
+            BlocBuilder<FirestoreChatCubit, FirestoreChatState>(
+              builder: (context, state) {
+                return TextButton(
+                  onPressed: state.status.maybeMap(
+                    deleting: (_) => null,
+                    orElse: () => () {
+                      context.read<FirestoreChatCubit>().deleteChat();
+                    },
+                  ),
+                  child: state.status.maybeMap(
+                      deleting: (_) => const CircularProgressIndicator(),
+                      orElse: () => const Text("Delete chat")),
+                );
+              },
             ),
 
             // Move Button on the right

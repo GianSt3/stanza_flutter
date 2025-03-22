@@ -71,4 +71,26 @@ class FirestoreChatCubit extends Cubit<FirestoreChatState> {
       ),
     );
   }
+
+  void deleteChat() async {
+    logger.d('FirestoreChatCubit deleteChat');
+    emit(
+      state.copyWith(
+        status: const FirestoreChatStateStatus.deleting(),
+      ),
+    );
+    final messagesCollection =
+        FirebaseFirestore.instance.collection('messages');
+    final messagesSnapshot = await messagesCollection.get();
+    for (final doc in messagesSnapshot.docs) {
+      await doc.reference.delete();
+    }
+
+    emit(
+      state.copyWith(
+        status: const FirestoreChatStateStatus.deleted(),
+        chat: const Chat(messages: []),
+      ),
+    );
+  }
 }

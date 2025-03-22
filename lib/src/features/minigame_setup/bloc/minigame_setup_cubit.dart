@@ -102,20 +102,20 @@ class MinigameSetupCubit extends Cubit<MinigameSetupState> {
     await _firebaseDocPoll.set(pollFirebase);
   }
 
-  void setPerform(Perform perform, List<String> userList) {
+  void setPerform(Perform perform, List<String> userList) async {
     if (userList.isEmpty) {
       logger.e('No users in lobby');
       return;
     }
     final selectedUser = performUserListUseCase.call(params: userList);
     final performFirebase =
-        PerformFirebase.fromPerform(perform, 'Nickname', 'deviceId');
+        PerformFirebase.fromPerform(perform, selectedUser, 'deviceId');
+    await _firebaseDocPerform.set(performFirebase);
+    _acceptanceTimerWait();
     emit(state.copyWith(
       status: const MinigameSetupStateStatus.perform(),
       data: state.data.copyWith(perform: performFirebase),
     ));
-    _firebaseDocPerform.set(performFirebase);
-    _acceptanceTimerWait();
   }
 
   void _acceptanceTimerWait() {
@@ -131,7 +131,7 @@ class MinigameSetupCubit extends Cubit<MinigameSetupState> {
     });
   }
 
-  void _selectAnotherUser() {
+  void _selectAnotherUser() async {
     // Logic to select another user and update the perform document
     final userList = performUserListUseCase.userList; // Retrieve the user list
     if (userList.isEmpty) {
@@ -147,7 +147,7 @@ class MinigameSetupCubit extends Cubit<MinigameSetupState> {
       selectedUser,
       'deviceId',
     );
-    _firebaseDocPerform.set(updatedPerform);
+    await _firebaseDocPerform.set(updatedPerform);
     _acceptanceTimerWait();
   }
 

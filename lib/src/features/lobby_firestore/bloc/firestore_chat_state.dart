@@ -18,6 +18,10 @@ class FirestoreChatStateStatus with _$FirestoreChatStateStatus {
 
   const factory FirestoreChatStateStatus.reading() = _Reading;
 
+  const factory FirestoreChatStateStatus.deleting() = _Deleting;
+
+  const factory FirestoreChatStateStatus.deleted() = _Deleted;
+
   const factory FirestoreChatStateStatus.error() = _Error;
 }
 
