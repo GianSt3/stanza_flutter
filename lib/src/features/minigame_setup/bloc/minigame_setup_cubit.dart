@@ -75,7 +75,9 @@ class MinigameSetupCubit extends Cubit<MinigameSetupState> {
           toFirestore: (press, _) => press?.toJson() ?? {},
         );
 
-    _performSubscription = _firebaseDocPerform.snapshots().listen((snapshot) {
+    _performSubscription = _firebaseDocPerform
+        .snapshots(includeMetadataChanges: true)
+        .listen((snapshot) {
       logger.d('Perform Firebase Doc changed...');
       final PerformFirebase? perform = snapshot.data();
       if (perform != null) {
