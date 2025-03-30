@@ -7,7 +7,6 @@ import 'package:equatable/equatable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../../core/utils/utils.dart';
-import '../../../../domain/usecases/firestore/swearword_filter_use_case.dart';
 import '../../game/model/game_message.dart';
 
 part 'firestore_chat_cubit.freezed.dart';
@@ -15,13 +14,14 @@ part 'firestore_chat_state.dart';
 
 class FirestoreChatCubit extends Cubit<FirestoreChatState> {
   late final StreamSubscription _subscription;
-  final SwearWordFilterUseCase _swearWordFilterUseCase =
-      SwearWordFilterUseCase();
 
   FirestoreChatCubit()
-      : super(const FirestoreChatState(
+      : super(
+          const FirestoreChatState(
             status: FirestoreChatStateStatus.initial(),
-            chat: Chat(messages: []))) {
+            chat: Chat(messages: []),
+          ),
+        ) {
     _subscription = FirebaseFirestore.instance
         .collection('messages')
         .snapshots()
@@ -49,12 +49,12 @@ class FirestoreChatCubit extends Cubit<FirestoreChatState> {
     final stopwatch = Stopwatch()..start();
     final messages = docs.map((doc) {
       final data = doc.data();
-      final cleanedText =
-          _swearWordFilterUseCase.call(params: data['message'] as String);
+      final message = data['message'] as String;
+
       return Message(
         deviceId: (data['deviceInfo'] ?? '') as String,
         author: data['nickname'] as String,
-        text: cleanedText.isRight ? cleanedText.right : cleanedText.left,
+        text: message,
         timestamp: data['timestamp'],
       );
     }).toList();

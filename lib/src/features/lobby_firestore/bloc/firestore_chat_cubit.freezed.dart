@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$FirestoreChatState {
   FirestoreChatStateStatus get status => throw _privateConstructorUsedError;
   Chat get chat => throw _privateConstructorUsedError;
+  Message? get lastMessage => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $FirestoreChatStateCopyWith<FirestoreChatState> get copyWith =>
@@ -30,7 +31,7 @@ abstract class $FirestoreChatStateCopyWith<$Res> {
           FirestoreChatState value, $Res Function(FirestoreChatState) then) =
       _$FirestoreChatStateCopyWithImpl<$Res, FirestoreChatState>;
   @useResult
-  $Res call({FirestoreChatStateStatus status, Chat chat});
+  $Res call({FirestoreChatStateStatus status, Chat chat, Message? lastMessage});
 
   $FirestoreChatStateStatusCopyWith<$Res> get status;
 }
@@ -50,6 +51,7 @@ class _$FirestoreChatStateCopyWithImpl<$Res, $Val extends FirestoreChatState>
   $Res call({
     Object? status = null,
     Object? chat = null,
+    Object? lastMessage = freezed,
   }) {
     return _then(_value.copyWith(
       status: null == status
@@ -60,6 +62,10 @@ class _$FirestoreChatStateCopyWithImpl<$Res, $Val extends FirestoreChatState>
           ? _value.chat
           : chat // ignore: cast_nullable_to_non_nullable
               as Chat,
+      lastMessage: freezed == lastMessage
+          ? _value.lastMessage
+          : lastMessage // ignore: cast_nullable_to_non_nullable
+              as Message?,
     ) as $Val);
   }
 
@@ -80,7 +86,7 @@ abstract class _$$FirestoreChatStateImplCopyWith<$Res>
       __$$FirestoreChatStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({FirestoreChatStateStatus status, Chat chat});
+  $Res call({FirestoreChatStateStatus status, Chat chat, Message? lastMessage});
 
   @override
   $FirestoreChatStateStatusCopyWith<$Res> get status;
@@ -99,6 +105,7 @@ class __$$FirestoreChatStateImplCopyWithImpl<$Res>
   $Res call({
     Object? status = null,
     Object? chat = null,
+    Object? lastMessage = freezed,
   }) {
     return _then(_$FirestoreChatStateImpl(
       status: null == status
@@ -109,6 +116,10 @@ class __$$FirestoreChatStateImplCopyWithImpl<$Res>
           ? _value.chat
           : chat // ignore: cast_nullable_to_non_nullable
               as Chat,
+      lastMessage: freezed == lastMessage
+          ? _value.lastMessage
+          : lastMessage // ignore: cast_nullable_to_non_nullable
+              as Message?,
     ));
   }
 }
@@ -117,7 +128,9 @@ class __$$FirestoreChatStateImplCopyWithImpl<$Res>
 
 class _$FirestoreChatStateImpl extends _FirestoreChatState {
   const _$FirestoreChatStateImpl(
-      {required this.status, this.chat = const Chat(messages: <Message>[])})
+      {required this.status,
+      this.chat = const Chat(messages: <Message>[]),
+      this.lastMessage})
       : super._();
 
   @override
@@ -125,10 +138,12 @@ class _$FirestoreChatStateImpl extends _FirestoreChatState {
   @override
   @JsonKey()
   final Chat chat;
+  @override
+  final Message? lastMessage;
 
   @override
   String toString() {
-    return 'FirestoreChatState(status: $status, chat: $chat)';
+    return 'FirestoreChatState(status: $status, chat: $chat, lastMessage: $lastMessage)';
   }
 
   @override
@@ -137,11 +152,13 @@ class _$FirestoreChatStateImpl extends _FirestoreChatState {
         (other.runtimeType == runtimeType &&
             other is _$FirestoreChatStateImpl &&
             (identical(other.status, status) || other.status == status) &&
-            (identical(other.chat, chat) || other.chat == chat));
+            (identical(other.chat, chat) || other.chat == chat) &&
+            (identical(other.lastMessage, lastMessage) ||
+                other.lastMessage == lastMessage));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, status, chat);
+  int get hashCode => Object.hash(runtimeType, status, chat, lastMessage);
 
   @JsonKey(ignore: true)
   @override
@@ -154,13 +171,16 @@ class _$FirestoreChatStateImpl extends _FirestoreChatState {
 abstract class _FirestoreChatState extends FirestoreChatState {
   const factory _FirestoreChatState(
       {required final FirestoreChatStateStatus status,
-      final Chat chat}) = _$FirestoreChatStateImpl;
+      final Chat chat,
+      final Message? lastMessage}) = _$FirestoreChatStateImpl;
   const _FirestoreChatState._() : super._();
 
   @override
   FirestoreChatStateStatus get status;
   @override
   Chat get chat;
+  @override
+  Message? get lastMessage;
   @override
   @JsonKey(ignore: true)
   _$$FirestoreChatStateImplCopyWith<_$FirestoreChatStateImpl> get copyWith =>

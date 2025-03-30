@@ -85,7 +85,7 @@ class _GamePlayerWidget extends StatelessWidget {
           .firstOrNull;
 
       return (
-        lastMessage?.message.text ?? 'ehi',
+        lastMessage?.message.text ?? '',
         lastMessage?.audioType ?? AudioType.textToSpeech
       );
     }, builder: (context, value) {
@@ -115,7 +115,7 @@ class _GamePlayerWidget extends StatelessWidget {
                     },
                     child: Padding(
                       padding: EdgeInsets.symmetric(
-                          horizontal: constraints.maxWidth / 30),
+                          horizontal: constraints.maxWidth / 50),
                       child: Text(
                           key: ValueKey(text),
                           text,

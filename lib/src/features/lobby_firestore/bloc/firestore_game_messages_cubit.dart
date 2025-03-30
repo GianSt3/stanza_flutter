@@ -3,7 +3,9 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+
 import '../../../../core/utils/utils.dart';
+import '../../../../domain/usecases/firestore/custom_im_in_use_case.dart';
 import '../../game/model/player.dart';
 import 'firestore_chat_cubit.dart';
 
@@ -14,6 +16,8 @@ class FirestoreGameMessagesCubit extends Cubit<FirestoreGameMessagesState> {
   late final StreamSubscription _subscription;
   final Function(List<Message> messages, List<Player> players, bool playable)
       addMessages;
+
+  CustomImInUseCase _customImInUseCase = CustomImInUseCase();
 
   FirestoreGameMessagesCubit(this.addMessages, bool playable)
       : super(FirestoreGameMessagesState.initial(
@@ -54,8 +58,10 @@ class FirestoreGameMessagesCubit extends Cubit<FirestoreGameMessagesState> {
     final filteredMessages = docs
         .map((doc) => Message.fromJson(doc.data()))
         .toList()
+        .skipWhile(
+            (message) => message.timestamp.compareTo(state.lastTimestamp) <= 0)
         .where((message) =>
-            message.timestamp.compareTo(state.lastTimestamp) > 0 &&
+            _customImInUseCase.call(params: message.text).isLeft &&
             playerNameList.contains(message.author))
         .toList();
     stopwatch.stop();
