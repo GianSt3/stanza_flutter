@@ -42,8 +42,6 @@ class MinigameSetupCubit extends Cubit<MinigameSetupState> {
   final TextEditingController pressedMinigameDurationController =
       TextEditingController(text: '10');
 
-  Timer? _acceptTimer;
-
   void _init() {
     _firebaseDocPoll = FirebaseFirestore.instance
         .collection('_minigame')
@@ -74,23 +72,6 @@ class MinigameSetupCubit extends Cubit<MinigameSetupState> {
               : null,
           toFirestore: (press, _) => press?.toJson() ?? {},
         );
-
-    _performSubscription = _firebaseDocPerform
-        .snapshots(includeMetadataChanges: true)
-        .listen((snapshot) {
-      logger.d('Perform Firebase Doc changed...');
-      final PerformFirebase? perform = snapshot.data();
-      if (perform != null) {
-        if (perform.accept == false) {
-          logger.d('Perform not accepted by ${perform.nickname}');
-          _acceptTimer?.cancel();
-          _selectAnotherUser();
-        } else if (perform.accept == true) {
-          logger.d('Perform accepted by ${perform.nickname}');
-          _acceptTimer?.cancel();
-        }
-      }
-    });
   }
 
   void setPoll(Poll poll, {int seconds = 60}) async {
@@ -105,35 +86,25 @@ class MinigameSetupCubit extends Cubit<MinigameSetupState> {
   }
 
   void setPerform(Perform perform, List<String> userList) async {
-    if (userList.isEmpty) {
-      logger.e('No users in lobby');
-      return;
-    }
-    final selectedUser = performUserListUseCase.call(params: userList);
-    final performFirebase =
-        PerformFirebase.fromPerform(perform, selectedUser, 'deviceId');
-    await _firebaseDocPerform.set(performFirebase);
-    _acceptanceTimerWait();
-    emit(state.copyWith(
-      status: const MinigameSetupStateStatus.perform(),
-      data: state.data.copyWith(perform: performFirebase),
-    ));
-  }
-
-  void _acceptanceTimerWait() {
-    _acceptTimer?.cancel();
-    _acceptTimer = Timer(const Duration(seconds: 15), () {
-      logger.d(
-          'Perform Accept timer called. Previous user did not answer; selecting another user');
-      final currentPerform = state.data.perform;
-      if (currentPerform != null && currentPerform.accept != true) {
-        logger.d('User did not accept in time');
-        _selectAnotherUser();
+    state.status.whenOrNull(perform: () {
+      selectAnotherUser();
+    }, idle: () async {
+      if (userList.isEmpty) {
+        logger.e('No users in lobby');
+        return;
       }
+      final selectedUser = performUserListUseCase.call(params: userList);
+      final performFirebase =
+          PerformFirebase.fromPerform(perform, selectedUser, 'deviceId');
+      await _firebaseDocPerform.set(performFirebase);
+      emit(state.copyWith(
+        status: const MinigameSetupStateStatus.perform(),
+        data: state.data.copyWith(perform: performFirebase),
+      ));
     });
   }
 
-  void _selectAnotherUser() async {
+  void selectAnotherUser() async {
     // Logic to select another user and update the perform document
     final userList = performUserListUseCase.userList; // Retrieve the user list
     if (userList.isEmpty) {
@@ -150,7 +121,10 @@ class MinigameSetupCubit extends Cubit<MinigameSetupState> {
       'deviceId',
     );
     await _firebaseDocPerform.set(updatedPerform);
-    _acceptanceTimerWait();
+    emit(state.copyWith(
+      status: const MinigameSetupStateStatus.perform(),
+      data: state.data.copyWith(perform: updatedPerform),
+    ));
   }
 
   void setPress() {

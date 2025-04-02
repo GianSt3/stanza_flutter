@@ -39,7 +39,7 @@ class PerformUserListUseCaseImpl extends PerformUserListUseCase {
 
 class MockPerformUserListUseCase extends PerformUserListUseCase {
   @override
-  List<String> userList = ['Giandalf42', 'JeanNazee'];
+  List<String> userList = ['GianAndroid2', 'GianMini'];
   String lastUser = '';
 
   @override

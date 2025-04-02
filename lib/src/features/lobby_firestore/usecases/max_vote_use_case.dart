@@ -1,7 +1,7 @@
 import '../../../../core/core.dart';
 import '../../minigame_setup/poll/model/poll_firebase.dart';
 
-class MaxVoteUseCase extends VoidUseCase<String> {
+class MaxVoteUseCase extends VoidUseCase<List<String>> {
   final List<Answer> votes;
 
   MaxVoteUseCase({
@@ -9,9 +9,9 @@ class MaxVoteUseCase extends VoidUseCase<String> {
   });
 
   @override
-  String call() {
+  List<String> call() {
     if (votes.isEmpty) {
-      return '';
+      return [];
     }
     final voteCounts = <String, int>{};
     for (final vote in votes) {
@@ -22,10 +22,11 @@ class MaxVoteUseCase extends VoidUseCase<String> {
         ? voteCounts.values.reduce((a, b) => a > b ? a : b)
         : 0;
 
-    final maxVotedAnswerId = voteCounts.entries
-        .firstWhere((entry) => entry.value == maxVoteCount)
-        .key;
+    final maxVotedAnswerIds = voteCounts.entries
+        .where((entry) => entry.value == maxVoteCount)
+        .map((entry) => entry.key)
+        .toList();
 
-    return maxVotedAnswerId;
+    return maxVotedAnswerIds;
   }
 }

@@ -18,7 +18,7 @@ class _PollContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Get the most voted answer
-    final String maxVotedAnswerId = MaxVoteUseCase(votes: votes).call();
+    final List<String> maxVotedAnswerId = MaxVoteUseCase(votes: votes).call();
 
     // Display the poll question and answers
     return Column(
@@ -51,7 +51,7 @@ class _PollContent extends StatelessWidget {
                 // Calculate the width of the vote bar
 
                 // Check if the answer is the most voted
-                final isMaxVoted = answer.id == maxVotedAnswerId;
+                final isMaxVoted = maxVotedAnswerId.contains(answer.id);
                 final totalVotes =
                     votes.where((vote) => vote.id == answer.id).length;
 
@@ -59,22 +59,6 @@ class _PollContent extends StatelessWidget {
                     text: answer.text,
                     votes: totalVotes,
                     isMaxVoted: isMaxVoted);
-
-                return Column(
-                  children: [
-                    Text(
-                      answer.text,
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
-                    const SizedBox(height: 8),
-                    _Votes(
-                        width: (constraints.maxWidth - 100) / 4,
-                        votes:
-                            votes.where((vote) => vote.id == answer.id).length,
-                        isMaxVoted: isMaxVoted,
-                        maxVotes: maxVotes),
-                  ],
-                );
               }),
         ),
       ],

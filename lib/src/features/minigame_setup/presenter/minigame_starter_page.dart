@@ -55,23 +55,26 @@ class MinigameStarterPage extends StatelessWidget {
                   children: loaded.sortedPerforms
                       .map((perform) => ListTile(
                             title: Text(perform.title),
-                            onTap: () {
-                              final nonPlayers = NonPlayersUseCase(
-                                firestoreChatCubit:
-                                    context.read<FirestoreChatCubit>(),
-                                lobbyCubit: context.read<LobbyCubit>(),
-                              )();
+                            trailing: IconButton(
+                                onPressed: () {
+                                  final nonPlayers = NonPlayersUseCase(
+                                    firestoreChatCubit:
+                                        context.read<FirestoreChatCubit>(),
+                                    lobbyCubit: context.read<LobbyCubit>(),
+                                  )();
 
-                              if (nonPlayers.isEmpty) {
-                                return;
-                              } else {
-                                context.read<MinigameSetupCubit>().setPerform(
-                                      perform,
-                                      nonPlayers,
-                                    );
-                              }
-                              _expansionPerformTileController.collapse();
-                            },
+                                  if (nonPlayers.isEmpty) {
+                                    return;
+                                  } else {
+                                    context
+                                        .read<MinigameSetupCubit>()
+                                        .setPerform(
+                                          perform,
+                                          nonPlayers,
+                                        );
+                                  }
+                                },
+                                icon: Icon(Icons.play_arrow)),
                           ))
                       .toList(),
                 ),

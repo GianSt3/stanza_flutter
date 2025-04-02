@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,6 +13,7 @@ part './poll/answer.dart';
 part './poll/poll_content.dart';
 part './poll/vote_widget.dart';
 
+// TODO mostra il voto più alto in caso di pareggio
 class PollMinigameContent extends StatefulWidget {
   final int maxVotes;
 
