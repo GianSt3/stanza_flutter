@@ -33,8 +33,6 @@ class MinigameSetupCubit extends Cubit<MinigameSetupState> {
 
   late DocumentReference<PerformFirebase?> _firebaseDocPerform;
   late DocumentReference<PressedFirebase?> _firebaseDocPress;
-  late StreamSubscription<DocumentSnapshot<PerformFirebase?>>
-      _performSubscription;
 
   MockPerformUserListUseCase mockPerformUserListUseCase =
       MockPerformUserListUseCase();
@@ -86,9 +84,9 @@ class MinigameSetupCubit extends Cubit<MinigameSetupState> {
   }
 
   void setPerform(Perform perform, List<String> userList) async {
-    state.status.whenOrNull(perform: () {
+    state.status.maybeWhen(perform: () {
       selectAnotherUser();
-    }, idle: () async {
+    }, orElse: () async {
       if (userList.isEmpty) {
         logger.e('No users in lobby');
         return;
@@ -149,7 +147,6 @@ class MinigameSetupCubit extends Cubit<MinigameSetupState> {
     _firebaseDocPerform.delete();
     _firebaseDocPoll.delete();
     _firebaseDocPress.delete();
-    _performSubscription.cancel();
 
     // Delete all documents in the pollVotes collection
     final pollVotesCollection = FirebaseFirestore.instance
